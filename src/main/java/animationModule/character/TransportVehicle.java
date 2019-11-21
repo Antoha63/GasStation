@@ -9,8 +9,9 @@ public abstract class TransportVehicle {
     private int x;
     private int y;
     private int speed;
+    private Direction direction;
 
-    public TransportVehicle(int x, int y){
+    TransportVehicle(int x, int y){
         this.x = x;
         this.y = y;
     }

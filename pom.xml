@@ -62,6 +62,12 @@
             <artifactId>spring-core</artifactId>
             <version>5.2.0.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations-java5</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
 </project>
