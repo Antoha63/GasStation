@@ -1,6 +1,6 @@
-package animationModule;
+package animation;
 
-import animationModule.framePackage.FrameAnimation;
+import animation.framePackage.FrameAnimation;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.ImageView;
 import lombok.Getter;
@@ -13,7 +13,7 @@ public class MoveController {
     private Rectangle2D[] viewports;
 
     public MoveController() {
-        frameAnimation = new FrameAnimation("file:../../pics/sprites.png",0,0, 100, 50, 3);
+        frameAnimation = new FrameAnimation("file:../../pics/sprites.png", 0, 0, 100, 50, 3);
         this.imageView = frameAnimation.getSprite();
         this.viewports = frameAnimation.getViewPorts();
     }

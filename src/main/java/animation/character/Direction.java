@@ -1,4 +1,4 @@
-package animationModule.character;
+package animation.character;
 
 public enum Direction {
     LEFT,

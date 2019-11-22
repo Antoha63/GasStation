@@ -1,4 +1,4 @@
-package animationModule.character;
+package animation.character;
 
 public class Automobile extends TransportVehicle{
     public Automobile(int x, int y) {

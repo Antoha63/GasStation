@@ -1,4 +1,4 @@
-package animationModule.framePackage;
+package animation.framePackage;
 
 import lombok.Getter;
 

@@ -1,4 +1,4 @@
-package animationModule.character;
+package animation.character;
 
 import lombok.Getter;
 import lombok.Setter;
