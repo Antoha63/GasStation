@@ -4,5 +4,5 @@ import org.springframework.stereotype.Service;
 import services.IService;
 
 @Service
-public class UserService implements IService {
+public class TopologyService implements IService {
 }

@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class MainController {
-    MoveController moveController;
+//    MoveController moveController;
     @FXML
     private ImageView imageView1;
 

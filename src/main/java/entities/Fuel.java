@@ -17,21 +17,15 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @ToString
 @Entity
-@Table(name = "USER")
-public class User {
+@Table(name = "FUEL")
+public class Fuel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "LOGIN", unique = true, nullable = false)
-    private String login;
-
-    @Column(name = "PASSWORD", unique = true, nullable = false)
-    private String password;
-
-    @Column(name = "NAME", nullable = false)
+    @Column(name = "NAME", unique = true, nullable = false)
     private String name;
 
-    @Column(name = "AVERAGE", nullable = false)
-    private int average;
+    @Column(name = "PRICE", nullable = false)
+    private int price;
 }
