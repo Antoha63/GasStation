@@ -1,0 +1,18 @@
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+
+# IntelliJ IDEA project settings
+.idea/*
+*.iml
+
+# Apache Maven build result
+*/target/*

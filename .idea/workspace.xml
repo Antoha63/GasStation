@@ -1257,7 +1257,6 @@
       <change afterPath="$PROJECT_DIR$/../DBMS/hsqldb-2.4.1/hsqldb/testrun/sqltool/vars.sql" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../DBMS/hsqldb-2.4.1/hsqldb/testrun/sqltool/varswithspaces.sql" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../DBMS/hsqldb-2.4.1/hsqldb/testrun/sqltool/write.inter" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/spring-data-context.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../IdeaProjects.iml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../Lab2/.idea/compiler.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../Lab2/.idea/description.html" afterDir="false" />
@@ -4053,13 +4052,6 @@
       <change afterPath="$PROJECT_DIR$/../web_Questionary/src/main/webapp/index.jsp" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../web_Questionary/src/main/webapp/main.jsp" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../web_Questionary/web_Questionary.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entities/User.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/TopologyRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/services/impl/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/impl/TopologyService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -4217,7 +4209,7 @@
       <workItem from="1574422272870" duration="2940000" />
       <workItem from="1574575175904" duration="6201000" />
       <workItem from="1574581858146" duration="1055000" />
-      <workItem from="1574590201604" duration="1449000" />
+      <workItem from="1574590201604" duration="1792000" />
     </task>
     <servers />
   </component>
