@@ -8,6 +8,16 @@
     <artifactId>GasStation</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <profiles>
+        <profile>
+            <id>java8</id>
+            <properties>
+                <maven.compiler.target>8</maven.compiler.target>
+                <maven.compiler.source>8</maven.compiler.source>
+            </properties>
+        </profile>
+    </profiles>
+
     <properties>
         <maven.compiler.target>10</maven.compiler.target>
         <maven.compiler.source>10</maven.compiler.source>
