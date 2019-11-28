@@ -4,8 +4,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import static javafx.application.Application.launch;
-
 public class MainApp extends Application {
 
     public static void main(String[] args) throws Exception {
@@ -14,9 +12,9 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/sample.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        Parent root = FXMLLoader.load(getClass().getResource("/views/sample.fxml"));
+        primaryStage.setTitle("МЕНЮ");
+        primaryStage.setScene(new Scene(root, 384, 275));
         primaryStage.show();
     }
 }
