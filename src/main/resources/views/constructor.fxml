@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
 <GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ConstructorController">
     <columnConstraints>
@@ -11,5 +14,66 @@
     </rowConstraints>
     <AnchorPane prefHeight="500.0" prefWidth="1000.0">
       <children>
+         <Button layoutX="14.0" layoutY="21.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="153.0" text="СОЗДАТЬ ТОПОЛОГИЮ" wrapText="true">
+            <font>
+               <Font size="17.0" />
+            </font>
+         </Button>
+         <Button layoutX="14.0" layoutY="131.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="153.0" text="УДАЛИТЬ ВЫД. ЭЛ-Т" wrapText="true">
+            <font>
+               <Font size="17.0" />
+            </font>
+         </Button>
+         <Button layoutX="14.0" layoutY="258.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="153.0" text="ПРОВЕРИТЬ КОРРЕКТНОСТЬ" wrapText="true">
+            <font>
+               <Font size="17.0" />
+            </font></Button>
+         <Button layoutX="13.0" layoutY="381.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="153.0" text="ПЕРЕЙТИ К МОДЕЛИР-Ю" wrapText="true">
+            <font>
+               <Font size="17.0" />
+            </font></Button>
+         <Line endX="-47.0" endY="310.0" layoutX="267.0" layoutY="190.0" startX="-47.0" startY="-190.0" />
+         <Line endX="86.0" endY="315.0" layoutX="736.0" layoutY="186.0" startX="86.0" startY="-186.0" />
+         <GridPane layoutX="310.0" layoutY="57.0" prefHeight="351.0" prefWidth="454.0">
+           <columnConstraints>
+             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+           </columnConstraints>
+           <rowConstraints>
+             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+           </rowConstraints>
+         </GridPane>
+         <Label layoutX="869.0" layoutY="21.0" text="ЭЛЕМЕНТЫ">
+            <font>
+               <Font size="17.0" />
+            </font>
+         </Label>
+         <Label layoutX="930.0" layoutY="68.0" text="-ВЪЕЗД">
+            <font>
+               <Font size="17.0" />
+            </font>
+         </Label>
+         <Label layoutX="929.0" layoutY="118.0" text="-ВЫЕЗД">
+            <font>
+               <Font size="17.0" />
+            </font>
+         </Label>
+         <Label layoutX="928.0" layoutY="178.0" text="-КАССА">
+            <font>
+               <Font size="17.0" />
+            </font>
+         </Label>
+         <Label layoutX="942.0" layoutY="239.0" text="-ТРК">
+            <font>
+               <Font size="16.0" />
+            </font>
+         </Label>
+         <Label layoutX="949.0" layoutY="297.0" text="-ТБ">
+            <font>
+               <Font size="17.0" />
+            </font>
+         </Label>
       </children></AnchorPane>
 </GridPane>

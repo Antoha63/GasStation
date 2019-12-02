@@ -30,7 +30,7 @@
             <Font size="20.0" />
          </font>
       </Button>
-      <Button layoutX="14.0" layoutY="19.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="356.0" text="СОЗДАТЬ ТОПОЛОГИЮ">
+      <Button layoutX="14.0" layoutY="19.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="356.0" text="СОЗДАТЬ ТОПОЛОГИЮ" onAction="#createTopology">
          <font>
             <Font size="20.0" />
          </font>
