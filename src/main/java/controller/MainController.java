@@ -3,19 +3,29 @@ package controller;
 import animation.MoveController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.stage.Stage;
+import vizualize.Grid;
 
 import java.io.IOException;
 
 public class MainController {
     @FXML
     private ImageView imageView;
+
+    @FXML
+    private AnchorPane anchorPane;
 
     public void initialize(){
 //<<<<<<< HEAD
@@ -33,34 +43,29 @@ public class MainController {
     }
 
     public void downloadTopology() throws IOException {
+
         Stage primaryStage = new Stage();
+        // A line in Ox Axis
+        Line oxLine1 = new Line(0, 0, 400, 0);
 
-        GridPane gridPane = new GridPane();
+        // Stroke Width
+        oxLine1.setStrokeWidth(5);
+        oxLine1.setStroke(Color.BLACK);
 
-        ColumnConstraints column1 = new ColumnConstraints();
-        column1.setPercentWidth(30);
-        gridPane.getColumnConstraints().add(column1);
+        // An other Line
+        Line line = new Line();
+        line.setStartX(10.0f);
+        line.setStartY(20.0f);
+        line.setEndX(30.0f);
+        line.setEndY(7.0f);
+        line.setStrokeWidth(10);
+        line.setStroke(Color.BLACK);
 
-        ColumnConstraints column2 = new ColumnConstraints();
-        column2.setPercentWidth(40);
-        gridPane.getColumnConstraints().add(column2);
-
-        ColumnConstraints column3 = new ColumnConstraints();
-        column3.setPercentWidth(30);
-        gridPane.getColumnConstraints().add(column3);
-
-        RowConstraints row1 = new RowConstraints();
-        row1.setPercentHeight(55);
-        gridPane.getRowConstraints().add(row1);
-
-        RowConstraints row2 = new RowConstraints();
-        row2.setPercentHeight(45);
-        gridPane.getRowConstraints().add(row2);
-
-        gridPane.setGridLinesVisible(true);
-
-        Parent root = FXMLLoader.load(getClass().getResource("/views/constructor.fxml"));
+        GridPane root = FXMLLoader.load(getClass().getResource("/views/constructor.fxml"));
         primaryStage.setTitle("КОНСТРУКТОР");
+        root.setPadding(new Insets(15));
+        root.getChildren().addAll(oxLine1, line);
+
         primaryStage.setScene(new Scene(root, 1000, 500));
         primaryStage.show();
     }
