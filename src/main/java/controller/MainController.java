@@ -1,31 +1,18 @@
 package controller;
 
-import animation.MoveController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import javafx.stage.Stage;
-import vizualize.Grid;
 
 import java.io.IOException;
 
 public class MainController {
     @FXML
     private ImageView imageView;
-
-    @FXML
-    private AnchorPane anchorPane;
 
     public void initialize(){
 //<<<<<<< HEAD
@@ -43,31 +30,8 @@ public class MainController {
     }
 
     public void downloadTopology() throws IOException {
-
-        Stage primaryStage = new Stage();
-        // A line in Ox Axis
-        Line oxLine1 = new Line(0, 0, 400, 0);
-
-        // Stroke Width
-        oxLine1.setStrokeWidth(5);
-        oxLine1.setStroke(Color.BLACK);
-
-        // An other Line
-        Line line = new Line();
-        line.setStartX(10.0f);
-        line.setStartY(20.0f);
-        line.setEndX(30.0f);
-        line.setEndY(7.0f);
-        line.setStrokeWidth(10);
-        line.setStroke(Color.BLACK);
-
-        GridPane root = FXMLLoader.load(getClass().getResource("/views/constructor.fxml"));
-        primaryStage.setTitle("КОНСТРУКТОР");
-        root.setPadding(new Insets(15));
-        root.getChildren().addAll(oxLine1, line);
-
-        primaryStage.setScene(new Scene(root, 1000, 500));
-        primaryStage.show();
+        ConstructorController constructorController = new ConstructorController();
+        constructorController.createConstructor();
     }
 
     public void developerInfo() throws IOException {

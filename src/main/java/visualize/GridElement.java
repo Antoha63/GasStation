@@ -1,4 +1,4 @@
-package vizualize;
+package visualize;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,9 +12,9 @@ public class GridElement {
 
     private int y;
 
-    private final int width = 10;
+    private final int width = 40;
 
-    private final int height = 10;
+    private final int height = 40;
 
     private boolean isOccupied;
 
