@@ -32,7 +32,9 @@ public class Grid {
     public static int getHeight(){
         return width;
     }
-
+    public static GridElement[][] getGrid() {
+        return grid;
+    }
     public static void initGrid() {
         gridElement = new GridElement();
         for (int i = 0; i < width; i++) {
@@ -41,6 +43,7 @@ public class Grid {
             }
         }
     }
+
 
     public List<Line> getLineList() {
         initGrid();

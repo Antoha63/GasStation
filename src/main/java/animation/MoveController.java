@@ -1,54 +1,72 @@
 package animation;
 
+import TopologyObjects.TransportVehicle;
 import animation.framePackage.FrameAnimation;
-import animation.framePackage.Frame;
-import animation.framePackage.FrameAnimation;
-import animation.framePackage.FrameElements;
-import elements.Vehicle;
+import TopologyObjects.Vehicle;
+import javafx.animation.AnimationTimer;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Line;
+import javafx.stage.Stage;
 import lombok.Getter;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import repositories.CarRepository;
-import repositories.FuelRepository;
+import visualize.Grid;
 import visualize.GridElement;
+
+import java.io.IOException;
 
 @Getter
 /*Class describes all animation module*/
 public class MoveController {
-    //private ImageView imageView;
     private Rectangle2D[] viewports;
     private Image image;
+    private ImageView imageView;
 
-    private FrameElements frameElements;
     private FrameAnimation frameAnimation;
     private double poao = 0.1;
-    private Vehicle vehicle;
+    private TransportVehicle vehicle;
     //ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-data-context.xml");
     //CarRepository carRepository = context.getBean(CarRepository.class);
     //FuelRepository fuelRepository = context.getBean(FuelRepository.class);
 
     public MoveController() {
-
-    }
-
-    public ImageView initImageView(){
-        this.image = new Image(getClass().getClassLoader().getResource("pics/sprites.png").toString());
-        frameElements = new FrameElements(0, 0, 3);
-        frameAnimation = new FrameAnimation(frameElements.getFrame(), frameElements);
+        frameAnimation = new FrameAnimation(0, 0);
         viewports = frameAnimation.getViewports();
-
-        ImageView imageView = new ImageView();
-        imageView.setFitHeight(new GridElement().getWidth());
-        imageView.setFitWidth(new GridElement().getWidth() * 2);
-        imageView.setImage(image);
-        imageView.setViewport(viewports[1]);
-        return imageView;
     }
+    public void go() throws IOException {
+        Stage primaryStage = new Stage();
 
-    public void initVehicle(){
-        vehicle = new Vehicle(poao);
-        //vehicle.go();
+        AnchorPane root = FXMLLoader.load(getClass().getResource("/views/constructor.fxml"));
+        primaryStage.setTitle("КОНСТРУКТОР");
+        int x0 = 270;
+        int y0 = 25;
+        Grid petrolGrid = new Grid(x0, y0,10, 10);
+        int elementWidth = 40;
+        for(Line line: petrolGrid.getLineList()){
+            root.getChildren().add(line);
+        }
+
+        imageView = frameAnimation.getImageView();
+        TransportVehicle vehicle = new Vehicle(Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight() - 1].getX(), Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight() - 1].getY(), 0.1);
+        imageView.setTranslateX(vehicle.getTranslateX());
+        imageView.setTranslateY(vehicle.getTranslateY());
+
+        root.getChildren().addAll(imageView);
+        AnimationTimer animationTimer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                vehicle.moveX(-1);
+                imageView.setTranslateX(vehicle.getTranslateX());
+                imageView.setTranslateY(vehicle.getTranslateY());
+            }
+        };
+        animationTimer.start();
+
+        primaryStage.setScene(new Scene(root, 1000, 500));
+        primaryStage.show();
     }
 }

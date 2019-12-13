@@ -15,11 +15,6 @@ public class MainController {
     private ImageView imageView;
 
     public void initialize(){
-//<<<<<<< HEAD
-//        moveController = new MoveController();
-//        this.imageView1 = moveController.getImageView();
-//        imageView1.setViewport(moveController.getViewports()[0]);
-//        imageView1.setImage(new Image(getClass().getClassLoader().getResource("pics/sprites.png").toString()));
     }
     public void createTopology() throws IOException {
         Stage primaryStage = new Stage();
@@ -48,8 +43,6 @@ public class MainController {
         primaryStage.setTitle("О СИСТЕМЕ");
         primaryStage.setScene(new Scene(root, 384, 275));
         primaryStage.show();
-/*=======
 
->>>>>>> b1d67dc162446ca9f7b24e23a0e0f0533a14c460*/
     }
 }

@@ -1,7 +1,7 @@
-package animation.character;
+package TopologyObjects;
 
 public class CargoVehicle extends TransportVehicle{
     public CargoVehicle(int x, int y) {
-        super(x, y);
+        super(x, y, 0);
     }
 }
