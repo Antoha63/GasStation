@@ -49,9 +49,7 @@ public class MainController {
         primaryStage.setScene(new Scene(root, 384, 275));
         primaryStage.show();
 /*=======
-        moveController = new MoveController(new Image(getClass().getClassLoader().getResource("pics/sprites.png").toString()));
-        imageView.setImage(moveController.getImage());
-        imageView.setViewport(moveController.getViewports()[2]);
+
 >>>>>>> b1d67dc162446ca9f7b24e23a0e0f0533a14c460*/
     }
 }

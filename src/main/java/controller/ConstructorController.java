@@ -1,11 +1,15 @@
 package controller;
 
+import animation.MoveController;
+import elements.Vehicle;
+import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Spinner;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -47,12 +51,30 @@ public class ConstructorController {
             root.getChildren().add(line);
         }
 
-        Grid roadwayGrid = new Grid(x0 - elementWidth, y0 + elementWidth * (petrolGrid.getHeight() - 1), 15, 2);
-        for(Line line: roadwayGrid.getLineList()){
-            root.getChildren().add(line);
-        }
+//        Grid roadwayGrid = new Grid(x0 - elementWidth, y0 + elementWidth * (petrolGrid.getHeight() - 1), 15, 2);
+//        for(Line line: roadwayGrid.getLineList()){
+//            root.getChildren().add(line);
+//        }
+
+        MoveController moveController = new MoveController();
+        root.getChildren().add(moveController.initImageView());
+        Vehicle vehicle = new Vehicle(0.1);
 
         primaryStage.setScene(new Scene(root, 1000, 500));
         primaryStage.show();
+        AnimationTimer animationTimer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                try {
+                    root.getChildren().add(vehicle.go(moveController.initImageView()));
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        animationTimer.start();
+    }
+    public void initImageVIew(ImageView imageView){
+
     }
 }

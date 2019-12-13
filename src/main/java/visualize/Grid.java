@@ -11,23 +11,29 @@ import java.util.List;
 @Setter
 @Getter
 public class Grid {
-    private int x0 = 0;
-    private int y0 = 0;
-    private int width;
-    private int height;
-    GridElement gridElement;
+    private static int x0 = 0;
+    private static int y0 = 0;
+    private static int width;
+    private static int height;
+    private static GridElement gridElement;
+    private static GridElement[][] grid;
 
     public Grid(int x0, int y0, int width, int height) {
-        this.x0 = x0;
-        this.y0 = y0;
-        this.width = width;
-        this.height = height;
+        Grid.x0 = x0;
+        Grid.y0 = y0;
+        Grid.width = width;
+        Grid.height = height;
+        Grid.grid = new GridElement[width][height];
     }
 
-    private GridElement[][] grid;
+    public static int getWidth(){
+        return width;
+    }
+    public static int getHeight(){
+        return width;
+    }
 
-    public void initGrid() {
-        grid =  new GridElement[width][height];
+    public static void initGrid() {
         gridElement = new GridElement();
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {

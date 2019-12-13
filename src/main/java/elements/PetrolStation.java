@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -16,5 +15,7 @@ public class PetrolStation{
     private long id;
     private int speed; //between 50 and 100
     private boolean status = true;
-
+    public boolean getStatus(){
+        return status;
+    }
 }
