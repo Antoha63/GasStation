@@ -30,22 +30,22 @@ public class FrameAnimation{
     }
 
     public void initViewPorts(){
+        viewports = new Rectangle2D[frameElements.getFrameNumber()];
+        int frameWidth = frameElements.getFrame().getFrameWidth();
+        int frameHeight = frameElements.getFrame().getFrameHeight();
         for(int i = 0; i < frameElements.getFrameNumber(); i++){
-            this.viewports = new Rectangle2D[frameElements.getFrameNumber()];
-            int frameWidth = frameElements.getFrame().getFrameWidth();
-            int frameHeight = frameElements.getFrame().getFrameHeight();
             viewports[i] = new Rectangle2D(i * frameWidth,
                     frameElements.getOffsetY() * frameHeight,
                     frameWidth, frameHeight);
         }
     }
     public void initImageView(){
-        this.image = new Image(getClass().getClassLoader().getResource("pics/sprites.png").toString());
-        this.imageView = new ImageView();
+        image = new Image(getClass().getClassLoader().getResource("pics/sprites.png").toString());
+        imageView = new ImageView();
         imageView.setFitHeight(new GridElement().getWidth());
         imageView.setFitWidth(new GridElement().getWidth() * 2);
         imageView.setImage(image);
-        imageView.setViewport(viewports[1]);
+        imageView.setViewport(viewports[2]);
     }
 
 

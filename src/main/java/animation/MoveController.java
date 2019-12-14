@@ -10,12 +10,10 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import lombok.Getter;
 import visualize.Grid;
-import visualize.GridElement;
 
 import java.io.IOException;
 
@@ -23,7 +21,6 @@ import java.io.IOException;
 /*Class describes all animation module*/
 public class MoveController {
     private Rectangle2D[] viewports;
-    private Image image;
     private ImageView imageView;
 
     private FrameAnimation frameAnimation;
@@ -51,9 +48,10 @@ public class MoveController {
         }
 
         imageView = frameAnimation.getImageView();
-        TransportVehicle vehicle = new Vehicle(Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight() - 1].getX(), Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight() - 1].getY(), 0.1);
-        imageView.setTranslateX(vehicle.getTranslateX());
-        imageView.setTranslateY(vehicle.getTranslateY());
+        vehicle = new Vehicle(Grid.getGrid()[Grid.getWidth() - 2][Grid.getHeight() - 2].getX(),
+                Grid.getGrid()[Grid.getWidth() - 2][Grid.getHeight() - 2].getY(), 0.1);
+        imageView.setX(vehicle.getX());
+        imageView.setY(vehicle.getY());
 
         root.getChildren().addAll(imageView);
         AnimationTimer animationTimer = new AnimationTimer() {
