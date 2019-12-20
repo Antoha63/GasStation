@@ -31,7 +31,7 @@
             <Font size="43.0" />
          </font>
       </Label>
-      <Spinner fx:id="topologyHeight" layoutX="224.0" layoutY="93.0" prefHeight="34.0" prefWidth="149.0" />
-      <Spinner fx:id="topologyWidth" layoutX="224.0" layoutY="152.0" prefHeight="34.0" prefWidth="149.0" />
+      <Spinner fx:id="topologyHeight" layoutX="224.0" layoutY="93.0" prefHeight="34.0" prefWidth="149.0" min="3" max="6"/>
+      <Spinner fx:id="topologyWidth" layoutX="224.0" layoutY="152.0" prefHeight="34.0" prefWidth="149.0" min="7" max="10"/>
     </AnchorPane>
 </GridPane>

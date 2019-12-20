@@ -1,4 +1,4 @@
-package TopologyObjects;
+package topologyObjects;
 
 public class CargoVehicle extends TransportVehicle{
     public CargoVehicle(int x, int y) {

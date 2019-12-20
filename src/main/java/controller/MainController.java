@@ -11,11 +11,10 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class MainController {
-    @FXML
-    private ImageView imageView;
 
     public void initialize(){
     }
+
     public void createTopology() throws IOException {
         Stage primaryStage = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/views/topologySize.fxml"));
@@ -25,8 +24,7 @@ public class MainController {
     }
 
     public void downloadTopology() throws IOException {
-        ConstructorController constructorController = new ConstructorController();
-        constructorController.createConstructor();
+
     }
 
     public void developerInfo() throws IOException {
