@@ -27,8 +27,6 @@ public class MoveController {
     private Rectangle2D[] viewports;
     private ImageView imageView;
 
-    private int topologyHeight;
-    private int topologyWidth;
     private FrameAnimation frameAnimation;
     private double poao = 0.1;
     private TransportVehicle vehicle;
@@ -36,25 +34,12 @@ public class MoveController {
     private ArrayList<ImageView> imageViewList = new ArrayList<ImageView>();
     private ArrayList<Vehicle> vehicleArrayList = new ArrayList<Vehicle>();
 
-    public MoveController(int topologyHeight, int topologyWidth) {
-        this.topologyHeight = topologyHeight;
-        this.topologyWidth = topologyWidth;
+    public MoveController() {
         frameAnimation = new FrameAnimation(0, 0);
         viewports = frameAnimation.getViewports();
     }
 
-    public void go() throws IOException {
-        Stage primaryStage = new Stage();
-
-        AnchorPane root = FXMLLoader.load(getClass().getResource("/views/constructor.fxml"));
-        primaryStage.setTitle("КОНСТРУКТОР");
-        int x0 = 270;
-        int y0 = 25;
-        Grid.setGrid(x0, y0, topologyHeight, topologyWidth);
-        for (Line line : Grid.getLineList()) {
-            root.getChildren().add(line);
-        }
-
+    public void go(AnchorPane root) throws IOException {
         imageView = frameAnimation.getImageView();
         vehicle = new Vehicle(Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getX(),
                 Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getY(), 0.1);
@@ -62,8 +47,7 @@ public class MoveController {
         imageView.setY(vehicle.getY());
 
         root.getChildren().addAll(imageView);
-
-        ExponentialDistribution exponentialDistribution = new ExponentialDistribution(1);
+        /*        ExponentialDistribution exponentialDistribution = new ExponentialDistribution(1);
         final double[] i = {0};
         final int[] j = {0};
         AnimationTimer animationTimer = new AnimationTimer() {
@@ -88,15 +72,27 @@ public class MoveController {
                     tempImageView.setTranslateY(vehicleArrayList.get(k).getTranslateY());
                     imageViewList.set(k, tempImageView);
                 }
-/*                vehicle.moveX(-1);
+*//*                vehicle.moveX(-1);
                 imageView.setTranslateX(vehicle.getTranslateX());
-                imageView.setTranslateY(vehicle.getTranslateY());*/
-                i[0]++;
+                imageView.setTranslateY(vehicle.getTranslateY());*//*
+                i[0]++;*/
+        AnimationTimer animationTimer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                try {
+                    if(vehicle != null) {
+                        vehicle.go(imageView);
+                        if (vehicle.getX() <= Grid.getGrid()[0][0].getX()) {
+                            root.getChildren().remove(imageView);
+                            vehicle = null;
+                        }
+                        System.out.println("+++++++++++++++");
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         };
         animationTimer.start();
-
-        primaryStage.setScene(new Scene(root, 1000, 500));
-        primaryStage.show();
     }
 }

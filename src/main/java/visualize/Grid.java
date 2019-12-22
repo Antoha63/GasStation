@@ -54,7 +54,7 @@ public class Grid {
         return grid;
     }
 
-    static void initGrid() {
+    public static void initGrid() {
         gridElement = new GridElement();
         for (int i = 0; i < width + 1; i++) {
             for (int j = 0; j < height + 2; j++) {
@@ -64,7 +64,7 @@ public class Grid {
     }
 
 
-    public static List<Line> getLineList() {
+/*    public static List<Line> getLineList() {
         initGrid();
         List<Line> lineList = new ArrayList<>();
         for (int i = 0; i < width; i++) {
@@ -80,5 +80,5 @@ public class Grid {
         Line lastLineVertical = new Line(grid[width][0].getX(), grid[width][0].getY(), grid[width][height + 1].getX(), grid[width][height + 1].getY());
         lineList.add(lastLineVertical);
         return lineList;
-    }
+    }*/
 }

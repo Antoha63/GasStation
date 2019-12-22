@@ -6,6 +6,7 @@ import javafx.scene.image.ImageView;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import visualize.Grid;
 
 import java.util.List;
 import java.util.Random;
@@ -49,21 +50,15 @@ public class Vehicle extends TransportVehicle {
         }
     }
 
-    public ImageView go(/*Cashbox cashbox, Entry entry, Exit exit, List<FuelTank> listOfFuelTanks, ArrayList<PetrolStation> listOfPetrolStations,*/ImageView imageView) throws InterruptedException {
+    @Override
+    public void go(/*Cashbox cashbox, Entry entry, Exit exit, List<FuelTank> listOfFuelTanks, ArrayList<PetrolStation> listOfPetrolStations,*/ImageView imageView) throws InterruptedException {
         Random rand = new Random();
 
-        //this.x = Grid.getWidth() - 1;
-        //this.y = Grid.getHeight() - 1;
-
-//        imageView.setX(this.x++);
-//        imageView.setY(this.y++);
-//        imageView.setTranslateX(this.x++);
-//        imageView.setTranslateY(this.y++);
-
-        //if (rand.nextDouble() > this.probabilityOfArrival) {
-            //while (this.x > 0)
-                //this.x--;
-        //}
+        if (rand.nextDouble() > this.probabilityOfArrival) {
+            this.moveX(-3);
+            imageView.setX(this.getX());
+            imageView.setY(this.getY());
+        }
 //        else {
 //            while (this.x != entry.getX()) {
 //                this.x--;
@@ -92,7 +87,6 @@ public class Vehicle extends TransportVehicle {
 //                this.x--;
 //            }
 //        }
-        return imageView;
     }
 
 }
