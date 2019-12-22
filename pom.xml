@@ -8,7 +8,7 @@
     <artifactId>GasStation</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <!--<profiles>
+    <profiles>
         <profile>
             <id>java8</id>
             <properties>
@@ -16,21 +16,22 @@
                 <maven.compiler.source>1.8</maven.compiler.source>
             </properties>
         </profile>
-    </profiles>-->
+    </profiles>
 
     <properties>
-        <maven.compiler.target>10</maven.compiler.target>
-        <maven.compiler.source>10</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <maven.compiler.source>8</maven.compiler.source>
     </properties>
 
     <build>
         <plugins>
             <plugin>
-                <groupId>com.zenjava</groupId>
-                <artifactId>javafx-maven-plugin</artifactId>
-                <version>8.8.3</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.7.0</version>
                 <configuration>
-                    <mainClass>MainApp</mainClass>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
         </plugins>
