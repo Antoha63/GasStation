@@ -55,7 +55,7 @@ public class Vehicle extends TransportVehicle {
         Random rand = new Random();
 
         if (rand.nextDouble() > this.probabilityOfArrival) {
-            this.moveX(-3);
+            this.moveX(-1);
             imageView.setX(this.getX());
             imageView.setY(this.getY());
         }

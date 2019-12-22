@@ -17,6 +17,7 @@ import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import lombok.Getter;
 import visualize.Grid;
+import visualize.GridElement;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ public class MoveController {
     private double poao = 0.1;
     private TransportVehicle vehicle;
 
+
     private ArrayList<ImageView> imageViewList = new ArrayList<ImageView>();
     private ArrayList<Vehicle> vehicleArrayList = new ArrayList<Vehicle>();
 
@@ -41,8 +43,9 @@ public class MoveController {
 
     public void go(AnchorPane root) throws IOException {
         imageView = frameAnimation.getImageView();
-        vehicle = new Vehicle(Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getX(),
-                Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getY(), 0.1);
+        vehicle = new Vehicle( Grid.getX0() + ((int)Grid.getWidth() - 1) * GridElement.getWidth(),
+                Grid.getY0() + ((int)Grid.getHeight()) * GridElement.getHeight(),
+                        0.1);
         imageView.setX(vehicle.getX());
         imageView.setY(vehicle.getY());
 
@@ -82,7 +85,7 @@ public class MoveController {
                 try {
                     if(vehicle != null) {
                         vehicle.go(imageView);
-                        if (vehicle.getX() <= Grid.getGrid()[0][0].getX()) {
+                        if (vehicle.getX() <= Grid.getGridPane().getBoundsInParent().getMinX()) {
                             root.getChildren().remove(imageView);
                             vehicle = null;
                         }

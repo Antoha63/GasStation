@@ -12,9 +12,9 @@ public class GridElement {
 
     private int y;
 
-    private final int width = 40;
+    private static final int width = 40;
 
-    private final int height = 40;
+    private static final int height = 40;
 
     private boolean isOccupied;
 
@@ -23,4 +23,12 @@ public class GridElement {
         this.y = y;
         this.isOccupied = isOccupied;
     }
+
+    public static int getWidth(){
+        return width;
+    }
+    public static int getHeight(){
+        return height;
+    }
+
 }

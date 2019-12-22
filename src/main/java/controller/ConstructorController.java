@@ -24,6 +24,7 @@ public class ConstructorController {
 
     @FXML
     private Spinner<Integer> topologyWidth;
+    private Grid grid;
 
     public void createConstructor() throws IOException {
         Stage primaryStage = new Stage();
@@ -32,25 +33,9 @@ public class ConstructorController {
         primaryStage.setTitle("КОНСТРУКТОР");
         int x0 = 270;
         int y0 = 25;
-        Grid.setGrid(x0, y0, topologyHeight.getValue(), topologyWidth.getValue());
-        Grid.initGrid();
-/*        for (Line line : Grid.getLineList()) {
-            root.getChildren().add(line);
-        }*/
 
-        GridPane gridpane = new GridPane();
-        gridpane.setGridLinesVisible(true);
-        gridpane.setTranslateX(x0);
-        gridpane.setTranslateY(y0);
-        GridElement gridElement = new GridElement();
-        gridpane.setPrefWidth(topologyWidth.getValue() * gridElement.getWidth());
-        gridpane.setPrefWidth(topologyHeight.getValue() * gridElement.getHeight());
-        for(int i = 0; i < topologyWidth.getValue(); i++)
-            gridpane.getColumnConstraints().add(new ColumnConstraints(40)); // column 0 is 40 wide
-         for(int i = 0; i < topologyHeight.getValue() + 1; i++)
-        gridpane.getRowConstraints().add(new RowConstraints(40)); // column 0 is 40 wide
+        Grid.setGrid(270, 25, topologyWidth.getValue(), topologyHeight.getValue(), root);
 
-        root.getChildren().add(gridpane);
         MoveController moveController = new MoveController();
         moveController.go(root);
 
