@@ -1,5 +1,6 @@
 package topologyObjects;
 
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,8 +23,8 @@ public abstract class TransportVehicle extends Pane {
     public void moveX(int x){
         boolean right = x > 0;
         for(int i = 0; i < Math.abs(x); i++) {
-            if (right) this.setTranslateX(this.getTranslateX() + 1);
-            else this.setTranslateX(this.getTranslateX() - 1);
+            if (right) this.setX(this.getX() + 1);
+            else this.setX(this.getX() - 1);
         }
     }
     public void moveY(int y){
@@ -32,5 +33,8 @@ public abstract class TransportVehicle extends Pane {
             if (down) this.setTranslateY(this.getTranslateY() + 1);
             else this.setTranslateY(this.getTranslateY() - 1);
         }
+    }
+
+    public void go(ImageView imageView) throws InterruptedException {
     }
 }
