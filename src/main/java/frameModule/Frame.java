@@ -1,4 +1,4 @@
-package animation.framePackage;
+package frameModule;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

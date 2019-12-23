@@ -1,20 +1,12 @@
-package animation;
+package controller;
 
-import elements.ExponentialDistribution;
-import javafx.fxml.FXML;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
 import topologyObjects.TransportVehicle;
-import animation.framePackage.FrameAnimation;
+import frameModule.FrameAnimation;
 import topologyObjects.Vehicle;
 import javafx.animation.AnimationTimer;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Line;
-import javafx.stage.Stage;
 import lombok.Getter;
 import visualize.Grid;
 import visualize.GridElement;
@@ -25,7 +17,6 @@ import java.util.ArrayList;
 @Getter
 /*Class describes all animation module*/
 public class MoveController {
-    private Rectangle2D[] viewports;
     private ImageView imageView;
 
     private FrameAnimation frameAnimation;
@@ -37,14 +28,19 @@ public class MoveController {
     private ArrayList<Vehicle> vehicleArrayList = new ArrayList<Vehicle>();
 
     public MoveController() {
-        frameAnimation = new FrameAnimation(0, 0);
-        viewports = frameAnimation.getViewports();
+        frameAnimation = new FrameAnimation(2,
+                                            0,
+                                            100,
+                                            50,
+                                            3);
     }
 
     public void go(AnchorPane root) throws IOException {
         imageView = frameAnimation.getImageView();
-        vehicle = new Vehicle( Grid.getX0() + ((int)Grid.getWidth() - 1) * GridElement.getWidth(),
-                Grid.getY0() + ((int)Grid.getHeight()) * GridElement.getHeight(),
+        imageView.setFitWidth(80);
+        imageView.setFitHeight(40);
+        vehicle = new Vehicle( Grid.getX0() + (Grid.getWidth() - 1) * GridElement.getElementWidth(),
+                Grid.getY0() + (Grid.getHeight()) * GridElement.getElementHeight(),
                         0.1);
         imageView.setX(vehicle.getX());
         imageView.setY(vehicle.getY());
@@ -85,7 +81,7 @@ public class MoveController {
                 try {
                     if(vehicle != null) {
                         vehicle.go(imageView);
-                        if (vehicle.getX() <= Grid.getGridPane().getBoundsInParent().getMinX()) {
+                        if (vehicle.getX() <= Grid.getGrid()[0][0].getTranslateX()) {
                             root.getChildren().remove(imageView);
                             vehicle = null;
                         }

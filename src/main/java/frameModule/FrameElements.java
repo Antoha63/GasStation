@@ -1,6 +1,5 @@
-package animation.framePackage;
+package frameModule;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
@@ -11,8 +10,8 @@ public class FrameElements {
     private int offsetY;
     private int frameNumber;
 
-    public FrameElements(int offsetX, int offsetY, int frameNumber) {
-        frame = new Frame(100, 50);
+    public FrameElements(int offsetX, int offsetY, int frameWidth, int frameHeight, int frameNumber) {
+        frame = new Frame(frameWidth, frameHeight);
         this.offsetX = offsetX;
         this.offsetY = offsetY;
         this.frameNumber = frameNumber;

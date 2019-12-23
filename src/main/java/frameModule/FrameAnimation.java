@@ -1,7 +1,5 @@
-package animation.framePackage;
+package frameModule;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -23,10 +21,10 @@ public class FrameAnimation{
     private FrameElements frameElements;
 
 
-    public FrameAnimation(int offsetX, int offsetY) {
-        frameElements = new FrameElements(offsetX, offsetY, 3);
+    public FrameAnimation(int offsetX, int offsetY, int frameWidth, int frameHeight, int frameNumber) {
+        frameElements = new FrameElements(offsetX, offsetY,frameWidth,frameHeight, frameNumber);
         initViewPorts();
-        initImageView();
+        initImageView(offsetX);
     }
 
     public void initViewPorts(){
@@ -39,13 +37,11 @@ public class FrameAnimation{
                     frameWidth, frameHeight);
         }
     }
-    public void initImageView(){
+    public void initImageView(int row){
         image = new Image(getClass().getClassLoader().getResource("pics/sprites.png").toString());
         imageView = new ImageView();
-        imageView.setFitHeight(new GridElement().getWidth());
-        imageView.setFitWidth(new GridElement().getWidth() * 2);
         imageView.setImage(image);
-        imageView.setViewport(viewports[2]);
+        imageView.setViewport(viewports[row]);
     }
 
 

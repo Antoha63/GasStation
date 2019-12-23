@@ -1,17 +1,12 @@
 package controller;
 
-import animation.MoveController;
-import animation.framePackage.Frame;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Spinner;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.*;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import visualize.Grid;
@@ -29,7 +24,6 @@ public class ConstructorController {
 
     @FXML
     private ImageView petrolStation;
-
     @FXML
     void petrolStationOnDragOverEvent(DragEvent event) {
         event.acceptTransferModes(TransferMode.COPY);
@@ -42,16 +36,38 @@ public class ConstructorController {
         dragboard.setContent(clipboardContent);
         event.consume();
     }
+
+    @FXML
+    private ImageView fuelTank;
+    @FXML
+    void fuelTankOnDragOverEvent(DragEvent event) {
+        event.acceptTransferModes(TransferMode.COPY);
+    }
+    @FXML
+    void fuelTankOnDragDetectedEvent(MouseEvent event) {
+        Dragboard dragboard = fuelTank.startDragAndDrop(TransferMode.COPY);
+        ClipboardContent clipboardContent = new ClipboardContent();
+        clipboardContent.putImage(fuelTank.getImage());
+        dragboard.setContent(clipboardContent);
+        event.consume();
+    }
     public void createConstructor() throws IOException {
         Stage primaryStage = new Stage();
 
         AnchorPane root = FXMLLoader.load(getClass().getResource("/views/constructor.fxml"));
         primaryStage.setTitle("КОНСТРУКТОР");
-        int x0 = 270;
-        int y0 = 25;
+        int x0 = 220;
+        int y0 = 0;
 
-        Grid.setGrid(270, 25, topologyWidth.getValue(), topologyHeight.getValue(), root);
-
+        Grid.initGrid(x0, y0, topologyWidth.getValue(), topologyHeight.getValue());
+        for (int i = 0; i < topologyWidth.getValue(); i++) {
+            for (int j = 0; j < topologyHeight.getValue() + 1; j++) {
+                root.getChildren().add(Grid.getGrid()[i][j]);
+            }
+        }
+/*        for (Line line : Grid.getLineList()) {
+            root.getChildren().add(line);
+        }*/
 
         MoveController moveController = new MoveController();
         moveController.go(root);
