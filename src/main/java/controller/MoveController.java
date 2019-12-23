@@ -85,7 +85,6 @@ public class MoveController {
                             root.getChildren().remove(imageView);
                             vehicle = null;
                         }
-                        System.out.println("+++++++++++++++");
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();

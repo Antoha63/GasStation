@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ConstructorController">
+<AnchorPane fx:id="anchorPane" maxWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ConstructorController">
       <children>
          <Button layoutX="14.0" layoutY="21.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="153.0" text="СОЗДАТЬ ТОПОЛОГИЮ" wrapText="true">
             <font>
@@ -30,38 +30,38 @@
                <Font size="17.0" />
             </font></Button>
          <Line endX="-47.0" endY="310.0" layoutX="267.0" layoutY="190.0" startX="-47.0" startY="-190.0" />
-         <Line endX="86.0" endY="315.0" layoutX="736.0" layoutY="186.0" startX="86.0" startY="-186.0" />
-         <Label layoutX="869.0" layoutY="21.0" text="ЭЛЕМЕНТЫ">
+         <Line endX="86.0" endY="315.0" layoutX="633.0" layoutY="185.0" startX="86.0" startY="-186.0" />
+         <Label layoutX="766.0" layoutY="20.0" text="ЭЛЕМЕНТЫ">
             <font>
                <Font size="17.0" />
             </font>
          </Label>
-         <Label layoutX="930.0" layoutY="68.0" text="-ВЪЕЗД">
+         <Label layoutX="827.0" layoutY="67.0" text="-ВЪЕЗД">
             <font>
                <Font size="17.0" />
             </font>
          </Label>
-         <Label layoutX="929.0" layoutY="118.0" text="-ВЫЕЗД">
+         <Label layoutX="826.0" layoutY="117.0" text="-ВЫЕЗД">
             <font>
                <Font size="17.0" />
             </font>
          </Label>
-         <Label layoutX="928.0" layoutY="178.0" text="-КАССА">
+         <Label layoutX="825.0" layoutY="177.0" text="-КАССА">
             <font>
                <Font size="17.0" />
             </font>
          </Label>
-         <Label layoutX="942.0" layoutY="239.0" text="-ТРК">
+         <Label layoutX="839.0" layoutY="238.0" text="-ТРК">
             <font>
                <Font size="16.0" />
             </font>
          </Label>
-         <Label layoutX="949.0" layoutY="297.0" text="-ТБ">
+         <Label layoutX="846.0" layoutY="296.0" text="-ТБ">
             <font>
                <Font size="17.0" />
             </font>
          </Label>
-      <ImageView fx:id="petrolStation" fitHeight="50.0" fitWidth="50.0" layoutX="869.0" layoutY="225.0" onDragDetected="#petrolStationOnDragDetectedEvent" onDragOver="#petrolStationOnDragOverEvent" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="petrolStation" fitHeight="50.0" fitWidth="50.0" layoutX="766.0" layoutY="224.0" onDragDetected="#petrolStationOnDragDetectedEvent" onDragOver="#petrolStationOnDragOverEvent" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../pics/gas-pump.png" />
          </image>
@@ -69,7 +69,7 @@
             <Rectangle2D />
          </viewport>
       </ImageView>
-      <ImageView fx:id="fuelTank" fitHeight="50.0" fitWidth="50.0" layoutX="869.0" layoutY="285.0" onDragDetected="#fuelTankOnDragDetectedEvent" onDragOver="#fuelTankOnDragOverEvent" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="fuelTank" fitHeight="50.0" fitWidth="50.0" layoutX="766.0" layoutY="284.0" onDragDetected="#fuelTankOnDragDetectedEvent" onDragOver="#fuelTankOnDragOverEvent" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../pics/icons8-база-данных-50.png" />
          </image>

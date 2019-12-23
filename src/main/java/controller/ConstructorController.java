@@ -53,7 +53,6 @@ public class ConstructorController {
     }
     public void createConstructor() throws IOException {
         Stage primaryStage = new Stage();
-
         AnchorPane root = FXMLLoader.load(getClass().getResource("/views/constructor.fxml"));
         primaryStage.setTitle("КОНСТРУКТОР");
         int x0 = 220;
@@ -72,7 +71,7 @@ public class ConstructorController {
         MoveController moveController = new MoveController();
         moveController.go(root);
 
-        primaryStage.setScene(new Scene(root, 1000, 500));
+        primaryStage.setScene(new Scene(root, root.getPrefWidth(), root.getPrefHeight()));
         primaryStage.show();
     }
 }

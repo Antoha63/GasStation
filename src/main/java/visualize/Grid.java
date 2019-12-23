@@ -118,26 +118,34 @@ public class Grid {
         setImageRoad(4, width - 1, height,180);
         setImageRoad(4, width - 3, height,180);
         setImageRoad(4, width - 4, height,180);
-        setImageRoad(4, 1, height,180);
+        setImageRoad(4, 0, height,180);
 
     }
 
     private static void setStationRoad(){
+        for(int i = 0; i < height; i++)
+            for(int j = 0; j < width - 3; j++) {
+                setImageRoad(3, j, i, 0);
+                setImageRoad(3, j, i, 0);
+                setImageRoad(3, j, i,0);
+            }
         setImageRoad(5, width - 3, 0,0);
+        setImageRoad(5, 0, 0,0);
         setImageRoad(5, width - 1, 0,90);
-        setImageRoad((int)(rand.nextDouble() * 3), width - 2, 0,0);
+        setImageRoad(5, width - 4, 0,90);
+        for(int j = 1; j < width - 4; j++) {
+            setImageRoad((int) (rand.nextDouble() * 3), j, 0, 0);
+        }
+        setImageRoad((int) (rand.nextDouble() * 3), width - 2, 0, 0);
+
         for(int i = 1; i < height; i++) {
             setImageRoad((int) (rand.nextDouble() * 3), width - 3, i, 90);
             setImageRoad((int) (rand.nextDouble() * 3), width - 1, i, 90);
+            setImageRoad((int) (rand.nextDouble() * 3), width - 4, i, 90);
+            setImageRoad((int) (rand.nextDouble() * 3), 0, i, 90);
             setImageRoad(3, width - 2, i,0);
         }
 
-        for(int i = 0; i < height; i++)
-            for(int j = 0; j < width - 3; j++) {
-            setImageRoad(3, j, i, 0);
-            setImageRoad(3, j, i, 0);
-            setImageRoad(3, j, i,0);
-        }
     }
 
     private static void setImageRoad(int imageOffsetX, int x, int y, double rotate){
