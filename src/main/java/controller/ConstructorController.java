@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Spinner;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -24,8 +26,22 @@ public class ConstructorController {
 
     @FXML
     private Spinner<Integer> topologyWidth;
-    private Grid grid;
 
+    @FXML
+    private ImageView petrolStation;
+
+    @FXML
+    void petrolStationOnDragOverEvent(DragEvent event) {
+        event.acceptTransferModes(TransferMode.COPY);
+    }
+    @FXML
+    void petrolStationOnDragDetectedEvent(MouseEvent event) {
+        Dragboard dragboard = petrolStation.startDragAndDrop(TransferMode.COPY);
+        ClipboardContent clipboardContent = new ClipboardContent();
+        clipboardContent.putImage(petrolStation.getImage());
+        dragboard.setContent(clipboardContent);
+        event.consume();
+    }
     public void createConstructor() throws IOException {
         Stage primaryStage = new Stage();
 
@@ -35,6 +51,7 @@ public class ConstructorController {
         int y0 = 25;
 
         Grid.setGrid(270, 25, topologyWidth.getValue(), topologyHeight.getValue(), root);
+
 
         MoveController moveController = new MoveController();
         moveController.go(root);

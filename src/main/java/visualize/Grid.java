@@ -1,6 +1,14 @@
 package visualize;
 
 
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.scene.Node;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -13,6 +21,8 @@ import lombok.Setter;
 public class Grid {
     private static int x0;
     private static int y0;
+    private static int x;
+    private static int y;
     private static int width;
     private static int height;
 
@@ -37,6 +47,23 @@ public class Grid {
             gridPane.getColumnConstraints().add(new ColumnConstraints(40)); // column 0 is 40 wide
         for(int i = 0; i < topologyHeight + 1; i++)
             gridPane.getRowConstraints().add(new RowConstraints(40)); // column 0 is 40 wide
+        gridPane.setOnMouseDragEntered(event -> {
+            x = (int)event.getScreenX();
+            y = (int)event.getScreenY();
+        });
+        gridPane.setOnDragOver(event -> {
+            if(event.getDragboard().hasImage()){
+                event.acceptTransferModes(TransferMode.COPY);
+            }
+        });
+        gridPane.setOnDragDropped(event -> {
+            Image image = event.getDragboard().getImage();
+            ImageView imageView = new ImageView(image);
+            imageView.setFitHeight(40);
+            imageView.setFitWidth(40);
+
+            gridPane.add(imageView, x, y);
+        });
 
         root.getChildren().add(gridPane);
     }
@@ -56,6 +83,4 @@ public class Grid {
     public static int getHeight(){
         return height;
     }
-
-
 }
