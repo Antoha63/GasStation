@@ -24,33 +24,38 @@ public class ConstructorController {
 
     @FXML
     private ImageView petrolStation;
+
     @FXML
     void petrolStationOnDragOverEvent(DragEvent event) {
         event.acceptTransferModes(TransferMode.COPY);
     }
+
     @FXML
     void petrolStationOnDragDetectedEvent(MouseEvent event) {
         Dragboard dragboard = petrolStation.startDragAndDrop(TransferMode.COPY);
         ClipboardContent clipboardContent = new ClipboardContent();
-        clipboardContent.putImage(petrolStation.getImage());
+        clipboardContent.putString(petrolStation.getId());
         dragboard.setContent(clipboardContent);
         event.consume();
     }
 
     @FXML
     private ImageView fuelTank;
+
     @FXML
     void fuelTankOnDragOverEvent(DragEvent event) {
         event.acceptTransferModes(TransferMode.COPY);
     }
+
     @FXML
     void fuelTankOnDragDetectedEvent(MouseEvent event) {
         Dragboard dragboard = fuelTank.startDragAndDrop(TransferMode.COPY);
         ClipboardContent clipboardContent = new ClipboardContent();
-        clipboardContent.putImage(fuelTank.getImage());
+        clipboardContent.putString(fuelTank.getId());
         dragboard.setContent(clipboardContent);
         event.consume();
     }
+
     public void createConstructor() throws IOException {
         Stage primaryStage = new Stage();
         AnchorPane root = FXMLLoader.load(getClass().getResource("/views/constructor.fxml"));
@@ -64,9 +69,9 @@ public class ConstructorController {
                 root.getChildren().add(Grid.getGrid()[i][j]);
             }
         }
-/*        for (Line line : Grid.getLineList()) {
+        for (Line line : Grid.getLineList()) {
             root.getChildren().add(line);
-        }*/
+        }
 
         MoveController moveController = new MoveController();
         moveController.go(root);

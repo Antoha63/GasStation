@@ -11,7 +11,6 @@ import visualize.GridElement;
 
 @Getter
 @Setter
-@AllArgsConstructor
 /*Class describes animation of the character*/
 public class FrameAnimation{
     private Image image;

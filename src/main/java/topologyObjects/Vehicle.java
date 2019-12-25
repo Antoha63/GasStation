@@ -1,6 +1,6 @@
 package topologyObjects;
 
-import elements.Cashbox;
+import elements.CashBox;
 import elements.FuelTank;
 import javafx.scene.image.ImageView;
 import lombok.Getter;
@@ -39,7 +39,7 @@ public class Vehicle extends TransportVehicle {
 
     }
 
-    public void pay(Cashbox cashbox, int payment) {
+    public void pay(CashBox cashbox, int payment) {
         cashbox.setBalance(payment);
     }
 

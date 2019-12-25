@@ -1,14 +1,9 @@
 package visualize;
 
 
+import elements.ElementType;
 import frameModule.FrameAnimation;
-import javafx.event.Event;
-import javafx.event.EventHandler;
-import javafx.scene.Node;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Line;
@@ -18,6 +13,12 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import static elements.ElementType.CASHBOX;
+import static elements.ElementType.ENTRY;
+import static elements.ElementType.EXIT;
+import static elements.ElementType.FUELTANK;
+import static elements.ElementType.PETROLSTATION;
 
 @Setter
 @Getter
@@ -44,22 +45,40 @@ public class Grid {
         grid = new GridElement[width][height + 1];
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height + 1; j++) {
-                grid[i][j] = new GridElement(x0 + i * GridElement.getElementWidth(),
-                        y0 + j * GridElement.getElementHeight(), false);
+                grid[i][j] = new GridElement(i, j, false);
                 grid[i][j].setOnDragOver(event -> {
-                    if (event.getDragboard().hasImage()) {
+                    if (event.getDragboard().hasString()) {
                         event.acceptTransferModes(TransferMode.COPY);
                     }
                 });
                 int finalJ = j;
                 int finalI = i;
                 grid[i][j].setOnDragDropped(event -> {
-                    Image image = event.getDragboard().getImage();
-                    ImageView imageView = new ImageView(image);
-                    imageView.setFitHeight(GridElement.getElementHeight());
-                    imageView.setFitWidth(GridElement.getElementWidth());
+                    switch (event.getDragboard().getString()){
+                        case "petrolStation":
+                            grid[finalI][finalJ].createElement(PETROLSTATION);
+                            break;
+                        case "fuelTank":
+                            grid[finalI][finalJ].createElement(FUELTANK);
+                            break;
+                        case "exit":
+                            grid[finalI][finalJ].createElement(EXIT);
+                            break;
+                        case "entry":
+                            grid[finalI][finalJ].createElement(ENTRY);
+                            break;
+                        case "cashBox":
+                            grid[finalI][finalJ].createElement(CASHBOX);
+                            break;
+                    }
 
-                    grid[finalI][finalJ].getChildren().add(imageView);
+                    grid[finalI][finalJ].getChildren().add(grid[finalI][finalJ].getFrameAnimation().getImageView());
+                });
+                grid[i][j].setOnMouseClicked(event -> {
+                    if(grid[finalI][finalJ].getMainStaticElement() != null){
+                        grid[finalI][finalJ].getChildren().remove(grid[finalI][finalJ].getFrameAnimation().getImageView());
+                        grid[finalI][finalJ].deleteElement();
+                    }
                 });
             }
 

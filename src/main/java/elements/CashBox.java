@@ -1,5 +1,6 @@
 package elements;
 
+import elements.mainElement.MainStaticElement;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,7 +10,7 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @ToString
-public class Cashbox {
+public class CashBox extends MainStaticElement {
 
     private int x;
     private int y;
@@ -17,6 +18,11 @@ public class Cashbox {
     private int balance;
     private int criticalLevel; //between 10000 nd 100000
     private boolean status = true;
+
+    public CashBox (int x, int y){
+        this.x = x;
+        this.y = y;
+    }
 
     public void setBalance(int payment){
         this.balance += payment;

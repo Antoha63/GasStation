@@ -1,4 +1,4 @@
-package elements;
+package value;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,28 +12,19 @@ import java.util.Random;
 @Setter
 @NoArgsConstructor
 @ToString
-public class UniformDistribution {
+public class ExponentialDistribution {
 
-    private double a; //мат.ожидание between 1 and 10
-    private double b; //дисперсия between 0 and 4,5
+    private double lambda; //лямбда between 1 and 4
     private double[] times;
 
-    public UniformDistribution(double a, double b){
-        this.a = a;
-        this.b = b;
-    }
-
-
-    public void createDistribution()
-    {
+    public ExponentialDistribution(double lambda){
+        this.lambda = lambda;
         int n = 100;
-
         times = new double [n];
         Random rand = new Random();
         for (int i = 0; i < n; i++)
         {
-
+            times[i] += (-1.0 /this.lambda) * Math.log(rand.nextDouble());
         }
-
     }
 }

@@ -1,14 +1,14 @@
 package elements;
 
+import elements.mainElement.MainStaticElement;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 @Getter
 @Setter
-@NoArgsConstructor
 @ToString
-public class PetrolStation{
+public class PetrolStation extends MainStaticElement {
 
     private int x;
     private int y;
@@ -17,5 +17,10 @@ public class PetrolStation{
     private boolean status = true;
     public boolean getStatus(){
         return status;
+    }
+
+    public PetrolStation (int x, int y){
+        this.x = x;
+        this.y = y;
     }
 }
