@@ -139,8 +139,6 @@ public class Grid {
         }
         setImageRoad(4, width - 1, height,180);
         setImageRoad(4, width - 3, height,180);
-        setImageRoad(4, width - 4, height,180);
-        setImageRoad(4, 0, height,180);
 
     }
 

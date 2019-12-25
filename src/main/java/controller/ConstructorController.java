@@ -37,7 +37,6 @@ public class ConstructorController {
         Dragboard dragboard = entry.startDragAndDrop(TransferMode.COPY);
         ClipboardContent clipboardContent = new ClipboardContent();
         clipboardContent.putString(entry.getId() + " " + (int)entry.getRotate());
-        System.out.println(clipboardContent.getString());
         dragboard.setContent(clipboardContent);
         event.consume();
     }
