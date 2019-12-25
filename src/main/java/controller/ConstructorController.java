@@ -26,10 +26,25 @@ public class ConstructorController {
     private ImageView petrolStation;
 
     @FXML
+    private ImageView cashBox;
+    @FXML
+    void cashBoxOnDragOverEvent(DragEvent event) {
+        event.acceptTransferModes(TransferMode.COPY);
+    }
+    @FXML
+    void cashBoxOnDragDetectedEvent(MouseEvent event) {
+        Dragboard dragboard = cashBox.startDragAndDrop(TransferMode.COPY);
+        ClipboardContent clipboardContent = new ClipboardContent();
+        clipboardContent.putString(cashBox.getId());
+        dragboard.setContent(clipboardContent);
+        event.consume();
+    }
+
+
+    @FXML
     void petrolStationOnDragOverEvent(DragEvent event) {
         event.acceptTransferModes(TransferMode.COPY);
     }
-
     @FXML
     void petrolStationOnDragDetectedEvent(MouseEvent event) {
         Dragboard dragboard = petrolStation.startDragAndDrop(TransferMode.COPY);
@@ -39,14 +54,13 @@ public class ConstructorController {
         event.consume();
     }
 
+
     @FXML
     private ImageView fuelTank;
-
     @FXML
     void fuelTankOnDragOverEvent(DragEvent event) {
         event.acceptTransferModes(TransferMode.COPY);
     }
-
     @FXML
     void fuelTankOnDragDetectedEvent(MouseEvent event) {
         Dragboard dragboard = fuelTank.startDragAndDrop(TransferMode.COPY);
@@ -55,6 +69,7 @@ public class ConstructorController {
         dragboard.setContent(clipboardContent);
         event.consume();
     }
+
 
     public void createConstructor() throws IOException {
         Stage primaryStage = new Stage();

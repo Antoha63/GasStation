@@ -63,18 +63,26 @@
          </Label>
       <ImageView fx:id="petrolStation" fitHeight="50.0" fitWidth="50.0" layoutX="766.0" layoutY="224.0" onDragDetected="#petrolStationOnDragDetectedEvent" onDragOver="#petrolStationOnDragOverEvent" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../pics/gas-pump.png" />
+            <Image url="@../pics/sprites.png" />
          </image>
          <viewport>
-            <Rectangle2D />
+            <Rectangle2D height="50.0" minY="150.0" width="50.0" />
          </viewport>
       </ImageView>
       <ImageView fx:id="fuelTank" fitHeight="50.0" fitWidth="50.0" layoutX="766.0" layoutY="284.0" onDragDetected="#fuelTankOnDragDetectedEvent" onDragOver="#fuelTankOnDragOverEvent" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../pics/icons8-база-данных-50.png" />
+            <Image url="@../pics/sprites.png" />
          </image>
          <viewport>
-            <Rectangle2D />
+            <Rectangle2D height="50.0" minX="50.0" minY="150.0" width="50.0" />
+         </viewport>
+      </ImageView>
+      <ImageView fx:id="cashBox" fitHeight="50.0" fitWidth="50.0" layoutX="766.0" layoutY="165.0" onDragDetected="#cashBoxOnDragDetectedEvent" onDragOver="#cashBoxOnDragOverEvent" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../pics/sprites.png" />
+         </image>
+         <viewport>
+            <Rectangle2D height="50.0" minX="100.0" minY="150.0" width="50.0" />
          </viewport>
       </ImageView>
       </children></AnchorPane>
