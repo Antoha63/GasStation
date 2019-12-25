@@ -1,7 +1,5 @@
 package visualize;
 
-
-import elements.ElementType;
 import frameModule.FrameAnimation;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.TransferMode;
@@ -54,25 +52,27 @@ public class Grid {
                 int finalJ = j;
                 int finalI = i;
                 grid[i][j].setOnDragDropped(event -> {
-                    switch (event.getDragboard().getString()){
-                        case "petrolStation":
-                            grid[finalI][finalJ].createElement(PETROLSTATION);
-                            break;
-                        case "fuelTank":
-                            grid[finalI][finalJ].createElement(FUELTANK);
-                            break;
-                        case "exit":
-                            grid[finalI][finalJ].createElement(EXIT);
-                            break;
-                        case "entry":
-                            grid[finalI][finalJ].createElement(ENTRY);
-                            break;
-                        case "cashBox":
-                            grid[finalI][finalJ].createElement(CASHBOX);
-                            break;
+                    if(grid[finalI][finalJ].getMainStaticElement() == null) {
+                        switch (event.getDragboard().getString()) {
+                            case "petrolStation":
+                                grid[finalI][finalJ].createElement(PETROLSTATION);
+                                break;
+                            case "fuelTank":
+                                grid[finalI][finalJ].createElement(FUELTANK);
+                                break;
+                            case "exit":
+                                grid[finalI][finalJ].createElement(EXIT);
+                                break;
+                            case "entry":
+                                grid[finalI][finalJ].createElement(ENTRY);
+                                break;
+                            case "cashBox":
+                                grid[finalI][finalJ].createElement(CASHBOX);
+                                break;
+                        }
+                        grid[finalI][finalJ].getChildren().add(grid[finalI][finalJ].getFrameAnimation().getImageView());
                     }
 
-                    grid[finalI][finalJ].getChildren().add(grid[finalI][finalJ].getFrameAnimation().getImageView());
                 });
                 grid[i][j].setOnMouseClicked(event -> {
                     if(grid[finalI][finalJ].getMainStaticElement() != null){

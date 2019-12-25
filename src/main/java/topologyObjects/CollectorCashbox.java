@@ -1,4 +1,4 @@
-package elements;
+package topologyObjects;
 
 public class CollectorCashbox {
 
