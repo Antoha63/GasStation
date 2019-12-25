@@ -52,8 +52,9 @@ public class Grid {
                 int finalJ = j;
                 int finalI = i;
                 grid[i][j].setOnDragDropped(event -> {
+                    String[] dragboardStrings = event.getDragboard().getString().split(" ");
                     if(grid[finalI][finalJ].getMainStaticElement() == null) {
-                        switch (event.getDragboard().getString()) {
+                        switch (dragboardStrings[0]) {
                             case "petrolStation":
                                 grid[finalI][finalJ].createElement(PETROLSTATION);
                                 break;
@@ -62,9 +63,11 @@ public class Grid {
                                 break;
                             case "exit":
                                 grid[finalI][finalJ].createElement(EXIT);
+                                grid[finalI][finalJ].getFrameAnimation().getImageView().setRotate(Double.parseDouble(dragboardStrings[1]));
                                 break;
                             case "entry":
                                 grid[finalI][finalJ].createElement(ENTRY);
+                                grid[finalI][finalJ].getFrameAnimation().getImageView().setRotate(Double.parseDouble(dragboardStrings[1]));
                                 break;
                             case "cashBox":
                                 grid[finalI][finalJ].createElement(CASHBOX);
