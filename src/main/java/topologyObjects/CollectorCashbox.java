@@ -1,6 +1,6 @@
 package topologyObjects;
 
-public class CollectorCashbox extends TransportVehicle{
+public class CollectorCashbox {
 
     private long id;
 

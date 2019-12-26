@@ -1,21 +1,19 @@
 package topologyObjects;
 
 import elements.FuelTank;
-import javafx.scene.image.ImageView;
 import visualize.Grid;
 
-public class CollectorFuel extends TransportVehicle{
+public class CollectorFuel{
 
     private int x;
     private int y;
     private long id;
 
-    @Override
-    public void go(/*FuelTank ft*/ImageView imageView){
+    public void go(FuelTank ft){
 
         this.x = Grid.getWidth() - 1;
         this.y = Grid.getHeight() -1;
-/*        while (this.y > 0){
+        while (this.y > 0){
             this.y--;
         }
         while (this.x > Grid.getWidth() - 3){
@@ -28,7 +26,7 @@ public class CollectorFuel extends TransportVehicle{
         ft.setStatus(true);
         while (this.x > 0){
             this.x--;
-        }*/
+        }
 
 
     }
