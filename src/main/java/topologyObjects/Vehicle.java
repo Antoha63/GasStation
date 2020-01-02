@@ -19,7 +19,6 @@ public class Vehicle extends TransportVehicle {
     private int tankVolume;
     private int actualFuelVolume;
     private String fuelType;
-    private double probabilityOfArrival;
     private int payment;
 
     public Vehicle(int x, int y, double probabilityOfArrival/*CarRepository carRepository, FuelRepository fuelRepository,*/ ) {
@@ -54,10 +53,10 @@ public class Vehicle extends TransportVehicle {
     public void go(/*Cashbox cashbox, Entry entry, Exit exit, List<FuelTank> listOfFuelTanks, ArrayList<PetrolStation> listOfPetrolStations,*/ImageView imageView) throws InterruptedException {
         Random rand = new Random();
 
-        if (rand.nextDouble() > this.probabilityOfArrival) {
+        if (rand.nextDouble() > this.getProbabilityOfArrival()) {
             this.moveX(-1);
-            imageView.setX(this.getX());
-            imageView.setY(this.getY());
+            imageView.setTranslateX(this.getX());
+            imageView.setTranslateY(this.getY());
         }
 //        else {
 //            while (this.x != entry.getX()) {

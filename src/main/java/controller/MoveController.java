@@ -8,11 +8,15 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import lombok.Getter;
+import value.ExponentialDistribution;
 import visualize.Grid;
 import visualize.GridElement;
+import visualize.VisualisedTransportVehicle;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
+import static topologyObjects.TransportVehicleType.AUTOMOBILE;
 
 @Getter
 /*Class describes all animation module*/
@@ -23,9 +27,7 @@ public class MoveController {
     private double poao = 0.1;
     private TransportVehicle vehicle;
 
-
-    private ArrayList<ImageView> imageViewList = new ArrayList<ImageView>();
-    private ArrayList<Vehicle> vehicleArrayList = new ArrayList<Vehicle>();
+    private ArrayList<VisualisedTransportVehicle> vehicleArrayList = new ArrayList<VisualisedTransportVehicle>();
 
     public MoveController() {
         frameAnimation = new FrameAnimation(2,
@@ -36,58 +38,45 @@ public class MoveController {
     }
 
     public void go(AnchorPane root) throws IOException {
-        imageView = frameAnimation.getImageView();
-        imageView.setFitWidth(80);
-        imageView.setFitHeight(40);
-        vehicle = new Vehicle( Grid.getX0() + (Grid.getWidth() - 1) * GridElement.getElementWidth(),
-                Grid.getY0() + (Grid.getHeight()) * GridElement.getElementHeight(),
-                        0.1);
-        imageView.setX(vehicle.getX());
-        imageView.setY(vehicle.getY());
+                ExponentialDistribution exponentialDistribution = new ExponentialDistribution(1);
 
-        root.getChildren().addAll(imageView);
-        /*        ExponentialDistribution exponentialDistribution = new ExponentialDistribution(1);
-        final double[] i = {0};
+        final int[] i = {0};
         final int[] j = {0};
+        final int[] numOfVehicle = {0};
+        final int[] temp = {666};
         AnimationTimer animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                if(i[0] > 400){
-                    i[0] = 0;
-                }
+
+                if(i[0]>=350){i[0] = 0;}
+                i[0]++;
                 if((int)(exponentialDistribution.getTimes()[j[0]] * 100) == i[0]){
-                    vehicleArrayList.add(new Vehicle(Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getX(),
-                            Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getY(), 0.1));
-                    imageViewList.add(frameAnimation.getImageView());
+                    System.out.println((int)(exponentialDistribution.getTimes()[j[0]] * 100));
+                    VisualisedTransportVehicle visualisedTransportVehicle = new VisualisedTransportVehicle((int)Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getTranslateX(),
+                            (int)Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getTranslateY(),
+                            0.1, AUTOMOBILE);
+                    vehicleArrayList.add(visualisedTransportVehicle);
+                    root.getChildren().add(vehicleArrayList.get(numOfVehicle[0]).getFrameAnimation().getImageView());
+                    numOfVehicle[0]++;
                     j[0]++;
                 }
-                for(int k = 0; k < imageViewList.size(); k++){
-                    Vehicle tempVehicle = vehicleArrayList.get(k);
-                    tempVehicle.moveX(-1);
-                    vehicleArrayList.set(k, tempVehicle);
-
-                    ImageView tempImageView = imageViewList.get(k);
-                    tempImageView.setTranslateX(vehicleArrayList.get(k).getTranslateX());
-                    tempImageView.setTranslateY(vehicleArrayList.get(k).getTranslateY());
-                    imageViewList.set(k, tempImageView);
-                }
-*//*                vehicle.moveX(-1);
-                imageView.setTranslateX(vehicle.getTranslateX());
-                imageView.setTranslateY(vehicle.getTranslateY());*//*
-                i[0]++;*/
-        AnimationTimer animationTimer = new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                try {
-                    if(vehicle != null) {
-                        vehicle.go(imageView);
-                        if (vehicle.getX() <= Grid.getGrid()[0][0].getTranslateX()) {
-                            root.getChildren().remove(imageView);
-                            vehicle = null;
+                for(int k = 0; k < vehicleArrayList.size(); k++) {
+                    try {
+                        if (vehicleArrayList.get(k) != null) {
+                            if (vehicleArrayList.get(k).getTransportVehicle().getX() <= Grid.getGrid()[0][0].getTranslateX()) {
+                                temp[0] = k;
+                                numOfVehicle[0]--;
+                            }
+                            vehicleArrayList.get(k).go();
                         }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                }
+                if (vehicleArrayList.size()!=0 && temp[0] != 666) {
+                    root.getChildren().remove(vehicleArrayList.get(temp[0]).getFrameAnimation().getImageView());
+                    vehicleArrayList.remove(temp[0]);
+                    temp[0] = 666;
                 }
             }
         };

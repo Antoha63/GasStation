@@ -1,16 +1,20 @@
 package topologyObjects;
 
 import elements.FuelTank;
+import javafx.scene.image.ImageView;
 import visualize.Grid;
 
-public class CollectorFuel{
+
+
+public class CollectorFuel extends TransportVehicle{
 
     private int x;
     private int y;
     private long id;
 
-    public void go(FuelTank ft){
-
+    @Override
+    public void go(ImageView imageView) throws InterruptedException {
+        /*
         this.x = Grid.getWidth() - 1;
         this.y = Grid.getHeight() -1;
         while (this.y > 0){
@@ -26,10 +30,6 @@ public class CollectorFuel{
         ft.setStatus(true);
         while (this.x > 0){
             this.x--;
-        }
-
-
+        }*/
     }
-
-
 }
