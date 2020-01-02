@@ -29,11 +29,31 @@ public class MoveController {
 
 
     private ArrayList<ImageView> imageViewList = new ArrayList<ImageView>();
-    private ArrayList<VisualisedTransportVehicle> vehicleArrayList = new ArrayList<VisualisedTransportVehicle>();
+    private ArrayList<Vehicle> vehicleArrayList = new ArrayList<Vehicle>();
+
+    public MoveController() {
+        frameAnimation = new FrameAnimation(2,
+                0,
+                100,
+                50,
+                3);
+    }
 
     public void go(AnchorPane root) throws IOException {
+        imageView = frameAnimation.getImageView();
+        imageView.setFitWidth(80);
+        imageView.setFitHeight(40);
+        vehicle = new Vehicle( Grid.getX0() + (Grid.getWidth() - 1) * GridElement.getElementWidth(),
+                Grid.getY0() + (Grid.getHeight()) * GridElement.getElementHeight(),
+                0.1);
+        imageView.setX(vehicle.getX());
+        imageView.setY(vehicle.getY());
 
-        ExponentialDistribution exponentialDistribution = new ExponentialDistribution(1);
+        root.getChildren().addAll(imageView);
+        /*        ExponentialDistribution exponentialDistribution = new ExponentialDistribution(1);
+        final double[] i = {0};
+
+        //ExponentialDistribution exponentialDistribution = new ExponentialDistribution(1);
 
         final int[] j = {0};
         AnimationTimer animationTimer = new AnimationTimer() {
@@ -60,9 +80,9 @@ public class MoveController {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                }
+                }*/
 
-/*        AnimationTimer animationTimer = new AnimationTimer() {
+        AnimationTimer animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
                 try {
@@ -75,7 +95,7 @@ public class MoveController {
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
-                }*/
+                }
             }
         };
         animationTimer.start();
