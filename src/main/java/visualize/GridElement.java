@@ -76,5 +76,7 @@ public class GridElement extends Pane {
     public static int getElementHeight(){
         return height;
     }
-
+    public boolean getOccupied(){
+        return isOccupied;
+    }
 }

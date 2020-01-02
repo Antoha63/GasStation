@@ -51,32 +51,36 @@ public class Grid {
                 });
                 int finalJ = j;
                 int finalI = i;
-                grid[i][j].setOnDragDropped(event -> {
-                    String[] dragboardStrings = event.getDragboard().getString().split(" ");
-                    if(grid[finalI][finalJ].getMainStaticElement() == null) {
-                        switch (dragboardStrings[0]) {
-                            case "petrolStation":
-                                grid[finalI][finalJ].createElement(PETROLSTATION);
-                                break;
-                            case "fuelTank":
-                                grid[finalI][finalJ].createElement(FUELTANK);
-                                break;
-                            case "exit":
-                                grid[finalI][finalJ].createElement(EXIT);
-                                grid[finalI][finalJ].getFrameAnimation().getImageView().setRotate(Double.parseDouble(dragboardStrings[1]));
-                                break;
-                            case "entry":
-                                grid[finalI][finalJ].createElement(ENTRY);
-                                grid[finalI][finalJ].getFrameAnimation().getImageView().setRotate(Double.parseDouble(dragboardStrings[1]));
-                                break;
-                            case "cashBox":
-                                grid[finalI][finalJ].createElement(CASHBOX);
-                                break;
+                    grid[i][j].setOnDragDropped(event -> {
+                        String[] dragboardStrings = event.getDragboard().getString().split(" ");
+                        if(grid[finalI][finalJ].getMainStaticElement() == null) {
+                            switch (dragboardStrings[0]) {
+                                case "petrolStation":
+                                    grid[finalI][finalJ].createElement(PETROLSTATION);
+                                    grid[finalI][finalJ].setOccupied(true);
+                                    break;
+                                case "fuelTank":
+                                    grid[finalI][finalJ].createElement(FUELTANK);
+                                    grid[finalI][finalJ].setOccupied(true);
+                                    break;
+                                case "exit":
+                                    grid[finalI][finalJ].createElement(EXIT);
+                                    grid[finalI][finalJ].getFrameAnimation().getImageView().setRotate(Double.parseDouble(dragboardStrings[1]));
+                                    break;
+                                case "entry":
+                                    grid[finalI][finalJ].createElement(ENTRY);
+                                    grid[finalI][finalJ].setOccupied(true);
+                                    grid[finalI][finalJ].getFrameAnimation().getImageView().setRotate(Double.parseDouble(dragboardStrings[1]));
+                                    break;
+                                case "cashBox":
+                                    grid[finalI][finalJ].createElement(CASHBOX);
+                                    grid[finalI][finalJ].setOccupied(true);
+                                    break;
+                            }
+                            grid[finalI][finalJ].getChildren().add(grid[finalI][finalJ].getFrameAnimation().getImageView());
                         }
-                        grid[finalI][finalJ].getChildren().add(grid[finalI][finalJ].getFrameAnimation().getImageView());
-                    }
 
-                });
+                    });
                 grid[i][j].setOnMouseClicked(event -> {
                     if(grid[finalI][finalJ].getMainStaticElement() != null){
                         grid[finalI][finalJ].getChildren().remove(grid[finalI][finalJ].getFrameAnimation().getImageView());
@@ -109,21 +113,21 @@ public class Grid {
         List<Line> lineList = new ArrayList<>();
         for (int j = 0; j < height + 1; j++) {
             Line lineHorizontal = new Line( grid[0][j].getTranslateX(),
-                                            grid[0][j].getTranslateY(),
-                                            grid[width - 1][j].getTranslateX() + GridElement.getElementWidth(),
-                                            grid[width - 1][j].getTranslateY());
+                    grid[0][j].getTranslateY(),
+                    grid[width - 1][j].getTranslateX() + GridElement.getElementWidth(),
+                    grid[width - 1][j].getTranslateY());
             lineList.add(lineHorizontal);
         }
         Line lastLineHorizontal = new Line( grid[0][0].getTranslateX(),
-                                            grid[0][height].getTranslateY() + GridElement.getElementHeight(),
-                                            grid[width - 1][height].getTranslateX() + GridElement.getElementWidth(),
-                                            grid[width - 1][height].getTranslateY() + GridElement.getElementHeight());
+                grid[0][height].getTranslateY() + GridElement.getElementHeight(),
+                grid[width - 1][height].getTranslateX() + GridElement.getElementWidth(),
+                grid[width - 1][height].getTranslateY() + GridElement.getElementHeight());
         lineList.add(lastLineHorizontal);
         for (int j = 0; j < width; j++) {
             Line lineVertical = new Line(grid[j][0].getTranslateX(),
-                                        grid[j][0].getTranslateY(),
-                                        grid[j][height].getTranslateX(),
-                                        grid[j][height].getTranslateY() + GridElement.getElementHeight());
+                    grid[j][0].getTranslateY(),
+                    grid[j][height].getTranslateX(),
+                    grid[j][height].getTranslateY() + GridElement.getElementHeight());
             lineList.add(lineVertical);
         }
         Line lastLineVertical = new Line(grid[width - 1][0].getTranslateX() + GridElement.getElementWidth(),
@@ -147,9 +151,9 @@ public class Grid {
     private static void setStationRoad(){
         for(int i = 0; i < height; i++)
             for(int j = 0; j < width - 3; j++) {
-                setImageRoad(3, j, i, 0);
-                setImageRoad(3, j, i, 0);
-                setImageRoad(3, j, i,0);
+                setImageFreePlace( j, i, 0);
+                setImageFreePlace( j, i, 0);
+                setImageFreePlace(j, i,0);
             }
         setImageRoad(5, width - 3, 0,0);
         setImageRoad(5, 0, 0,0);
@@ -165,7 +169,7 @@ public class Grid {
             setImageRoad((int) (rand.nextDouble() * 3), width - 1, i, 90);
             setImageRoad((int) (rand.nextDouble() * 3), width - 4, i, 90);
             setImageRoad((int) (rand.nextDouble() * 3), 0, i, 90);
-            setImageRoad(3, width - 2, i,0);
+            setImageFreePlace(width - 2, i,0);
         }
 
     }
@@ -180,6 +184,22 @@ public class Grid {
         roadImage.setFitHeight(GridElement.getElementHeight());
         roadImage.setFitWidth(GridElement.getElementWidth());
         roadImage.setRotate(rotate);
+        grid[x][y].setOccupied(true);
+        grid[x][y].setOnDragDropped(event -> {event.setDropCompleted(true);});
+        grid[x][y].getChildren().add(roadImage);
+    }
+
+    private static void setImageFreePlace(int x, int y, double rotate){
+        FrameAnimation road = new FrameAnimation(3,
+                4,
+                50,
+                50,
+                6);
+        ImageView roadImage = road.getImageView();
+        roadImage.setFitHeight(GridElement.getElementHeight());
+        roadImage.setFitWidth(GridElement.getElementWidth());
+        roadImage.setRotate(rotate);
+        grid[x][y].setOccupied(false);
         grid[x][y].getChildren().add(roadImage);
     }
 }

@@ -25,6 +25,8 @@ public class VisualisedTransportVehicle {
                         100,
                         50,
                         3);
+                this.frameAnimation.getImageView().setFitHeight(40);
+                this.frameAnimation.getImageView().setFitWidth(80);
                 break;
             case COLLECTORFUEL:
                 this.transportVehicle = new CollectorFuel();
@@ -33,6 +35,8 @@ public class VisualisedTransportVehicle {
                         100,
                         50,
                         3);
+                this.frameAnimation.getImageView().setFitHeight(40);
+                this.frameAnimation.getImageView().setFitWidth(80);
                 break;
             case COLLECTORCASHBOX:
                 this.transportVehicle = new CollectorCashbox();
@@ -41,6 +45,8 @@ public class VisualisedTransportVehicle {
                         100,
                         50,
                         3);
+                this.frameAnimation.getImageView().setFitHeight(40);
+                this.frameAnimation.getImageView().setFitWidth(80);
                 break;
         }
     }
