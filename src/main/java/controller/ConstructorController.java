@@ -28,18 +28,21 @@ public class ConstructorController {
 
     @FXML
     private ImageView entry;
+
     @FXML
     void entryOnDragOverEvent(DragEvent event) {
         event.acceptTransferModes(TransferMode.COPY);
     }
+
     @FXML
     void entryOnDragDetectedEvent(MouseEvent event) {
         Dragboard dragboard = entry.startDragAndDrop(TransferMode.COPY);
         ClipboardContent clipboardContent = new ClipboardContent();
-        clipboardContent.putString(entry.getId() + " " + (int)entry.getRotate());
+        clipboardContent.putString(entry.getId() + " " + (int) entry.getRotate());
         dragboard.setContent(clipboardContent);
         event.consume();
     }
+
     @FXML
     void entryOnMouseClicked(MouseEvent event) {
         entry.setRotate(entry.getRotate() + 90);
@@ -48,18 +51,21 @@ public class ConstructorController {
 
     @FXML
     private ImageView exit;
+
     @FXML
     void exitOnDragOverEvent(DragEvent event) {
         event.acceptTransferModes(TransferMode.COPY);
     }
+
     @FXML
     void exitOnDragDetectedEvent(MouseEvent event) {
         Dragboard dragboard = exit.startDragAndDrop(TransferMode.COPY);
         ClipboardContent clipboardContent = new ClipboardContent();
-        clipboardContent.putString(exit.getId() + " " + (int)exit.getRotate());
+        clipboardContent.putString(exit.getId() + " " + (int) exit.getRotate());
         dragboard.setContent(clipboardContent);
         event.consume();
     }
+
     @FXML
     void exitOnMouseClicked(MouseEvent event) {
         exit.setRotate(exit.getRotate() + 90);
@@ -68,15 +74,17 @@ public class ConstructorController {
 
     @FXML
     private ImageView cashBox;
+
     @FXML
     void cashBoxOnDragOverEvent(DragEvent event) {
         event.acceptTransferModes(TransferMode.COPY);
     }
+
     @FXML
     void cashBoxOnDragDetectedEvent(MouseEvent event) {
         Dragboard dragboard = cashBox.startDragAndDrop(TransferMode.COPY);
         ClipboardContent clipboardContent = new ClipboardContent();
-        clipboardContent.putString(cashBox.getId() + " " + (int)cashBox.getRotate());
+        clipboardContent.putString(cashBox.getId() + " " + (int) cashBox.getRotate());
         dragboard.setContent(clipboardContent);
         event.consume();
     }
@@ -86,11 +94,12 @@ public class ConstructorController {
     void petrolStationOnDragOverEvent(DragEvent event) {
         event.acceptTransferModes(TransferMode.COPY);
     }
+
     @FXML
     void petrolStationOnDragDetectedEvent(MouseEvent event) {
         Dragboard dragboard = petrolStation.startDragAndDrop(TransferMode.COPY);
         ClipboardContent clipboardContent = new ClipboardContent();
-        clipboardContent.putString(petrolStation.getId() + " " + (int)petrolStation.getRotate());
+        clipboardContent.putString(petrolStation.getId() + " " + (int) petrolStation.getRotate());
         dragboard.setContent(clipboardContent);
         event.consume();
     }
@@ -98,15 +107,17 @@ public class ConstructorController {
 
     @FXML
     private ImageView fuelTank;
+
     @FXML
     void fuelTankOnDragOverEvent(DragEvent event) {
         event.acceptTransferModes(TransferMode.COPY);
     }
+
     @FXML
     void fuelTankOnDragDetectedEvent(MouseEvent event) {
         Dragboard dragboard = fuelTank.startDragAndDrop(TransferMode.COPY);
         ClipboardContent clipboardContent = new ClipboardContent();
-        clipboardContent.putString(fuelTank.getId() + " " + (int)fuelTank.getRotate());
+        clipboardContent.putString(fuelTank.getId() + " " + (int) fuelTank.getRotate());
         dragboard.setContent(clipboardContent);
         event.consume();
     }
