@@ -15,15 +15,11 @@ import visualize.GridElement;
 import java.io.IOException;
 
 public class ConstructorController {
-
     @FXML
     private Spinner<Integer> topologyHeight;
-
     @FXML
     private Spinner<Integer> topologyWidth;
 
-    @FXML
-    private ImageView petrolStation;
 
 
     @FXML
@@ -36,8 +32,7 @@ public class ConstructorController {
     void entryOnDragDetectedEvent(MouseEvent event) {
         Dragboard dragboard = entry.startDragAndDrop(TransferMode.COPY);
         ClipboardContent clipboardContent = new ClipboardContent();
-        clipboardContent.putString(entry.getId() + " " + (int)entry.getRotate());
-        System.out.println(clipboardContent.getString());
+        clipboardContent.putString(entry.getId());
         dragboard.setContent(clipboardContent);
         event.consume();
     }
@@ -57,7 +52,7 @@ public class ConstructorController {
     void exitOnDragDetectedEvent(MouseEvent event) {
         Dragboard dragboard = exit.startDragAndDrop(TransferMode.COPY);
         ClipboardContent clipboardContent = new ClipboardContent();
-        clipboardContent.putString(exit.getId() + " " + (int)exit.getRotate());
+        clipboardContent.putString(exit.getId());
         dragboard.setContent(clipboardContent);
         event.consume();
     }
@@ -77,12 +72,14 @@ public class ConstructorController {
     void cashBoxOnDragDetectedEvent(MouseEvent event) {
         Dragboard dragboard = cashBox.startDragAndDrop(TransferMode.COPY);
         ClipboardContent clipboardContent = new ClipboardContent();
-        clipboardContent.putString(cashBox.getId() + " " + (int)cashBox.getRotate());
+        clipboardContent.putString(cashBox.getId());
         dragboard.setContent(clipboardContent);
         event.consume();
     }
 
 
+    @FXML
+    private ImageView petrolStation;
     @FXML
     void petrolStationOnDragOverEvent(DragEvent event) {
         event.acceptTransferModes(TransferMode.COPY);
@@ -91,7 +88,7 @@ public class ConstructorController {
     void petrolStationOnDragDetectedEvent(MouseEvent event) {
         Dragboard dragboard = petrolStation.startDragAndDrop(TransferMode.COPY);
         ClipboardContent clipboardContent = new ClipboardContent();
-        clipboardContent.putString(petrolStation.getId() + " " + (int)petrolStation.getRotate());
+        clipboardContent.putString(petrolStation.getId());
         dragboard.setContent(clipboardContent);
         event.consume();
     }
@@ -107,7 +104,7 @@ public class ConstructorController {
     void fuelTankOnDragDetectedEvent(MouseEvent event) {
         Dragboard dragboard = fuelTank.startDragAndDrop(TransferMode.COPY);
         ClipboardContent clipboardContent = new ClipboardContent();
-        clipboardContent.putString(fuelTank.getId() + " " + (int)fuelTank.getRotate());
+        clipboardContent.putString(fuelTank.getId());
         dragboard.setContent(clipboardContent);
         event.consume();
     }

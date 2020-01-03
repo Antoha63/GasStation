@@ -1,5 +1,7 @@
 package visualize;
 
+import elements.Entry;
+import elements.Exit;
 import frameModule.FrameAnimation;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.TransferMode;
@@ -13,10 +15,14 @@ import java.util.List;
 import java.util.Random;
 
 import static elements.ElementType.CASHBOX;
+import static elements.ElementType.CROSSROAD;
+import static elements.ElementType.EMPTYPLACE;
 import static elements.ElementType.ENTRY;
 import static elements.ElementType.EXIT;
 import static elements.ElementType.FUELTANK;
 import static elements.ElementType.PETROLSTATION;
+import static elements.ElementType.ROAD;
+import static elements.ElementType.TURNROAD;
 
 @Setter
 @Getter
@@ -27,6 +33,8 @@ public class Grid {
     private static int y;
     private static int width;
     private static int height;
+
+    private static String[] dragboardStrings;
 
     private static GridElement gridElement;
     private static GridPane gridPane = new GridPane();
@@ -41,84 +49,113 @@ public class Grid {
         width = topologyWidth;
         height = topologyHeight;
         grid = new GridElement[width][height + 1];
+
+        /*Инициализация*/
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height + 1; j++) {
                 grid[i][j] = new GridElement(i, j, false);
+            }
+        }
+        /*Область трк и кассы*/
+        for (int i = 0; i < width - 3; i++)
+            for (int j = 0; j < height; j++) {
+                int finalI = i;
+                int finalJ = j;
+
                 grid[i][j].setOnDragOver(event -> {
-                    if (event.getDragboard().hasString()) {
-                        event.acceptTransferModes(TransferMode.COPY);
+                    if (event.getDragboard().hasString() && !grid[finalI][finalJ].getIsOccupied()) {
+                        switch (event.getDragboard().getString()) {
+                            case "cashBox":
+                            case "petrolStation":
+                                event.acceptTransferModes(TransferMode.COPY);
+                                break;
+                        }
                     }
                 });
-                int finalJ = j;
-                int finalI = i;
-                    grid[i][j].setOnDragDropped(event -> {
-                        String[] dragboardStrings = event.getDragboard().getString().split(" ");
-                        if(grid[finalI][finalJ].getMainStaticElement() == null) {
-                            switch (dragboardStrings[0]) {
-                                case "petrolStation":
-                                    grid[finalI][finalJ].createElement(PETROLSTATION);
-                                    grid[finalI][finalJ].setOccupied(true);
-                                    break;
-                                case "fuelTank":
-                                    grid[finalI][finalJ].createElement(FUELTANK);
-                                    grid[finalI][finalJ].setOccupied(true);
-                                    break;
-                                case "exit":
-                                    grid[finalI][finalJ].createElement(EXIT);
-                                    grid[finalI][finalJ].getFrameAnimation().getImageView().setRotate(Double.parseDouble(dragboardStrings[1]));
-                                    break;
-                                case "entry":
-                                    grid[finalI][finalJ].createElement(ENTRY);
-                                    grid[finalI][finalJ].setOccupied(true);
-                                    grid[finalI][finalJ].getFrameAnimation().getImageView().setRotate(Double.parseDouble(dragboardStrings[1]));
-                                    break;
-                                case "cashBox":
-                                    grid[finalI][finalJ].createElement(CASHBOX);
-                                    grid[finalI][finalJ].setOccupied(true);
-                                    break;
-                            }
-                            grid[finalI][finalJ].getChildren().add(grid[finalI][finalJ].getFrameAnimation().getImageView());
-                        }
-
-                    });
+                grid[i][j].setOnDragDropped(event -> {
+                    switch (event.getDragboard().getString()) {
+                        case "cashBox":
+                            grid[finalI][finalJ].createElement(CASHBOX, 0);
+                            break;
+                        case "petrolStation":
+                            grid[finalI][finalJ].createElement(PETROLSTATION, 0);
+                            break;
+                    }
+                });
                 grid[i][j].setOnMouseClicked(event -> {
-                    if(grid[finalI][finalJ].getMainStaticElement() != null){
+                    if (grid[finalI][finalJ].getMainStaticElement() != null) {
                         grid[finalI][finalJ].getChildren().remove(grid[finalI][finalJ].getFrameAnimation().getImageView());
                         grid[finalI][finalJ].deleteElement();
                     }
                 });
             }
+        /*Область топливных баков*/
+        for (int j = 1; j < height; j++) {
+            int finalJ = j;
+            grid[width - 2][j].setOnDragOver(event -> {
+                if (event.getDragboard().hasString()) {
+                    switch (event.getDragboard().getString()) {
+                        case "fuelTank":
+                            event.acceptTransferModes(TransferMode.COPY);
+                            break;
+                    }
+                }
+            });
+            grid[width - 2][j].setOnDragDropped(event -> {
+                switch (event.getDragboard().getString()) {
+                    case "fuelTank":
+                        grid[width - 2][finalJ].createElement(FUELTANK, 0);
+                        break;
+                }
+            });
+            grid[width - 2][j].setOnMouseClicked(event -> {
+                if (grid[width - 2][finalJ].getMainStaticElement() != null) {
+                    grid[width - 2][finalJ].getChildren().remove(grid[width - 2][finalJ].getFrameAnimation().getImageView());
+                    grid[width - 2][finalJ].deleteElement();
+                }
+            });
+        }
+        /*Область въезда и выезда*/
+        for (int i = 0; i < width - 3; i++) {
+            int finalI = i;
 
+            grid[i][Grid.height].setOnDragOver(event -> {
+                if (event.getDragboard().hasString()) {
+                    switch (event.getDragboard().getString()) {
+                        case "entry":
+                        case "exit":
+                            event.acceptTransferModes(TransferMode.COPY);
+                            break;
+                    }
+                }
+            });
+            grid[i][Grid.height].setOnDragDropped(event -> {
+                switch (event.getDragboard().getString()) {
+                    case "exit":
+                        grid[finalI][Grid.height].createElement(EXIT, 180);
+                        break;
+                    case "entry":
+                        grid[finalI][Grid.height].createElement(ENTRY, 180);
+                        break;
+                }
+                if (Entry.getFlag() && Exit.getFlag())
+                    setRoundRoad();
+            });
         }
         setRoad();
         setStationRoad();
     }
 
-    public static GridElement[][] getGrid () {
-        return grid;
-    }
-    public static int getX0 () {
-        return x0;
-    }
-    public static int getY0 () {
-        return y0;
-    }
-    public static int getWidth () {
-        return width;
-    }
-    public static int getHeight () {
-        return height;
-    }
-    public static List<Line> getLineList () {
+    public static List<Line> getLineList() {
         List<Line> lineList = new ArrayList<>();
         for (int j = 0; j < height + 1; j++) {
-            Line lineHorizontal = new Line( grid[0][j].getTranslateX(),
+            Line lineHorizontal = new Line(grid[0][j].getTranslateX(),
                     grid[0][j].getTranslateY(),
                     grid[width - 1][j].getTranslateX() + GridElement.getElementWidth(),
                     grid[width - 1][j].getTranslateY());
             lineList.add(lineHorizontal);
         }
-        Line lastLineHorizontal = new Line( grid[0][0].getTranslateX(),
+        Line lastLineHorizontal = new Line(grid[0][0].getTranslateX(),
                 grid[0][height].getTranslateY() + GridElement.getElementHeight(),
                 grid[width - 1][height].getTranslateX() + GridElement.getElementWidth(),
                 grid[width - 1][height].getTranslateY() + GridElement.getElementHeight());
@@ -137,69 +174,63 @@ public class Grid {
         lineList.add(lastLineVertical);
         return lineList;
     }
-    private static void setRoad(){
-        for(int i = 0; i < width; i++){
-            setImageRoad((int)(rand.nextDouble() * 3), i, height,0);
+
+    private static void setRoad() {
+        for (int i = 0; i < width; i++) {
+            grid[i][height].createElement(ROAD, 0);
         }
-        setImageRoad(4, width - 1, height,180);
-        setImageRoad(4, width - 3, height,180);
-        setImageRoad(4, width - 4, height,180);
-        setImageRoad(4, 0, height,180);
+        grid[width - 1][height].createElement(CROSSROAD, 180);
+        grid[width - 3][height].createElement(CROSSROAD, 180);
 
     }
 
-    private static void setStationRoad(){
-        for(int i = 0; i < height; i++)
-            for(int j = 0; j < width - 3; j++) {
-                setImageFreePlace( j, i, 0);
-                setImageFreePlace( j, i, 0);
-                setImageFreePlace(j, i,0);
+    private static void setRoundRoad() {
+        grid[Entry.getX()][0].createElement(TURNROAD, 90);
+        grid[Exit.getX()][0].createElement(TURNROAD, 0);
+        for (int j = Exit.getX() + 1; j < Entry.getX(); j++) {
+            grid[j][0].createElement(ROAD, 0);
+        }
+
+
+        for (int i = 1; i < height; i++) {
+            grid[Entry.getX()][i].createElement(ROAD, 90);
+            grid[Exit.getX()][i].createElement(ROAD, 90);
+        }
+    }
+
+    private static void setStationRoad() {
+        for (int i = 0; i < width; i++)
+            for (int j = 0; j < height; j++) {
+                grid[i][j].createElement(EMPTYPLACE, 0);
             }
-        setImageRoad(5, width - 3, 0,0);
-        setImageRoad(5, 0, 0,0);
-        setImageRoad(5, width - 1, 0,90);
-        setImageRoad(5, width - 4, 0,90);
-        for(int j = 1; j < width - 4; j++) {
-            setImageRoad((int) (rand.nextDouble() * 3), j, 0, 0);
-        }
-        setImageRoad((int) (rand.nextDouble() * 3), width - 2, 0, 0);
+        grid[width - 3][0].createElement(TURNROAD, 0);
+        grid[width - 1][0].createElement(TURNROAD, 90);
+        grid[width - 2][0].createElement(ROAD, 0);
 
-        for(int i = 1; i < height; i++) {
-            setImageRoad((int) (rand.nextDouble() * 3), width - 3, i, 90);
-            setImageRoad((int) (rand.nextDouble() * 3), width - 1, i, 90);
-            setImageRoad((int) (rand.nextDouble() * 3), width - 4, i, 90);
-            setImageRoad((int) (rand.nextDouble() * 3), 0, i, 90);
-            setImageFreePlace(width - 2, i,0);
+        for (int i = 1; i < height; i++) {
+            grid[width - 3][i].createElement(ROAD, 90);
+            grid[width - 1][i].createElement(ROAD, 90);
         }
-
     }
 
-    private static void setImageRoad(int imageOffsetX, int x, int y, double rotate){
-        FrameAnimation road = new FrameAnimation(imageOffsetX,
-                4,
-                50,
-                50,
-                6);
-        ImageView roadImage = road.getImageView();
-        roadImage.setFitHeight(GridElement.getElementHeight());
-        roadImage.setFitWidth(GridElement.getElementWidth());
-        roadImage.setRotate(rotate);
-        grid[x][y].setOccupied(true);
-        grid[x][y].setOnDragDropped(event -> {event.setDropCompleted(true);});
-        grid[x][y].getChildren().add(roadImage);
+
+    public static GridElement[][] getGrid() {
+        return grid;
     }
 
-    private static void setImageFreePlace(int x, int y, double rotate){
-        FrameAnimation road = new FrameAnimation(3,
-                4,
-                50,
-                50,
-                6);
-        ImageView roadImage = road.getImageView();
-        roadImage.setFitHeight(GridElement.getElementHeight());
-        roadImage.setFitWidth(GridElement.getElementWidth());
-        roadImage.setRotate(rotate);
-        grid[x][y].setOccupied(false);
-        grid[x][y].getChildren().add(roadImage);
+    public static int getX0() {
+        return x0;
+    }
+
+    public static int getY0() {
+        return y0;
+    }
+
+    public static int getWidth() {
+        return width;
+    }
+
+    public static int getHeight() {
+        return height;
     }
 }

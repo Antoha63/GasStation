@@ -85,7 +85,7 @@
             <Rectangle2D height="50.0" minX="100.0" minY="150.0" width="50.0" />
          </viewport>
       </ImageView>
-      <ImageView fx:id="exit" fitHeight="50.0" fitWidth="50.0" layoutX="750.0" layoutY="150.0" onDragDetected="#exitOnDragDetectedEvent" onDragOver="#exitOnDragOverEvent" onMouseClicked="#exitOnMouseClicked" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="exit" fitHeight="50.0" fitWidth="50.0" layoutX="750.0" layoutY="150.0" onDragDetected="#exitOnDragDetectedEvent" onDragOver="#exitOnDragOverEvent" onMouseClicked="#exitOnMouseClicked" pickOnBounds="true" preserveRatio="true" rotate="180.0">
          <image>
             <Image url="@../pics/sprites.png" />
          </image>
@@ -93,7 +93,7 @@
             <Rectangle2D height="50.0" minX="200.0" minY="200.0" width="50.0" />
          </viewport>
       </ImageView>
-      <ImageView fx:id="entry" fitHeight="50.0" fitWidth="50.0" layoutX="750.0" layoutY="60.0" onDragDetected="#entryOnDragDetectedEvent" onDragOver="#entryOnDragOverEvent" onMouseClicked="#entryOnMouseClicked" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="entry" fitHeight="50.0" fitWidth="50.0" layoutX="750.0" layoutY="60.0" onDragDetected="#entryOnDragDetectedEvent" onDragOver="#entryOnDragOverEvent" onMouseClicked="#entryOnMouseClicked" pickOnBounds="true" preserveRatio="true" rotate="180.0">
          <image>
             <Image url="@../pics/sprites.png" />
          </image>

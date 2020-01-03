@@ -14,28 +14,35 @@ public class CashBox extends MainStaticElement {
 
     private int x;
     private int y;
-    private int profit; //заработок за все время
-    private int balance;
-    private int criticalLevel; //between 10000 nd 100000
-    private boolean status = true;
+    private static int profit; //заработок за все время
+    private static int balance;
+    private static int criticalLevel; //between 10000 nd 100000
+    private static boolean status = true;
 
     public CashBox (int x, int y){
         this.x = x;
         this.y = y;
     }
 
-    public void setBalance(int payment){
-        this.balance += payment;
-        this.profit += payment;
+    public static void setStatus(boolean b) {
+        status = b;
     }
 
-    private void checkCashbox(){
+    public static void setBalance(int i) {
+        balance = i;
+    }
+
+    public void setPayment(int payment){
+        balance += payment;
+        profit += payment;
+    }
+
+    public boolean checkCashbox(){
+        boolean answer = false;
         if (balance >= criticalLevel && this.status == true)
         {
-            this.status = false;
-            //callCollectorCashbox()
-            this.status = true;
-            this.balance = 0;
+            answer = true;
         }
+        return answer;
     }
 }

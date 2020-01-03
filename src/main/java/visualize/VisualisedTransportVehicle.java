@@ -15,9 +15,8 @@ public class VisualisedTransportVehicle {
     private int imageOffsetX = 2;
 
 
-
-    public VisualisedTransportVehicle(int x, int y, double probabilityOfArrival, TransportVehicleType type){
-        switch (type){
+    public VisualisedTransportVehicle(int x, int y, double probabilityOfArrival, TransportVehicleType type) {
+        switch (type) {
             case AUTOMOBILE:
                 this.transportVehicle = new Vehicle(x, y, probabilityOfArrival);
                 this.frameAnimation = new FrameAnimation(imageOffsetX,

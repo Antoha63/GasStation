@@ -31,14 +31,14 @@ public class MoveController {
 
     public MoveController() {
         frameAnimation = new FrameAnimation(2,
-                                            0,
-                                            100,
-                                            50,
-                                            3);
+                0,
+                100,
+                50,
+                3);
     }
 
     public void go(AnchorPane root) throws IOException {
-                ExponentialDistribution exponentialDistribution = new ExponentialDistribution(1);
+        ExponentialDistribution exponentialDistribution = new ExponentialDistribution(1);
 
         final int[] i = {0};
         final int[] j = {0};
