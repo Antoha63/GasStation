@@ -35,6 +35,5 @@ public abstract class TransportVehicle extends Pane {
         }
     }
 
-    public void go(ImageView imageView) throws InterruptedException {
-    }
+    public abstract void go(ImageView imageView) throws InterruptedException;
 }

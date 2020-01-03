@@ -12,12 +12,32 @@ import lombok.ToString;
 
 public class Exit extends MainStaticElement {
 
-    int x;
-    int y;
+    private static int x;
+    private static int y;
+    private static boolean flag; //isSetted
 
-    public Exit (int x, int y){
-        this.x = x;
-        this.y = y;
+    public static void setX(int x){
+        Exit.x=x;
+    }
+
+    public static void setY(int y){
+        Exit.y=y;
+    }
+
+    public static int getX(){
+        return x;
+    }
+
+    public static int getY(){
+        return y;
+    }
+
+    public static boolean getFlag(){
+        return flag;
+    }
+
+    public static void setFlag(boolean flag){
+        Exit.flag = flag;
     }
 }
 

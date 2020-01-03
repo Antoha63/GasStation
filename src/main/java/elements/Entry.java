@@ -9,15 +9,35 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @ToString
 public class Entry extends MainStaticElement {
 
-    int x;
-    int y;
+    private static int x;
+    private static int y;
+    private static boolean flag; //isSetted
 
-    public Entry (int x, int y){
-        this.x = x;
-        this.y = y;
+
+    public static void setX(int x){
+        Entry.x=x;
+    }
+
+    public static void setY(int y){
+        Entry.y=y;
+    }
+
+    public static int getX(){
+        return x;
+    }
+
+    public static int getY(){
+        return y;
+    }
+
+    public static boolean getFlag(){
+        return flag;
+    }
+
+    public static void setFlag(boolean flag){
+        Entry.flag = flag;
     }
 }

@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import topologyObjects.CollectorFuel;
 
 @Setter
 @Getter
@@ -26,16 +27,15 @@ public class FuelTank extends MainStaticElement {
         this.y = y;
     }
 
-    private void checkFuelTank(){
+    public boolean checkFuelTank(){
+        boolean answer = false;
         if (currentVolume <= criticalLevel/100*volume && this.status == true){
-            this.status = false;
-            //callCollectorFuel()
-            this.status = true;
-            this.currentVolume = volume;
+            answer = true;
         }
+        return answer;
     }
 
-    public void setCurrentVolume(int volume){
+    public void minusVolume(int volume){
         if (currentVolume - volume >= 0)
             this.currentVolume -= volume;
         else this.currentVolume -= currentVolume;
