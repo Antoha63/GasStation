@@ -8,12 +8,13 @@ import elements.PetrolStation;
 import elements.ElementType;
 import elements.mainElement.MainStaticElement;
 import frameModule.FrameAnimation;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Random;
+
+import static elements.ElementType.*;
 
 @Getter
 @Setter
@@ -25,9 +26,10 @@ public class GridElement extends Pane {
     private int j;
     private MainStaticElement mainStaticElement;
     private FrameAnimation frameAnimation;
+    private ElementType elementType;
     private static Random rand = new Random();
 
-    public GridElement(int i, int j, boolean isOccupied){
+    public GridElement(int i, int j, boolean isOccupied) {
         this.isOccupied = isOccupied;
         this.setPrefWidth(50);
         this.setPrefHeight(50);
@@ -35,13 +37,14 @@ public class GridElement extends Pane {
         this.j = j;
         this.setTranslateX(Grid.getX0() + i * GridElement.getElementWidth());
         this.setTranslateY(Grid.getY0() + j * GridElement.getElementHeight());
-        width = (int)getPrefWidth();
-        height = (int)getPrefHeight();
+        width = (int) getPrefWidth();
+        height = (int) getPrefHeight();
     }
 
-    public void createElement(ElementType type, double rotate){
-        switch(type){
+    public void createElement(ElementType type, double rotate) {
+        switch (type) {
             case PETROLSTATION:
+                this.elementType = PETROLSTATION;
                 this.mainStaticElement = new PetrolStation(i, j);
                 this.setOccupied(true);
                 System.out.println(this.mainStaticElement);
@@ -49,12 +52,14 @@ public class GridElement extends Pane {
                 this.getChildren().add(this.frameAnimation.getImageView());
                 break;
             case FUELTANK:
+                this.elementType = FUELTANK;
                 this.mainStaticElement = new FuelTank(i, j);
                 this.setOccupied(true);
                 this.frameAnimation = new FrameAnimation(1, 3, 50, 50, 3);
                 this.getChildren().add(this.frameAnimation.getImageView());
                 break;
             case CASHBOX:
+                this.elementType = CASHBOX;
                 this.mainStaticElement = new CashBox(i, j);
                 this.setOccupied(true);
                 System.out.println(this.mainStaticElement);
@@ -62,6 +67,7 @@ public class GridElement extends Pane {
                 this.getChildren().add(this.frameAnimation.getImageView());
                 break;
             case EXIT:
+                this.elementType = EXIT;
                 Exit.setX(i);
                 Exit.setY(j);
                 Exit.setFlag(true);
@@ -71,6 +77,7 @@ public class GridElement extends Pane {
                 this.getChildren().add(this.frameAnimation.getImageView());
                 break;
             case ENTRY:
+                this.elementType = ENTRY;
                 Entry.setX(i);
                 Entry.setY(j);
                 Entry.setFlag(true);
@@ -80,44 +87,53 @@ public class GridElement extends Pane {
                 this.getChildren().add(this.frameAnimation.getImageView());
                 break;
             case TURNROAD:
+                this.elementType = TURNROAD;
                 this.setOccupied(true);
-                this.frameAnimation = new FrameAnimation(5, 4,50,50,6);
+                this.frameAnimation = new FrameAnimation(5, 4, 50, 50, 6);
                 this.frameAnimation.getImageView().setRotate(rotate);
                 this.getChildren().add(this.frameAnimation.getImageView());
                 break;
             case ROAD:
+                this.elementType = ROAD;
                 this.setOccupied(true);
-                this.frameAnimation = new FrameAnimation((int) (rand.nextDouble() * 3),4,50,50,6);
+                this.frameAnimation = new FrameAnimation((int) (rand.nextDouble() * 3), 4, 50, 50, 6);
                 this.frameAnimation.getImageView().setRotate(rotate);
                 this.getChildren().add(this.frameAnimation.getImageView());
                 break;
             case CROSSROAD:
+                this.elementType = CROSSROAD;
                 this.setOccupied(true);
-                this.frameAnimation = new FrameAnimation(4,4,50,50,6);
+                this.frameAnimation = new FrameAnimation(4, 4, 50, 50, 6);
                 this.frameAnimation.getImageView().setRotate(rotate);
                 this.getChildren().add(this.frameAnimation.getImageView());
                 break;
             case EMPTYPLACE:
+                this.elementType = EMPTYPLACE;
                 this.setOccupied(false);
-                this.frameAnimation = new FrameAnimation(3,4,50,50,6);
+                this.frameAnimation = new FrameAnimation(3, 4, 50, 50, 6);
                 this.frameAnimation.getImageView().setRotate(rotate);
                 this.getChildren().add(this.frameAnimation.getImageView());
                 break;
         }
     }
 
-    public void deleteElement(){
+    public void deleteElement() {
+        //if (!elementType.equals(ROAD) && !elementType.equals(CROSSROAD))
+            this.getChildren().remove(frameAnimation.getImageView());
         frameAnimation = null;
         mainStaticElement = null;
+        isOccupied = false;
     }
 
-    public static int getElementWidth(){
+    public static int getElementWidth() {
         return width;
     }
-    public static int getElementHeight(){
+
+    public static int getElementHeight() {
         return height;
     }
-    public boolean getIsOccupied(){
+
+    public boolean getIsOccupied() {
         return isOccupied;
     }
 }

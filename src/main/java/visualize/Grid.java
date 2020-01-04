@@ -1,5 +1,6 @@
 package visualize;
 
+import com.sun.xml.bind.v2.TODO;
 import elements.Entry;
 import elements.Exit;
 import frameModule.FrameAnimation;
@@ -84,7 +85,6 @@ public class Grid {
                 });
                 grid[i][j].setOnMouseClicked(event -> {
                     if (grid[finalI][finalJ].getMainStaticElement() != null) {
-                        grid[finalI][finalJ].getChildren().remove(grid[finalI][finalJ].getFrameAnimation().getImageView());
                         grid[finalI][finalJ].deleteElement();
                     }
                 });
@@ -110,13 +110,12 @@ public class Grid {
             });
             grid[width - 2][j].setOnMouseClicked(event -> {
                 if (grid[width - 2][finalJ].getMainStaticElement() != null) {
-                    grid[width - 2][finalJ].getChildren().remove(grid[width - 2][finalJ].getFrameAnimation().getImageView());
                     grid[width - 2][finalJ].deleteElement();
                 }
             });
         }
         /*Область въезда и выезда*/
-        for (int i = 0; i < width - 3; i++) {
+        for (int i = 1; i < width - 3; i++) {
             int finalI = i;
 
             grid[i][Grid.height].setOnDragOver(event -> {
@@ -132,14 +131,37 @@ public class Grid {
             grid[i][Grid.height].setOnDragDropped(event -> {
                 switch (event.getDragboard().getString()) {
                     case "exit":
-                        grid[finalI][Grid.height].createElement(EXIT, 180);
+                        if (finalI <= Entry.getX() && Entry.getFlag())
+                            grid[finalI][Grid.height].createElement(EXIT, 180);
                         break;
                     case "entry":
                         grid[finalI][Grid.height].createElement(ENTRY, 180);
                         break;
                 }
-                if (Entry.getFlag() && Exit.getFlag())
+                if (Entry.getFlag() && Exit.getFlag() && Entry.getX() > Exit.getX())
                     setRoundRoad();
+            });
+            grid[i][Grid.height].setOnMouseClicked(event -> { //TODO: fix it
+                if (grid[finalI][Grid.height].getIsOccupied()) {
+                    if (Entry.getX() == 0 ^ Exit.getX() == 0) {
+                        grid[finalI][Grid.height].deleteElement();
+                    }
+                    if (Entry.getX() != 0 && Exit.getX() != 0) {
+                        if (grid[finalI][Grid.height].getElementType() == ENTRY) {
+                            removeRoundRoad();
+                            grid[finalI][Grid.height].deleteElement();
+                            Entry.setX(0);
+                            Entry.setY(0);
+                            Entry.setFlag(false);
+                        } else {
+                            removeRoundRoad();
+                            grid[finalI][Grid.height].deleteElement();
+                            Exit.setX(0);
+                            Exit.setY(0);
+                            Exit.setFlag(false);
+                        }
+                    }
+                }
             });
         }
         setRoad();
@@ -197,6 +219,23 @@ public class Grid {
             grid[Exit.getX()][i].createElement(ROAD, 90);
         }
     }
+
+    private static void removeRoundRoad() {
+        if (Exit.getX() != 0 && Entry.getX() != 0) {
+            grid[Entry.getX()][0].deleteElement();
+            grid[Exit.getX()][0].deleteElement();
+            for (int j = Exit.getX() + 1; j < Entry.getX(); j++) {
+                grid[j][0].deleteElement();
+            }
+
+
+            for (int i = 1; i < height; i++) {
+                grid[Entry.getX()][i].deleteElement();
+                grid[Exit.getX()][i].deleteElement();
+            }
+        }
+    }
+
 
     private static void setStationRoad() {
         for (int i = 0; i < width; i++)

@@ -40,4 +40,5 @@ public class Entry extends MainStaticElement {
     public static void setFlag(boolean flag){
         Entry.flag = flag;
     }
+
 }

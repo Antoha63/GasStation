@@ -51,7 +51,6 @@ public class MoveController {
                 if(i[0]>=350){i[0] = 0;}
                 i[0]++;
                 if((int)(exponentialDistribution.getTimes()[j[0]] * 100) == i[0]){
-                    System.out.println((int)(exponentialDistribution.getTimes()[j[0]] * 100));
                     VisualisedTransportVehicle visualisedTransportVehicle = new VisualisedTransportVehicle((int)Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getTranslateX(),
                             (int)Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getTranslateY(),
                             0.1, AUTOMOBILE);
