@@ -128,7 +128,7 @@ public class Grid {
                     }
                 }
             });
-            grid[i][Grid.height].setOnDragDropped(event -> {//TODO: fix it
+            grid[i][Grid.height].setOnDragDropped(event -> {//TODO: fix readd round road when deleting the Entry
                 switch (event.getDragboard().getString()) {
                     case "exit":
                         if (finalI <= Entry.getX() && Entry.getFlag())

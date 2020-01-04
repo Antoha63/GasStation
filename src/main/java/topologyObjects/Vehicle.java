@@ -66,13 +66,13 @@ this.payment = actualFuelVolume *f.getPrice();
             this.moveX(-1);
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());
-        }/* else {
+        } else {
 //движение до въезда
             if (this.getX() > Entry.getX() * 40 + Grid.getX0()) {
                 this.moveX(-1);
                 imageView.setTranslateX(this.getX());
                 imageView.setTranslateY(this.getY());
-            }
+            }/*
 //поиск свободной ТРК, если нашел - 1 пиксель вверх, нет - 1 пиксель влево
             else if (this.getX() == Entry.getX() * 40 + Grid.getX0() && this.getY() == Entry.getY() * 40 + Grid.getY0()) {
                 PetrolStation pt_tmp;
@@ -203,6 +203,6 @@ this.moveX(-1);
 imageView.setTranslateX(this.getX());
 imageView.setTranslateY(this.getY());
 }*/
-        //}
+        }
     }
 }

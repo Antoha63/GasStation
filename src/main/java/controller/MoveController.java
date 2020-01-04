@@ -15,6 +15,7 @@ import visualize.VisualisedTransportVehicle;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static topologyObjects.TransportVehicleType.AUTOMOBILE;
 
@@ -47,16 +48,16 @@ public class MoveController {
         AnimationTimer animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-
-                if(i[0]>=350){i[0] = 0;}
                 i[0]++;
                 if((int)(exponentialDistribution.getTimes()[j[0]] * 100) == i[0]){
                     VisualisedTransportVehicle visualisedTransportVehicle = new VisualisedTransportVehicle((int)Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getTranslateX(),
                             (int)Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getTranslateY(),
-                            0.1, AUTOMOBILE);
+                            0.5, AUTOMOBILE);
                     vehicleArrayList.add(visualisedTransportVehicle);
                     root.getChildren().add(vehicleArrayList.get(numOfVehicle[0]).getFrameAnimation().getImageView());
                     numOfVehicle[0]++;
+                    i[0] = 0;
+                    if(j[0] == 99) j[0] = 0;
                     j[0]++;
                 }
                 for(int k = 0; k < vehicleArrayList.size(); k++) {
