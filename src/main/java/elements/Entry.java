@@ -10,12 +10,12 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+
 public class Entry extends MainStaticElement {
 
     private static int x;
     private static int y;
     private static boolean flag; //isSetted
-
 
     public static void setX(int x){
         Entry.x=x;
@@ -37,8 +37,8 @@ public class Entry extends MainStaticElement {
         return flag;
     }
 
-    public static void setFlag(boolean flag){
-        Entry.flag = flag;
+    public static void setFlag(boolean f){
+        flag = f;
     }
 
 }

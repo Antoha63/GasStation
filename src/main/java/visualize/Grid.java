@@ -128,7 +128,7 @@ public class Grid {
                     }
                 }
             });
-            grid[i][Grid.height].setOnDragDropped(event -> {
+            grid[i][Grid.height].setOnDragDropped(event -> {//TODO: fix it
                 switch (event.getDragboard().getString()) {
                     case "exit":
                         if (finalI <= Entry.getX() && Entry.getFlag())
@@ -141,12 +141,14 @@ public class Grid {
                 if (Entry.getFlag() && Exit.getFlag() && Entry.getX() > Exit.getX())
                     setRoundRoad();
             });
-            grid[i][Grid.height].setOnMouseClicked(event -> { //TODO: fix it
+            grid[i][Grid.height].setOnMouseClicked(event -> {
                 if (grid[finalI][Grid.height].getIsOccupied()) {
-                    if (Entry.getX() == 0 ^ Exit.getX() == 0) {
+                    if (Entry.getX() == 0 ^ Exit.getX() == 0 && (finalI == Exit.getX() || finalI == Entry.getX())) {
                         grid[finalI][Grid.height].deleteElement();
+                        System.out.println("xyj");
                     }
-                    if (Entry.getX() != 0 && Exit.getX() != 0) {
+                    if (Entry.getX() != 0 && Exit.getX() != 0 && (finalI == Exit.getX() || finalI == Entry.getX())) {
+                        System.out.println("pizda");
                         if (grid[finalI][Grid.height].getElementType() == ENTRY) {
                             removeRoundRoad();
                             grid[finalI][Grid.height].deleteElement();

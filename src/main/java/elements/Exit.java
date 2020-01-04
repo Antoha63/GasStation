@@ -36,8 +36,8 @@ public class Exit extends MainStaticElement {
         return flag;
     }
 
-    public static void setFlag(boolean flag){
-        Exit.flag = flag;
+    public static void setFlag(boolean f){
+        flag = f;
     }
 }
 

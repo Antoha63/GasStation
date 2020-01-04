@@ -11,6 +11,7 @@ import lombok.Setter;
 import lombok.ToString;
 import visualize.Grid;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
@@ -24,12 +25,14 @@ public class Vehicle extends TransportVehicle {
     private int actualFuelVolume;
     private String fuelType;
     private int payment;
-    private Random rand;
+    private Random rand = new Random();
+    private double randValue;
     private PetrolStation pt;
+    ArrayList<PetrolStation> listOfPetrolStations;
 
     public Vehicle(int x, int y, double probabilityOfArrival/*CarRepository carRepository, FuelRepository fuelRepository,*/) {
         super(x, y, probabilityOfArrival);
-        rand.nextDouble();
+        randValue = rand.nextDouble();
 /*List<Car> carList = carRepository.findAll();
 Random rand = new Random();
 Car car = carList.get(rand.nextInt(carList.size()));
@@ -57,13 +60,13 @@ this.payment = actualFuelVolume *f.getPrice();
     }
 
     @Override
-    public void go(/*Cashbox cashbox, List<FuelTank> listOfFuelTanks, ArrayList<PetrolStation> listOfPetrolStations,*/ImageView imageView) throws InterruptedException {
+    public void go(/*Cashbox cashbox, List<FuelTank> listOfFuelTanks,*/ ImageView imageView) throws InterruptedException {
 
-        if (rand > this.getProbabilityOfArrival()) {
+        if (randValue > this.getProbabilityOfArrival()) {
             this.moveX(-1);
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());
-        } else {
+        }/* else {
 //движение до въезда
             if (this.getX() > Entry.getX() * 40 + Grid.getX0()) {
                 this.moveX(-1);
@@ -76,7 +79,7 @@ this.payment = actualFuelVolume *f.getPrice();
                 int tmp = 0;
                 Iterator<PetrolStation> iter = listOfPetrolStations.iterator();
                 while (iter.hasNext()) {
-                    if (listOfPetrolStations.get(tmp).getStatus() == true) {
+                    if (listOfPetrolStations.get(tmp).getStatus()) {
                         pt_tmp = listOfPetrolStations.get(tmp);
                         if (pt.getX() == 0 && pt.getY() == 0)
                             pt = pt_tmp;
@@ -87,7 +90,7 @@ this.payment = actualFuelVolume *f.getPrice();
                 }
                 if (pt != null)
                     pt.setStatus(false);
-                if (pt != null && pt.getStatus() == false) {
+                if (pt != null && !pt.getStatus()) {
                     this.moveY(-1);
                     imageView.setTranslateX(this.getX());
                     imageView.setTranslateY(this.getY());
@@ -133,17 +136,17 @@ this.payment = actualFuelVolume *f.getPrice();
                 imageView.setTranslateY(this.getY());
             }
 //доехали до дороги вниз
-            else if (pt.getStatus() == true && this.getX() == Exit.getX() * 40 + Grid.getX0()) {
+            else if (pt.getStatus() && this.getX() == Exit.getX() * 40 + Grid.getX0()) {
                 this.moveY(+1);
                 imageView.setTranslateX(this.getX());
                 imageView.setTranslateY(this.getY());
             }
 //выехали на дорогу, уезжаем
-            else if (pt.getStatus() == true && this.getX() == Exit.getX() * 40 + Grid.getX0() && this.getY() == Exit.getY() * 40 + Grid.getY0()) {
+            else if (pt.getStatus() && this.getX() == Exit.getX() * 40 + Grid.getX0() && this.getY() == Exit.getY() * 40 + Grid.getY0()) {
                 this.moveX(-1);
                 imageView.setTranslateX(this.getX());
                 imageView.setTranslateY(this.getY());
-            }
+            }*/
 
 
 /*while (this.getX() != 4 /*Entry.getX()) {
@@ -200,6 +203,6 @@ this.moveX(-1);
 imageView.setTranslateX(this.getX());
 imageView.setTranslateY(this.getY());
 }*/
-        }
+        //}
     }
 }
