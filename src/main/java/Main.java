@@ -20,7 +20,7 @@ public class Main {
         CarRepository carRepository = context.getBean(CarRepository.class);
         FuelRepository fuelRepository = context.getBean(FuelRepository.class);
 
-        Topology topology = new Topology();
+        /*Topology topology = new Topology();
         topology.setHeight(1);
         topology.setWidth(1);
         topology.setCashBoxX(1);
@@ -47,11 +47,11 @@ public class Main {
         car.setModel("Mercedes");
         car.setTankVolume(10);
         car.setFuelType("95");
-        carRepository.save(car);
+        carRepository.save(car);*/
 
         Fuel fuel = new Fuel();
-        fuel.setName("95");
-        fuel.setPrice(45);
+        fuel.setName("92");
+        fuel.setPrice(40);
         fuelRepository.save(fuel);
     }
 }

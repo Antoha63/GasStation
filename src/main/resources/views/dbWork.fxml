@@ -5,14 +5,14 @@
 
 <AnchorPane prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DBWorkController">
    <children>
-      <TableView layoutX="14.0" layoutY="20.0" prefHeight="318.0" prefWidth="321.0">
+      <TableView fx:id="fuelTable" layoutX="14.0" layoutY="20.0" prefHeight="318.0" prefWidth="321.0">
         <columns>
-          <TableColumn prefWidth="154.0" text="Вид топлива" />
-          <TableColumn prefWidth="166.0" text="Цена" />
+          <TableColumn fx:id="columnName" prefWidth="155.0" text="Вид топлива" />
+          <TableColumn fx:id="columnPrice" prefWidth="165.0" text="Цена (рублей за литр)" />
         </columns>
       </TableView>
-      <Button layoutX="14.0" layoutY="373.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="89.0" text="Добавить" />
+      <Button layoutX="14.0" layoutY="373.0" mnemonicParsing="false" onAction="#addFuel" prefHeight="58.0" prefWidth="89.0" text="Добавить" />
       <Button layoutX="130.0" layoutY="373.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="89.0" text="Изменить" />
-      <Button layoutX="246.0" layoutY="373.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="89.0" text="Удалить" />
+      <Button layoutX="246.0" layoutY="373.0" mnemonicParsing="false" onAction="#removeFuel" prefHeight="58.0" prefWidth="89.0" text="Удалить" />
    </children>
 </AnchorPane>
