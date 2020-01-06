@@ -15,15 +15,11 @@ public class BoundsController {
     @FXML
     private Spinner<Integer> topologyWidth;
 
-    public int getTopologyHeight(){
-        return topologyHeight.getValue();
-    }
-    public int getTopologyWidth(){
-        return topologyWidth.getValue();
+    public void initialize() {
+        ConstructorController constructorController = new ConstructorController();
+        constructorController.setBounds(topologyWidth.getValue(), topologyHeight.getValue());
     }
 
-    public BoundsController() {
-    }
 
     @FXML
     public void createConstructor() throws IOException {

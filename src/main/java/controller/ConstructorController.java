@@ -2,34 +2,32 @@ package controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Spinner;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Line;
-import javafx.stage.Stage;
 import visualize.Grid;
-import visualize.GridElement;
 
-import javax.swing.*;
 import java.io.IOException;
 
 public class ConstructorController {
+    private static int topologyWidth;
+    private static int topologyHeight;
+
+    public void setBounds(int width, int height) {
+        topologyWidth = width;
+        topologyHeight = height;
+    }
 
     @FXML
     private AnchorPane anchorPane;
 
-    public void initialize() throws IOException {
-        //BoundsController boundsController = FXMLLoader.load(getClass().getResource("/views/topologySize.fxml"));
+    public void initialize(){
 
         int x0 = 220;
         int y0 = 0;
 
-        int topologyWidth = 7;//boundsController.getTopologyWidth();
-        int topologyHeight = 3;//boundsController.getTopologyHeight();
         Grid.initGrid(x0, y0, topologyWidth, topologyHeight);
         for (int i = 0; i < topologyWidth; i++) {
             for (int j = 0; j < topologyHeight + 1; j++) {
@@ -42,9 +40,6 @@ public class ConstructorController {
 
     }
 
-
-    @FXML
-    private Button startButton;
     @FXML
     void startModelling(ActionEvent event) throws IOException {
         MoveController moveController = new MoveController();
@@ -53,10 +48,12 @@ public class ConstructorController {
 
     @FXML
     private ImageView entry;
+
     @FXML
     void entryOnDragOverEvent(DragEvent event) {
         event.acceptTransferModes(TransferMode.COPY);
     }
+
     @FXML
     void entryOnDragDetectedEvent(MouseEvent event) {
         Dragboard dragboard = entry.startDragAndDrop(TransferMode.COPY);
@@ -65,6 +62,7 @@ public class ConstructorController {
         dragboard.setContent(clipboardContent);
         event.consume();
     }
+
     @FXML
     void entryOnMouseClicked(MouseEvent event) {
         entry.setRotate(entry.getRotate() + 90);
@@ -73,10 +71,12 @@ public class ConstructorController {
 
     @FXML
     private ImageView exit;
+
     @FXML
     void exitOnDragOverEvent(DragEvent event) {
         event.acceptTransferModes(TransferMode.COPY);
     }
+
     @FXML
     void exitOnDragDetectedEvent(MouseEvent event) {
         Dragboard dragboard = exit.startDragAndDrop(TransferMode.COPY);
@@ -85,6 +85,7 @@ public class ConstructorController {
         dragboard.setContent(clipboardContent);
         event.consume();
     }
+
     @FXML
     void exitOnMouseClicked(MouseEvent event) {
         exit.setRotate(exit.getRotate() + 90);
@@ -93,10 +94,12 @@ public class ConstructorController {
 
     @FXML
     private ImageView cashBox;
+
     @FXML
     void cashBoxOnDragOverEvent(DragEvent event) {
         event.acceptTransferModes(TransferMode.COPY);
     }
+
     @FXML
     void cashBoxOnDragDetectedEvent(MouseEvent event) {
         Dragboard dragboard = cashBox.startDragAndDrop(TransferMode.COPY);
@@ -109,10 +112,12 @@ public class ConstructorController {
 
     @FXML
     private ImageView petrolStation;
+
     @FXML
     void petrolStationOnDragOverEvent(DragEvent event) {
         event.acceptTransferModes(TransferMode.COPY);
     }
+
     @FXML
     void petrolStationOnDragDetectedEvent(MouseEvent event) {
         Dragboard dragboard = petrolStation.startDragAndDrop(TransferMode.COPY);
@@ -125,10 +130,12 @@ public class ConstructorController {
 
     @FXML
     private ImageView fuelTank;
+
     @FXML
     void fuelTankOnDragOverEvent(DragEvent event) {
         event.acceptTransferModes(TransferMode.COPY);
     }
+
     @FXML
     void fuelTankOnDragDetectedEvent(MouseEvent event) {
         Dragboard dragboard = fuelTank.startDragAndDrop(TransferMode.COPY);
@@ -137,6 +144,5 @@ public class ConstructorController {
         dragboard.setContent(clipboardContent);
         event.consume();
     }
-
 
 }

@@ -29,7 +29,7 @@ public class Vehicle extends TransportVehicle {
     private Random rand = new Random();
     private double randValue;
     private PetrolStation pt;
-    ArrayList<PetrolStation> listOfPetrolStations;
+    private ArrayList<PetrolStation> listOfPetrolStations;
 
     public Vehicle(int x, int y, double probabilityOfArrival/*CarRepository carRepository, FuelRepository fuelRepository,*/) {
         super(x, y, probabilityOfArrival);
