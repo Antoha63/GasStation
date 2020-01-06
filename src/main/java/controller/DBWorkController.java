@@ -7,11 +7,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import repositories.FuelRepository;
 
@@ -34,7 +36,14 @@ public class DBWorkController {
     public TableColumn<Fuel, String> columnPrice;
 
     @FXML
+    private Button closeButton;
+
+    @FXML
     public void initialize(){
+        closeButton.setOnAction(event -> {
+        Stage stage = (Stage) closeButton.getScene().getWindow();
+        stage.close();
+    });
         initData();
 
         columnName.setCellValueFactory(new PropertyValueFactory<Fuel, String>("name"));
@@ -54,6 +63,7 @@ public class DBWorkController {
 
     public void addFuel() throws IOException {
         Stage primaryStage = new Stage();
+        primaryStage.initStyle(StageStyle.TRANSPARENT);
         Parent root = FXMLLoader.load(getClass().getResource("/views/fuelParametersAdd.fxml"));
         primaryStage.setTitle("");
         primaryStage.setScene(new Scene(root));

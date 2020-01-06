@@ -1,11 +1,68 @@
-.button{
+.button_restyling{
 	-fx-font-family: Constantia;
 	-fx-font-size: 14px;
+	-fx-text-alignment: center;
+	-fx-border-color: #3e3e3e;
+	-fx-border-radius: 5px;
+	-fx-background-color: linear-gradient(#CBBFB3, #968b7f);
+	-fx-background-radius: 5px;
+}
+.button_restyling:hover{
+	-fx-font-family: Constantia;
+	-fx-font-size: 14px;
+	-fx-text-alignment: center;
+	-fx-border-color: #3e3e3e;
+	-fx-border-radius: 5px;
+	-fx-background-color: #CBBFB3;
+	-fx-background-radius: 5px;
+}
+.button_restyling:pressed{
+	-fx-font-family: Constantia;
+	-fx-font-size: 14px;
+	-fx-text-alignment: center;
+	-fx-border-color: #3e3e3e;
+	-fx-border-radius: 5px;
+	-fx-background-color: #968b7f;
+	-fx-background-radius: 5px;
+}
+.button_restyling_bounds{
 	-fx-pref-width: 200px;
 	-fx-pref-height: 30px;
-	-fx-text-alignment: center;
+}
+.button_play{
+	-fx-background-image: url("pics/icons8-play-48.png");
+	-fx-background-size: 20px;
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center;
+}
+.button_pause{
+	-fx-background-image: url("pics/icons8-pause-48.png");
+	-fx-background-size: 20px;
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center;
+}
+.button_stop{
+	-fx-background-image: url("pics/icons8-stop-48.png");
+	-fx-background-size: 20px;
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center;
 }
 .text{
 	-fx-font-family: Constantia;
 	-fx-font-size: 14px;
+}
+.window_background{
+	-fx-background-color: #f1ede1;
+	-fx-background-size: cover;
+}
+.button_close{
+	-fx-background-repeat: no-repeat;
+	-fx-border-radius: 25px;
+	-fx-border-color: #C62121;
+	-fx-background-color: transparent;
+	-fx-background-image: url("pics/icons-x.png");
+	-fx-background-size: 8px;
+	-fx-background-position: center;
+	-fx-pref-width: 16px;
+	-fx-pref-height: 16px;
 }

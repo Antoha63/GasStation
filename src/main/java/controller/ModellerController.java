@@ -7,10 +7,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Spinner;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import topologyObjects.Vehicle;
 
 import java.io.IOException;
@@ -52,7 +54,14 @@ public class ModellerController {
     @FXML
     private Label labelIntens;
 
+    @FXML
+    private Button closeButton;
+
     public void initialize (){
+        closeButton.setOnAction(event -> {
+        Stage stage = (Stage) closeButton.getScene().getWindow();
+        stage.close();
+    });
         radioButtonDeterministicDistribution.setOnAction(event -> {
             labelTime.setVisible(true);
             time.setVisible(true);
@@ -97,6 +106,7 @@ public class ModellerController {
 
 
         Stage primaryStage = new Stage();
+        primaryStage.initStyle(StageStyle.TRANSPARENT);
         Parent root = FXMLLoader.load(getClass().getResource("/views/imitation.fxml"));
         primaryStage.setTitle("ИМИТАЦИЯ");
         primaryStage.setScene(new Scene(root));
@@ -108,6 +118,7 @@ public class ModellerController {
     @FXML
     public void createDBWork() throws IOException {
         Stage primaryStage = new Stage();
+        primaryStage.initStyle(StageStyle.TRANSPARENT);
         Parent root = FXMLLoader.load(getClass().getResource("/views/dbWork.fxml"));
         primaryStage.setTitle("");
         primaryStage.setScene(new Scene(root));
