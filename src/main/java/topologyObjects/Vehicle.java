@@ -72,7 +72,7 @@ this.payment = actualFuelVolume *f.getPrice();
                 this.moveX(-1);
                 imageView.setTranslateX(this.getX());
                 imageView.setTranslateY(this.getY());
-                System.out.println("Едем до въезда");
+                //System.out.println("Едем до въезда");
             }
 //поиск свободной ТРК, если нашел - 1 пиксель вверх, нет - 1 пиксель влево
             else if (this.getX() == Entry.getX() * 50 + Grid.getX0() && this.getY() == Entry.getY() * 50 + Grid.getY0()) {
@@ -95,7 +95,8 @@ this.payment = actualFuelVolume *f.getPrice();
                     this.moveY(-1);
                     imageView.setTranslateX(this.getX());
                     imageView.setTranslateY(this.getY());
-                System.out.println("На въезде. Едем вверх");/*
+                //System.out.println("На въезде. Едем вверх");
+                /*
                 } else if (pt == null) {
                     this.moveX(-1);
                     imageView.setTranslateX(this.getX());
@@ -107,14 +108,14 @@ this.payment = actualFuelVolume *f.getPrice();
                 this.moveX(-1);
                 imageView.setTranslateX(this.getX());
                 imageView.setTranslateY(this.getY());
-                System.out.println("НЕ ДОЛЖЕН БВЛ ЗАЙТИ");
+                //System.out.println("НЕ ДОЛЖЕН БВЛ ЗАЙТИ");
             }
             //нашли трк, едем вверх до уровня над ней
             else if (this.getX() == Entry.getX() * 50 + Grid.getX0() && this.getY() < Entry.getY() * 50 + Grid.getY0() && this.getY() > /*pt.getY()*/ 2 * 50 - 50 + Grid.getY0()) {
                 this.moveY(-1);
                 imageView.setTranslateX(this.getX());
                 imageView.setTranslateY(this.getY());
-                System.out.println("Едем вверх от въезда");
+                //System.out.println("Едем вверх от въезда");
             }
 //едем влево до ТРК
             /*else if (this.getX() > pt.getX() * 40 + Grid.getX0() && this.getY() == pt.getY() * 40 - 40 + Grid.getY0()) {
@@ -138,78 +139,22 @@ this.payment = actualFuelVolume *f.getPrice();
                 this.moveX(-1);
                 imageView.setTranslateX(this.getX());
                 imageView.setTranslateY(this.getY());
-                System.out.println("Едем влево после типо ТРК");
+                //System.out.println("Едем влево после типо ТРК");
             }
 //доехали до дороги вниз
             else if (/*pt.getStatus() &&*/ this.getX() == Exit.getX() * 50 + Grid.getX0() && this.getY() != Exit.getY() * 50 + Grid.getY0()) {
                 this.moveY(+1);
                 imageView.setTranslateX(this.getX());
                 imageView.setTranslateY(this.getY());
-                System.out.println("Едем на выезд");
+                //System.out.println("Едем на выезд");
             }
 //выехали на дорогу, уезжаем
             else if (/*pt.getStatus() &&*/ this.getX() <= Exit.getX() * 50 + Grid.getX0() && this.getY() == Exit.getY() * 50 + Grid.getY0()) {
                 this.moveX(-1);
                 imageView.setTranslateX(this.getX());
                 imageView.setTranslateY(this.getY());
-                System.out.println("Уезжает в зака");
+                //System.out.println("Уезжает в зака");
             }
-
-
-/*while (this.getX() != 4 /*Entry.getX()) {
-this.moveX(-1);
-imageView.setTranslateX(this.getX());
-imageView.setTranslateY(this.getY());
-}
-
-PetrolStation pt_tmp = new PetrolStation();
-PetrolStation pt = new PetrolStation();
-int tmp = 0;
-Iterator<PetrolStation> iter = listOfPetrolStations.iterator();
-while(iter.hasNext()){
-if(listOfPetrolStations.get(tmp).getStatus() == true) {
-pt_tmp = listOfPetrolStations.get(tmp);
-if (pt.getX() == 0 && pt.getY() == 0)
-pt = pt_tmp;
-if (pt_tmp.getX() + pt_tmp.getY() > pt.getX() + pt.getY())
-pt = pt_tmp;
-}
-tmp++;
-}
-pt.setStatus(false);
-
-while (this.y != pt.getY()+1) {
-this.moveY(-1);
-imageView.setTranslateX(this.getX());
-imageView.setTranslateY(this.getY());
-}
-while (this.x != pt.getX()) {
-this.moveX(-1);
-imageView.setTranslateX(this.getX());
-imageView.setTranslateY(this.getY());
-}
-
-//кратчайший путь до свободной ТРК (pt) goTo(pt.getX(),pt.getY())
-//Sleep время заправки pt.getSpeed()
-//this.fill(listOfFuelTanks);
-//this.pay(cashbox, this.payment);
-
-//кратчайший путь до выезда
-while (this.getX() != 1 Exit.getX()){
-this.moveX(-1);
-imageView.setTranslateX(this.getX());
-imageView.setTranslateY(this.getY());
-}
-while (this.getY() != Grid.getHeight() -1){
-this.moveY(+1);
-imageView.setTranslateX(this.getX());
-imageView.setTranslateY(this.getY());
-}
-while (this.getX() > 0){
-this.moveX(-1);
-imageView.setTranslateX(this.getX());
-imageView.setTranslateY(this.getY());
-}*/
         }
     }
 }

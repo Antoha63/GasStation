@@ -57,8 +57,8 @@ public class MoveController {
                     root.getChildren().add(vehicleArrayList.get(numOfVehicle[0]).getFrameAnimation().getImageView());
                     numOfVehicle[0]++;
                     i[0] = 0;
-                    if(j[0] == 99) j[0] = 0;
-                    j[0]++;
+                    if(j[0] < 99) j[0]++;
+                    System.out.println(j[0]);
                 }
                 for(int k = 0; k < vehicleArrayList.size(); k++) {
                     try {

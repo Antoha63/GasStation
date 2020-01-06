@@ -19,7 +19,7 @@ public class MainController {
         Stage primaryStage = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/views/topologySize.fxml"));
         primaryStage.setTitle("");
-        primaryStage.setScene(new Scene(root, 384, 275));
+        primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
 
@@ -31,7 +31,7 @@ public class MainController {
         Stage primaryStage = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/views/developerInfo.fxml"));
         primaryStage.setTitle("О РАЗРАБОТЧИКЕ");
-        primaryStage.setScene(new Scene(root, 384, 275));
+        primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
 
@@ -39,7 +39,7 @@ public class MainController {
         Stage primaryStage = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/views/systemInfo.fxml"));
         primaryStage.setTitle("О СИСТЕМЕ");
-        primaryStage.setScene(new Scene(root, 384, 275));
+        primaryStage.setScene(new Scene(root));
         primaryStage.show();
 
     }

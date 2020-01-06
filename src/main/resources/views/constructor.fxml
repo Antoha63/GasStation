@@ -11,21 +11,21 @@
 
 <AnchorPane fx:id="anchorPane" maxWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ConstructorController">
       <children>
-         <Button layoutX="14.0" layoutY="21.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="153.0" text="СОЗДАТЬ ТОПОЛОГИЮ" wrapText="true">
+         <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="153.0" stylesheets="@../styles.css" text="СОЗДАТЬ ТОПОЛОГИЮ" wrapText="true">
+            <font>
+               <Font name="Constantia" size="17.0" />
+            </font>
+         </Button>
+         <Button layoutX="10.0" layoutY="50.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="153.0" stylesheets="@../styles.css" text="УДАЛИТЬ ВЫД. ЭЛ-Т" wrapText="true">
             <font>
                <Font size="17.0" />
             </font>
          </Button>
-         <Button layoutX="14.0" layoutY="131.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="153.0" text="УДАЛИТЬ ВЫД. ЭЛ-Т" wrapText="true">
-            <font>
-               <Font size="17.0" />
-            </font>
-         </Button>
-         <Button layoutX="14.0" layoutY="231.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="153.0" text="ПРОВЕРИТЬ КОРРЕКТНОСТЬ" wrapText="true">
+         <Button layoutX="10.0" layoutY="90.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="153.0" stylesheets="@../styles.css" text="ПРОВЕРИТЬ КОРРЕКТНОСТЬ" wrapText="true">
             <font>
                <Font size="17.0" />
             </font></Button>
-         <Button layoutX="14.0" layoutY="333.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="153.0" text="ПЕРЕЙТИ К МОДЕЛИР-Ю" wrapText="true" onAction="#createModeller">
+         <Button layoutX="10.0" layoutY="130.0" mnemonicParsing="false" onAction="#createModeller" prefHeight="94.0" prefWidth="153.0" stylesheets="@../styles.css" text="ПЕРЕЙТИ К МОДЕЛИР-Ю" wrapText="true">
             <font>
                <Font size="17.0" />
             </font></Button>
@@ -36,27 +36,27 @@
                <Font size="17.0" />
             </font>
          </Label>
-         <Label layoutX="820.0" layoutY="72.0" text="-ВЪЕЗД">
+         <Label layoutX="820.0" layoutY="75.0" styleClass="text" stylesheets="@../styles.css" text="-ВЪЕЗД">
             <font>
                <Font size="17.0" />
             </font>
          </Label>
-         <Label layoutX="820.0" layoutY="165.0" text="-ВЫЕЗД">
+         <Label layoutX="820.0" layoutY="165.0" styleClass="text" stylesheets="@../styles.css" text="-ВЫЕЗД">
             <font>
                <Font size="17.0" />
             </font>
          </Label>
-         <Label layoutX="820.0" layoutY="252.0" text="-КАССА">
+         <Label layoutX="820.0" layoutY="255.0" styleClass="text" stylesheets="@../styles.css" text="-КАССА">
             <font>
                <Font size="17.0" />
             </font>
          </Label>
-         <Label layoutX="820.0" layoutY="343.0" text="-ТРК">
+         <Label layoutX="820.0" layoutY="345.0" styleClass="text" stylesheets="@../styles.css" text="-ТРК">
             <font>
                <Font size="16.0" />
             </font>
          </Label>
-         <Label layoutX="820.0" layoutY="432.0" text="-ТБ">
+         <Label layoutX="820.0" layoutY="435.0" styleClass="text" stylesheets="@../styles.css" text="-ТБ">
             <font>
                <Font size="17.0" />
             </font>
@@ -101,7 +101,7 @@
             <Rectangle2D height="50.0" minX="200.0" minY="200.0" width="50.0" />
          </viewport>
       </ImageView>
-      <Button fx:id="startButton" layoutX="14.0" layoutY="439.0" mnemonicParsing="false" onAction="#startModelling" prefHeight="26.0" prefWidth="153.0" text="Запуск" wrapText="true">
+      <Button fx:id="startButton" layoutX="10.0" layoutY="170.0" mnemonicParsing="false" onAction="#startModelling" prefHeight="26.0" prefWidth="153.0" stylesheets="@../styles.css" text="Запуск" wrapText="true">
          <font>
             <Font size="17.0" />
          </font>
