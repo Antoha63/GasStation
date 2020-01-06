@@ -15,19 +15,27 @@ public class FuelTank extends MainStaticElement {
 
     private int x;
     private int y;
-    private static long id;
-    private static String fuel;
+    private long id;
+    private String fuel;
     private static int volume;  //between 5000 and 20000
-    private static int currentVolume;
+    private int currentVolume;
     private static int criticalLevel; //between 10% and 90%
-    private static boolean status = true;
+    private boolean status = true;
 
     public FuelTank(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
-    public static void setStatus(boolean b) {
+    public static void setVolume(int vol){
+        volume = vol;
+    }
+
+    public static void setCriticalLevel(int vol){
+        criticalLevel = vol;
+    }
+
+    public void setStatus(boolean b) {
         status = b;
     }
 
@@ -35,7 +43,7 @@ public class FuelTank extends MainStaticElement {
         return volume;
     }
 
-    public static void setCurrentVolume(int volume) {
+    public void setCurrentVolume(int volume) {
         currentVolume = volume;
     }
 
