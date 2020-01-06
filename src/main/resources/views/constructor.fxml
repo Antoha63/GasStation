@@ -21,11 +21,11 @@
                <Font size="17.0" />
             </font>
          </Button>
-         <Button layoutX="14.0" layoutY="258.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="153.0" text="ПРОВЕРИТЬ КОРРЕКТНОСТЬ" wrapText="true">
+         <Button layoutX="14.0" layoutY="231.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="153.0" text="ПРОВЕРИТЬ КОРРЕКТНОСТЬ" wrapText="true">
             <font>
                <Font size="17.0" />
             </font></Button>
-         <Button layoutX="13.0" layoutY="381.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="153.0" text="ПЕРЕЙТИ К МОДЕЛИР-Ю" wrapText="true">
+         <Button layoutX="14.0" layoutY="333.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="153.0" text="ПЕРЕЙТИ К МОДЕЛИР-Ю" wrapText="true">
             <font>
                <Font size="17.0" />
             </font></Button>
@@ -101,4 +101,9 @@
             <Rectangle2D height="50.0" minX="200.0" minY="200.0" width="50.0" />
          </viewport>
       </ImageView>
+      <Button fx:id="startButton" layoutX="14.0" layoutY="439.0" mnemonicParsing="false" onAction="#startModelling" prefHeight="26.0" prefWidth="153.0" text="Запуск" wrapText="true">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
       </children></AnchorPane>

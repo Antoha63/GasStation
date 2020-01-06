@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import visualize.Grid;
+import visualize.GridElement;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -68,13 +69,13 @@ this.payment = actualFuelVolume *f.getPrice();
             imageView.setTranslateY(this.getY());
         } else {
 //движение до въезда
-            if (this.getX() > Entry.getX() * 40 + Grid.getX0()) {
+            if (this.getX() > Entry.getX() * GridElement.getElementWidth() + Grid.getX0()) {
                 this.moveX(-1);
                 imageView.setTranslateX(this.getX());
                 imageView.setTranslateY(this.getY());
-            }/*
+            }
 //поиск свободной ТРК, если нашел - 1 пиксель вверх, нет - 1 пиксель влево
-            else if (this.getX() == Entry.getX() * 40 + Grid.getX0() && this.getY() == Entry.getY() * 40 + Grid.getY0()) {
+            else if (this.getX() == Entry.getX() * GridElement.getElementWidth() + Grid.getX0()/* && this.getY() == Entry.getY() * GridElement.getElementHeight() + Grid.getY0()*/) {
                 PetrolStation pt_tmp;
                 int tmp = 0;
                 Iterator<PetrolStation> iter = listOfPetrolStations.iterator();
@@ -99,7 +100,7 @@ this.payment = actualFuelVolume *f.getPrice();
                     imageView.setTranslateX(this.getX());
                     imageView.setTranslateY(this.getY());
                 }
-            }
+            }/*
 //не нашли трк, едем до окнца дороги
             else if (this.getX() < Entry.getX() * 40 + Grid.getX0() && this.getY() == Entry.getY() * 40 + Grid.getY0()) {
                 this.moveX(-1);

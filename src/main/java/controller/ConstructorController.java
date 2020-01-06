@@ -1,8 +1,10 @@
 package controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Spinner;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
@@ -12,15 +14,42 @@ import javafx.stage.Stage;
 import visualize.Grid;
 import visualize.GridElement;
 
+import javax.swing.*;
 import java.io.IOException;
 
 public class ConstructorController {
+
     @FXML
-    private Spinner<Integer> topologyHeight;
-    @FXML
-    private Spinner<Integer> topologyWidth;
+    private AnchorPane anchorPane;
+
+    public void initialize() throws IOException {
+        //BoundsController boundsController = FXMLLoader.load(getClass().getResource("/views/topologySize.fxml"));
+
+        int x0 = 220;
+        int y0 = 0;
+
+        int topologyWidth = 7;//boundsController.getTopologyWidth();
+        int topologyHeight = 3;//boundsController.getTopologyHeight();
+        Grid.initGrid(x0, y0, topologyWidth, topologyHeight);
+        for (int i = 0; i < topologyWidth; i++) {
+            for (int j = 0; j < topologyHeight + 1; j++) {
+                anchorPane.getChildren().add(Grid.getGrid()[i][j]);
+            }
+        }
+        for (Line line : Grid.getLineList()) {
+            anchorPane.getChildren().add(line);
+        }
+
+    }
 
 
+    @FXML
+    private Button startButton;
+    @FXML
+    void startModelling(ActionEvent event) throws IOException {
+        MoveController moveController = new MoveController();
+        moveController.go(anchorPane);
+    }
 
     @FXML
     private ImageView entry;
@@ -110,27 +139,4 @@ public class ConstructorController {
     }
 
 
-    public void createConstructor() throws IOException {
-        Stage primaryStage = new Stage();
-        AnchorPane root = FXMLLoader.load(getClass().getResource("/views/constructor.fxml"));
-        primaryStage.setTitle("КОНСТРУКТОР");
-        int x0 = 220;
-        int y0 = 0;
-
-        Grid.initGrid(x0, y0, topologyWidth.getValue(), topologyHeight.getValue());
-        for (int i = 0; i < topologyWidth.getValue(); i++) {
-            for (int j = 0; j < topologyHeight.getValue() + 1; j++) {
-                root.getChildren().add(Grid.getGrid()[i][j]);
-            }
-        }
-        for (Line line : Grid.getLineList()) {
-            root.getChildren().add(line);
-        }
-
-        MoveController moveController = new MoveController();
-        moveController.go(root);
-
-        primaryStage.setScene(new Scene(root, root.getPrefWidth(), root.getPrefHeight()));
-        primaryStage.show();
-    }
 }

@@ -49,7 +49,7 @@ public class MoveController {
             @Override
             public void handle(long now) {
                 i[0]++;
-                if((int)(exponentialDistribution.getTimes()[j[0]] * 100) == i[0]){
+                if((int)(exponentialDistribution.getTimes()[j[0]] * 100) == i[0]){//TODO: fix distributions
                     VisualisedTransportVehicle visualisedTransportVehicle = new VisualisedTransportVehicle((int)Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getTranslateX(),
                             (int)Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getTranslateY(),
                             0.5, AUTOMOBILE);
