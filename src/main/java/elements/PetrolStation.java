@@ -14,7 +14,7 @@ public class PetrolStation extends MainStaticElement {
     private int x;
     private int y;
     private long id;
-    private int speed; //between 50 and 100
+    private static int speed; //between 50 and 100
     private boolean status = true;
     public boolean getStatus(){
         return status;
@@ -23,5 +23,9 @@ public class PetrolStation extends MainStaticElement {
     public PetrolStation (int x, int y){
         this.x = x;
         this.y = y;
+    }
+
+    public static void setSpeed(int sp){
+        speed = sp;
     }
 }

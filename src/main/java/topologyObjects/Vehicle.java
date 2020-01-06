@@ -29,9 +29,15 @@ public class Vehicle extends TransportVehicle {
     private double randValue;
     private PetrolStation pt;
     ArrayList<PetrolStation> listOfPetrolStations;
+    private static double probabilityOfArrival;
 
-    public Vehicle(int x, int y, double probabilityOfArrival/*CarRepository carRepository, FuelRepository fuelRepository,*/) {
-        super(x, y, probabilityOfArrival);
+    public static void setProbabilityOfArrival(double poa){
+        probabilityOfArrival = poa;
+    }
+
+    public Vehicle(int x, int y, double poa/*CarRepository carRepository, FuelRepository fuelRepository,*/) {
+        super(x, y);
+        probabilityOfArrival = poa;
         randValue = rand.nextDouble();
 /*List<Car> carList = carRepository.findAll();
 Random rand = new Random();
@@ -62,7 +68,7 @@ this.payment = actualFuelVolume *f.getPrice();
     @Override
     public void go(/*Cashbox cashbox, List<FuelTank> listOfFuelTanks,*/ ImageView imageView) throws InterruptedException {
 
-        if (randValue > this.getProbabilityOfArrival()) {
+        if (randValue > probabilityOfArrival) {
             this.moveX(-1);
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());

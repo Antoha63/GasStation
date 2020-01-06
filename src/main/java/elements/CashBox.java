@@ -24,6 +24,10 @@ public class CashBox extends MainStaticElement {
         this.y = y;
     }
 
+    public static void setCriticalLevel(int vol){
+        criticalLevel = vol;
+    }
+
     public static void setStatus(boolean b) {
         status = b;
     }

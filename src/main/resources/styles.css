@@ -1,0 +1,11 @@
+.button{
+	-fx-font-family: Constantia;
+	-fx-font-size: 14px;
+	-fx-pref-width: 200px;
+	-fx-pref-height: 30px;
+	-fx-text-alignment: center;
+}
+.text{
+	-fx-font-family: Constantia;
+	-fx-font-size: 14px;
+}

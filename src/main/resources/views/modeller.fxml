@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -25,12 +26,12 @@
                     <Font size="17.0" />
                 </font>
             </Button>
-            <Button layoutX="14.0" layoutY="131.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="153.0" text="Работа с БД" wrapText="true" onAction="#createDBWork">
+            <Button layoutX="14.0" layoutY="131.0" mnemonicParsing="false" onAction="#createDBWork" prefHeight="94.0" prefWidth="153.0" text="Работа с БД" wrapText="true">
                 <font>
                     <Font size="17.0" />
                 </font>
             </Button>
-            <Button layoutX="14.0" layoutY="258.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="153.0" text="Перейти к имитации" wrapText="true">
+            <Button layoutX="14.0" layoutY="258.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="153.0" text="Перейти к имитации" wrapText="true"  onAction="#createImitation">
                 <font>
                     <Font size="17.0" />
                 </font></Button>
@@ -64,47 +65,50 @@
             <font>
                <Font size="15.0" />
             </font></Label>
-            <Spinner fx:id="fuelTankVolume" layoutX="434.0" layoutY="74.0" prefHeight="34.0" prefWidth="102.0" />
-            <Spinner fx:id="fuelTankCriticalLevel" layoutX="434.0" layoutY="115.0" prefHeight="34.0" prefWidth="102.0" />
-            <Spinner fx:id="petrolStationSpeed" layoutX="434.0" layoutY="154.0" prefHeight="34.0" prefWidth="102.0" />
-            <Spinner fx:id="cashboxCriticalLevel" layoutX="434.0" layoutY="198.0" prefHeight="34.0" prefWidth="102.0" />
-         <RadioButton layoutX="576.0" layoutY="83.0" mnemonicParsing="false" text="Детерминированный закон">
+            <Spinner id="spinnerFuelTankVolume" fx:id="fuelTankVolume" editable="true" layoutX="434.0" layoutY="74.0" max="20000" min="5000" prefHeight="34.0" prefWidth="102.0" />
+            <Spinner id="spinnerFuelTankCriticalLevel" fx:id="fuelTankCriticalLevel" editable="true" layoutX="434.0" layoutY="115.0" max="90" min="10" prefHeight="34.0" prefWidth="102.0" />
+            <Spinner id="spinnerPetrolStationSpeed" fx:id="petrolStationSpeed" editable="true" layoutX="434.0" layoutY="154.0" max="100" min="50" prefHeight="34.0" prefWidth="102.0" />
+            <Spinner id="spinnerCashboxCriticalLevel" fx:id="cashboxCriticalLevel" editable="true" layoutX="434.0" layoutY="198.0" max="100000" min="10000" prefHeight="34.0" prefWidth="102.0" />
+         <RadioButton id="radioButtonDeterministicDistribution" fx:id="radioButtonDeterministicDistribution" layoutX="576.0" layoutY="83.0" mnemonicParsing="false" text="Детерминированный закон">
+            <font>
+               <Font size="15.0" />
+            </font>
+            <toggleGroup>
+               <ToggleGroup fx:id="distributions" />
+            </toggleGroup></RadioButton>
+         <RadioButton id="radioButtonUniformDistribution" fx:id="radioButtonUniformDistribution" layoutX="576.0" layoutY="170.0" mnemonicParsing="false" text="Случайный (Равномерный закон)" toggleGroup="$distributions">
             <font>
                <Font size="15.0" />
             </font></RadioButton>
-         <RadioButton layoutX="576.0" layoutY="170.0" mnemonicParsing="false" text="Случайный (Равномерный закон)">
+         <RadioButton id="radioButtonExponentialDistribution" fx:id="radioButtonExponentialDistribution" layoutX="576.0" layoutY="293.0" mnemonicParsing="false" text="Случайный (Экспоненциальный закон)" toggleGroup="$distributions">
             <font>
                <Font size="15.0" />
             </font></RadioButton>
-         <RadioButton layoutX="576.0" layoutY="293.0" mnemonicParsing="false" text="Случайный (Экспоненциальный закон)">
-            <font>
-               <Font size="15.0" />
-            </font></RadioButton>
-            <Label layoutX="576.0" layoutY="123.0" text="Время появления а/м:">
+            <Label id="labelTime" fx:id="labelTime" layoutX="576.0" layoutY="123.0" text="Время появления а/м:" visible="false">
             <font>
                <Font size="15.0" />
             </font></Label>
-            <Label layoutX="577.0" layoutY="206.0" text="Мат Ожидание:">
+            <Label id="labelMatO" fx:id="labelMatO" layoutX="577.0" layoutY="206.0" text="Мат Ожидание:" visible="false">
             <font>
                <Font size="15.0" />
             </font></Label>
-            <Label layoutX="578.0" layoutY="249.0" text="Дисперсия:">
+            <Label id="labelDispersion" fx:id="labelDispersion" layoutX="578.0" layoutY="249.0" text="Дисперсия:" visible="false">
             <font>
                <Font size="15.0" />
             </font></Label>
-            <Label layoutX="576.0" layoutY="325.0" text="Интенсивность:">
+            <Label id="labelIntens" fx:id="labelIntens" layoutX="576.0" layoutY="325.0" text="Интенсивность:" visible="false">
             <font>
                <Font size="15.0" />
             </font></Label>
-            <Spinner fx:id="time" layoutX="848.0" layoutY="115.0" prefHeight="34.0" prefWidth="102.0" />
-            <Spinner fx:id="matO" layoutX="848.0" layoutY="198.0" prefHeight="34.0" prefWidth="102.0" />
-            <Spinner fx:id="dispersion" layoutX="848.0" layoutY="242.0" prefHeight="34.0" prefWidth="102.0" />
-            <Spinner fx:id="intens" layoutX="848.0" layoutY="318.0" prefHeight="34.0" prefWidth="102.0" />
-            <Label layoutX="573.0" layoutY="384.0" text="Вероятность заезда а/м:">
+            <Spinner id="spinnerTime" fx:id="time" editable="true" layoutX="848.0" layoutY="115.0" max="10" min="1" prefHeight="34.0" prefWidth="102.0" visible="false" />
+            <Spinner id="spinnerMatO" fx:id="matO" editable="true" layoutX="848.0" layoutY="198.0" max="10" min="1" prefHeight="34.0" prefWidth="102.0" visible="false" />
+            <Spinner id="spinnerDispersion" fx:id="dispersion" editable="true" layoutX="848.0" layoutY="242.0" max="4.5" min="0" prefHeight="34.0" prefWidth="102.0" visible="false" />
+            <Spinner id="spinnerIntens" fx:id="intens" editable="true" layoutX="848.0" layoutY="318.0" max="4" min="1" prefHeight="34.0" prefWidth="102.0" visible="false" />
+            <Label id="labelPOA" layoutX="573.0" layoutY="384.0" text="Вероятность заезда а/м:">
                 <font>
                     <Font size="15.0" />
                 </font></Label>
 
-            <Spinner fx:id="probabilityOfArrival" layoutX="848.0" layoutY="378.0" prefHeight="34.0" prefWidth="102.0" />
+            <Spinner id="spinnerPOA" fx:id="probabilityOfArrival" editable="true" layoutX="848.0" layoutY="378.0" prefHeight="34.0" prefWidth="102.0" />
         </children></AnchorPane>
 </GridPane>

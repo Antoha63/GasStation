@@ -12,13 +12,6 @@ import lombok.Setter;
 public abstract class TransportVehicle extends Pane {
     private int x;
     private int y;
-    private double probabilityOfArrival;
-
-    TransportVehicle(int x, int y, double probabilityOfArrival){
-        this.x = x;
-        this.y = y;
-        this.probabilityOfArrival = probabilityOfArrival;
-    }
 
     TransportVehicle(int x, int y){
         this.x = x;
