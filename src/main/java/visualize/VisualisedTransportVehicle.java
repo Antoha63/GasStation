@@ -28,7 +28,7 @@ public class VisualisedTransportVehicle {
                 this.frameAnimation.getImageView().setFitWidth(80);
                 break;
             case COLLECTORFUEL:
-                this.transportVehicle = new CollectorFuel();
+                this.transportVehicle = new CollectorFuel(x,y);
                 this.frameAnimation = new FrameAnimation(imageOffsetX,
                         2,
                         100,
@@ -38,7 +38,7 @@ public class VisualisedTransportVehicle {
                 this.frameAnimation.getImageView().setFitWidth(80);
                 break;
             case COLLECTORCASHBOX:
-                this.transportVehicle = new CollectorCashbox();
+                this.transportVehicle = new CollectorCashbox(x,y);
                 this.frameAnimation = new FrameAnimation(imageOffsetX,
                         1,
                         100,

@@ -21,19 +21,12 @@ public class UniformDistribution {
     public UniformDistribution(double a, double b){
         this.a = a;
         this.b = b;
-    }
-
-
-    public void createDistribution()
-    {
         int n = 100;
-
         times = new double [n];
         Random rand = new Random();
         for (int i = 0; i < n; i++)
         {
-
+            times[i] += a + (b - a) * rand.nextDouble();
         }
-
     }
 }

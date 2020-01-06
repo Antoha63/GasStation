@@ -20,6 +20,11 @@ public abstract class TransportVehicle extends Pane {
         this.probabilityOfArrival = probabilityOfArrival;
     }
 
+    TransportVehicle(int x, int y){
+        this.x = x;
+        this.y = y;
+    }
+
     public void moveX(int x){
         boolean right = x > 0;
         for(int i = 0; i < Math.abs(x); i++) {
@@ -30,8 +35,8 @@ public abstract class TransportVehicle extends Pane {
     public void moveY(int y){
         boolean down = y > 0;
         for(int i = 0; i < Math.abs(y); i++) {
-            if (down) this.setTranslateY(this.getTranslateY() + 1);
-            else this.setTranslateY(this.getTranslateY() - 1);
+            if (down) this.setY(this.getY() + 1);
+            else this.setY(this.getY() - 1);
         }
     }
 

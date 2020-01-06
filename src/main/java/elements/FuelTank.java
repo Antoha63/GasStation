@@ -43,6 +43,7 @@ public class FuelTank extends MainStaticElement {
         boolean answer = false;
         if (currentVolume <= criticalLevel / 100 * volume && status) {
             answer = true;
+            this.status = false;
         }
         return answer;
     }

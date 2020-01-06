@@ -25,7 +25,7 @@
             <font>
                <Font size="17.0" />
             </font></Button>
-         <Button layoutX="14.0" layoutY="333.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="153.0" text="ПЕРЕЙТИ К МОДЕЛИР-Ю" wrapText="true">
+         <Button layoutX="14.0" layoutY="333.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="153.0" text="ПЕРЕЙТИ К МОДЕЛИР-Ю" wrapText="true" onAction="#createModeller">
             <font>
                <Font size="17.0" />
             </font></Button>

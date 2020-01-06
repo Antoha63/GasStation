@@ -2,11 +2,15 @@ package controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Line;
+import javafx.stage.Stage;
 import visualize.Grid;
 
 import java.io.IOException;
@@ -127,6 +131,14 @@ public class ConstructorController {
         event.consume();
     }
 
+    @FXML
+    public void createModeller() throws IOException {
+        Stage primaryStage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/views/modeller.fxml"));
+        primaryStage.setTitle("");
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
+    }
 
     @FXML
     private ImageView fuelTank;

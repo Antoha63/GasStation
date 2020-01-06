@@ -42,6 +42,7 @@ public class CashBox extends MainStaticElement {
         if (balance >= criticalLevel && this.status == true)
         {
             answer = true;
+            this.status = false;
         }
         return answer;
     }
