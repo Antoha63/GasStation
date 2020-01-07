@@ -18,6 +18,8 @@ import topologyObjects.Vehicle;
 import java.io.IOException;
 
 public class ModellerController {
+    private double xOffset;
+    private double yOffset;
 
     @FXML
     private Spinner<Integer> fuelTankVolume;
@@ -108,6 +110,14 @@ public class ModellerController {
         Stage primaryStage = new Stage();
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         Parent root = FXMLLoader.load(getClass().getResource("/views/imitation.fxml"));
+        root.setOnMousePressed(event -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+        root.setOnMouseDragged(event -> {
+            primaryStage.setX(event.getScreenX() - xOffset);
+            primaryStage.setY(event.getScreenY() - yOffset);
+        });
         primaryStage.setTitle("ИМИТАЦИЯ");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
@@ -120,6 +130,14 @@ public class ModellerController {
         Stage primaryStage = new Stage();
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         Parent root = FXMLLoader.load(getClass().getResource("/views/dbWorkViews/dbWork.fxml"));
+        root.setOnMousePressed(event -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+        root.setOnMouseDragged(event -> {
+            primaryStage.setX(event.getScreenX() - xOffset);
+            primaryStage.setY(event.getScreenY() - yOffset);
+        });
         primaryStage.setTitle("");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();

@@ -7,17 +7,21 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="155.0" prefWidth="228.0" styleClass="window_background" stylesheets="@../../styles/styles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.dbControllers.AddFuelController">
    <children>
-      <Button layoutX="14.0" layoutY="108.0" mnemonicParsing="false" onAction="#add" prefHeight="41.0" prefWidth="239.0" stylesheets="@../../styles/styles.css" text="ОК">
+      <Button layoutX="14.0" layoutY="119.0" mnemonicParsing="false" onAction="#add" prefHeight="41.0" prefWidth="239.0" stylesheets="@../../styles/styles.css" text="ОК">
          <styleClass>
             <String fx:value="button_restyling" />
             <String fx:value="button_restyling_bounds" />
          </styleClass></Button>
-      <TextField fx:id="name" blendMode="MULTIPLY" layoutX="14.0" layoutY="31.0" prefHeight="41.0" prefWidth="239.0" promptText="Введите тип топлива..." styleClass="button_restyling_bounds" stylesheets="@../../styles/styles.css" />
-      <TextField fx:id="price" blendMode="MULTIPLY" layoutX="14.0" layoutY="70.0" prefHeight="41.0" prefWidth="239.0" promptText="Введите цену..." styleClass="button_restyling_bounds" stylesheets="@../../styles/styles.css" />
-      <Button fx:id="closeButton" layoutX="232.0" layoutY="24.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="15.0" prefWidth="15.0" style="-fx-background-radius: 20;" styleClass="button_close" stylesheets="@../../styles/styles.css" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
-         <font>
-            <Font size="6.0" />
-         </font>
-      </Button>
+      <TextField fx:id="name" blendMode="MULTIPLY" layoutX="14.0" layoutY="42.0" prefHeight="41.0" prefWidth="239.0" styleClass="button_restyling_bounds" stylesheets="@../../styles/styles.css" />
+      <TextField fx:id="price" blendMode="MULTIPLY" layoutX="14.0" layoutY="81.0" prefHeight="41.0" prefWidth="239.0" styleClass="button_restyling_bounds" stylesheets="@../../styles/styles.css" />
+      <AnchorPane cache="true" layoutX="1.0" layoutY="1.0" prefHeight="30.0" prefWidth="226.0" styleClass="close_area" stylesheets="@../../styles/styles.css">
+         <children>
+            <Button fx:id="closeButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="15.0" prefWidth="15.0" style="-fx-background-radius: 20;" styleClass="button_close" stylesheets="@../../styles/styles.css" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="7.0">
+               <font>
+                  <Font size="6.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

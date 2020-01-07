@@ -17,15 +17,19 @@
     </rowConstraints>
     <AnchorPane prefHeight="170.0" prefWidth="384.0" styleClass="window_background" stylesheets="@../styles/styles.css">
       <children>
-         <TextArea blendMode="MULTIPLY" editable="false" layoutX="13.0" layoutY="35.0" prefHeight="109.0" prefWidth="359.0" styleClass="text" stylesheets="@../styles/styles.css" text="Список разработчиков: &#10;&#9;Конев Алексей&#10;       Сергеев Никита&#10;       Фомичёв Антон">
+         <TextArea blendMode="MULTIPLY" editable="false" layoutX="13.0" layoutY="44.0" prefHeight="109.0" prefWidth="359.0" styleClass="text" stylesheets="@../styles/styles.css" text="Список разработчиков: &#10;&#9;Конев Алексей&#10;       Сергеев Никита&#10;       Фомичёв Антон">
             <font>
                <Font size="29.0" />
             </font>
          </TextArea>
-         <Button fx:id="closeButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="15.0" prefWidth="15.0" style="-fx-background-radius: 20;" styleClass="button_close" stylesheets="@../styles/styles.css" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
-            <font>
-               <Font size="6.0" />
-            </font>
-         </Button>
+         <AnchorPane cache="true" layoutX="1.0" layoutY="1.0" prefHeight="30.0" prefWidth="384.0" styleClass="close_area" stylesheets="@../styles/styles.css">
+            <children>
+               <Button fx:id="closeButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="15.0" prefWidth="15.0" style="-fx-background-radius: 20;" styleClass="button_close" stylesheets="@../styles/styles.css" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="7.0">
+                  <font>
+                     <Font size="6.0" />
+                  </font>
+               </Button>
+            </children>
+         </AnchorPane>
       </children></AnchorPane>
 </GridPane>
