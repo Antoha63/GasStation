@@ -86,10 +86,11 @@ public class MoveController {
                 }
                 try {
                     if (collectorFuel != null) {
+                        collectorFuel.go();
                         if (collectorFuel.getTransportVehicle().getX() <= Grid.getGrid()[0][0].getTranslateX()) {
                             root.getChildren().remove(collectorFuel.getFrameAnimation().getImageView());
+                            collectorFuel = null;
                         }
-                        collectorFuel.go();
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -103,10 +104,11 @@ public class MoveController {
                 }
                 try {
                     if (collectorCashBox != null) {
+                        collectorCashBox.go();
                         if (collectorCashBox.getTransportVehicle().getX() <= Grid.getGrid()[0][0].getTranslateX()) {
                             root.getChildren().remove(collectorCashBox.getFrameAnimation().getImageView());
+                            collectorCashBox = null;
                         }
-                        collectorCashBox.go();
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();

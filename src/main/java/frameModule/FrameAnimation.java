@@ -16,14 +16,22 @@ public class FrameAnimation{
     private Image image;
     private ImageView imageView;
     private Rectangle2D[] viewports;
+    private int imageOffsetX;
+    private int imageOffsetY;
 
     private FrameElements frameElements;
 
+    public void setImageOffsetX(int offsetX){
+        imageOffsetX = offsetX;
+        imageView.setViewport(viewports[imageOffsetX]);
+    }
 
     public FrameAnimation(int offsetX, int offsetY, int frameWidth, int frameHeight, int frameNumber) {
-        frameElements = new FrameElements(offsetX, offsetY,frameWidth,frameHeight, frameNumber);
+        imageOffsetX = offsetX;
+        imageOffsetY = offsetY;
+        frameElements = new FrameElements(imageOffsetX, imageOffsetY,frameWidth,frameHeight, frameNumber);
         initViewPorts();
-        initImageView(offsetX);
+        initImageView(imageOffsetX);
     }
 
     public void initViewPorts(){

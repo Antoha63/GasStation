@@ -7,6 +7,8 @@ import javafx.scene.image.ImageView;
 import visualize.Grid;
 import lombok.NoArgsConstructor;
 
+import static topologyObjects.TransportVehicleDirection.*;
+
 @NoArgsConstructor
 public class CollectorCashbox extends TransportVehicle {
 
@@ -50,10 +52,12 @@ public class CollectorCashbox extends TransportVehicle {
             this.moveX(-1);
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());
+            this.setDirection(LEFT);
             System.out.println("Едем до въезда");
         }
 //заезжаем на АЗС
         else if (this.getX() == Entry.getX() * 50 + Grid.getX0() && this.getY() == Entry.getY() * 50 + Grid.getY0()) {
+            this.setDirection(TOP);
             this.moveY(-1);
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());
@@ -67,6 +71,7 @@ public class CollectorCashbox extends TransportVehicle {
         }
         //заправились, транулись, уезжаем дальше
         else if (this.getY() == Grid.getY0() && this.getX() > Exit.getX() * 50 + Grid.getX0()) {
+            this.setDirection(LEFT);
             this.moveX(-1);
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());
@@ -74,6 +79,7 @@ public class CollectorCashbox extends TransportVehicle {
         }
 //доехали до дороги вниз
         else if (this.getX() == Exit.getX() * 50 + Grid.getX0() && this.getY() != Exit.getY() * 50 + Grid.getY0()) {
+            this.setDirection(BOTTOM);
             this.moveY(+1);
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());
@@ -81,6 +87,7 @@ public class CollectorCashbox extends TransportVehicle {
         }
         //на выезде, обнуляем кассу и уезжаем
         else if (this.getX() == Exit.getX() * 50 + Grid.getX0() && this.getY() == Exit.getY() * 50 + Grid.getY0()) {
+            this.setDirection(LEFT);
             this.moveX(-1);
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());

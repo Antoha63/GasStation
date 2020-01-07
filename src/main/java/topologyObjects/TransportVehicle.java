@@ -6,16 +6,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import static topologyObjects.TransportVehicleDirection.*;
+
 @Getter
 @Setter
 @NoArgsConstructor
 public abstract class TransportVehicle extends Pane {
     private int x;
     private int y;
+    private TransportVehicleDirection direction;
 
     TransportVehicle(int x, int y){
         this.x = x;
         this.y = y;
+        direction = LEFT;
     }
 
     public void moveX(int x){

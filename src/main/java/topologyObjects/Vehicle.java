@@ -16,6 +16,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import static topologyObjects.TransportVehicleDirection.*;
+
 @Getter
 @Setter
 @ToString
@@ -31,7 +33,7 @@ public class Vehicle extends TransportVehicle {
     private static ArrayList<PetrolStation> listOfPetrolStations;
     private static double probabilityOfArrival;
 
-    public static void setProbabilityOfArrival(double poa){
+    public static void setProbabilityOfArrival(double poa) {
         probabilityOfArrival = poa;
     }
 
@@ -72,12 +74,14 @@ this.payment = actualFuelVolume *f.getPrice();
             this.moveX(-1);
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());
+            this.setDirection(LEFT);
         } else {
 //движение до въезда
             if (this.getX() > Entry.getX() * 50 + Grid.getX0()) {
                 this.moveX(-1);
                 imageView.setTranslateX(this.getX());
                 imageView.setTranslateY(this.getY());
+                this.setDirection(LEFT);
                 System.out.println("Едем до въезда");
             }
 //поиск свободной ТРК, если нашел - 1 пиксель вверх, нет - 1 пиксель влево
@@ -98,9 +102,9 @@ this.payment = actualFuelVolume *f.getPrice();
                 if (pt != null)
                     pt.setStatus(false);
                 if (pt != null && !pt.getStatus()) {*/
-                    this.moveY(-1);
-                    imageView.setTranslateX(this.getX());
-                    imageView.setTranslateY(this.getY());
+                this.moveY(-1);
+                imageView.setTranslateX(this.getX());
+                imageView.setTranslateY(this.getY());
                 System.out.println("На въезде. Едем вверх");/*
                 } else if (pt == null) {
                     this.moveX(-1);
@@ -110,6 +114,7 @@ this.payment = actualFuelVolume *f.getPrice();
             }
 //не нашли трк, едем до окнца дороги
             else if (this.getX() < Entry.getX() * 50 + Grid.getX0() && this.getY() == Entry.getY() * 50 + Grid.getY0()) {
+                this.setDirection(LEFT);
                 this.moveX(-1);
                 imageView.setTranslateX(this.getX());
                 imageView.setTranslateY(this.getY());
@@ -117,6 +122,7 @@ this.payment = actualFuelVolume *f.getPrice();
             }
             //нашли трк, едем вверх до уровня над ней
             else if (this.getX() == Entry.getX() * 50 + Grid.getX0() && this.getY() < Entry.getY() * 50 + Grid.getY0() && this.getY() > /*pt.getY()*/ 2 * 50 - 50 + Grid.getY0()) {
+                this.setDirection(TOP);
                 this.moveY(-1);
                 imageView.setTranslateX(this.getX());
                 imageView.setTranslateY(this.getY());
@@ -141,6 +147,7 @@ this.payment = actualFuelVolume *f.getPrice();
             }*/
 //заправились, транулись, уезжаем дальше
             else if (/*this.getX() < pt.getX() * 40 + Grid.getX0() &&*/ this.getY() == /*pt.getY()*/ 2 * 50 - 50 + Grid.getY0() /*&& pt.getStatus() == true*/ && this.getX() > Exit.getX() * 50 + Grid.getX0()) {
+                this.setDirection(LEFT);
                 this.moveX(-1);
                 imageView.setTranslateX(this.getX());
                 imageView.setTranslateY(this.getY());
@@ -148,6 +155,7 @@ this.payment = actualFuelVolume *f.getPrice();
             }
 //доехали до дороги вниз
             else if (/*pt.getStatus() &&*/ this.getX() == Exit.getX() * 50 + Grid.getX0() && this.getY() != Exit.getY() * 50 + Grid.getY0()) {
+                this.setDirection(BOTTOM);
                 this.moveY(+1);
                 imageView.setTranslateX(this.getX());
                 imageView.setTranslateY(this.getY());
@@ -155,6 +163,7 @@ this.payment = actualFuelVolume *f.getPrice();
             }
 //выехали на дорогу, уезжаем
             else if (/*pt.getStatus() &&*/ this.getX() <= Exit.getX() * 50 + Grid.getX0() && this.getY() == Exit.getY() * 50 + Grid.getY0()) {
+                this.setDirection(LEFT);
                 this.moveX(-1);
                 imageView.setTranslateX(this.getX());
                 imageView.setTranslateY(this.getY());

@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import topologyObjects.*;
 
+import static topologyObjects.TransportVehicleDirection.*;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -51,6 +53,17 @@ public class VisualisedTransportVehicle {
     }
 
     public void go() throws InterruptedException {
-        this.transportVehicle.go(this.frameAnimation.getImageView());
+        if(this.transportVehicle.getDirection() == LEFT){
+            this.frameAnimation.setImageOffsetX(2);
+            this.transportVehicle.go(this.frameAnimation.getImageView());
+        }
+        else if(this.transportVehicle.getDirection() == TOP){
+            this.frameAnimation.setImageOffsetX(0);
+            this.transportVehicle.go(this.frameAnimation.getImageView());
+        }
+        else if(this.transportVehicle.getDirection() == BOTTOM){
+            this.frameAnimation.setImageOffsetX(1);
+            this.transportVehicle.go(this.frameAnimation.getImageView());
+        }
     }
 }
