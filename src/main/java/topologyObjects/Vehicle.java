@@ -28,7 +28,7 @@ public class Vehicle extends TransportVehicle {
     private Random rand = new Random();
     private double randValue;
     private PetrolStation pt;
-    ArrayList<PetrolStation> listOfPetrolStations;
+    private static ArrayList<PetrolStation> listOfPetrolStations;
     private static double probabilityOfArrival;
 
     public static void setProbabilityOfArrival(double poa){

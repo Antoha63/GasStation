@@ -14,6 +14,12 @@ import java.io.IOException;
 public class BoundsController {
     private double xOffset;
     private double yOffset;
+    private static Stage primaryStage;
+
+    public static Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
     @FXML
     private Spinner<Integer> topologyHeight;
     @FXML
@@ -37,7 +43,7 @@ public class BoundsController {
     public void createConstructor() throws IOException {
         ConstructorController constructorController = new ConstructorController();
         constructorController.setBounds(topologyWidth.getValue(), topologyHeight.getValue());
-        Stage primaryStage = new Stage();
+        primaryStage = new Stage();
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         Parent root = FXMLLoader.load(getClass().getResource("/views/constructor.fxml"));
         root.setOnMousePressed(event -> {

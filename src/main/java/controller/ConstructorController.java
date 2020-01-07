@@ -6,13 +6,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.Window;
+import sun.awt.WindowIDProvider;
 import visualize.Grid;
+import visualize.GridElement;
 
 import java.io.IOException;
 
@@ -29,17 +33,25 @@ public class ConstructorController {
 
     @FXML
     private AnchorPane anchorPane;
+    @FXML
+    private ScrollPane scrollPaneElements;
+    @FXML
+    private AnchorPane buttons;
 
     @FXML
     private Button closeButton;
+    @FXML
+    private AnchorPane dragableArea;
 
     public void initialize(){
         closeButton.setOnAction(event -> {
             Stage stage = (Stage) closeButton.getScene().getWindow();
             stage.close();
         });
-        int x0 = 220;
-        int y0 = 30 ;
+        buttons.setLayoutX(10);
+        buttons.setLayoutY(40);
+        int x0 = (int) (buttons.getLayoutX() * 2 + buttons.getPrefWidth());
+        int y0 = (int) buttons.getLayoutY();
 
         Grid.initGrid(x0, y0, topologyWidth, topologyHeight);
         for (int i = 0; i < topologyWidth; i++) {
@@ -50,7 +62,14 @@ public class ConstructorController {
         for (Line line : Grid.getLineList()) {
             anchorPane.getChildren().add(line);
         }
+        scrollPaneElements.setLayoutX(Grid.getGrid()[topologyWidth - 1][0].getTranslateX() + GridElement.getElementWidth() + 10);
+        scrollPaneElements.setLayoutY(buttons.getLayoutY());
 
+        Stage stage = BoundsController.getPrimaryStage();
+        stage.setWidth(scrollPaneElements.getLayoutX() + scrollPaneElements.getPrefWidth() + 10);
+        stage.setHeight(Grid.getGrid()[0][topologyHeight].getTranslateY() + GridElement.getElementHeight() + 10);
+        scrollPaneElements.setPrefHeight(stage.getHeight() - scrollPaneElements.getLayoutY() - 10);
+        dragableArea.setPrefWidth(stage.getWidth() - 2);
     }
 
     @FXML
