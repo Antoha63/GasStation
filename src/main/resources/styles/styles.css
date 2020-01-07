@@ -30,19 +30,19 @@
 	-fx-pref-height: 30px;
 }
 .button_play{
-	-fx-background-image: url("pics/icons8-play-48.png");
+	-fx-background-image: url("../pics/icons8-play-48.png");
 	-fx-background-size: 20px;
 	-fx-background-repeat: no-repeat;
 	-fx-background-position: center;
 }
 .button_pause{
-	-fx-background-image: url("pics/icons8-pause-48.png");
+	-fx-background-image: url("../pics/icons8-pause-48.png");
 	-fx-background-size: 20px;
 	-fx-background-repeat: no-repeat;
 	-fx-background-position: center;
 }
 .button_stop{
-	-fx-background-image: url("pics/icons8-stop-48.png");
+	-fx-background-image: url("../pics/icons8-stop-48.png");
 	-fx-background-size: 20px;
 	-fx-background-repeat: no-repeat;
 	-fx-background-position: center;
@@ -60,7 +60,7 @@
 	-fx-border-radius: 25px;
 	-fx-border-color: #C62121;
 	-fx-background-color: transparent;
-	-fx-background-image: url("pics/icons-x.png");
+	-fx-background-image: url("../pics/icons-x.png");
 	-fx-background-size: 8px;
 	-fx-background-position: center;
 	-fx-pref-width: 16px;

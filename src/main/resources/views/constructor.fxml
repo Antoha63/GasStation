@@ -10,9 +10,9 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" maxWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" styleClass="window_background" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ConstructorController">
+<AnchorPane fx:id="anchorPane" maxWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" styleClass="window_background" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ConstructorController">
       <children>
-         <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="153.0" stylesheets="@../styles.css" text="Создать топологию" wrapText="true">
+         <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="153.0" stylesheets="@../styles/styles.css" text="Создать топологию" wrapText="true">
             <font>
                <Font name="Constantia" size="17.0" />
             </font>
@@ -21,7 +21,7 @@
             <String fx:value="button_restyling_bounds" />
          </styleClass>
          </Button>
-         <Button layoutX="10.0" layoutY="50.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="153.0" stylesheets="@../styles.css" text="Проверка корректности" wrapText="true">
+         <Button layoutX="10.0" layoutY="50.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="153.0" stylesheets="@../styles/styles.css" text="Проверка корректности" wrapText="true">
             <font>
                <Font size="17.0" />
             </font>
@@ -29,7 +29,7 @@
             <String fx:value="button_restyling" />
             <String fx:value="button_restyling_bounds" />
          </styleClass></Button>
-         <Button layoutX="10.0" layoutY="90.0" mnemonicParsing="false" onAction="#createModeller" prefHeight="94.0" prefWidth="153.0" stylesheets="@../styles.css" text="Перейти к моделированию" wrapText="true">
+         <Button layoutX="10.0" layoutY="90.0" mnemonicParsing="false" onAction="#createModeller" prefHeight="94.0" prefWidth="153.0" stylesheets="@../styles/styles.css" text="Перейти к моделированию" wrapText="true">
             <font>
                <Font size="17.0" />
             </font>
@@ -39,32 +39,32 @@
          </styleClass></Button>
          <Line endX="-47.0" endY="310.0" layoutX="267.0" layoutY="190.0" startX="-47.0" startY="-190.0" />
          <Line endX="86.0" endY="315.0" layoutX="633.0" layoutY="185.0" startX="86.0" startY="-186.0" />
-         <Label layoutX="765.0" layoutY="27.0" styleClass="text" stylesheets="@../styles.css" text="ЭЛЕМЕНТЫ">
+         <Label layoutX="765.0" layoutY="27.0" styleClass="text" stylesheets="@../styles/styles.css" text="ЭЛЕМЕНТЫ">
             <font>
                <Font size="17.0" />
             </font>
          </Label>
-         <Label layoutX="820.0" layoutY="75.0" styleClass="text" stylesheets="@../styles.css" text="-ВЪЕЗД">
+         <Label layoutX="820.0" layoutY="75.0" styleClass="text" stylesheets="@../styles/styles.css" text="-ВЪЕЗД">
             <font>
                <Font size="17.0" />
             </font>
          </Label>
-         <Label layoutX="820.0" layoutY="165.0" styleClass="text" stylesheets="@../styles.css" text="-ВЫЕЗД">
+         <Label layoutX="820.0" layoutY="165.0" styleClass="text" stylesheets="@../styles/styles.css" text="-ВЫЕЗД">
             <font>
                <Font size="17.0" />
             </font>
          </Label>
-         <Label layoutX="820.0" layoutY="255.0" styleClass="text" stylesheets="@../styles.css" text="-КАССА">
+         <Label layoutX="820.0" layoutY="255.0" styleClass="text" stylesheets="@../styles/styles.css" text="-КАССА">
             <font>
                <Font size="17.0" />
             </font>
          </Label>
-         <Label layoutX="820.0" layoutY="345.0" styleClass="text" stylesheets="@../styles.css" text="-ТРК">
+         <Label layoutX="820.0" layoutY="345.0" styleClass="text" stylesheets="@../styles/styles.css" text="-ТРК">
             <font>
                <Font size="16.0" />
             </font>
          </Label>
-         <Label layoutX="820.0" layoutY="435.0" styleClass="text" stylesheets="@../styles.css" text="-ТБ">
+         <Label layoutX="820.0" layoutY="435.0" styleClass="text" stylesheets="@../styles/styles.css" text="-ТБ">
             <font>
                <Font size="17.0" />
             </font>
@@ -109,7 +109,7 @@
             <Rectangle2D height="50.0" minX="200.0" minY="200.0" width="50.0" />
          </viewport>
       </ImageView>
-      <Button fx:id="startButton" layoutX="10.0" layoutY="130.0" mnemonicParsing="false" onAction="#startModelling" prefHeight="26.0" prefWidth="153.0" stylesheets="@../styles.css" text="Запуск" wrapText="true">
+      <Button fx:id="startButton" layoutX="10.0" layoutY="130.0" mnemonicParsing="false" onAction="#startModelling" prefHeight="26.0" prefWidth="153.0" stylesheets="@../styles/styles.css" text="Запуск" wrapText="true">
          <font>
             <Font size="17.0" />
          </font>
@@ -118,7 +118,7 @@
             <String fx:value="button_restyling_bounds" />
          </styleClass>
       </Button>
-      <Button fx:id="closeButton" layoutX="232.0" layoutY="24.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="15.0" prefWidth="15.0" style="-fx-background-radius: 20;" styleClass="button_close" stylesheets="@../styles.css" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
+      <Button fx:id="closeButton" layoutX="232.0" layoutY="24.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="15.0" prefWidth="15.0" style="-fx-background-radius: 20;" styleClass="button_close" stylesheets="@../styles/styles.css" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
          <font>
             <Font size="6.0" />
          </font>

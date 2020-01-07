@@ -119,7 +119,7 @@ public class ModellerController {
     public void createDBWork() throws IOException {
         Stage primaryStage = new Stage();
         primaryStage.initStyle(StageStyle.TRANSPARENT);
-        Parent root = FXMLLoader.load(getClass().getResource("/views/dbWork.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/views/dbWorkViews/dbWork.fxml"));
         primaryStage.setTitle("");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();

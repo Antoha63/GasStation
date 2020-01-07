@@ -1,4 +1,4 @@
-package controller;
+package controller.dbControllers;
 
 import entities.Fuel;
 import javafx.collections.FXCollections;
@@ -10,7 +10,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -64,15 +63,26 @@ public class DBWorkController {
     public void addFuel() throws IOException {
         Stage primaryStage = new Stage();
         primaryStage.initStyle(StageStyle.TRANSPARENT);
-        Parent root = FXMLLoader.load(getClass().getResource("/views/fuelParametersAdd.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/views/dbWorkViews/fuelParametersAdd.fxml"));
+        primaryStage.setTitle("");
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
+    }
+
+    public void changeFuel() throws IOException {
+        fuelRepository.delete(fuelRepository.findByName(fuelTable.getSelectionModel().getSelectedItem().getName()));
+
+        Stage primaryStage = new Stage();
+        primaryStage.initStyle(StageStyle.TRANSPARENT);
+        Parent root = FXMLLoader.load(getClass().getResource("/views/dbWorkViews/fuelParametersAdd.fxml"));
         primaryStage.setTitle("");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
 
     public void removeFuel() {
-        System.out.println(fuelTable.getSelectionModel().getSelectedIndex());
         int row = fuelTable.getSelectionModel().getSelectedIndex();
+        fuelRepository.delete(fuelRepository.findByName(fuelTable.getSelectionModel().getSelectedItem().getName()));
         fuelTable.getItems().remove(row);
     }
 }

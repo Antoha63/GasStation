@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="900.0" styleClass="window_background" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DBWorkController">
+<AnchorPane prefHeight="500.0" prefWidth="900.0" styleClass="window_background" stylesheets="@../../styles/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.dbControllers.DBWorkController">
    <children>
       <TableView fx:id="fuelTable" blendMode="MULTIPLY" layoutX="14.0" layoutY="20.0" prefHeight="318.0" prefWidth="321.0">
         <columns>
@@ -20,7 +20,7 @@
             <String fx:value="button_restyling" />
             <String fx:value="button_restyling_bounds" />
          </styleClass></Button>
-      <Button layoutX="75.0" layoutY="402.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="89.0" text="Изменить">
+      <Button layoutX="75.0" layoutY="402.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="89.0" text="Изменить" onAction="#changeFuel">
          <styleClass>
             <String fx:value="button_restyling" />
             <String fx:value="button_restyling_bounds" />
@@ -30,7 +30,7 @@
             <String fx:value="button_restyling" />
             <String fx:value="button_restyling_bounds" />
          </styleClass></Button>
-      <Button fx:id="closeButton" layoutX="232.0" layoutY="24.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="15.0" prefWidth="15.0" style="-fx-background-radius: 20;" styleClass="button_close" stylesheets="@../styles.css" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
+      <Button fx:id="closeButton" layoutX="232.0" layoutY="24.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="15.0" prefWidth="15.0" style="-fx-background-radius: 20;" styleClass="button_close" stylesheets="@../../styles/styles.css" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
          <font>
             <Font size="6.0" />
          </font>

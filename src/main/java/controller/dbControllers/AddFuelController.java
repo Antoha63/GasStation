@@ -1,4 +1,4 @@
-package controller;
+package controller.dbControllers;
 
 import entities.Fuel;
 import javafx.fxml.FXML;

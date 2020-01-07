@@ -15,14 +15,14 @@
     <rowConstraints>
         <RowConstraints />
     </rowConstraints>
-    <AnchorPane prefHeight="275.0" prefWidth="384.0" styleClass="window_background" stylesheets="@../styles.css">
+    <AnchorPane prefHeight="275.0" prefWidth="384.0" styleClass="window_background" stylesheets="@../styles/styles.css">
       <children>
-         <TextArea blendMode="MULTIPLY" editable="false" layoutX="13.0" layoutY="33.0" prefHeight="227.0" prefWidth="359.0" styleClass="text" stylesheets="@../styles.css" text="Сведения всякие...">
+         <TextArea blendMode="MULTIPLY" editable="false" layoutX="13.0" layoutY="33.0" prefHeight="227.0" prefWidth="359.0" styleClass="text" stylesheets="@../styles/styles.css" text="Сведения всякие...">
             <font>
                <Font size="29.0" />
             </font>
          </TextArea>
-         <Button fx:id="closeButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="15.0" prefWidth="15.0" style="-fx-background-radius: 20;" styleClass="button_close" stylesheets="@../styles.css" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
+         <Button fx:id="closeButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="15.0" prefWidth="15.0" style="-fx-background-radius: 20;" styleClass="button_close" stylesheets="@../styles/styles.css" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
             <font>
                <Font size="6.0" />
             </font>
