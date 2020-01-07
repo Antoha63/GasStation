@@ -3,6 +3,7 @@ package controller;
 import elements.CashBox;
 import elements.FuelTank;
 import elements.PetrolStation;
+import entities.Fuel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,16 +12,28 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Spinner;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import repositories.FuelRepository;
 import topologyObjects.Vehicle;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import static javafx.scene.effect.BlendMode.MULTIPLY;
 
 public class ModellerController {
     private double xOffset;
     private double yOffset;
 
+    private ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-data-context.xml");
+    private FuelRepository fuelRepository = context.getBean(FuelRepository.class);
+
+    @FXML
+    private AnchorPane anchorPane;
     @FXML
     private Spinner<Integer> fuelTankVolume;
     @FXML
@@ -93,6 +106,8 @@ public class ModellerController {
             labelIntens.setVisible(true);
             intens.setVisible(true);
         });
+
+        addRadioButtons();
     }
 
     @FXML
@@ -141,5 +156,28 @@ public class ModellerController {
         primaryStage.setTitle("");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
+    }
+
+    private void addRadioButtons(){
+        List<RadioButton> radioButtonList = new ArrayList<>();
+        List<String> nameList = new ArrayList<>();
+        List<Fuel> fuelList = fuelRepository.findAll();
+
+        for (Fuel fuel: fuelList) {
+            nameList.add(fuel.getName());
+        }
+
+        int i = 0;
+        for(String name: nameList){
+            RadioButton radioButton = new RadioButton();
+            radioButton.setText(name);
+            radioButton.setLayoutX(240);
+            radioButton.setLayoutY(300 + i*30);
+            radioButton.setBlendMode(MULTIPLY);
+            radioButtonList.add(radioButton);
+            i++;
+        }
+
+        anchorPane.getChildren().addAll(radioButtonList);
     }
 }
