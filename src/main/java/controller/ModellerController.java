@@ -8,10 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.Spinner;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -168,12 +165,14 @@ public class ModellerController {
         }
 
         int i = 0;
+        ToggleGroup fuelType = new ToggleGroup();
         for(String name: nameList){
             RadioButton radioButton = new RadioButton();
             radioButton.setText(name);
             radioButton.setLayoutX(240);
             radioButton.setLayoutY(300 + i*30);
             radioButton.setBlendMode(MULTIPLY);
+            radioButton.setToggleGroup(fuelType);
             radioButtonList.add(radioButton);
             i++;
         }
