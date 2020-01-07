@@ -37,7 +37,7 @@ public class Vehicle extends TransportVehicle {
 
     public Vehicle(int x, int y, double poa/*CarRepository carRepository, FuelRepository fuelRepository,*/) {
         super(x, y);
-        //probabilityOfArrival = poa;
+        probabilityOfArrival = poa;
         randValue = rand.nextDouble();
 /*List<Car> carList = carRepository.findAll();
 Random rand = new Random();

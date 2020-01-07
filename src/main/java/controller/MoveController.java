@@ -1,24 +1,18 @@
 package controller;
 
-import topologyObjects.TransportVehicle;
 import frameModule.FrameAnimation;
-import topologyObjects.Vehicle;
 import javafx.animation.AnimationTimer;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import lombok.Getter;
 import value.ExponentialDistribution;
 import visualize.Grid;
-import visualize.GridElement;
 import visualize.VisualisedTransportVehicle;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
-import static topologyObjects.TransportVehicleType.AUTOMOBILE;
-import static topologyObjects.TransportVehicleType.COLLECTORFUEL;
+import static topologyObjects.TransportVehicleType.*;
 
 @Getter
 /*Class describes all animation module*/
@@ -27,9 +21,10 @@ public class MoveController {
 
     private FrameAnimation frameAnimation;
     private double poao = 0.1;
-    private TransportVehicle vehicle;
 
-    private ArrayList<VisualisedTransportVehicle> vehicleArrayList = new ArrayList<VisualisedTransportVehicle>();
+    private ArrayList<VisualisedTransportVehicle> automobiles = new ArrayList<VisualisedTransportVehicle>();
+    VisualisedTransportVehicle collectorFuel;
+    VisualisedTransportVehicle collectorCashBox;
 
     public MoveController() {
         frameAnimation = new FrameAnimation(2,
@@ -46,38 +41,75 @@ public class MoveController {
         final int[] j = {0};
         final int[] numOfVehicle = {0};
         final int[] temp = {666};
+        final int[] trigger = {0};
         AnimationTimer animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
+                /*AUTOMOBILE*/
                 i[0]++;
-                if((int)(exponentialDistribution.getTimes()[j[0]] * 100) == i[0]){//TODO: fix distributions
-                    VisualisedTransportVehicle visualisedTransportVehicle = new VisualisedTransportVehicle((int)Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getTranslateX(),
-                            (int)Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getTranslateY(),
-                            0.5, COLLECTORFUEL);
-                    vehicleArrayList.add(visualisedTransportVehicle);
-                    root.getChildren().add(vehicleArrayList.get(numOfVehicle[0]).getFrameAnimation().getImageView());
+                trigger[0]++;
+                if ((int) (exponentialDistribution.getTimes()[j[0]] * 100) == i[0]) {//TODO: fix distributions
+                    VisualisedTransportVehicle visualisedTransportVehicle = new VisualisedTransportVehicle((int) Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getTranslateX(),
+                            (int) Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getTranslateY(),
+                            0.5, AUTOMOBILE);
+                    automobiles.add(visualisedTransportVehicle);
+                    root.getChildren().add(automobiles.get(numOfVehicle[0]).getFrameAnimation().getImageView());
                     numOfVehicle[0]++;
                     i[0] = 0;
-                    if(j[0] == 99) j[0] = 0;
+                    if (j[0] == 99) j[0] = 0;
                     j[0]++;
                 }
-                for(int k = 0; k < vehicleArrayList.size(); k++) {
+                for (int k = 0; k < automobiles.size(); k++) {
                     try {
-                        if (vehicleArrayList.get(k) != null) {
-                            if (vehicleArrayList.get(k).getTransportVehicle().getX() <= Grid.getGrid()[0][0].getTranslateX()) {
+                        if (automobiles.get(k) != null) {
+                            if (automobiles.get(k).getTransportVehicle().getX() <= Grid.getGrid()[0][0].getTranslateX()) {
                                 temp[0] = k;
                                 numOfVehicle[0]--;
                             }
-                            vehicleArrayList.get(k).go();
+                            automobiles.get(k).go();
                         }
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
-                if (vehicleArrayList.size()!=0 && temp[0] != 666) {
-                    root.getChildren().remove(vehicleArrayList.get(temp[0]).getFrameAnimation().getImageView());
-                    vehicleArrayList.remove(temp[0]);
+                if (automobiles.size() != 0 && temp[0] != 666) {
+                    root.getChildren().remove(automobiles.get(temp[0]).getFrameAnimation().getImageView());
+                    automobiles.remove(temp[0]);
                     temp[0] = 666;
+                }
+                /*COLLECTORFUEL*/
+                if (trigger[0] == 1) {
+                    collectorFuel = new VisualisedTransportVehicle((int) Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getTranslateX(),
+                            (int) Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getTranslateY(),
+                            0.5, COLLECTORFUEL);
+                    root.getChildren().add(collectorFuel.getFrameAnimation().getImageView());
+                }
+                try {
+                    if (collectorFuel != null) {
+                        if (collectorFuel.getTransportVehicle().getX() <= Grid.getGrid()[0][0].getTranslateX()) {
+                            root.getChildren().remove(collectorFuel.getFrameAnimation().getImageView());
+                        }
+                        collectorFuel.go();
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                /*COLLECTORCASHBOX*/
+                if (trigger[0] == 1) {
+                    collectorCashBox = new VisualisedTransportVehicle((int) Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getTranslateX(),
+                            (int) Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getTranslateY(),
+                            0.5, COLLECTORCASHBOX);
+                    root.getChildren().add(collectorCashBox.getFrameAnimation().getImageView());
+                }
+                try {
+                    if (collectorCashBox != null) {
+                        if (collectorCashBox.getTransportVehicle().getX() <= Grid.getGrid()[0][0].getTranslateX()) {
+                            root.getChildren().remove(collectorCashBox.getFrameAnimation().getImageView());
+                        }
+                        collectorCashBox.go();
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
         };
