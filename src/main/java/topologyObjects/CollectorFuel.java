@@ -6,6 +6,7 @@ import elements.FuelTank;
 import javafx.scene.image.ImageView;
 import visualize.Grid;
 import lombok.NoArgsConstructor;
+import visualize.GridElement;
 
 import static topologyObjects.TransportVehicleDirection.*;
 
@@ -45,7 +46,7 @@ public class CollectorFuel extends TransportVehicle {
             imageView.setTranslateY(this.getY());
         }*/
 
-        if (this.getX() > (Grid.getWidth() - 1) * 50 + Grid.getX0()) {
+        if (this.getX() > (Grid.getWidth() - 1) * GridElement.getElementWidth() + Grid.getX0()) {
             this.setDirection(LEFT);
             this.moveX(-1);
             imageView.setTranslateX(this.getX());
@@ -53,21 +54,25 @@ public class CollectorFuel extends TransportVehicle {
             System.out.println("Едем до въезда");
         }
 //заезжаем на АЗС
-        else if (this.getX() == (Grid.getWidth() - 1) * 50 + Grid.getX0() && this.getY() == Grid.getHeight() * 50 + Grid.getY0()) {
+        else if (this.getX() == (Grid.getWidth() - 1) * GridElement.getElementWidth() + Grid.getX0() &&
+                this.getY() == Grid.getHeight() * GridElement.getElementHeight() + Grid.getY0()) {
             this.setDirection(TOP);
             this.moveY(-1);
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());
         }
         //едем вверх
-        else if (this.getX() == (Grid.getWidth() - 1) * 50 + Grid.getX0() && this.getY() < Grid.getHeight() * 50 + Grid.getY0() && this.getY() > Grid.getY0()) {
+        else if (this.getX() == (Grid.getWidth() - 1) * GridElement.getElementWidth() + Grid.getX0() &&
+                this.getY() < Grid.getHeight() * GridElement.getElementHeight() + Grid.getY0() &&
+                this.getY() > Grid.getY0()) {
             this.moveY(-1);
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());
             System.out.println("Едем вверх от въезда");
         }
         //заправились, транулись, уезжаем дальше
-        else if (this.getY() == Grid.getY0() && this.getX() > (Grid.getWidth() - 3) * 50 + Grid.getX0()) {
+        else if (this.getY() == Grid.getY0() &&
+                this.getX() > (Grid.getWidth() - 3) * GridElement.getElementWidth() + Grid.getX0()) {
             this.setDirection(LEFT);
             this.moveX(-1);
             imageView.setTranslateX(this.getX());
@@ -75,7 +80,8 @@ public class CollectorFuel extends TransportVehicle {
             System.out.println("Едем влево по АЗС");
         }
 //доехали до дороги вниз
-        else if (this.getX() == (Grid.getWidth() - 3) * 50 + Grid.getX0() && this.getY() != Grid.getHeight() * 50 + Grid.getY0()) {
+        else if (this.getX() == (Grid.getWidth() - 3) * GridElement.getElementWidth() + Grid.getX0() &&
+                this.getY() != Grid.getHeight() * GridElement.getElementHeight() + Grid.getY0()) {
             this.setDirection(BOTTOM);
             this.moveY(+1);
             imageView.setTranslateX(this.getX());
@@ -83,7 +89,8 @@ public class CollectorFuel extends TransportVehicle {
             System.out.println("Едем на выезд");
         }
         //на выезде, обнуляем кассу и уезжаем
-        else if (this.getX() == (Grid.getWidth() - 3) * 50 + Grid.getX0() && this.getY() == Grid.getHeight() * 50 + Grid.getY0()) {
+        else if (this.getX() == (Grid.getWidth() - 3) * GridElement.getElementWidth() + Grid.getX0() &&
+                this.getY() == Grid.getHeight() * GridElement.getElementHeight() + Grid.getY0()) {
             this.setDirection(LEFT);
             this.moveX(-1);
             imageView.setTranslateX(this.getX());
@@ -93,7 +100,8 @@ public class CollectorFuel extends TransportVehicle {
             System.out.println("Уезжает в закат");
         }
 //выехали на дорогу, уезжаем
-        else if (this.getX() < (Grid.getWidth() - 3) * 50 + Grid.getX0() && this.getY() == Grid.getHeight() * 50 + Grid.getY0()) {
+        else if (this.getX() < (Grid.getWidth() - 3) * GridElement.getElementWidth() + Grid.getX0() &&
+                this.getY() == Grid.getHeight() * GridElement.getElementHeight() + Grid.getY0()) {
             this.moveX(-1);
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());

@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import visualize.Grid;
+import visualize.GridElement;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -72,12 +73,12 @@ this.payment = actualFuelVolume *f.getPrice();
 
         if (randValue > probabilityOfArrival) {
             this.moveX(-1);
+            this.setDirection(LEFT);
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());
-            this.setDirection(LEFT);
         } else {
 //движение до въезда
-            if (this.getX() > Entry.getX() * 50 + Grid.getX0()) {
+            if (this.getX() > Entry.getX() * GridElement.getElementWidth() + Grid.getX0()) {
                 this.moveX(-1);
                 imageView.setTranslateX(this.getX());
                 imageView.setTranslateY(this.getY());
@@ -85,35 +86,37 @@ this.payment = actualFuelVolume *f.getPrice();
                 System.out.println("Едем до въезда");
             }
 //поиск свободной ТРК, если нашел - 1 пиксель вверх, нет - 1 пиксель влево
-            else if (this.getX() == Entry.getX() * 50 + Grid.getX0() && this.getY() == Entry.getY() * 50 + Grid.getY0()) {
-                /*PetrolStation pt_tmp;
-                int tmp = 0;
-                Iterator<PetrolStation> iter = listOfPetrolStations.iterator();
-                while (iter.hasNext()) {
-                    if (listOfPetrolStations.get(tmp).getStatus()) {
-                        pt_tmp = listOfPetrolStations.get(tmp);
-                        if (pt.getX() == 0 && pt.getY() == 0)
-                            pt = pt_tmp;
-                        if (pt_tmp.getX() + pt_tmp.getY() > pt.getX() + pt.getY())
-                            pt = pt_tmp;
-                    }
-                    tmp++;
-                }
-                if (pt != null)
-                    pt.setStatus(false);
-                if (pt != null && !pt.getStatus()) {*/
+/*            else if (this.getX() == Entry.getX() * GridElement.getElementWidth() + Grid.getX0() &&
+                    this.getY() == Entry.getY() * GridElement.getElementHeight() + Grid.getY0()) {
+//                PetrolStation pt_tmp;
+//                int tmp = 0;
+//                Iterator<PetrolStation> iter = listOfPetrolStations.iterator();
+//                while (iter.hasNext()) {
+//                    if (listOfPetrolStations.get(tmp).getStatus()) {
+//                        pt_tmp = listOfPetrolStations.get(tmp);
+//                        if (pt.getX() == 0 && pt.getY() == 0)
+//                            pt = pt_tmp;
+//                        if (pt_tmp.getX() + pt_tmp.getY() > pt.getX() + pt.getY())
+//                            pt = pt_tmp;
+//                    }
+//                    tmp++;
+//                }
+//                if (pt != null)
+//                    pt.setStatus(false);
+//                if (pt != null && !pt.getStatus()) {
                 this.moveY(-1);
                 imageView.setTranslateX(this.getX());
                 imageView.setTranslateY(this.getY());
-                System.out.println("На въезде. Едем вверх");/*
-                } else if (pt == null) {
-                    this.moveX(-1);
-                    imageView.setTranslateX(this.getX());
-                    imageView.setTranslateY(this.getY());
-                }*/
-            }
+                System.out.println("На въезде. Едем вверх");
+//                } else if (pt == null) {
+//                    this.moveX(-1);
+//                    imageView.setTranslateX(this.getX());
+//                    imageView.setTranslateY(this.getY());
+//                }
+            }*/
 //не нашли трк, едем до окнца дороги
-            else if (this.getX() < Entry.getX() * 50 + Grid.getX0() && this.getY() == Entry.getY() * 50 + Grid.getY0()) {
+            else if (this.getX() < Entry.getX() * GridElement.getElementWidth() + Grid.getX0() &&
+                    this.getY() == Entry.getY() * GridElement.getElementHeight() + Grid.getY0()) {
                 this.setDirection(LEFT);
                 this.moveX(-1);
                 imageView.setTranslateX(this.getX());
@@ -121,7 +124,9 @@ this.payment = actualFuelVolume *f.getPrice();
                 System.out.println("НЕ ДОЛЖЕН БВЛ ЗАЙТИ");
             }
             //нашли трк, едем вверх до уровня над ней
-            else if (this.getX() == Entry.getX() * 50 + Grid.getX0() && this.getY() < Entry.getY() * 50 + Grid.getY0() && this.getY() > /*pt.getY()*/ 2 * 50 - 50 + Grid.getY0()) {
+            else if (this.getX() == Entry.getX() * GridElement.getElementWidth() + Grid.getX0() &&
+                    this.getY() <= Entry.getY() * GridElement.getElementHeight() + Grid.getY0() &&
+                    this.getY() > /*pt.getY()*/ Grid.getY0()) {
                 this.setDirection(TOP);
                 this.moveY(-1);
                 imageView.setTranslateX(this.getX());
@@ -145,8 +150,9 @@ this.payment = actualFuelVolume *f.getPrice();
                 imageView.setTranslateX(this.getX());
                 imageView.setTranslateY(this.getY());
             }*/
-//заправились, транулись, уезжаем дальше
-            else if (/*this.getX() < pt.getX() * 40 + Grid.getX0() &&*/ this.getY() == /*pt.getY()*/ 2 * 50 - 50 + Grid.getY0() /*&& pt.getStatus() == true*/ && this.getX() > Exit.getX() * 50 + Grid.getX0()) {
+//заправились, тронулись, уезжаем дальше
+            else if (/*this.getX() < pt.getX() * 40 + Grid.getX0() &&*/ this.getY() == /*pt.getY()*/  Grid.getY0() /*&& pt.getStatus() == true*/ &&
+                    this.getX() > Exit.getX() * GridElement.getElementWidth() + Grid.getX0()) {
                 this.setDirection(LEFT);
                 this.moveX(-1);
                 imageView.setTranslateX(this.getX());
@@ -154,7 +160,8 @@ this.payment = actualFuelVolume *f.getPrice();
                 System.out.println("Едем влево после типо ТРК");
             }
 //доехали до дороги вниз
-            else if (/*pt.getStatus() &&*/ this.getX() == Exit.getX() * 50 + Grid.getX0() && this.getY() != Exit.getY() * 50 + Grid.getY0()) {
+            else if (/*pt.getStatus() &&*/ this.getX() == Exit.getX() * GridElement.getElementWidth() + Grid.getX0() &&
+                    this.getY() != Exit.getY() * GridElement.getElementHeight() + Grid.getY0()) {
                 this.setDirection(BOTTOM);
                 this.moveY(+1);
                 imageView.setTranslateX(this.getX());
@@ -162,7 +169,8 @@ this.payment = actualFuelVolume *f.getPrice();
                 System.out.println("Едем на выезд");
             }
 //выехали на дорогу, уезжаем
-            else if (/*pt.getStatus() &&*/ this.getX() <= Exit.getX() * 50 + Grid.getX0() && this.getY() == Exit.getY() * 50 + Grid.getY0()) {
+            else if (/*pt.getStatus() &&*/ this.getX() <= Exit.getX() * GridElement.getElementWidth() + Grid.getX0() &&
+                    this.getY() == Exit.getY() * GridElement.getElementWidth() + Grid.getY0()) {
                 this.setDirection(LEFT);
                 this.moveX(-1);
                 imageView.setTranslateX(this.getX());

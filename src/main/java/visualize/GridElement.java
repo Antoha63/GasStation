@@ -20,8 +20,8 @@ import static elements.ElementType.*;
 @Setter
 public class GridElement extends Pane {
     private boolean isOccupied;
-    private static int width;
-    private static int height;
+    private static int width = 50;
+    private static int height = 50;
     private int i;
     private int j;
     private MainStaticElement mainStaticElement;
@@ -31,14 +31,12 @@ public class GridElement extends Pane {
 
     public GridElement(int i, int j, boolean isOccupied) {
         this.isOccupied = isOccupied;
-        this.setPrefWidth(50);
-        this.setPrefHeight(50);
+        this.setPrefWidth(width);
+        this.setPrefHeight(height);
         this.i = i;
         this.j = j;
         this.setTranslateX(Grid.getX0() + i * GridElement.getElementWidth());
         this.setTranslateY(Grid.getY0() + j * GridElement.getElementHeight());
-        width = (int) getPrefWidth();
-        height = (int) getPrefHeight();
     }
 
     public void createElement(ElementType type, double rotate) {
