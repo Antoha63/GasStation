@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -35,6 +36,11 @@ public class DBWorkController {
     private List<Fuel> fuelList;
     private List<Car> carList;
 
+    private Stage primaryStage = new Stage();
+
+    @FXML
+    public AnchorPane anchorPane;
+
     @FXML
     public TableView<Fuel> fuelTable;
 
@@ -56,12 +62,12 @@ public class DBWorkController {
 
     @FXML
     public void initialize(){
+        primaryStage.initStyle(StageStyle.TRANSPARENT);
+
         closeButton.setOnAction(event -> {
         Stage stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
     });
-        initData();
-
         columnName.setCellValueFactory(new PropertyValueFactory<Fuel, String>("name"));
         columnPrice.setCellValueFactory(new PropertyValueFactory<Fuel, String>("price"));
 
@@ -70,8 +76,7 @@ public class DBWorkController {
         columnFuelType.setCellValueFactory(new PropertyValueFactory<Car, String>("fuelType"));
         columnTankVolume.setCellValueFactory(new PropertyValueFactory<Car, String>("tankVolume"));
 
-        fuelTable.setItems(fuelObservableList);
-        carTable.setItems(carObservableList);
+        initData();
     }
 
     private void initData() {
@@ -90,11 +95,12 @@ public class DBWorkController {
             car.getTankVolume();
             carObservableList.add(car);
         }
+
+        fuelTable.setItems(fuelObservableList);
+        carTable.setItems(carObservableList);
     }
 
     public void addFuel() throws IOException {
-        Stage primaryStage = new Stage();
-        primaryStage.initStyle(StageStyle.TRANSPARENT);
         Parent root = FXMLLoader.load(getClass().getResource("/views/dbWorkViews/fuelParametersAdd.fxml"));
         root.setOnMousePressed(event -> {
             xOffset = event.getSceneX();
@@ -112,8 +118,6 @@ public class DBWorkController {
     public void changeFuel() throws IOException {
         fuelRepository.delete(fuelRepository.findByName(fuelTable.getSelectionModel().getSelectedItem().getName()));
 
-        Stage primaryStage = new Stage();
-        primaryStage.initStyle(StageStyle.TRANSPARENT);
         Parent root = FXMLLoader.load(getClass().getResource("/views/dbWorkViews/fuelParametersAdd.fxml"));
         root.setOnMousePressed(event -> {
             xOffset = event.getSceneX();
@@ -135,8 +139,6 @@ public class DBWorkController {
     }
 
     public void addCar() throws IOException {
-        Stage primaryStage = new Stage();
-        primaryStage.initStyle(StageStyle.TRANSPARENT);
         Parent root = FXMLLoader.load(getClass().getResource("/views/dbWorkViews/carParametersAdd.fxml"));
         primaryStage.setTitle("");
         primaryStage.setScene(new Scene(root));
@@ -146,8 +148,6 @@ public class DBWorkController {
     public void changeCar() throws IOException {
         carRepository.delete(carRepository.getOne(carTable.getSelectionModel().getSelectedItem().getId()));
 
-        Stage primaryStage = new Stage();
-        primaryStage.initStyle(StageStyle.TRANSPARENT);
         Parent root = FXMLLoader.load(getClass().getResource("/views/dbWorkViews/carParametersAdd.fxml"));
         primaryStage.setTitle("");
         primaryStage.setScene(new Scene(root));
@@ -158,5 +158,12 @@ public class DBWorkController {
         int row = carTable.getSelectionModel().getSelectedIndex();
         carRepository.delete(carRepository.getOne(carTable.getSelectionModel().getSelectedItem().getId()));
         carTable.getItems().remove(row);
+    }
+
+    public void updateTables() throws IOException {
+        fuelTable.getItems().clear();
+        carTable.getItems().clear();
+
+        initData();
     }
 }
