@@ -12,6 +12,8 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 
 public class BoundsController {
+    private double xOffset;
+    private double yOffset;
     @FXML
     private Spinner<Integer> topologyHeight;
     @FXML
@@ -24,8 +26,6 @@ public class BoundsController {
     private Button closeButton;
 
     public void initialize() {
-        ConstructorController constructorController = new ConstructorController();
-        constructorController.setBounds(topologyWidth.getValue(), topologyHeight.getValue());
         closeButton.setOnAction(event -> {
             Stage stage = (Stage) closeButton.getScene().getWindow();
             stage.close();
@@ -35,9 +35,19 @@ public class BoundsController {
 
     @FXML
     public void createConstructor() throws IOException {
+        ConstructorController constructorController = new ConstructorController();
+        constructorController.setBounds(topologyWidth.getValue(), topologyHeight.getValue());
         Stage primaryStage = new Stage();
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         Parent root = FXMLLoader.load(getClass().getResource("/views/constructor.fxml"));
+        root.setOnMousePressed(event -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+        root.setOnMouseDragged(event -> {
+            primaryStage.setX(event.getScreenX() - xOffset);
+            primaryStage.setY(event.getScreenY() - yOffset);
+        });
         primaryStage.setTitle("");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();

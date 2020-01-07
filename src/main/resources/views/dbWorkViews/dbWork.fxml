@@ -7,35 +7,30 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="900.0" styleClass="window_background" stylesheets="@../../styles/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.dbControllers.DBWorkController">
+<AnchorPane prefHeight="500.0" prefWidth="717.0" styleClass="window_background" stylesheets="@../../styles/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.dbControllers.DBWorkController">
    <children>
-      <TableView fx:id="fuelTable" blendMode="MULTIPLY" layoutX="14.0" layoutY="20.0" prefHeight="318.0" prefWidth="321.0">
+      <TableView fx:id="fuelTable" blendMode="MULTIPLY" layoutX="14.0" layoutY="37.0" prefHeight="318.0" prefWidth="321.0">
         <columns>
           <TableColumn fx:id="columnName" prefWidth="155.0" text="Вид топлива" />
           <TableColumn fx:id="columnPrice" prefWidth="165.0" text="Цена (рублей за литр)" />
         </columns>
       </TableView>
-      <Button layoutX="75.0" layoutY="357.0" mnemonicParsing="false" onAction="#addFuel" prefHeight="58.0" prefWidth="89.0" text="Добавить">
+      <Button layoutX="75.0" layoutY="374.0" mnemonicParsing="false" onAction="#addFuel" prefHeight="58.0" prefWidth="89.0" text="Добавить">
          <styleClass>
             <String fx:value="button_restyling" />
             <String fx:value="button_restyling_bounds" />
          </styleClass></Button>
-      <Button layoutX="75.0" layoutY="402.0" mnemonicParsing="false" onAction="#changeFuel" prefHeight="58.0" prefWidth="89.0" text="Изменить">
+      <Button layoutX="75.0" layoutY="419.0" mnemonicParsing="false" onAction="#changeFuel" prefHeight="58.0" prefWidth="89.0" text="Изменить">
          <styleClass>
             <String fx:value="button_restyling" />
             <String fx:value="button_restyling_bounds" />
          </styleClass></Button>
-      <Button layoutX="75.0" layoutY="446.0" mnemonicParsing="false" onAction="#removeFuel" prefHeight="58.0" prefWidth="89.0" text="Удалить">
+      <Button layoutX="75.0" layoutY="463.0" mnemonicParsing="false" onAction="#removeFuel" prefHeight="58.0" prefWidth="89.0" text="Удалить">
          <styleClass>
             <String fx:value="button_restyling" />
             <String fx:value="button_restyling_bounds" />
          </styleClass></Button>
-      <Button fx:id="closeButton" layoutX="232.0" layoutY="24.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="15.0" prefWidth="15.0" style="-fx-background-radius: 20;" styleClass="button_close" stylesheets="@../../styles/styles.css" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
-         <font>
-            <Font size="6.0" />
-         </font>
-      </Button>
-      <TableView fx:id="carTable" blendMode="MULTIPLY" layoutX="522.0" layoutY="20.0" prefHeight="318.0" prefWidth="352.0">
+      <TableView fx:id="carTable" blendMode="MULTIPLY" layoutX="359.0" layoutY="37.0" prefHeight="318.0" prefWidth="352.0">
         <columns>
           <TableColumn fx:id="columnId" prefWidth="26.0" text="Id" />
           <TableColumn fx:id="columnModel" prefWidth="87.0" text="Модель" />
@@ -43,20 +38,29 @@
             <TableColumn fx:id="columnTankVolume" prefWidth="170.0" text="Объём бака (л)" />
         </columns>
       </TableView>
-      <Button layoutX="598.0" layoutY="357.0" mnemonicParsing="false" onAction="#addCar" prefHeight="30.0" prefWidth="200.0" text="Добавить">
+      <Button layoutX="435.0" layoutY="374.0" mnemonicParsing="false" onAction="#addCar" prefHeight="30.0" prefWidth="200.0" text="Добавить">
          <styleClass>
             <String fx:value="button_restyling" />
             <String fx:value="button_restyling_bounds" />
          </styleClass></Button>
-      <Button layoutX="598.0" layoutY="402.0" mnemonicParsing="false" onAction="#changeCar" prefHeight="26.0" prefWidth="200.0" text="Изменить">
+      <Button layoutX="435.0" layoutY="419.0" mnemonicParsing="false" onAction="#changeCar" prefHeight="26.0" prefWidth="200.0" text="Изменить">
          <styleClass>
             <String fx:value="button_restyling" />
             <String fx:value="button_restyling_bounds" />
          </styleClass></Button>
-      <Button layoutX="598.0" layoutY="446.0" mnemonicParsing="false" onAction="#removeCar" prefHeight="26.0" prefWidth="200.0" text="Удалить">
+      <Button layoutX="435.0" layoutY="463.0" mnemonicParsing="false" onAction="#removeCar" prefHeight="26.0" prefWidth="200.0" text="Удалить">
          <styleClass>
             <String fx:value="button_restyling" />
             <String fx:value="button_restyling_bounds" />
          </styleClass></Button>
+      <AnchorPane cache="true" layoutX="1.0" layoutY="1.0" prefHeight="30.0" prefWidth="723.0" styleClass="close_area" stylesheets="@../../styles/styles.css">
+         <children>
+            <Button fx:id="closeButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="15.0" prefWidth="15.0" style="-fx-background-radius: 20;" styleClass="button_close" stylesheets="@../../styles/styles.css" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="7.0">
+               <font>
+                  <Font size="6.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

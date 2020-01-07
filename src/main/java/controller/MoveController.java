@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import static topologyObjects.TransportVehicleType.AUTOMOBILE;
+import static topologyObjects.TransportVehicleType.COLLECTORFUEL;
 
 @Getter
 /*Class describes all animation module*/
@@ -52,7 +53,7 @@ public class MoveController {
                 if((int)(exponentialDistribution.getTimes()[j[0]] * 100) == i[0]){//TODO: fix distributions
                     VisualisedTransportVehicle visualisedTransportVehicle = new VisualisedTransportVehicle((int)Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getTranslateX(),
                             (int)Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getTranslateY(),
-                            0.5, AUTOMOBILE);
+                            0.5, COLLECTORFUEL);
                     vehicleArrayList.add(visualisedTransportVehicle);
                     root.getChildren().add(vehicleArrayList.get(numOfVehicle[0]).getFrameAnimation().getImageView());
                     numOfVehicle[0]++;

@@ -17,6 +17,8 @@ import visualize.Grid;
 import java.io.IOException;
 
 public class ConstructorController {
+    private double xOffset;
+    private double yOffset;
     private static int topologyWidth;
     private static int topologyHeight;
 
@@ -37,7 +39,7 @@ public class ConstructorController {
             stage.close();
         });
         int x0 = 220;
-        int y0 = 0;
+        int y0 = 30 ;
 
         Grid.initGrid(x0, y0, topologyWidth, topologyHeight);
         for (int i = 0; i < topologyWidth; i++) {
@@ -143,6 +145,14 @@ public class ConstructorController {
         Stage primaryStage = new Stage();
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         Parent root = FXMLLoader.load(getClass().getResource("/views/modeller.fxml"));
+        root.setOnMousePressed(event -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+        root.setOnMouseDragged(event -> {
+            primaryStage.setX(event.getScreenX() - xOffset);
+            primaryStage.setY(event.getScreenY() - yOffset);
+        });
         primaryStage.setTitle("");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
