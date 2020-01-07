@@ -16,24 +16,18 @@ public class MainController {
     private double yOffset;
 
     @FXML
+    AnchorPane anchorPane;
+    @FXML
     private Button closeButton;
     @FXML
-    private Button back_button;
+    private Button createTopologyButton;
+
     public void initialize(){
         closeButton.setOnAction(event -> {
             Stage stage = (Stage) closeButton.getScene().getWindow();
             stage.close();
         });
     }
-
-
-
-    @FXML
-    private Button createTopologyButton;
-
-    @FXML
-    AnchorPane anchorPane;
-
 
     public void createTopology() throws IOException {
         Stage primaryStage = new Stage();
@@ -53,7 +47,6 @@ public class MainController {
         Stage stage = (Stage) createTopologyButton.getScene().getWindow();
         stage.close();
     }
-
 
     public void downloadTopology() throws IOException {
 

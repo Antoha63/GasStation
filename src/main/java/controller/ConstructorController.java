@@ -13,8 +13,6 @@ import javafx.scene.layout.*;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.stage.Window;
-import sun.awt.WindowIDProvider;
 import visualize.Grid;
 import visualize.GridElement;
 
@@ -37,15 +35,24 @@ public class ConstructorController {
     private ScrollPane scrollPaneElements;
     @FXML
     private AnchorPane buttons;
-
     @FXML
     private Button closeButton;
     @FXML
     private Button back_button;
     @FXML
     private AnchorPane dragableArea;
+    @FXML
+    private ImageView entry;
+    @FXML
+    private ImageView exit;
+    @FXML
+    private ImageView cashBox;
+    @FXML
+    private ImageView petrolStation;
+    @FXML
+    private ImageView fuelTank;
 
-    public void initialize(){
+    public void initialize() {
         closeButton.setOnAction(event -> {
             Stage stage = (Stage) closeButton.getScene().getWindow();
             stage.close();
@@ -104,9 +111,6 @@ public class ConstructorController {
     }
 
     @FXML
-    private ImageView entry;
-
-    @FXML
     void entryOnDragOverEvent(DragEvent event) {
         event.acceptTransferModes(TransferMode.COPY);
     }
@@ -124,10 +128,6 @@ public class ConstructorController {
     void entryOnMouseClicked(MouseEvent event) {
         entry.setRotate(entry.getRotate() + 90);
     }
-
-
-    @FXML
-    private ImageView exit;
 
     @FXML
     void exitOnDragOverEvent(DragEvent event) {
@@ -148,10 +148,6 @@ public class ConstructorController {
         exit.setRotate(exit.getRotate() + 90);
     }
 
-
-    @FXML
-    private ImageView cashBox;
-
     @FXML
     void cashBoxOnDragOverEvent(DragEvent event) {
         event.acceptTransferModes(TransferMode.COPY);
@@ -165,10 +161,6 @@ public class ConstructorController {
         dragboard.setContent(clipboardContent);
         event.consume();
     }
-
-
-    @FXML
-    private ImageView petrolStation;
 
     @FXML
     void petrolStationOnDragOverEvent(DragEvent event) {
@@ -201,9 +193,6 @@ public class ConstructorController {
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
-
-    @FXML
-    private ImageView fuelTank;
 
     @FXML
     void fuelTankOnDragOverEvent(DragEvent event) {

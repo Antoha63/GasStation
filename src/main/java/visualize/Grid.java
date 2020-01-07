@@ -135,7 +135,7 @@ public class Grid {
                             grid[finalI][Grid.height].createElement(EXIT, 180);
                         break;
                     case "entry":
-                        grid[finalI][Grid.height].createElement(ENTRY, 180);
+                            grid[finalI][Grid.height].createElement(ENTRY, 180);
                         break;
                 }
                 if (Entry.getFlag() && Exit.getFlag() && Entry.getX() > Exit.getX())
@@ -145,11 +145,9 @@ public class Grid {
                 if (grid[finalI][Grid.height].getIsOccupied()) {
                     if (Entry.getX() == 0 ^ Exit.getX() == 0 && (finalI == Exit.getX() || finalI == Entry.getX())) {
                         grid[finalI][Grid.height].deleteElement();
-                        System.out.println("xyj");
                     }
                     if (Entry.getX() != 0 && Exit.getX() != 0 && (finalI == Exit.getX() || finalI == Entry.getX())) {
-                        System.out.println("pizda");
-                        if (grid[finalI][Grid.height].getElementType() == ENTRY) {
+                        if (grid[finalI][Grid.height].getMainStaticElement().getElementType() == ENTRY) {
                             removeRoundRoad();
                             grid[finalI][Grid.height].deleteElement();
                             Entry.setX(0);

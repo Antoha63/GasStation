@@ -12,7 +12,7 @@ import java.util.Random;
 @Setter
 @NoArgsConstructor
 @ToString
-public class UniformDistribution {
+public class UniformDistribution implements Distribution{
 
     private double a; //мат.ожидание between 1 and 10
     private double b; //дисперсия between 0 and 4,5
@@ -21,6 +21,10 @@ public class UniformDistribution {
     public UniformDistribution(double a, double b){
         this.a = a;
         this.b = b;
+    }
+
+    @Override
+    public void modelFunc() {
         int n = 100;
         times = new double [n];
         Random rand = new Random();

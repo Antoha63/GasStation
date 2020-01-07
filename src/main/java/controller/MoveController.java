@@ -1,8 +1,6 @@
 package controller;
 
-import frameModule.FrameAnimation;
 import javafx.animation.AnimationTimer;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import lombok.Getter;
 import value.ExponentialDistribution;
@@ -17,25 +15,13 @@ import static topologyObjects.TransportVehicleType.*;
 @Getter
 /*Class describes all animation module*/
 public class MoveController {
-    private ImageView imageView;
-
-    private FrameAnimation frameAnimation;
-    private double poao = 0.1;
-
     private ArrayList<VisualisedTransportVehicle> automobiles = new ArrayList<VisualisedTransportVehicle>();
-    VisualisedTransportVehicle collectorFuel;
-    VisualisedTransportVehicle collectorCashBox;
-
-    public MoveController() {
-        frameAnimation = new FrameAnimation(2,
-                0,
-                100,
-                50,
-                3);
-    }
+    private VisualisedTransportVehicle collectorFuel;
+    private VisualisedTransportVehicle collectorCashBox;
 
     public void go(AnchorPane root) throws IOException {
         ExponentialDistribution exponentialDistribution = new ExponentialDistribution(1);
+        exponentialDistribution.modelFunc();
 
         final int[] i = {0};
         final int[] j = {0};

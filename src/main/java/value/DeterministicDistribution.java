@@ -12,13 +12,17 @@ import java.util.Random;
 @Setter
 @NoArgsConstructor
 @ToString
-public class DeterministicDistribution {
+public class DeterministicDistribution implements Distribution{
 
     private double time; //between 1 and 10
     private double[] times;
 
     public DeterministicDistribution(double time) {
         this.time = time;
+    }
+
+    @Override
+    public void modelFunc() {
         int n = 100;
         times = new double[n];
         for (int i = 0; i < n; i++)

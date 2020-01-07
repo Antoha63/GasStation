@@ -12,13 +12,17 @@ import java.util.Random;
 @Setter
 @NoArgsConstructor
 @ToString
-public class ExponentialDistribution {
+public class ExponentialDistribution implements Distribution{
 
     private double lambda; //лямбда between 1 and 4
     private double[] times;
 
     public ExponentialDistribution(double lambda){
         this.lambda = lambda;
+    }
+
+    @Override
+    public void modelFunc() {
         int n = 100;
         times = new double [n];
         Random rand = new Random();

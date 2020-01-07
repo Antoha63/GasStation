@@ -17,27 +17,33 @@ public class Entry extends MainStaticElement {
     private static int y;
     private static boolean flag; //isSetted
 
-    public static void setX(int x){
-        Entry.x=x;
+    public Entry(int x, int y, boolean f) {
+        Entry.x = x;
+        Entry.y = y;
+        flag = f;
     }
 
-    public static void setY(int y){
-        Entry.y=y;
+    public static void setX(int x) {
+        Entry.x = x;
     }
 
-    public static int getX(){
+    public static void setY(int y) {
+        Entry.y = y;
+    }
+
+    public static int getX() {
         return x;
     }
 
-    public static int getY(){
+    public static int getY() {
         return y;
     }
 
-    public static boolean getFlag(){
+    public static boolean getFlag() {
         return flag;
     }
 
-    public static void setFlag(boolean f){
+    public static void setFlag(boolean f) {
         flag = f;
     }
 
