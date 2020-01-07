@@ -20,7 +20,7 @@
             <String fx:value="button_restyling" />
             <String fx:value="button_restyling_bounds" />
          </styleClass></Button>
-      <Button layoutX="75.0" layoutY="402.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="89.0" text="Изменить" onAction="#changeFuel">
+      <Button layoutX="75.0" layoutY="402.0" mnemonicParsing="false" onAction="#changeFuel" prefHeight="58.0" prefWidth="89.0" text="Изменить">
          <styleClass>
             <String fx:value="button_restyling" />
             <String fx:value="button_restyling_bounds" />
@@ -35,5 +35,28 @@
             <Font size="6.0" />
          </font>
       </Button>
+      <TableView fx:id="carTable" blendMode="MULTIPLY" layoutX="522.0" layoutY="20.0" prefHeight="318.0" prefWidth="352.0">
+        <columns>
+          <TableColumn fx:id="columnId" prefWidth="26.0" text="Id" />
+          <TableColumn fx:id="columnModel" prefWidth="87.0" text="Модель" />
+            <TableColumn fx:id="columnFuelType" minWidth="0.0" prefWidth="98.0" text="Вид топлива" />
+            <TableColumn fx:id="columnTankVolume" prefWidth="170.0" text="Объём бака (л)" />
+        </columns>
+      </TableView>
+      <Button layoutX="598.0" layoutY="357.0" mnemonicParsing="false" onAction="#addCar" prefHeight="30.0" prefWidth="200.0" text="Добавить">
+         <styleClass>
+            <String fx:value="button_restyling" />
+            <String fx:value="button_restyling_bounds" />
+         </styleClass></Button>
+      <Button layoutX="598.0" layoutY="402.0" mnemonicParsing="false" onAction="#changeCar" prefHeight="26.0" prefWidth="200.0" text="Изменить">
+         <styleClass>
+            <String fx:value="button_restyling" />
+            <String fx:value="button_restyling_bounds" />
+         </styleClass></Button>
+      <Button layoutX="598.0" layoutY="446.0" mnemonicParsing="false" onAction="#removeCar" prefHeight="26.0" prefWidth="200.0" text="Удалить">
+         <styleClass>
+            <String fx:value="button_restyling" />
+            <String fx:value="button_restyling_bounds" />
+         </styleClass></Button>
    </children>
 </AnchorPane>
