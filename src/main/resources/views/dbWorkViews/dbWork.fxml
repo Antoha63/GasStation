@@ -7,12 +7,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="500.0" prefWidth="772.0" styleClass="window_background" stylesheets="@../../styles/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.dbControllers.DBWorkController">
+<AnchorPane fx:id="anchorPane" prefHeight="506.0" prefWidth="775.0" styleClass="window_background" stylesheets="@../../styles/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.dbControllers.DBWorkController">
    <children>
       <TableView fx:id="fuelTable" blendMode="MULTIPLY" layoutX="14.0" layoutY="37.0" prefHeight="318.0" prefWidth="356.0">
         <columns>
-          <TableColumn fx:id="columnName" prefWidth="155.0" text="Вид топлива" />
-          <TableColumn fx:id="columnPrice" prefWidth="165.0" text="Цена (рублей за литр)" />
+          <TableColumn fx:id="columnName" prefWidth="175.0" text="Вид топлива" />
+          <TableColumn fx:id="columnPrice" prefWidth="180.0" text="Цена (рублей за литр)" />
         </columns>
       </TableView>
       <Button layoutX="92.0" layoutY="375.0" mnemonicParsing="false" onAction="#addFuel" prefHeight="58.0" prefWidth="89.0" text="Добавить">

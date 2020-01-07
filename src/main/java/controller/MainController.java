@@ -17,17 +17,16 @@ public class MainController {
 
     @FXML
     private Button closeButton;
+    @FXML
+    private Button back_button;
     public void initialize(){
         closeButton.setOnAction(event -> {
             Stage stage = (Stage) closeButton.getScene().getWindow();
             stage.close();
         });
-/*        anchorPane.setOnMouseDragged(event -> {
-
-            anchorPane.setTranslateX(event.getScreenX());
-            anchorPane.setTranslateY(event.getScreenY());
-        });*/
     }
+
+
 
     @FXML
     private Button createTopologyButton;

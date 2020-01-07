@@ -41,10 +41,35 @@ public class ConstructorController {
     @FXML
     private Button closeButton;
     @FXML
+    private Button back_button;
+    @FXML
     private AnchorPane dragableArea;
 
     public void initialize(){
         closeButton.setOnAction(event -> {
+            Stage stage = (Stage) closeButton.getScene().getWindow();
+            stage.close();
+        });
+        back_button.setOnAction(event -> {
+            Stage primaryStage = new Stage();
+            primaryStage.initStyle(StageStyle.TRANSPARENT);
+            Parent root = null;
+            try {
+                root = FXMLLoader.load(getClass().getResource("/views/topologySize.fxml"));
+                root.setOnMousePressed(mouseEvent -> {
+                    xOffset = mouseEvent.getSceneX();
+                    yOffset = mouseEvent.getSceneY();
+                });
+                root.setOnMouseDragged(mouseEvent -> {
+                    primaryStage.setX(mouseEvent.getScreenX() - xOffset);
+                    primaryStage.setY(mouseEvent.getScreenY() - yOffset);
+                });
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            primaryStage.setTitle("");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
             Stage stage = (Stage) closeButton.getScene().getWindow();
             stage.close();
         });

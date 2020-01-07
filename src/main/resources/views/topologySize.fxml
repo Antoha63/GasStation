@@ -42,6 +42,11 @@
                   <Font size="6.0" />
                </font>
             </Button>
+            <Button fx:id="back_button" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="15.0" prefWidth="15.0" styleClass="button_back" stylesheets="@../styles/styles.css" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="7.0">
+               <font>
+                  <Font size="6.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
    </children>

@@ -109,7 +109,7 @@ public class ModellerController {
 
     @FXML
     public void createImitation() throws IOException {
-        Vehicle.setProbabilityOfArrival(probabilityOfArrival.getValue());//TODO: fix it
+        //Vehicle.setProbabilityOfArrival(probabilityOfArrival.getValue());//TODO: fix it
         PetrolStation.setSpeed(petrolStationSpeed.getValue());
         // листу FuelTanks нужно каждому FT присвоить ft.setCurrentVolume = fuelTankVolume.getValue()
         // ЛИБО ЭТО СДЕЛАТЬ В КОНСТРУКТОРЕ ФУЕЛТАНКОВ!!!!!! Я думаю так лучше (Никита)
@@ -133,8 +133,6 @@ public class ModellerController {
         primaryStage.setTitle("ИМИТАЦИЯ");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
-
-
     }
 
     @FXML
