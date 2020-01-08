@@ -58,6 +58,11 @@ public class CollectorCashbox extends TransportVehicle {
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());
             this.setDirection(LEFT);
+            if (this.getX() < Entry.getX() * GridElement.getElementWidth() + Grid.getX0()) {
+                this.setX(Entry.getX() * GridElement.getElementWidth() + Grid.getX0());
+                imageView.setTranslateX(this.getX());
+                imageView.setTranslateY(this.getY());
+            }
             //System.out.println("Едем до въезда");
         }
 //заезжаем на АЗС
@@ -75,6 +80,11 @@ public class CollectorCashbox extends TransportVehicle {
             this.moveY(-1 * MoveController.getSliderMode());
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());
+            if (this.getY() < Grid.getY0()){
+                this.setY(Grid.getY0());
+                imageView.setTranslateX(this.getX());
+                imageView.setTranslateY(this.getY());
+            }
             //System.out.println("Едем вверх от въезда");
         }
         //заправились, транулись, уезжаем дальше
@@ -83,6 +93,11 @@ public class CollectorCashbox extends TransportVehicle {
             this.moveX(-1 * MoveController.getSliderMode());
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());
+            if (this.getX() < Exit.getX() * GridElement.getElementWidth() + Grid.getX0()){
+                this.setX(Exit.getX() * GridElement.getElementWidth() + Grid.getX0());
+                imageView.setTranslateX(this.getX());
+                imageView.setTranslateY(this.getY());
+            }
             //System.out.println("Едем влево по АЗС");
         }
 
@@ -94,6 +109,11 @@ public class CollectorCashbox extends TransportVehicle {
             this.moveY(+1 * MoveController.getSliderMode());
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());
+            if (this.getY() > Exit.getY() * GridElement.getElementHeight() + Grid.getY0()){
+                this.setY(Exit.getY() * GridElement.getElementHeight() + Grid.getY0());
+                imageView.setTranslateX(this.getX());
+                imageView.setTranslateY(this.getY());
+            }
             //System.out.println("Едем на выезд");
         }
 
@@ -129,6 +149,11 @@ public class CollectorCashbox extends TransportVehicle {
             this.moveX(-1 * MoveController.getSliderMode());
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());
+            if (this.getX() < Grid.getX0()){
+                this.setX(Grid.getX0());
+                imageView.setTranslateX(this.getX());
+                imageView.setTranslateY(this.getY());
+            }
             //System.out.println("Уезжает в закат");
         }
 

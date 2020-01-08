@@ -17,9 +17,9 @@ public class FuelTank extends MainStaticElement {
     private int x;
     private int y;
     private long id;
-    private String fuel;
+    private String fuel = "98";
     private static int volume;  //between 5000 and 20000
-    private int currentVolume;
+    private int currentVolume = 5000;
     private static int criticalLevel; //between 10% and 90%
     private boolean status = true;
 

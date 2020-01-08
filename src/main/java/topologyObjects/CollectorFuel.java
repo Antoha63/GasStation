@@ -1,5 +1,6 @@
 package topologyObjects;
 
+import controller.MoveController;
 import elements.Entry;
 import elements.Exit;
 import elements.FuelTank;
@@ -48,16 +49,21 @@ public class CollectorFuel extends TransportVehicle {
 
         if (this.getX() > (Grid.getWidth() - 1) * GridElement.getElementWidth() + Grid.getX0()) {
             this.setDirection(LEFT);
-            this.moveX(-1);
+            this.moveX(-1 * MoveController.getSliderMode());
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());
-            System.out.println("Едем до въезда");
+            if (this.getX() < (Grid.getWidth() - 1) * GridElement.getElementWidth() + Grid.getX0()) {
+                this.setX((Grid.getWidth() - 1) * GridElement.getElementWidth() + Grid.getX0());
+                imageView.setTranslateX(this.getX());
+                imageView.setTranslateY(this.getY());
+            }
+            //System.out.println("Едем до въезда");
         }
 //заезжаем на АЗС
         else if (this.getX() == (Grid.getWidth() - 1) * GridElement.getElementWidth() + Grid.getX0() &&
                 this.getY() == Grid.getHeight() * GridElement.getElementHeight() + Grid.getY0()) {
             this.setDirection(TOP);
-            this.moveY(-1);
+            this.moveY(-1 * MoveController.getSliderMode());
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());
         }
@@ -65,47 +71,67 @@ public class CollectorFuel extends TransportVehicle {
         else if (this.getX() == (Grid.getWidth() - 1) * GridElement.getElementWidth() + Grid.getX0() &&
                 this.getY() < Grid.getHeight() * GridElement.getElementHeight() + Grid.getY0() &&
                 this.getY() > Grid.getY0()) {
-            this.moveY(-1);
+            this.moveY(-1 * MoveController.getSliderMode());
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());
-            System.out.println("Едем вверх от въезда");
+            if (this.getY() < Grid.getY0()){
+                this.setY(Grid.getY0());
+                imageView.setTranslateX(this.getX());
+                imageView.setTranslateY(this.getY());
+            }
+            //System.out.println("Едем вверх от въезда");
         }
         //заправились, транулись, уезжаем дальше
         else if (this.getY() == Grid.getY0() &&
                 this.getX() > (Grid.getWidth() - 3) * GridElement.getElementWidth() + Grid.getX0()) {
             this.setDirection(LEFT);
-            this.moveX(-1);
+            this.moveX(-1 * MoveController.getSliderMode());
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());
-            System.out.println("Едем влево по АЗС");
+            if (this.getX() < (Grid.getWidth() - 3) * GridElement.getElementWidth() + Grid.getX0()){
+                this.setX(Exit.getX() * (Grid.getWidth() - 3) * GridElement.getElementWidth() + Grid.getX0());
+                imageView.setTranslateX(this.getX());
+                imageView.setTranslateY(this.getY());
+            }
+            //System.out.println("Едем влево по АЗС");
         }
 //доехали до дороги вниз
         else if (this.getX() == (Grid.getWidth() - 3) * GridElement.getElementWidth() + Grid.getX0() &&
                 this.getY() != Grid.getHeight() * GridElement.getElementHeight() + Grid.getY0()) {
             this.setDirection(BOTTOM);
-            this.moveY(+1);
+            this.moveY(+1 * MoveController.getSliderMode());
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());
-            System.out.println("Едем на выезд");
+            if (this.getY() > Exit.getY() * GridElement.getElementHeight() + Grid.getY0()){
+                this.setY(Exit.getY() * GridElement.getElementHeight() + Grid.getY0());
+                imageView.setTranslateX(this.getX());
+                imageView.setTranslateY(this.getY());
+            }
+            //System.out.println("Едем на выезд");
         }
         //на выезде, обнуляем кассу и уезжаем
         else if (this.getX() == (Grid.getWidth() - 3) * GridElement.getElementWidth() + Grid.getX0() &&
                 this.getY() == Grid.getHeight() * GridElement.getElementHeight() + Grid.getY0()) {
             this.setDirection(LEFT);
-            this.moveX(-1);
+            this.moveX(-1 * MoveController.getSliderMode());
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());
             //ft.setCurrentVolume();
             //ft.setStatus(true);
-            System.out.println("Уезжает в закат");
+            //System.out.println("Уезжает в закат");
         }
 //выехали на дорогу, уезжаем
         else if (this.getX() < (Grid.getWidth() - 3) * GridElement.getElementWidth() + Grid.getX0() &&
                 this.getY() == Grid.getHeight() * GridElement.getElementHeight() + Grid.getY0()) {
-            this.moveX(-1);
+            this.moveX(-1 * MoveController.getSliderMode());
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());
-            System.out.println("Уезжает в закат");
+            if (this.getX() < Grid.getX0()){
+                this.setX(Grid.getX0());
+                imageView.setTranslateX(this.getX());
+                imageView.setTranslateY(this.getY());
+            }
+            //System.out.println("Уезжает в закат");
         }
     }
 }

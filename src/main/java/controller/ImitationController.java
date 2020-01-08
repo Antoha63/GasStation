@@ -12,7 +12,31 @@ import visualize.GridElement;
 import java.io.IOException;
 
 public class ImitationController {
-    private boolean status = false;
+    @FXML
+    private AnchorPane cahshBoxPopup;
+    @FXML
+    private Label cashboxProfitValue;
+    @FXML
+    private Label cashboxBalanceValue;
+    @FXML
+    private Label cashboxCriticalValue;
+    @FXML
+    private AnchorPane fuelTankPopup;
+    @FXML
+    private Label fueltankFuelValue;
+    @FXML
+    private Label fueltankVolumeValue;
+    @FXML
+    private Label fueltankCriticalLevel;
+    @FXML
+    private Label fueltankCurrentVolume;
+    @FXML
+    private AnchorPane petrolStationPopup;
+    @FXML
+    private Label petrolstationSpeed;
+    @FXML
+    private Label petrolstationStatus;
+    @FXML
     private MoveController moveController = new MoveController();
     ;
     @FXML

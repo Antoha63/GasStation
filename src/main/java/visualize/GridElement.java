@@ -1,5 +1,6 @@
 package visualize;
 
+import controller.ImitationController;
 import elements.CashBox;
 import elements.Entry;
 import elements.Exit;

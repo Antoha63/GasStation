@@ -15,6 +15,9 @@ import javafx.stage.StageStyle;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import repositories.FuelRepository;
 import topologyObjects.Vehicle;
+import value.DeterministicDistribution;
+import value.ExponentialDistribution;
+import value.UniformDistribution;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -45,15 +48,15 @@ public class ModellerController {
     @FXML
     private Spinner<Integer> cashboxCriticalLevel;
     @FXML
-    private Spinner<Integer> time;
+    private Spinner<Double> time;
     @FXML
-    private Spinner<Integer> matO;
+    private Spinner<Double> matO;
     @FXML
-    private Spinner<Integer> dispersion;
+    private Spinner<Double> dispersion;
     @FXML
-    private Spinner<Integer> intens;
+    private Spinner<Double> intens;
     @FXML
-    private Spinner<Integer> probabilityOfArrival;
+    private Spinner<Double> probabilityOfArrival;
 
     @FXML
     private RadioButton radioButtonDeterministicDistribution;
@@ -74,11 +77,11 @@ public class ModellerController {
     @FXML
     private Button closeButton;
 
-    public void initialize (){
+    public void initialize() {
         closeButton.setOnAction(event -> {
-        Stage stage = (Stage) closeButton.getScene().getWindow();
-        stage.close();
-    });
+            Stage stage = (Stage) closeButton.getScene().getWindow();
+            stage.close();
+        });
         radioButtonDeterministicDistribution.setOnAction(event -> {
             labelTime.setVisible(true);
             time.setVisible(true);
@@ -114,14 +117,21 @@ public class ModellerController {
 
     @FXML
     public void createImitation() throws IOException {
-        //Vehicle.setProbabilityOfArrival(probabilityOfArrival.getValue());//TODO: fix it
         PetrolStation.setSpeed(petrolStationSpeed.getValue());
         // листу FuelTanks нужно каждому FT присвоить ft.setCurrentVolume = fuelTankVolume.getValue()
         // ЛИБО ЭТО СДЕЛАТЬ В КОНСТРУКТОРЕ ФУЕЛТАНКОВ!!!!!! Я думаю так лучше (Никита)
         FuelTank.setVolume(fuelTankVolume.getValue());
         FuelTank.setCriticalLevel(fuelTankCriticalLevel.getValue());
+        PetrolStation.setSpeed(petrolStationSpeed.getValue());
         CashBox.setCriticalLevel(cashboxCriticalLevel.getValue());
-
+        Vehicle.setProbabilityOfArrival(probabilityOfArrival.getValue());//TODO: fix it
+        if (radioButtonDeterministicDistribution.isSelected()) {
+            MoveController.setDistribution(new DeterministicDistribution(time.getValue()));
+        } else if (radioButtonExponentialDistribution.isSelected()) {
+            MoveController.setDistribution(new ExponentialDistribution(intens.getValue()));
+        } else if (radioButtonUniformDistribution.isSelected()) {
+            MoveController.setDistribution(new UniformDistribution(matO.getValue(), dispersion.getValue()));
+        }
 
 
         primaryStage = new Stage();
@@ -158,22 +168,22 @@ public class ModellerController {
         primaryStage.show();
     }
 
-    private void addRadioButtons(){
+    private void addRadioButtons() {
         List<RadioButton> radioButtonList = new ArrayList<>();
         List<String> nameList = new ArrayList<>();
         List<Fuel> fuelList = fuelRepository.findAll();
 
-        for (Fuel fuel: fuelList) {
+        for (Fuel fuel : fuelList) {
             nameList.add(fuel.getName());
         }
 
         int i = 0;
         ToggleGroup fuelType = new ToggleGroup();
-        for(String name: nameList){
+        for (String name : nameList) {
             RadioButton radioButton = new RadioButton();
             radioButton.setText(name);
             radioButton.setLayoutX(240);
-            radioButton.setLayoutY(300 + i*30);
+            radioButton.setLayoutY(300 + i * 30);
             radioButton.setBlendMode(MULTIPLY);
             radioButton.setToggleGroup(fuelType);
             radioButtonList.add(radioButton);

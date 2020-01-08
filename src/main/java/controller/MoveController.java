@@ -5,6 +5,8 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.layout.AnchorPane;
 import lombok.Getter;
 import lombok.Setter;
+import value.DeterministicDistribution;
+import value.Distribution;
 import value.ExponentialDistribution;
 import visualize.Grid;
 import visualize.VisualisedTransportVehicle;
@@ -12,7 +14,6 @@ import visualize.VisualisedTransportVehicle;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static TimeControl.TimeState.*;
 import static topologyObjects.TransportVehicleType.*;
 
 @Getter
@@ -22,13 +23,18 @@ public class MoveController {
     private ArrayList<VisualisedTransportVehicle> automobiles = new ArrayList<VisualisedTransportVehicle>();
     private VisualisedTransportVehicle collectorFuel;
     private VisualisedTransportVehicle collectorCashBox;
+    private static Distribution distribution = new ExponentialDistribution(1);;
     private AnimationTimer animationTimer;
     private TimeState timeState;
     private static int sliderMode;
 
+    public static void setDistribution(Distribution distribution) {
+        MoveController.distribution = distribution;
+    }
+
     public void go(AnchorPane root) throws IOException {
-        ExponentialDistribution exponentialDistribution = new ExponentialDistribution(1);
-        exponentialDistribution.modelFunc();
+
+        distribution.modelFunc();
 
         final int[] i = {0};
         final int[] j = {0};
@@ -42,10 +48,9 @@ public class MoveController {
                     case START:
                         i[0]++;
                         trigger[0]++;
-                        if ((int) (exponentialDistribution.getTimes()[j[0]] * 100) == i[0]) {//TODO: fix distributions
+                        if ((int) (distribution.getTimes()[j[0]] * 100) == i[0]) {//TODO: fix distributions
                             VisualisedTransportVehicle visualisedTransportVehicle = new VisualisedTransportVehicle((int) Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getTranslateX(),
-                                    (int) Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getTranslateY(),
-                                    0.5, AUTOMOBILE);
+                                    (int) Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getTranslateY(), AUTOMOBILE);
                             automobiles.add(visualisedTransportVehicle);
                             root.getChildren().add(automobiles.get(numOfVehicle[0]).getFrameAnimation().getImageView());
                             numOfVehicle[0]++;
@@ -74,8 +79,7 @@ public class MoveController {
                         /*COLLECTORFUEL*/
                         if (trigger[0] == 1) {
                             collectorFuel = new VisualisedTransportVehicle((int) Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getTranslateX(),
-                                    (int) Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getTranslateY(),
-                                    0.5, COLLECTORFUEL);
+                                    (int) Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getTranslateY(), COLLECTORFUEL);
                             root.getChildren().add(collectorFuel.getFrameAnimation().getImageView());
                         }
                         try {
@@ -92,8 +96,7 @@ public class MoveController {
                         /*COLLECTORCASHBOX*/
                         if (trigger[0] == 1) {
                             collectorCashBox = new VisualisedTransportVehicle((int) Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getTranslateX(),
-                                    (int) Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getTranslateY(),
-                                    0.5, COLLECTORCASHBOX);
+                                    (int) Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getTranslateY(), COLLECTORCASHBOX);
                             root.getChildren().add(collectorCashBox.getFrameAnimation().getImageView());
                         }
                         try {
