@@ -14,12 +14,12 @@ public class Exit extends MainStaticElement {
 
     private static int x;
     private static int y;
-    private static boolean flag; //isSetted
+    private static boolean status = false; //isSetted
 
     public Exit(int x, int y, boolean f) {
         Exit.x = x;
         Exit.y = y;
-        flag = f;
+        status = f;
     }
 
     public static void setX(int x) {
@@ -38,12 +38,12 @@ public class Exit extends MainStaticElement {
         return y;
     }
 
-    public static boolean getFlag() {
-        return flag;
+    public static boolean getStatus() {
+        return status;
     }
 
-    public static void setFlag(boolean f) {
-        flag = f;
+    public static void setStatus(boolean f) {
+        status = f;
     }
 }
 

@@ -57,15 +57,16 @@ public class GridElement extends Pane {
                 break;
             case CASHBOX:
                 this.mainStaticElement = new CashBox(i, j);
+                CashBox.setStatus(true);
                 mainStaticElement.setElementType(CASHBOX);
                 this.setOccupied(true);
-                System.out.println(this.mainStaticElement);
                 this.frameAnimation = new FrameAnimation(2, 3, 50, 50, 3);
                 this.getChildren().add(this.frameAnimation.getImageView());
                 break;
             case EXIT:
                 this.mainStaticElement = new Exit(i, j, true);
                 mainStaticElement.setElementType(EXIT);
+                Exit.setStatus(true);
 /*                Exit.setX(i);
                 Exit.setY(j);
                 Exit.setFlag(true);*/
@@ -77,6 +78,7 @@ public class GridElement extends Pane {
             case ENTRY:
                 this.mainStaticElement = new Entry(i, j, true);
                 mainStaticElement.setElementType(ENTRY);
+                Entry.setStatus(true);
 /*                Entry.setX(i);
                 Entry.setY(j);
                 Entry.setFlag(true);*/

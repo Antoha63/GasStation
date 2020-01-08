@@ -131,14 +131,14 @@ public class Grid {
             grid[i][Grid.height].setOnDragDropped(event -> {//TODO: fix readd round road when deleting the Entry
                 switch (event.getDragboard().getString()) {
                     case "exit":
-                        if (finalI <= Entry.getX() && Entry.getFlag())
+                        if (finalI <= Entry.getX() && Entry.getStatus())
                             grid[finalI][Grid.height].createElement(EXIT, 180);
                         break;
                     case "entry":
                             grid[finalI][Grid.height].createElement(ENTRY, 180);
                         break;
                 }
-                if (Entry.getFlag() && Exit.getFlag() && Entry.getX() > Exit.getX())
+                if (Entry.getStatus() && Exit.getStatus() && Entry.getX() > Exit.getX())
                     setRoundRoad();
             });
             grid[i][Grid.height].setOnMouseClicked(event -> {
@@ -152,13 +152,13 @@ public class Grid {
                             grid[finalI][Grid.height].deleteElement();
                             Entry.setX(0);
                             Entry.setY(0);
-                            Entry.setFlag(false);
+                            Entry.setStatus(false);
                         } else {
                             removeRoundRoad();
                             grid[finalI][Grid.height].deleteElement();
                             Exit.setX(0);
                             Exit.setY(0);
-                            Exit.setFlag(false);
+                            Exit.setStatus(false);
                         }
                     }
                 }

@@ -12,16 +12,16 @@ import lombok.ToString;
 @ToString
 public class CashBox extends MainStaticElement {
 
-    private int x;
-    private int y;
+    private static int x;
+    private static int y;
     private static int profit; //заработок за все время
     private static int balance;
     private static int criticalLevel; //between 10000 nd 100000
-    private static boolean status = true;
+    private static boolean status = false;
 
     public CashBox (int x, int y){
-        this.x = x;
-        this.y = y;
+        CashBox.x = x;
+        CashBox.y = y;
     }
 
     public static void setCriticalLevel(int vol){
@@ -49,5 +49,17 @@ public class CashBox extends MainStaticElement {
             this.status = false;
         }
         return answer;
+    }
+
+    public static int getX(){
+        return CashBox.x;
+    }
+
+    public static int getY(){
+        return CashBox.y;
+    }
+
+    public static boolean getStatus(){
+        return CashBox.status;
     }
 }

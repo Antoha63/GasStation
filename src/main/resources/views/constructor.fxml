@@ -14,7 +14,7 @@
       <children>
       <AnchorPane fx:id="buttons" layoutX="14.0" layoutY="71.0" prefHeight="150.0" prefWidth="200.0">
          <children>
-               <Button mnemonicParsing="false" prefHeight="94.0" prefWidth="153.0" stylesheets="@../styles/styles.css" text="Создать топологию" wrapText="true">
+               <Button mnemonicParsing="false" onAction="#saveTopology" prefHeight="94.0" prefWidth="153.0" stylesheets="@../styles/styles.css" text="Сохранить топологию" wrapText="true">
                   <font>
                      <Font name="Constantia" size="17.0" />
                   </font>

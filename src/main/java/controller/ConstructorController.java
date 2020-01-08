@@ -208,4 +208,20 @@ public class ConstructorController {
         event.consume();
     }
 
+    public void saveTopology() throws IOException {
+        Stage primaryStage = new Stage();
+        primaryStage.initStyle(StageStyle.TRANSPARENT);
+        Parent root = FXMLLoader.load(getClass().getResource("/views/saveTopology.fxml"));
+        root.setOnMousePressed(event -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+        root.setOnMouseDragged(event -> {
+            primaryStage.setX(event.getScreenX() - xOffset);
+            primaryStage.setY(event.getScreenY() - yOffset);
+        });
+        primaryStage.setTitle("");
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
+    }
 }

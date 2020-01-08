@@ -21,14 +21,14 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 @Entity
-@Table(name = "TOPOLOGY", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"ENTRANCEX", "ENTRANCEY"}),
-        @UniqueConstraint(columnNames = {"EXITX", "EXITY"}),
-        @UniqueConstraint(columnNames = {"CASHBOXX", "CASHBOXY"})})
+@Table(name = "TOPOLOGY")
 public class Topology {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(name = "NAME", unique = true, nullable = false)
+    private String name;
 
     @Column(name = "HEIGHT", nullable = false)
     private int height;

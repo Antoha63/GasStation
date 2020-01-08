@@ -15,12 +15,12 @@ public class Entry extends MainStaticElement {
 
     private static int x;
     private static int y;
-    private static boolean flag; //isSetted
+    private static boolean status = false; //isSetted
 
     public Entry(int x, int y, boolean f) {
         Entry.x = x;
         Entry.y = y;
-        flag = f;
+        status = f;
     }
 
     public static void setX(int x) {
@@ -39,12 +39,12 @@ public class Entry extends MainStaticElement {
         return y;
     }
 
-    public static boolean getFlag() {
-        return flag;
+    public static boolean getStatus() {
+        return status;
     }
 
-    public static void setFlag(boolean f) {
-        flag = f;
+    public static void setStatus(boolean f) {
+        status = f;
     }
 
 }
