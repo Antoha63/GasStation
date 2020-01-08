@@ -35,10 +35,7 @@ public class ConstructorController {
     private double yOffset;
     private static int topologyWidth;
     private static int topologyHeight;
-    private ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-data-context.xml");
-    private TopologyRepository topologyRepository = context.getBean(TopologyRepository.class);
-    private PetrolStationRepository petrolStationRepository = context.getBean(PetrolStationRepository.class);
-    private FuelTankRepository fuelTankRepository = context.getBean(FuelTankRepository.class);
+
 
     public void setBounds(int width, int height) {
         topologyWidth = width;
@@ -118,6 +115,10 @@ public class ConstructorController {
         } else if (DownloadTopologyController.getPrimaryStage() != null) {
             setAdaptiveDesign(DownloadTopologyController.getPrimaryStage());
 
+            ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-data-context.xml");
+            TopologyRepository topologyRepository = context.getBean(TopologyRepository.class);
+            PetrolStationRepository petrolStationRepository = context.getBean(PetrolStationRepository.class);
+            FuelTankRepository fuelTankRepository = context.getBean(FuelTankRepository.class);
             Topology topology = topologyRepository.findByName(DownloadTopologyController.getTopologyName());
             Grid.getGrid()[topology.getCashBoxX()][topology.getCashBoxY()].createElement(ElementType.CASHBOX, 0);
             Grid.getGrid()[topology.getEntranceX()][topology.getEntranceY()].createElement(ElementType.ENTRY, 180);
