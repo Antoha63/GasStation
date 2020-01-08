@@ -1,5 +1,6 @@
 package controller;
 
+import entities.Topology;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,9 +14,12 @@ import javafx.scene.layout.*;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import repositories.TopologyRepository;
 import visualize.Grid;
 import visualize.GridElement;
 
+import java.io.Console;
 import java.io.IOException;
 
 public class ConstructorController {
@@ -23,6 +27,8 @@ public class ConstructorController {
     private double yOffset;
     private static int topologyWidth;
     private static int topologyHeight;
+    private ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-data-context.xml");
+    private TopologyRepository topologyRepository = context.getBean(TopologyRepository.class);
 
     public void setBounds(int width, int height) {
         topologyWidth = width;
@@ -97,11 +103,20 @@ public class ConstructorController {
         scrollPaneElements.setLayoutX(Grid.getGrid()[topologyWidth - 1][0].getTranslateX() + GridElement.getElementWidth() + 10);
         scrollPaneElements.setLayoutY(buttons.getLayoutY());
 
-/*        Stage stage = BoundsController.getPrimaryStage();
+        if (BoundsController.getPrimaryStage() != null){
+        Stage stage = BoundsController.getPrimaryStage();
         stage.setWidth(scrollPaneElements.getLayoutX() + scrollPaneElements.getPrefWidth() + 10);
         stage.setHeight(Grid.getGrid()[0][topologyHeight].getTranslateY() + GridElement.getElementHeight() + 10);
         scrollPaneElements.setPrefHeight(stage.getHeight() - scrollPaneElements.getLayoutY() - 10);
-        dragableArea.setPrefWidth(stage.getWidth() - 2);*/
+        dragableArea.setPrefWidth(stage.getWidth() - 2);
+        }
+        else {
+            Stage stage = DownloadTopologyController.getPrimaryStage();
+            stage.setWidth(scrollPaneElements.getLayoutX() + scrollPaneElements.getPrefWidth() + 10);
+            stage.setHeight(Grid.getGrid()[0][topologyHeight].getTranslateY() + GridElement.getElementHeight() + 10);
+            scrollPaneElements.setPrefHeight(stage.getHeight() - scrollPaneElements.getLayoutY() - 10);
+            dragableArea.setPrefWidth(stage.getWidth() - 2);
+        }
     }
 
     @FXML

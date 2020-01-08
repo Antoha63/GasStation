@@ -30,7 +30,7 @@ public class DownloadTopologyController {
     private List<Topology> topologyList;
 
     private ObservableList<Topology> topologyObservableList = FXCollections.observableArrayList();
-    private Stage primaryStage = new Stage();
+    private static Stage primaryStage = new Stage();
 
     @FXML
     public TableColumn<Topology, String> columnName;
@@ -79,5 +79,9 @@ public class DownloadTopologyController {
         primaryStage.show();
         Stage stage = (Stage) button.getScene().getWindow();
         stage.close();
+    }
+
+    public static Stage getPrimaryStage(){
+        return primaryStage;
     }
 }
