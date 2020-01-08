@@ -23,6 +23,7 @@ import visualize.Grid;
 import visualize.GridElement;
 
 import java.io.IOException;
+import java.util.List;
 
 public class SaveTopologyController {
     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-data-context.xml");
@@ -65,11 +66,11 @@ public class SaveTopologyController {
         }
         topologyRepository.save(topology);
 
-        PetrolStation petrolStation = new PetrolStation();
-        elements.PetrolStation elementsPetrolStation = new elements.PetrolStation();
-        if (elementsPetrolStation.getStatus()) {
-            petrolStation.setCoordinateX(elementsPetrolStation.getX());
-            petrolStation.setCoordinateY(elementsPetrolStation.getY());
+        List<elements.PetrolStation> listOfPetrolStations= Grid.getListOfPetrolStations();
+        for (elements.PetrolStation petrolStationValue: listOfPetrolStations) {
+            PetrolStation petrolStation = new PetrolStation();
+            petrolStation.setCoordinateX(petrolStationValue.getX());
+            petrolStation.setCoordinateY(petrolStationValue.getY());
             petrolStation.setTopology(topology);
             petrolStationRepository.save(petrolStation);
         }

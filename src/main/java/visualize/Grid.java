@@ -46,6 +46,7 @@ public class Grid {
     private static List<PetrolStation> listOfPetrolStations = new ArrayList<>();
     private static List<FuelTank> listOfFuelTanks = new ArrayList<>();
 
+    public static List<PetrolStation> getListOfPetrolStations(){return listOfPetrolStations;}
     public static void setListOfPetrolStations(PetrolStation petrolStation){
         listOfPetrolStations.add(petrolStation);
     }
@@ -219,7 +220,7 @@ public class Grid {
 
     }
 
-    private static void setRoundRoad() {
+    public static void setRoundRoad() {
         grid[Entry.getX()][0].createElement(TURNROAD, 90);
         grid[Exit.getX()][0].createElement(TURNROAD, 0);
         for (int j = Exit.getX() + 1; j < Entry.getX(); j++) {

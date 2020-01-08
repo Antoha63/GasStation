@@ -1,6 +1,9 @@
 package controller;
 
 import elements.ElementType;
+import elements.Entry;
+import elements.Exit;
+import elements.PetrolStation;
 import entities.Topology;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,12 +19,14 @@ import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import repositories.PetrolStationRepository;
 import repositories.TopologyRepository;
 import visualize.Grid;
 import visualize.GridElement;
 
 import java.io.Console;
 import java.io.IOException;
+import java.util.List;
 
 public class ConstructorController {
     private double xOffset;
@@ -30,6 +35,7 @@ public class ConstructorController {
     private static int topologyHeight;
     private ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-data-context.xml");
     private TopologyRepository topologyRepository = context.getBean(TopologyRepository.class);
+    private PetrolStationRepository petrolStationRepository = context.getBean(PetrolStationRepository.class);
 
     public void setBounds(int width, int height) {
         topologyWidth = width;
@@ -111,8 +117,17 @@ public class ConstructorController {
 
             Topology topology = topologyRepository.findByName(DownloadTopologyController.getTopologyName());
             Grid.getGrid()[topology.getCashBoxX()][topology.getCashBoxY()].createElement(ElementType.CASHBOX, 0);
-            Grid.getGrid()[topology.getEntranceX()][topology.getEntranceY()].createElement(ElementType.ENTRY, 0);
-            Grid.getGrid()[topology.getExitX()][topology.getExitY()].createElement(ElementType.EXIT, 0);
+            Grid.getGrid()[topology.getEntranceX()][topology.getEntranceY()].createElement(ElementType.ENTRY, 180);
+            Grid.getGrid()[topology.getExitX()][topology.getExitY()].createElement(ElementType.EXIT, 180);
+
+            //List<elements.PetrolStation> petrolStationList = //:TODO добавить из БД ТРК
+            /*for (elements.PetrolStation petrolStationValue: petrolStationList) {
+                entities.PetrolStation petrolStation = new entities.PetrolStation();
+                Grid.getGrid()[petrolStation.getCoordinateX()][petrolStation.getCoordinateY()].createElement(ElementType.PETROLSTATION, 0);
+            }*/
+
+            if (Entry.getStatus() && Exit.getStatus() && Entry.getX() > Exit.getX())
+                Grid.setRoundRoad();
         }
     }
 
