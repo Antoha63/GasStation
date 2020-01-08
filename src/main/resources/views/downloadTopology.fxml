@@ -5,13 +5,13 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="296.0" prefWidth="186.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="296.0" prefWidth="186.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DownloadTopologyController">
    <children>
-      <TableView layoutY="48.0" prefHeight="200.0" prefWidth="186.0">
+      <TableView fx:id="tableView" layoutY="48.0" prefHeight="200.0" prefWidth="186.0">
         <columns>
-          <TableColumn prefWidth="199.0" text="Название топологии" />
+          <TableColumn fx:id="columnName" prefWidth="199.0" text="Название топологии" />
         </columns>
       </TableView>
-      <Button layoutX="58.0" layoutY="257.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="71.0" text="ОК" />
+      <Button layoutX="58.0" layoutY="257.0" fx:id="button" mnemonicParsing="false" onAction="#selectTopology" prefHeight="25.0" prefWidth="71.0" text="ОК" />
    </children>
 </AnchorPane>
