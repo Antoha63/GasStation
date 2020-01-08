@@ -103,6 +103,7 @@ public class Grid {
                 });
                 grid[i][j].setOnMouseClicked(event -> {
                     if (grid[finalI][finalJ].getMainStaticElement() != null) {
+                        listOfPetrolStations.remove(grid[finalI][finalJ].getMainStaticElement());
                         grid[finalI][finalJ].deleteElement();
                         removePetrolRoad(finalI, finalJ);
                     }
@@ -215,7 +216,6 @@ public class Grid {
             grid[Exit.getX()][PetrolStationY - 1].createElement(CROSSROAD, 270);
             grid[Entry.getX()][PetrolStationY - 1].createElement(CROSSROAD, 90);
         }
-
     }
 
     private static void removePetrolRoad(int PetrolStationX, int PetrolStationY) {

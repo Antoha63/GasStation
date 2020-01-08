@@ -23,7 +23,7 @@
                   <String fx:value="button_restyling_bounds" />
                </styleClass>
                </Button>
-               <Button layoutY="40.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="153.0" stylesheets="@../styles/styles.css" text="Проверка корректности" wrapText="true">
+               <Button fx:id="checkCorrect" layoutY="40.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="153.0" stylesheets="@../styles/styles.css" text="Проверка корректности" wrapText="true">
                   <font>
                      <Font size="17.0" />
                   </font>

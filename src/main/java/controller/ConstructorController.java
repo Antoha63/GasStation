@@ -68,11 +68,16 @@ public class ConstructorController {
     private ImageView petrolStation;
     @FXML
     private ImageView fuelTank;
+    @FXML
+    private Button checkCorrect;
 
     public void initialize() {
         closeButton.setOnAction(event -> {
             Stage stage = (Stage) closeButton.getScene().getWindow();
             stage.close();
+        });
+        checkCorrect.setOnAction(event -> {
+            System.out.println(Grid.getListOfPetrolStations());
         });
 
         buttons.setLayoutX(10);
