@@ -21,7 +21,7 @@ public class Main {
         FuelRepository fuelRepository = context.getBean(FuelRepository.class);
 
         Topology topology = new Topology();
-        topology.setName("lol");
+        //topology.setName("lol");
         topology.setHeight(1);
         topology.setWidth(1);
         topologyRepository.save(topology);

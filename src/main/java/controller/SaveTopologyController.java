@@ -45,7 +45,7 @@ public class SaveTopologyController {
 
     public void save() {
         Topology topology = new Topology();
-        topology.setName(textField.getText());
+        //topology.setName(textField.getText());
         topology.setHeight(Grid.getHeight());
         topology.setWidth(Grid.getWidth());
 
@@ -79,5 +79,7 @@ public class SaveTopologyController {
 //        fuelTank.setCoordinateY(1);
 //        fuelTank.setTopology(topology);
 //        fuelTankRepository.save(fuelTank);
+        Stage stage = (Stage) button.getScene().getWindow();
+        stage.close();
     }
 }
