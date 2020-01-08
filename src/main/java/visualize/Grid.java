@@ -46,7 +46,9 @@ public class Grid {
     private static List<PetrolStation> listOfPetrolStations = new ArrayList<>();
     private static List<FuelTank> listOfFuelTanks = new ArrayList<>();
 
-    public static List<PetrolStation> getListOfPetrolStations(){return listOfPetrolStations;}
+    public static List<PetrolStation> getListOfPetrolStations(){
+        return listOfPetrolStations;
+    }
     public static void setListOfPetrolStations(PetrolStation petrolStation){
         listOfPetrolStations.add(petrolStation);
     }
