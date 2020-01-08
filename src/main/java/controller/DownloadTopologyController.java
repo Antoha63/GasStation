@@ -43,15 +43,7 @@ public class DownloadTopologyController {
 
     @FXML
     public void initialize(){
-        primaryStage.initStyle(StageStyle.TRANSPARENT);
-
-        button.setOnAction(event -> {
-            Stage stage = (Stage) button.getScene().getWindow();
-            stage.close();
-        });
-
         columnName.setCellValueFactory(new PropertyValueFactory<Topology, String>("name"));
-
         initData();
     }
 
@@ -66,7 +58,6 @@ public class DownloadTopologyController {
     }
 
     public void selectTopology() throws IOException {
-        System.out.println("===============================================");
         Topology topology = topologyRepository.findByName(tableView.getSelectionModel().getSelectedItem().getName());
         System.out.println(topology.getWidth() + "     " + topology.getHeight());
 
