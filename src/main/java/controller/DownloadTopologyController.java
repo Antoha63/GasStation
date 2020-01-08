@@ -24,6 +24,7 @@ import java.util.List;
 public class DownloadTopologyController {
     private double xOffset;
     private double yOffset;
+
     private ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-data-context.xml");
     private TopologyRepository topologyRepository = context.getBean(TopologyRepository.class);
 

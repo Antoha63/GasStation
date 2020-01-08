@@ -4,8 +4,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class MainApp extends Application {
+
+    private ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-data-context.xml");
 
     private double xOffset;
     private double yOffset;

@@ -26,10 +26,10 @@ import java.io.IOException;
 import java.util.List;
 
 public class SaveTopologyController {
-    ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-data-context.xml");
-    TopologyRepository topologyRepository = context.getBean(TopologyRepository.class);
-    PetrolStationRepository petrolStationRepository = context.getBean(PetrolStationRepository.class);
-    FuelTankRepository fuelTankRepository = context.getBean(FuelTankRepository.class);
+    private ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-data-context.xml");
+    private TopologyRepository topologyRepository = context.getBean(TopologyRepository.class);
+    private PetrolStationRepository petrolStationRepository = context.getBean(PetrolStationRepository.class);
+    private FuelTankRepository fuelTankRepository = context.getBean(FuelTankRepository.class);
 
     @FXML
     private Button button;
@@ -66,22 +66,26 @@ public class SaveTopologyController {
         }
         topologyRepository.save(topology);
 
-        List<elements.PetrolStation> listOfPetrolStations= Grid.getListOfPetrolStations();
-        for (elements.PetrolStation petrolStationValue: listOfPetrolStations) {
-            PetrolStation petrolStation = new PetrolStation();
-            petrolStation.setCoordinateX(petrolStationValue.getX());
-            petrolStation.setCoordinateY(petrolStationValue.getY());
-            petrolStation.setTopology(topology);
-            petrolStationRepository.save(petrolStation);
+        if (Grid.getListOfPetrolStations() != null) {
+            List<elements.PetrolStation> listOfPetrolStations = Grid.getListOfPetrolStations();
+            for (elements.PetrolStation petrolStationValue : listOfPetrolStations) {
+                PetrolStation petrolStation = new PetrolStation();
+                petrolStation.setCoordinateX(petrolStationValue.getX());
+                petrolStation.setCoordinateY(petrolStationValue.getY());
+                petrolStation.setTopology(topology);
+                petrolStationRepository.save(petrolStation);
+            }
         }
 
-        List<elements.FuelTank> listOfFuelTanks= Grid.getListOfFuelTanks();
-        for (elements.FuelTank fuelTankValue: listOfFuelTanks) {
-            FuelTank fuelTank = new FuelTank();
-            fuelTank.setCoordinateX(fuelTankValue.getX());
-            fuelTank.setCoordinateY(fuelTankValue.getY());
-            fuelTank.setTopology(topology);
-            fuelTankRepository.save(fuelTank);
+        if (Grid.getListOfFuelTanks() != null) {
+            List<elements.FuelTank> listOfFuelTanks = Grid.getListOfFuelTanks();
+            for (elements.FuelTank fuelTankValue : listOfFuelTanks) {
+                FuelTank fuelTank = new FuelTank();
+                fuelTank.setCoordinateX(fuelTankValue.getX());
+                fuelTank.setCoordinateY(fuelTankValue.getY());
+                fuelTank.setTopology(topology);
+                fuelTankRepository.save(fuelTank);
+            }
         }
 
         Stage stage = (Stage) button.getScene().getWindow();
