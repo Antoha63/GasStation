@@ -26,7 +26,7 @@ public class Main {
         topology.setWidth(1);
         topologyRepository.save(topology);
 
-        /*PetrolStation petrolStation = new PetrolStation();
+        PetrolStation petrolStation = new PetrolStation();
         petrolStation.setCoordinateX(1);
         petrolStation.setCoordinateY(1);
         petrolStation.setTopology(topology);
@@ -47,6 +47,6 @@ public class Main {
         Fuel fuel = new Fuel();
         fuel.setName("92");
         fuel.setPrice(40);
-        fuelRepository.save(fuel);*/
+        fuelRepository.save(fuel);
     }
 }
