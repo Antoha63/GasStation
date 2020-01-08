@@ -103,20 +103,18 @@ public class ConstructorController {
         scrollPaneElements.setLayoutX(Grid.getGrid()[topologyWidth - 1][0].getTranslateX() + GridElement.getElementWidth() + 10);
         scrollPaneElements.setLayoutY(buttons.getLayoutY());
 
-        if (BoundsController.getPrimaryStage() != null){
-        Stage stage = BoundsController.getPrimaryStage();
+        if (BoundsController.getPrimaryStage() != null) {
+            setAdaptiveDesign(BoundsController.getPrimaryStage());
+        } else if (DownloadTopologyController.getPrimaryStage() != null){
+            setAdaptiveDesign(DownloadTopologyController.getPrimaryStage());
+        }
+    }
+
+    private void setAdaptiveDesign(Stage stage) {
         stage.setWidth(scrollPaneElements.getLayoutX() + scrollPaneElements.getPrefWidth() + 10);
         stage.setHeight(Grid.getGrid()[0][topologyHeight].getTranslateY() + GridElement.getElementHeight() + 10);
         scrollPaneElements.setPrefHeight(stage.getHeight() - scrollPaneElements.getLayoutY() - 10);
         dragableArea.setPrefWidth(stage.getWidth() - 2);
-        }
-        else {
-            Stage stage = DownloadTopologyController.getPrimaryStage();
-            stage.setWidth(scrollPaneElements.getLayoutX() + scrollPaneElements.getPrefWidth() + 10);
-            stage.setHeight(Grid.getGrid()[0][topologyHeight].getTranslateY() + GridElement.getElementHeight() + 10);
-            scrollPaneElements.setPrefHeight(stage.getHeight() - scrollPaneElements.getLayoutY() - 10);
-            dragableArea.setPrefWidth(stage.getWidth() - 2);
-        }
     }
 
     @FXML
