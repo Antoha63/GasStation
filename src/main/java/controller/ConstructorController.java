@@ -1,5 +1,6 @@
 package controller;
 
+import elements.ElementType;
 import entities.Topology;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -107,6 +108,11 @@ public class ConstructorController {
             setAdaptiveDesign(BoundsController.getPrimaryStage());
         } else if (DownloadTopologyController.getPrimaryStage() != null){
             setAdaptiveDesign(DownloadTopologyController.getPrimaryStage());
+
+            Topology topology = topologyRepository.findByName(DownloadTopologyController.getTopologyName());
+            Grid.getGrid()[topology.getCashBoxX()][topology.getCashBoxY()].createElement(ElementType.CASHBOX, 0);
+            Grid.getGrid()[topology.getEntranceX()][topology.getEntranceY()].createElement(ElementType.ENTRY, 0);
+            Grid.getGrid()[topology.getExitX()][topology.getExitY()].createElement(ElementType.EXIT, 0);
         }
     }
 

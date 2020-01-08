@@ -29,6 +29,8 @@ public class DownloadTopologyController {
 
     private List<Topology> topologyList;
 
+    private static String topologyName;
+
     private ObservableList<Topology> topologyObservableList = FXCollections.observableArrayList();
     private static Stage primaryStage = new Stage();
 
@@ -59,6 +61,7 @@ public class DownloadTopologyController {
 
     public void selectTopology() throws IOException {
         Topology topology = topologyRepository.findByName(tableView.getSelectionModel().getSelectedItem().getName());
+        topologyName = tableView.getSelectionModel().getSelectedItem().getName();
         System.out.println(topology.getWidth() + "     " + topology.getHeight());
 
         ConstructorController constructorController = new ConstructorController();
@@ -83,5 +86,9 @@ public class DownloadTopologyController {
 
     public static Stage getPrimaryStage(){
         return primaryStage;
+    }
+
+    public static String getTopologyName(){
+        return topologyName;
     }
 }
