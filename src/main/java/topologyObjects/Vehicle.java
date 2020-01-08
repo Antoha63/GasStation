@@ -32,7 +32,7 @@ public class Vehicle extends TransportVehicle {
     private int payment;
     private Random rand = new Random();
     private double randValue;
-    private PetrolStation pt;
+    private int pt = 666;
     private static double probabilityOfArrival;
 
     public static void setProbabilityOfArrival(double poa) {
@@ -55,7 +55,7 @@ Car car = carList.get(rand.nextInt(carList.size()));
 this.model = car.getModel();
 this.tankVolume = car.getTankVolume();
 this.fuelType = car.getFuelType();*/
-        actualFuelVolume = tankVolume / 100 * rand.nextInt(99);
+        actualFuelVolume = tankVolume/100*rand.nextInt(99);
 /*List<Fuel> fuelList = fuelRepository.findAll();
 for (Fuel f : fuelList){
 if (f.getName() == this.fuelType)
@@ -63,6 +63,7 @@ this.payment = actualFuelVolume *f.getPrice();
 }*/
 
     }
+
 
     public void pay(CashBox cashbox, int payment) {
         cashbox.setPayment(payment);
@@ -94,70 +95,41 @@ this.payment = actualFuelVolume *f.getPrice();
             }
 //поиск свободной ТРК, если нашел - 1 пиксель вверх, нет - 1 пиксель влево
             else if (this.getX() == Entry.getX() * GridElement.getElementWidth() + Grid.getX0() && this.getY() == Entry.getY() * GridElement.getElementHeight() + Grid.getY0()) {
-                PetrolStation pt_tmp;
-                int tmp = 0;
-                List<PetrolStation> lOPS;
-                lOPS = Grid.getListOfPetrolStations();
-                Iterator<PetrolStation> iter = Grid.getListOfPetrolStations().iterator();
-                while (iter.hasNext() && tmp < Grid.getListOfPetrolStations().size()) {
-                    if (tmp <= Grid.getListOfPetrolStations().size() - 1 && Grid.getListOfPetrolStations().get(tmp).getStatus()) {
-                        pt_tmp = Grid.getListOfPetrolStations().get(tmp);
-                        if (tmp == 0)
-                            pt = pt_tmp;
-                        else if (pt_tmp != null && pt != null) {
-                            if (pt_tmp.getX() + pt_tmp.getY() > pt.getX() + pt.getY()) {
-
-                                pt = pt_tmp;
-                            }
-                        }
+                List<PetrolStation> lOPS = new ArrayList<>();
+                for (int i = 0; i < Grid.getListOfPetrolStations().size(); i++){
+                    if (Grid.getListOfPetrolStations().get(i).getStatus()){
+                        lOPS.add(Grid.getListOfPetrolStations().get(i));
                     }
-                    tmp++;
                 }
-
-                /*Iterator<PetrolStation> iter = lOPS.iterator();
-                while (iter.hasNext() && tmp < lOPS.size()) {
-                    if (tmp <= lOPS.size() - 1 && lOPS.get(tmp).getStatus()) {
-                        pt_tmp = lOPS.get(tmp);
-                        if (tmp == 0)
-                            pt = pt_tmp;
-                        else if (pt_tmp != null && pt != null){
-                            if (pt_tmp.getX() + pt_tmp.getY() > pt.getX() + pt.getY()){
-
-                            pt = pt_tmp;
-                            }
-                        }
+                if (lOPS.size() != 0) {
+                    PetrolStation pt_tmp = lOPS.get(0);
+                    for (int i = 1; i < lOPS.size() - 1; i++) {
+                        if (pt_tmp.getX() + pt_tmp.getY() < Grid.getListOfPetrolStations().get(i).getX() + Grid.getListOfPetrolStations().get(i).getY())
+                            pt_tmp = Grid.getListOfPetrolStations().get(i);
                     }
-                    tmp++;
-                }*//*
-                for (int i = 0; i < lOPS.size(); i++){
-                    if (lOPS.get(i).getStatus()){
-                        if (i == 0)
-                            pt = lOPS.get(i);
-                        else if (pt.getX() + pt.getY() < lOPS.get(i).getY() + lOPS.get(i).getX())
-                            pt = lOPS.get(i);
-                    }
-                }*/
-                if (pt != null)
-                    pt.setStatus(false);
-                if (pt != null && !pt.getStatus()) {
-                    //System.out.println("КООРДИНАТЫ ТРК " + pt.getX() + "  " + pt.getY());
+                    pt = Grid.getListOfPetrolStations().indexOf(pt_tmp);
+                }
+                if (pt != 666)
+                    Grid.getListOfPetrolStations().get(pt).setStatus(false);
+                if (pt != 666 && !Grid.getListOfPetrolStations().get(pt).getStatus()) {
+                    System.out.println("КООРДИНАТЫ ТРК " + Grid.getListOfPetrolStations().get(pt).getX() + "  " + Grid.getListOfPetrolStations().get(pt).getY());
                     this.moveY(-1);
                     this.setDirection(TOP);
                     imageView.setTranslateX(this.getX());
                     imageView.setTranslateY(this.getY());
-                    //System.out.println("НАШЕЛ. Едем вверх");
-                } else if (pt == null) {
+                    System.out.println("НАШЕЛ. Едем вверх");
+                } else if (pt == 666) {
                     this.setDirection(LEFT);
                     this.moveX(-1);
                     imageView.setTranslateX(this.getX());
                     imageView.setTranslateY(this.getY());
-                    //System.out.println("НЕ НАШЕЛ СВОБОДНОЙ ПТ");
+                    System.out.println("НЕ НАШЕЛ СВОБОДНОЙ ПТ");
                 }
             }
 //не нашли трк, едем до окнца дороги
             else if (this.getX() < Entry.getX() * GridElement.getElementWidth() + Grid.getX0() &&
                     this.getY() == Entry.getY() * GridElement.getElementHeight() + Grid.getY0() &&
-                    this.getX() > Exit.getX() * GridElement.getElementWidth() + Grid.getX0()) {
+                    this.getX() > Exit.getX() * GridElement.getElementWidth() + Grid.getX0())  {
                 this.setDirection(LEFT);
                 this.moveX(-1);
                 imageView.setTranslateX(this.getX());
@@ -165,9 +137,9 @@ this.payment = actualFuelVolume *f.getPrice();
                 //System.out.println("НЕ ДОЛЖЕН БВЛ ЗАЙТИ");
             }
             //нашли трк, едем вверх до уровня над ней
-            else if (this.getX() == Entry.getX() * GridElement.getElementWidth() + Grid.getX0() &&
+            else if (pt!=666 && this.getX() == Entry.getX() * GridElement.getElementWidth() + Grid.getX0() &&
                     this.getY() < Entry.getY() * GridElement.getElementHeight() + Grid.getY0() &&
-                    this.getY() > pt.getY() * GridElement.getElementHeight() - GridElement.getElementHeight() + Grid.getY0()) {
+                    this.getY() > Grid.getListOfPetrolStations().get(pt).getY() * GridElement.getElementHeight() - GridElement.getElementHeight() + Grid.getY0()) {
                 this.setDirection(TOP);
                 this.moveY(-1);
                 imageView.setTranslateX(this.getX());
@@ -175,29 +147,27 @@ this.payment = actualFuelVolume *f.getPrice();
                 //System.out.println("Едем вверх от въезда");
             }
 //едем влево до ТРК
-            else if (this.getX() > pt.getX() * GridElement.getElementWidth() + Grid.getX0() &&
-                    this.getY() == pt.getY() * GridElement.getElementHeight() - GridElement.getElementHeight() + Grid.getY0() &&
-                    !pt.getStatus()) {
+            else if (pt!=666 && this.getX() > Grid.getListOfPetrolStations().get(pt).getX() * GridElement.getElementWidth() + Grid.getX0() && this.getY() == Grid.getListOfPetrolStations().get(pt).getY() * GridElement.getElementHeight() - GridElement.getElementHeight() + Grid.getY0() && !Grid.getListOfPetrolStations().get(pt).getStatus()) {
                 this.setDirection(LEFT);
                 this.moveX(-1);
                 imageView.setTranslateX(this.getX());
                 imageView.setTranslateY(this.getY());
             }
 //заправляемся и уезжаем
-            else if (this.getX() == pt.getX() * GridElement.getElementWidth() + Grid.getX0()
-                    && this.getY() == pt.getY() * GridElement.getElementHeight() - GridElement.getElementHeight() + Grid.getY0() && pt.getStatus() == false) {
+            else if (pt!=666 && this.getX() == Grid.getListOfPetrolStations().get(pt).getX() * GridElement.getElementWidth() + Grid.getX0()
+                    && this.getY() == Grid.getListOfPetrolStations().get(pt).getY() * GridElement.getElementHeight() - GridElement.getElementHeight() + Grid.getY0() && Grid.getListOfPetrolStations().get(pt).getStatus() == false) {
 //Sleep время заправки pt.getSpeed()
 //this.fill(listOfFuelTanks);
 //this.pay(cashbox, this.payment);
-                pt.setStatus(true);
+                Grid.getListOfPetrolStations().get(pt).setStatus(true);
                 this.setDirection(LEFT);
                 this.moveX(-1);
                 imageView.setTranslateX(this.getX());
                 imageView.setTranslateY(this.getY());
             }
 //заправились, тронулись, уезжаем дальше
-            else if (this.getX() < pt.getX() * GridElement.getElementWidth() + Grid.getX0() && this.getY() == pt.getY() * GridElement.getElementHeight() - GridElement.getElementHeight() + Grid.getY0()
-                    && pt.getStatus() == true && this.getX() > Exit.getX() * GridElement.getElementWidth() + Grid.getX0()) {
+            else if (pt!=666 && this.getX() < Grid.getListOfPetrolStations().get(pt).getX() * GridElement.getElementWidth() + Grid.getX0() && this.getY() == Grid.getListOfPetrolStations().get(pt).getY() * GridElement.getElementHeight() - GridElement.getElementHeight() + Grid.getY0()
+                    && this.getX() > Exit.getX() * GridElement.getElementWidth() + Grid.getX0()) {
                 this.setDirection(LEFT);
                 this.moveX(-1);
                 imageView.setTranslateX(this.getX());
@@ -205,7 +175,7 @@ this.payment = actualFuelVolume *f.getPrice();
                 //System.out.println("Едем влево после типо ТРК");
             }
 //доехали до дороги вниз
-            else if (pt.getStatus() && this.getX() == Exit.getX() * GridElement.getElementWidth() + Grid.getX0() &&
+            else if (pt!=666 && this.getX() == Exit.getX() * GridElement.getElementWidth() + Grid.getX0() &&
                     this.getY() != Exit.getY() * GridElement.getElementHeight() + Grid.getY0()) {
                 this.setDirection(BOTTOM);
                 this.moveY(+1);
@@ -214,7 +184,7 @@ this.payment = actualFuelVolume *f.getPrice();
                 //System.out.println("Едем на выезд");
             }
 //выехали на дорогу, уезжаем
-            else if (pt.getStatus() && this.getX() <= Exit.getX() * GridElement.getElementWidth() + Grid.getX0() &&
+            else if (this.getX() <= Exit.getX() * GridElement.getElementWidth() + Grid.getX0() &&
                     this.getY() == Exit.getY() * GridElement.getElementWidth() + Grid.getY0()) {
                 this.setDirection(LEFT);
                 this.moveX(-1);
@@ -222,62 +192,6 @@ this.payment = actualFuelVolume *f.getPrice();
                 imageView.setTranslateY(this.getY());
                 //System.out.println("Уезжает в зака");
             }
-
-
-/*while (this.getX() != 4 /*Entry.getX()) {
-this.moveX(-1);
-imageView.setTranslateX(this.getX());
-imageView.setTranslateY(this.getY());
-}
-
-PetrolStation pt_tmp = new PetrolStation();
-PetrolStation pt = new PetrolStation();
-int tmp = 0;
-Iterator<PetrolStation> iter = listOfPetrolStations.iterator();
-while(iter.hasNext()){
-if(listOfPetrolStations.get(tmp).getStatus() == true) {
-pt_tmp = listOfPetrolStations.get(tmp);
-if (pt.getX() == 0 && pt.getY() == 0)
-pt = pt_tmp;
-if (pt_tmp.getX() + pt_tmp.getY() > pt.getX() + pt.getY())
-pt = pt_tmp;
-}
-tmp++;
-}
-pt.setStatus(false);
-
-while (this.y != pt.getY()+1) {
-this.moveY(-1);
-imageView.setTranslateX(this.getX());
-imageView.setTranslateY(this.getY());
-}
-while (this.x != pt.getX()) {
-this.moveX(-1);
-imageView.setTranslateX(this.getX());
-imageView.setTranslateY(this.getY());
-}
-
-//кратчайший путь до свободной ТРК (pt) goTo(pt.getX(),pt.getY())
-//Sleep время заправки pt.getSpeed()
-//this.fill(listOfFuelTanks);
-//this.pay(cashbox, this.payment);
-
-//кратчайший путь до выезда
-while (this.getX() != 1 Exit.getX()){
-this.moveX(-1);
-imageView.setTranslateX(this.getX());
-imageView.setTranslateY(this.getY());
-}
-while (this.getY() != Grid.getHeight() -1){
-this.moveY(+1);
-imageView.setTranslateX(this.getX());
-imageView.setTranslateY(this.getY());
-}
-while (this.getX() > 0){
-this.moveX(-1);
-imageView.setTranslateX(this.getX());
-imageView.setTranslateY(this.getY());
-}*/
         }
     }
 }
