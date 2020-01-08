@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import visualize.Grid;
+
 @Getter
 @Setter
 @ToString
@@ -24,6 +26,7 @@ public class PetrolStation extends MainStaticElement {
     public PetrolStation (int x, int y){
         this.x = x;
         this.y = y;
+        Grid.setListOfPetrolStations(this);
     }
 
     public static void setSpeed(int sp){

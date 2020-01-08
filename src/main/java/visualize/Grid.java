@@ -3,6 +3,9 @@ package visualize;
 import com.sun.xml.bind.v2.TODO;
 import elements.Entry;
 import elements.Exit;
+import elements.FuelTank;
+import elements.PetrolStation;
+import entities.Fuel;
 import frameModule.FrameAnimation;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.TransferMode;
@@ -35,12 +38,22 @@ public class Grid {
     private static int width;
     private static int height;
 
+    private static GridElement[][] grid;
     private static String[] dragboardStrings;
 
     private static GridElement gridElement;
     private static GridPane gridPane = new GridPane();
+    private static List<PetrolStation> listOfPetrolStations = new ArrayList<>();
+    private static List<FuelTank> listOfFuelTanks = new ArrayList<>();
 
-    private static GridElement[][] grid;
+    public static void setListOfPetrolStations(PetrolStation petrolStation){
+        listOfPetrolStations.add(petrolStation);
+    }
+
+    public static void setListOfFuelTanks(FuelTank fuelTank)
+    {
+        listOfFuelTanks.add(fuelTank);
+    }
     private static Random rand = new Random();
 
     public static void initGrid(int topologyX0, int topologyY0,

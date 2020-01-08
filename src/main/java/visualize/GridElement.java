@@ -67,9 +67,6 @@ public class GridElement extends Pane {
                 this.mainStaticElement = new Exit(i, j, true);
                 mainStaticElement.setElementType(EXIT);
                 Exit.setStatus(true);
-/*                Exit.setX(i);
-                Exit.setY(j);
-                Exit.setFlag(true);*/
                 this.setOccupied(true);
                 this.frameAnimation = new FrameAnimation(4, 4, 50, 50, 6);
                 this.frameAnimation.getImageView().setRotate(rotate);
@@ -79,9 +76,6 @@ public class GridElement extends Pane {
                 this.mainStaticElement = new Entry(i, j, true);
                 mainStaticElement.setElementType(ENTRY);
                 Entry.setStatus(true);
-/*                Entry.setX(i);
-                Entry.setY(j);
-                Entry.setFlag(true);*/
                 this.setOccupied(true);
                 this.frameAnimation = new FrameAnimation(4, 4, 50, 50, 6);
                 this.frameAnimation.getImageView().setRotate(rotate);
@@ -120,6 +114,8 @@ public class GridElement extends Pane {
 
     public void deleteElement() {
         //if (!elementType.equals(ROAD) && !elementType.equals(CROSSROAD))
+/*        if(mainStaticElement.getElementType() == PETROLSTATION)
+            Grid.getListOfPetrolStations().remove(mainStaticElement);*/
         this.getChildren().remove(frameAnimation.getImageView());
         frameAnimation = null;
         mainStaticElement = null;
