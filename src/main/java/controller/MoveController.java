@@ -24,6 +24,7 @@ public class MoveController {
     private VisualisedTransportVehicle collectorCashBox;
     private AnimationTimer animationTimer;
     private TimeState timeState;
+    private static int sliderMode;
 
     public void go(AnchorPane root) throws IOException {
         ExponentialDistribution exponentialDistribution = new ExponentialDistribution(1);
@@ -110,9 +111,7 @@ public class MoveController {
                     case STOP:
                         animationTimer.stop();
                         for (VisualisedTransportVehicle automobile : automobiles){
-                            root.getChildren().remove(automobile.getFrameAnimation().getImageView());/*
-                            automobile.setTransportVehicle(null);
-                            automobile.setFrameAnimation(null);*/
+                            root.getChildren().remove(automobile.getFrameAnimation().getImageView());
                         }
                         if (collectorCashBox != null)
                             root.getChildren().remove(collectorCashBox.getFrameAnimation().getImageView());
@@ -127,5 +126,13 @@ public class MoveController {
             }
         };
         animationTimer.start();
+    }
+
+    public static void setSliderMode(int value) {
+        sliderMode = value;
+        System.out.println(sliderMode);
+    }
+    public static int getSliderMode(){
+        return sliderMode;
     }
 }

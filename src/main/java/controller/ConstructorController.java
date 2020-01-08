@@ -156,12 +156,6 @@ public class ConstructorController {
     }
 
     @FXML
-    void startModelling(ActionEvent event) throws IOException {
-        MoveController moveController = new MoveController();
-        moveController.go(anchorPane);
-    }
-
-    @FXML
     void entryOnDragOverEvent(DragEvent event) {
         event.acceptTransferModes(TransferMode.COPY);
     }

@@ -4,7 +4,7 @@
 	-fx-text-alignment: center;
 	-fx-border-color: #3e3e3e;
 	-fx-border-radius: 5px;
-	-fx-background-color: linear-gradient(#CBBFB3, #968b7f);
+	-fx-background-color: linear-gradient(#e4dcc6, #E5CFBD);
 	-fx-background-radius: 5px;
 }
 .button_restyling:hover{
@@ -13,7 +13,7 @@
 	-fx-text-alignment: center;
 	-fx-border-color: #3e3e3e;
 	-fx-border-radius: 5px;
-	-fx-background-color: #CBBFB3;
+	-fx-background-color: #E5CFBD;
 	-fx-background-radius: 5px;
 }
 .button_restyling:pressed{
@@ -22,7 +22,7 @@
 	-fx-text-alignment: center;
 	-fx-border-color: #3e3e3e;
 	-fx-border-radius: 5px;
-	-fx-background-color: #968b7f;
+	-fx-background-color: #D9B79B;
 	-fx-background-radius: 5px;
 }
 .button_restyling_bounds{

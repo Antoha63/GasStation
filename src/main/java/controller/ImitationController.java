@@ -2,10 +2,7 @@ package controller;
 
 import TimeControl.TimeState;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
@@ -46,6 +43,12 @@ public class ImitationController {
     private Label fuelValueLabel;
     @FXML
     private Button closeButton;
+    @FXML
+    private AnchorPane anchorPaneMode;
+    @FXML
+    private Slider sliderMode;
+    @FXML
+    private Button inConstructorButton;
 
     public void initialize() {
         positionElements();
@@ -54,6 +57,10 @@ public class ImitationController {
         setOnActionPlay();
         setOnActionPause();
         setOnActionStop();
+        MoveController.setSliderMode((int)sliderMode.getValue());
+        sliderMode.setOnMouseClicked(event -> {
+            MoveController.setSliderMode((int)sliderMode.getValue());
+        });
     }
 
     private void positionElements() {
@@ -65,13 +72,15 @@ public class ImitationController {
         statistics.setLayoutX(log_list_anchorPane.getLayoutX() + log_list.getPrefWidth() / 2 - statistics.getPrefWidth() / 2);
 
         Stage stage = ModellerController.getPrimaryStage();
-        stage.setWidth(log_list_anchorPane.getLayoutX() + log_list_anchorPane.getPrefWidth() + 10);
-        stage.setHeight(Grid.getGrid()[0][Grid.getHeight()].getTranslateY() + GridElement.getElementHeight() + 10);
+        stage.setWidth(log_list_anchorPane.getLayoutX() + log_list_anchorPane.getPrefWidth() + spacing);
+        stage.setHeight(Grid.getGrid()[0][Grid.getHeight()].getTranslateY() + GridElement.getElementHeight() + spacing * 3);
 
         log_list.setPrefHeight(stage.getHeight() - log_list_anchorPane.getLayoutY() - log_list.getLayoutY() -
                 statistics.getPrefHeight() - 2 * spacing);
         statistics.setLayoutY(log_list_anchorPane.getLayoutY() + log_list.getPrefHeight() + 3 * spacing);
         dragableArea.setPrefWidth(stage.getWidth() - 2);
+        //anchorPaneMode.setLayoutX(spacing + inConstructorButton.getPrefWidth() / 2 - anchorPaneMode.getPrefWidth() / 2);
+        //anchorPaneMode.setLayoutY(backButtons.getLayoutY() + inConstructorButton.getPrefHeight() * 3 + spacing * 3);
     }
 
     private void setOnActionCloseWindow() {

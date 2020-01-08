@@ -17,11 +17,15 @@ public class CashBox extends MainStaticElement {
     private static int profit; //заработок за все время
     private static int balance;
     private static int criticalLevel; //between 10000 nd 100000
-    private static boolean status = false;
+    private static boolean status = true;
 
     public CashBox (int x, int y){
         CashBox.x = x;
         CashBox.y = y;
+    }
+
+    public static int getBalance (){
+        return balance;
     }
 
     public static void setCriticalLevel(int vol){
@@ -36,7 +40,7 @@ public class CashBox extends MainStaticElement {
         balance = i;
     }
 
-    public void setPayment(int payment){
+    public static void setPayment(int payment){
         balance += payment;
         profit += payment;
     }

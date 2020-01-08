@@ -1,5 +1,6 @@
 package topologyObjects;
 
+import controller.MoveController;
 import elements.CashBox;
 import elements.Entry;
 import elements.Exit;
@@ -14,6 +15,9 @@ import static topologyObjects.TransportVehicleDirection.*;
 public class CollectorCashbox extends TransportVehicle {
 
     private long id;
+    private int stop = 0;
+    long start;
+    long finish;
 
     public CollectorCashbox (int x, int y){
         super(x,y);
@@ -50,17 +54,17 @@ public class CollectorCashbox extends TransportVehicle {
 
 
         if (this.getX() > Entry.getX() * GridElement.getElementWidth() + Grid.getX0()) {
-            this.moveX(-1);
+            this.moveX(-1 * MoveController.getSliderMode());
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());
             this.setDirection(LEFT);
-            System.out.println("Едем до въезда");
+            //System.out.println("Едем до въезда");
         }
 //заезжаем на АЗС
         else if (this.getX() == Entry.getX() * GridElement.getElementWidth() + Grid.getX0() &&
                 this.getY() == Entry.getY() * GridElement.getElementHeight() + Grid.getY0()) {
             this.setDirection(TOP);
-            this.moveY(-1);
+            this.moveY(-1 * MoveController.getSliderMode());
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());
         }
@@ -68,46 +72,64 @@ public class CollectorCashbox extends TransportVehicle {
         else if (this.getX() == Entry.getX() * GridElement.getElementWidth() + Grid.getX0() &&
                 this.getY() < Entry.getY() * GridElement.getElementHeight() + Grid.getY0() &&
                 this.getY() > Grid.getY0()) {
-            this.moveY(-1);
+            this.moveY(-1 * MoveController.getSliderMode());
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());
-            System.out.println("Едем вверх от въезда");
+            //System.out.println("Едем вверх от въезда");
         }
         //заправились, транулись, уезжаем дальше
-        else if (this.getY() == Grid.getY0() && this.getX() > Exit.getX() * 50 + Grid.getX0()) {
+        else if (this.getY() == Grid.getY0() && this.getX() > Exit.getX() * GridElement.getElementWidth() + Grid.getX0()) {
             this.setDirection(LEFT);
-            this.moveX(-1);
+            this.moveX(-1 * MoveController.getSliderMode());
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());
-            System.out.println("Едем влево по АЗС");
+            //System.out.println("Едем влево по АЗС");
         }
+
 //доехали до дороги вниз
         else if (this.getX() == Exit.getX() * GridElement.getElementWidth() + Grid.getX0() &&
-                this.getY() != Exit.getY() * GridElement.getElementHeight() + Grid.getY0()) {
+                this.getY() != Exit.getY() * GridElement.getElementHeight() + Grid.getY0() &&
+                this.getY() != CashBox.getY() * GridElement.getElementHeight() + Grid.getY0()) {
             this.setDirection(BOTTOM);
-            this.moveY(+1);
+            this.moveY(+1 * MoveController.getSliderMode());
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());
-            System.out.println("Едем на выезд");
+            //System.out.println("Едем на выезд");
         }
+
+        //притормозим у кассы, заберем бабло
+        else if (this.getX() == Exit.getX() * GridElement.getElementWidth() + Grid.getX0() &&
+                this.getY() == CashBox.getY() * GridElement.getElementHeight() + Grid.getY0()) {
+            if (stop <= 62 / MoveController.getSliderMode()){
+                stop++;
+            }
+            else{
+                this.setDirection(BOTTOM);
+                this.moveY(+1 * MoveController.getSliderMode());
+                imageView.setTranslateX(this.getX());
+                imageView.setTranslateY(this.getY());
+                //CashBox.setBalance(0);
+                //CashBox.setStatus(true);
+            }
+        }
+
+
         //на выезде, обнуляем кассу и уезжаем
         else if (this.getX() == Exit.getX() * GridElement.getElementWidth() + Grid.getX0() &&
                 this.getY() == Exit.getY() * GridElement.getElementHeight() + Grid.getY0()) {
             this.setDirection(LEFT);
-            this.moveX(-1);
+            this.moveX(-1 * MoveController.getSliderMode());
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());
-            //CashBox.setBalance(0);
-            //CashBox.setStatus(true);
-            System.out.println("Уезжает в закат");
+            //System.out.println("Уезжает в закат");
         }
 //выехали на дорогу, уезжаем
         else if (this.getX() < Exit.getX() * GridElement.getElementWidth() + Grid.getX0() &&
                 this.getY() == Exit.getY() * GridElement.getElementHeight() + Grid.getY0()) {
-            this.moveX(-1);
+            this.moveX(-1 * MoveController.getSliderMode());
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());
-            System.out.println("Уезжает в закат");
+            //System.out.println("Уезжает в закат");
         }
 
     }

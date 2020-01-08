@@ -3,6 +3,7 @@
 <?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -40,9 +41,9 @@
             </Button>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="backButtons" layoutX="10.0" layoutY="387.0">
+      <AnchorPane fx:id="backButtons" layoutX="10.0" layoutY="98.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="94.0" prefWidth="153.0" stylesheets="@../styles/styles.css" text="В конструктор" wrapText="true">
+            <Button fx:id="inConstructorButton" mnemonicParsing="false" prefHeight="94.0" prefWidth="153.0" stylesheets="@../styles/styles.css" text="В конструктор" wrapText="true">
                <font>
                   <Font size="17.0" />
                </font>
@@ -127,6 +128,12 @@
                   <Font size="6.0" />
                </font>
             </Button>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="anchorPaneMode" layoutX="39.0" layoutY="206.0" prefHeight="66.0" prefWidth="143.0">
+         <children>
+            <Label layoutX="28.0" layoutY="5.0" styleClass="text" text="Режим работы" />
+            <Slider fx:id="sliderMode" blendMode="MULTIPLY" blockIncrement="1.0" layoutX="3.0" layoutY="28.0" majorTickUnit="2.0" max="3.0" min="1.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
          </children>
       </AnchorPane>
    </children>
