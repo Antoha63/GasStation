@@ -27,8 +27,8 @@ public class Topology {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-//    @Column(name = "NAME", unique = true, nullable = false)
-//    private String name;
+    @Column(name = "NAME", unique = true, nullable = false)
+    private String name;
 
     @Column(name = "HEIGHT", nullable = false)
     private int height;

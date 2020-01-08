@@ -45,7 +45,7 @@ public class SaveTopologyController {
 
     public void save() {
         Topology topology = new Topology();
-        //topology.setName(textField.getText());
+        topology.setName(textField.getText());
         topology.setHeight(Grid.getHeight());
         topology.setWidth(Grid.getWidth());
 
