@@ -70,29 +70,7 @@ public class ConstructorController {
             Stage stage = (Stage) closeButton.getScene().getWindow();
             stage.close();
         });
-        back_button.setOnAction(event -> {
-            Stage primaryStage = new Stage();
-            primaryStage.initStyle(StageStyle.TRANSPARENT);
-            Parent root = null;
-            try {
-                root = FXMLLoader.load(getClass().getResource("/views/topologySize.fxml"));
-                root.setOnMousePressed(mouseEvent -> {
-                    xOffset = mouseEvent.getSceneX();
-                    yOffset = mouseEvent.getSceneY();
-                });
-                root.setOnMouseDragged(mouseEvent -> {
-                    primaryStage.setX(mouseEvent.getScreenX() - xOffset);
-                    primaryStage.setY(mouseEvent.getScreenY() - yOffset);
-                });
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            primaryStage.setTitle("");
-            primaryStage.setScene(new Scene(root));
-            primaryStage.show();
-            Stage stage = (Stage) closeButton.getScene().getWindow();
-            stage.close();
-        });
+
         buttons.setLayoutX(10);
         buttons.setLayoutY(40);
         int x0 = (int) (buttons.getLayoutX() * 2 + buttons.getPrefWidth());
@@ -112,8 +90,10 @@ public class ConstructorController {
 
         if (BoundsController.getPrimaryStage() != null) {
             setAdaptiveDesign(BoundsController.getPrimaryStage());
+            setBackButtonEvent("/views/topologySize.fxml");
         } else if (DownloadTopologyController.getPrimaryStage() != null) {
             setAdaptiveDesign(DownloadTopologyController.getPrimaryStage());
+            setBackButtonEvent("/views/downloadTopology.fxml");
 
             ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-data-context.xml");
             TopologyRepository topologyRepository = context.getBean(TopologyRepository.class);
@@ -135,6 +115,32 @@ public class ConstructorController {
             if (Entry.getStatus() && Exit.getStatus() && Entry.getX() > Exit.getX())
                 Grid.setRoundRoad();
         }
+    }
+
+    private void setBackButtonEvent(String address) {
+        back_button.setOnAction(event -> {
+            Stage primaryStage = new Stage();
+            primaryStage.initStyle(StageStyle.TRANSPARENT);
+            Parent root = null;
+            try {
+                root = FXMLLoader.load(getClass().getResource(address));
+                root.setOnMousePressed(mouseEvent -> {
+                    xOffset = mouseEvent.getSceneX();
+                    yOffset = mouseEvent.getSceneY();
+                });
+                root.setOnMouseDragged(mouseEvent -> {
+                    primaryStage.setX(mouseEvent.getScreenX() - xOffset);
+                    primaryStage.setY(mouseEvent.getScreenY() - yOffset);
+                });
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            primaryStage.setTitle("");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+            Stage stage = (Stage) closeButton.getScene().getWindow();
+            stage.close();
+        });
     }
 
     private void setAdaptiveDesign(Stage stage) {
