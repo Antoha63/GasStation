@@ -25,6 +25,11 @@ import static javafx.scene.effect.BlendMode.MULTIPLY;
 public class ModellerController {
     private double xOffset;
     private double yOffset;
+    private static Stage primaryStage;
+
+    public static Stage getPrimaryStage() {
+        return primaryStage;
+    }
 
     private ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-data-context.xml");
     private FuelRepository fuelRepository = context.getBean(FuelRepository.class);
@@ -119,7 +124,7 @@ public class ModellerController {
 
 
 
-        Stage primaryStage = new Stage();
+        primaryStage = new Stage();
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         Parent root = FXMLLoader.load(getClass().getResource("/views/imitation.fxml"));
         root.setOnMousePressed(event -> {
