@@ -78,7 +78,7 @@
       </Label>
       <Spinner id="spinnerFuelTankVolume" fx:id="fuelTankVolume" blendMode="MULTIPLY" editable="true" layoutX="434.0" layoutY="100.0" max="20000" min="5000" prefHeight="34.0" prefWidth="102.0" stylesheets="@../styles/styles.css" />
       <Spinner id="spinnerFuelTankCriticalLevel" fx:id="fuelTankCriticalLevel" blendMode="MULTIPLY" editable="true" layoutX="434.0" layoutY="141.0" max="90" min="10" prefHeight="34.0" prefWidth="102.0" stylesheets="@../styles/styles.css" />
-      <Spinner id="spinnerPetrolStationSpeed" fx:id="petrolStationSpeed" blendMode="MULTIPLY" editable="true" layoutX="434.0" layoutY="180.0" max="100" min="50" prefHeight="34.0" prefWidth="102.0" stylesheets="@../styles/styles.css" />
+      <Spinner id="spinnerPetrolStationSpeed" fx:id="petrolStationSpeed" blendMode="MULTIPLY" editable="true" layoutX="434.0" layoutY="180.0" max="100" min="60" prefHeight="34.0" prefWidth="102.0" stylesheets="@../styles/styles.css" />
       <Spinner id="spinnerCashboxCriticalLevel" fx:id="cashboxCriticalLevel" blendMode="MULTIPLY" editable="true" layoutX="434.0" layoutY="224.0" max="100000" min="10000" prefHeight="34.0" prefWidth="102.0" stylesheets="@../styles/styles.css" />
       <RadioButton id="radioButtonDeterministicDistribution" fx:id="radioButtonDeterministicDistribution" blendMode="MULTIPLY" layoutX="581.0" layoutY="100.0" mnemonicParsing="false" stylesheets="@../styles/styles.css" text="Детерминированный закон">
          <font>

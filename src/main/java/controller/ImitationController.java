@@ -1,5 +1,6 @@
 package controller;
 
+import TimeControl.TimeState;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,6 +15,9 @@ import visualize.GridElement;
 import java.io.IOException;
 
 public class ImitationController {
+    private boolean status = false;
+    private MoveController moveController = new MoveController();
+    ;
     @FXML
     private AnchorPane dragableArea;
     @FXML
@@ -48,6 +52,8 @@ public class ImitationController {
         setOnActionCloseWindow();
         drawGrid();
         setOnActionPlay();
+        setOnActionPause();
+        setOnActionStop();
     }
 
     private void positionElements() {
@@ -57,11 +63,7 @@ public class ImitationController {
         log_list_anchorPane.setLayoutX(Grid.getGrid()[Grid.getWidth() - 1][0].getTranslateX() +
                 GridElement.getElementWidth() + spacing);
         statistics.setLayoutX(log_list_anchorPane.getLayoutX() + log_list.getPrefWidth() / 2 - statistics.getPrefWidth() / 2);
-/*
-        System.out.println("statistics.getLayoutX() " + statistics.getLayoutX());
-        System.out.println("statistics.getLayoutY()" + statistics.getLayoutY());
-        System.out.println("log_list_anchorPane.getLayoutY()" + log_list_anchorPane.getLayoutY());
-        System.out.println("log_list.getPrefHeight()" + log_list.getPrefHeight());*/
+
         Stage stage = ModellerController.getPrimaryStage();
         stage.setWidth(log_list_anchorPane.getLayoutX() + log_list_anchorPane.getPrefWidth() + 10);
         stage.setHeight(Grid.getGrid()[0][Grid.getHeight()].getTranslateY() + GridElement.getElementHeight() + 10);
@@ -92,12 +94,34 @@ public class ImitationController {
 
     private void setOnActionPlay() {
         playButton.setOnAction(event -> {
-            MoveController moveController = new MoveController();
             try {
-                moveController.go(anchorPane);
+                if(moveController.getTimeState() == TimeState.START || moveController.getTimeState() == TimeState.PAUSE){
+
+                }
+                else{
+                    moveController.setTimeState(TimeState.START);
+                    moveController.go(anchorPane);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        });
+    }
+
+    private void setOnActionPause() {
+        pauseButton.setOnAction(event -> {
+            if (moveController.getTimeState() == TimeState.START)
+                moveController.setTimeState(TimeState.PAUSE);
+            else if (moveController.getTimeState() == TimeState.PAUSE) {
+                moveController.setTimeState(TimeState.START);
+            }
+        });
+    }
+
+    private void setOnActionStop() {
+        stopButton.setOnAction(event -> {
+            moveController.setTimeState(TimeState.STOP);
+            moveController = new MoveController();
         });
     }
 }
