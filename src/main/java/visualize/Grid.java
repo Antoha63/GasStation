@@ -49,6 +49,11 @@ public class Grid {
     public static List<PetrolStation> getListOfPetrolStations(){
         return listOfPetrolStations;
     }
+
+    public static List<FuelTank> getListOfFuelTanks(){
+        return listOfFuelTanks;
+    }
+
     public static void setListOfPetrolStations(PetrolStation petrolStation){
         listOfPetrolStations.add(petrolStation);
     }

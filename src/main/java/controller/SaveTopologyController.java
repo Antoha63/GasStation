@@ -74,12 +74,16 @@ public class SaveTopologyController {
             petrolStation.setTopology(topology);
             petrolStationRepository.save(petrolStation);
         }
-//
-//        FuelTank fuelTank = new FuelTank();
-//        fuelTank.setCoordinateX(1);
-//        fuelTank.setCoordinateY(1);
-//        fuelTank.setTopology(topology);
-//        fuelTankRepository.save(fuelTank);
+
+        List<elements.FuelTank> listOfFuelTanks= Grid.getListOfFuelTanks();
+        for (elements.FuelTank fuelTankValue: listOfFuelTanks) {
+            FuelTank fuelTank = new FuelTank();
+            fuelTank.setCoordinateX(fuelTankValue.getX());
+            fuelTank.setCoordinateY(fuelTankValue.getY());
+            fuelTank.setTopology(topology);
+            fuelTankRepository.save(fuelTank);
+        }
+
         Stage stage = (Stage) button.getScene().getWindow();
         stage.close();
     }

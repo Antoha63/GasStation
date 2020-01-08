@@ -3,7 +3,8 @@ package controller;
 import elements.ElementType;
 import elements.Entry;
 import elements.Exit;
-import elements.PetrolStation;
+import entities.FuelTank;
+import entities.PetrolStation;
 import entities.Topology;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,6 +20,7 @@ import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import repositories.FuelTankRepository;
 import repositories.PetrolStationRepository;
 import repositories.TopologyRepository;
 import visualize.Grid;
@@ -36,6 +38,7 @@ public class ConstructorController {
     private ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-data-context.xml");
     private TopologyRepository topologyRepository = context.getBean(TopologyRepository.class);
     private PetrolStationRepository petrolStationRepository = context.getBean(PetrolStationRepository.class);
+    private FuelTankRepository fuelTankRepository = context.getBean(FuelTankRepository.class);
 
     public void setBounds(int width, int height) {
         topologyWidth = width;
@@ -112,7 +115,7 @@ public class ConstructorController {
 
         if (BoundsController.getPrimaryStage() != null) {
             setAdaptiveDesign(BoundsController.getPrimaryStage());
-        } else if (DownloadTopologyController.getPrimaryStage() != null){
+        } else if (DownloadTopologyController.getPrimaryStage() != null) {
             setAdaptiveDesign(DownloadTopologyController.getPrimaryStage());
 
             Topology topology = topologyRepository.findByName(DownloadTopologyController.getTopologyName());
@@ -120,11 +123,13 @@ public class ConstructorController {
             Grid.getGrid()[topology.getEntranceX()][topology.getEntranceY()].createElement(ElementType.ENTRY, 180);
             Grid.getGrid()[topology.getExitX()][topology.getExitY()].createElement(ElementType.EXIT, 180);
 
-            //List<elements.PetrolStation> petrolStationList = //:TODO добавить из БД ТРК
-            /*for (elements.PetrolStation petrolStationValue: petrolStationList) {
-                entities.PetrolStation petrolStation = new entities.PetrolStation();
+            List<PetrolStation> petrolStationList = petrolStationRepository.findAll();
+            for (PetrolStation petrolStation : petrolStationList)
                 Grid.getGrid()[petrolStation.getCoordinateX()][petrolStation.getCoordinateY()].createElement(ElementType.PETROLSTATION, 0);
-            }*/
+
+            List<FuelTank> fuelTankList = fuelTankRepository.findAll();
+            for (FuelTank fuelTank : fuelTankList)
+                Grid.getGrid()[fuelTank.getCoordinateX()][fuelTank.getCoordinateY()].createElement(ElementType.FUELTANK, 0);
 
             if (Entry.getStatus() && Exit.getStatus() && Entry.getX() > Exit.getX())
                 Grid.setRoundRoad();
