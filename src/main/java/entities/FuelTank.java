@@ -20,7 +20,7 @@ import javax.persistence.UniqueConstraint;
 @NoArgsConstructor
 @ToString
 @Entity
-@Table(name = "FUELTANK", uniqueConstraints = {@UniqueConstraint(columnNames = {"COORDINATEX", "COORDINATEY"})})
+@Table(name = "FUELTANK"/*, uniqueConstraints = {@UniqueConstraint(columnNames = {"COORDINATEX", "COORDINATEY"})}*/)
 public class FuelTank {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
