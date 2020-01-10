@@ -31,12 +31,21 @@ public class AddFuelController {
     @FXML
     private Button closeButton;
 
-    public void initialize(){
+    public void initialize() {
         closeButton.setOnAction(event -> {
             setCloseButton();
         });
+
+        if (DBWorkController.getName() != null || DBWorkController.getPrice() != 0) {
+            name.setText(DBWorkController.getName());
+            price.setText(String.valueOf(DBWorkController.getPrice()));
+        }
     }
+
     public void add() throws IOException {
+        if (DBWorkController.getName() != null) {
+            fuelRepository.delete(fuelRepository.findByName(DBWorkController.getName()));
+        }
         Fuel fuel = new Fuel();
         fuel.setName(name.getText());
         fuel.setPrice(Integer.parseInt(price.getText()));
@@ -58,9 +67,12 @@ public class AddFuelController {
         primaryStage.setTitle("");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
+
+        DBWorkController.setName(null);
+        DBWorkController.setPrice(0);
     }
 
-    private void setCloseButton(){
+    private void setCloseButton() {
         Stage stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
     }

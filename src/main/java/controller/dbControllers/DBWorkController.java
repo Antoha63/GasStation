@@ -37,6 +37,12 @@ public class DBWorkController {
     private List<Car> carList;
 
     private Stage primaryStage = new Stage();
+    private static String name;
+    private static int price;
+
+    private static long carId;
+    private static String model;
+    private static int tankVolume;
 
     @FXML
     public AnchorPane anchorPane;
@@ -58,6 +64,46 @@ public class DBWorkController {
 
     @FXML
     private Button closeButton;
+
+    public static String getModel() {
+        return model;
+    }
+
+    public static void setModel(String model) {
+        DBWorkController.model = model;
+    }
+
+    public static int getTankVolume() {
+        return tankVolume;
+    }
+
+    public static void setTankVolume(int tankVolume) {
+        DBWorkController.tankVolume = tankVolume;
+    }
+
+    public static String getName() {
+        return name;
+    }
+
+    public static void setName(String name) {
+        DBWorkController.name = name;
+    }
+
+    public static int getPrice() {
+        return price;
+    }
+
+    public static void setPrice(int price) {
+        DBWorkController.price = price;
+    }
+
+    public static long getCarId() {
+        return carId;
+    }
+
+    public static void setCarId(long carId) {
+        DBWorkController.carId = carId;
+    }
 
     @FXML
     public void initialize() {
@@ -101,31 +147,17 @@ public class DBWorkController {
         primaryStage = new Stage();
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         Parent root = FXMLLoader.load(getClass().getResource("/views/dbWorkViews/fuelParametersAdd.fxml"));
-        root.setOnMousePressed(event -> {
-            xOffset = event.getSceneX();
-            yOffset = event.getSceneY();
-        });
-        root.setOnMouseDragged(event -> {
-            primaryStage.setX(event.getScreenX() - xOffset);
-            primaryStage.setY(event.getScreenY() - yOffset);
-        });
+
         primaryStage.setTitle("");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
 
     public void changeFuel() throws IOException {
-        fuelRepository.delete(fuelRepository.findByName(fuelTable.getSelectionModel().getSelectedItem().getName()));
+        name = fuelTable.getSelectionModel().getSelectedItem().getName();
+        price = fuelTable.getSelectionModel().getSelectedItem().getPrice();
 
         Parent root = FXMLLoader.load(getClass().getResource("/views/dbWorkViews/fuelParametersAdd.fxml"));
-        root.setOnMousePressed(event -> {
-            xOffset = event.getSceneX();
-            yOffset = event.getSceneY();
-        });
-        root.setOnMouseDragged(event -> {
-            primaryStage.setX(event.getScreenX() - xOffset);
-            primaryStage.setY(event.getScreenY() - yOffset);
-        });
         primaryStage.setTitle("");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
@@ -145,7 +177,9 @@ public class DBWorkController {
     }
 
     public void changeCar() throws IOException {
-        carRepository.delete(carRepository.getOne(carTable.getSelectionModel().getSelectedItem().getId()));
+        model = carTable.getSelectionModel().getSelectedItem().getModel();
+        tankVolume = carTable.getSelectionModel().getSelectedItem().getTankVolume();
+        carId = carTable.getSelectionModel().getSelectedItem().getId();
 
         Parent root = FXMLLoader.load(getClass().getResource("/views/dbWorkViews/carParametersAdd.fxml"));
         primaryStage.setTitle("");

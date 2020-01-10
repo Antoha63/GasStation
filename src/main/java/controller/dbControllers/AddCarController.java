@@ -49,6 +49,11 @@ public class AddCarController {
             setCloseButton();
         });
 
+        if (DBWorkController.getModel() != null || DBWorkController.getTankVolume() != 0) {
+            model.setText(DBWorkController.getModel());
+            tankVolume.setText(String.valueOf(DBWorkController.getTankVolume()));
+        }
+
         List<Fuel> fuelList = fuelRepository.findAll();
         for (Fuel fuel: fuelList) {
             fuelTypes.add(fuel.getName());
@@ -58,6 +63,10 @@ public class AddCarController {
         comboBox.setValue(fuelTypes.get(0));
     }
     public void add() throws IOException {
+        if(DBWorkController.getCarId() != 0){
+            carRepository.delete(carRepository.getOne(DBWorkController.getCarId()));
+            DBWorkController.setCarId(0);
+        }
         Car car = new Car();
         car.setModel(model.getText());
         car.setFuelType(comboBox.getValue());
@@ -80,6 +89,9 @@ public class AddCarController {
         primaryStage.setTitle("");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
+
+        DBWorkController.setModel(null);
+        DBWorkController.setTankVolume(0);
     }
 
     private void setCloseButton(){
