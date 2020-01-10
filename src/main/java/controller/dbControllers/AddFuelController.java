@@ -60,12 +60,11 @@ public class AddFuelController {
 
             setCloseButton();
             getDBWorkStage();
-
-            DBWorkController.setName(null);
-            DBWorkController.setPrice(0);
         } catch (NumberFormatException e) {
             showAlert();
         }
+        DBWorkController.setName(null);
+        DBWorkController.setPrice(0);
     }
 
     private void setCloseButton() {

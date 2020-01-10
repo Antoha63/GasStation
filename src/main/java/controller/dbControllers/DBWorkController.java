@@ -173,8 +173,8 @@ public class DBWorkController {
             int row = fuelTable.getSelectionModel().getSelectedIndex();
             fuelRepository.delete(fuelRepository.findByName(fuelTable.getSelectionModel().getSelectedItem().getName()));
             fuelTable.getItems().remove(row);
+            getDBWorkStage();
         }
-        getDBWorkStage();
     }
 
     public void addCar() throws IOException {
@@ -203,8 +203,8 @@ public class DBWorkController {
             int row = carTable.getSelectionModel().getSelectedIndex();
             carRepository.delete(carRepository.getOne(carTable.getSelectionModel().getSelectedItem().getId()));
             carTable.getItems().remove(row);
+            getDBWorkStage();
         }
-        getDBWorkStage();
     }
 
     private void setCloseButton() {

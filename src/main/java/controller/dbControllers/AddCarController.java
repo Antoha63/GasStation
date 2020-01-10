@@ -83,12 +83,11 @@ public class AddCarController {
 
             setCloseButton();
             getDBWorkStage();
-
-            DBWorkController.setModel(null);
-            DBWorkController.setTankVolume(0);
         } catch (NumberFormatException e) {
             showAlert();
         }
+        DBWorkController.setModel(null);
+        DBWorkController.setTankVolume(0);
     }
 
     private void setCloseButton() {
