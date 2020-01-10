@@ -61,17 +61,16 @@ public class DBWorkController {
     private Button closeButton;
 
     @FXML
-    public void initialize(){
+    public void initialize() {
         primaryStage.initStyle(StageStyle.TRANSPARENT);
 
         closeButton.setOnAction(event -> {
-        Stage stage = (Stage) closeButton.getScene().getWindow();
-        stage.close();
-    });
+            setCloseButton();
+        });
+
         columnName.setCellValueFactory(new PropertyValueFactory<Fuel, String>("name"));
         columnPrice.setCellValueFactory(new PropertyValueFactory<Fuel, String>("price"));
 
-        columnId.setCellValueFactory(new PropertyValueFactory<Car, String>("id"));
         columnModel.setCellValueFactory(new PropertyValueFactory<Car, String>("model"));
         columnFuelType.setCellValueFactory(new PropertyValueFactory<Car, String>("fuelType"));
         columnTankVolume.setCellValueFactory(new PropertyValueFactory<Car, String>("tankVolume"));
@@ -81,15 +80,14 @@ public class DBWorkController {
 
     private void initData() {
         fuelList = fuelRepository.findAll();
-        for (Fuel fuel: fuelList) {
+        for (Fuel fuel : fuelList) {
             fuel.getName();
             fuel.getPrice();
             fuelObservableList.add(fuel);
         }
 
         carList = carRepository.findAll();
-        for (Car car: carList) {
-            car.getId();
+        for (Car car : carList) {
             car.getModel();
             car.getFuelType();
             car.getTankVolume();
@@ -165,5 +163,10 @@ public class DBWorkController {
         carTable.getItems().clear();
 
         initData();
+    }
+
+    private void setCloseButton() {
+        Stage stage = (Stage) closeButton.getScene().getWindow();
+        stage.close();
     }
 }

@@ -19,6 +19,9 @@ public class AddFuelController {
     private ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-data-context.xml");
     private FuelRepository fuelRepository = context.getBean(FuelRepository.class);
 
+    private double xOffset;
+    private double yOffset;
+
     @FXML
     private TextField name;
 
@@ -30,8 +33,7 @@ public class AddFuelController {
 
     public void initialize(){
         closeButton.setOnAction(event -> {
-            Stage stage = (Stage) closeButton.getScene().getWindow();
-            stage.close();
+            setCloseButton();
         });
     }
     public void add() throws IOException {
@@ -39,5 +41,27 @@ public class AddFuelController {
         fuel.setName(name.getText());
         fuel.setPrice(Integer.parseInt(price.getText()));
         fuelRepository.save(fuel);
+
+        setCloseButton();
+
+        Stage primaryStage = new Stage();
+        primaryStage.initStyle(StageStyle.TRANSPARENT);
+        Parent root = FXMLLoader.load(getClass().getResource("/views/dbWorkViews/dbWork.fxml"));
+        root.setOnMousePressed(event -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+        root.setOnMouseDragged(event -> {
+            primaryStage.setX(event.getScreenX() - xOffset);
+            primaryStage.setY(event.getScreenY() - yOffset);
+        });
+        primaryStage.setTitle("");
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
+    }
+
+    private void setCloseButton(){
+        Stage stage = (Stage) closeButton.getScene().getWindow();
+        stage.close();
     }
 }
