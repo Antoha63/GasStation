@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -53,15 +54,18 @@ public class AddFuelController {
         }
         Fuel fuel = new Fuel();
         fuel.setName(name.getText());
-        fuel.setPrice(Integer.parseInt(price.getText()));
-        fuelRepository.save(fuel);
+        try {
+            fuel.setPrice(Double.parseDouble(price.getText()));
+            fuelRepository.save(fuel);
 
-        setCloseButton();
+            setCloseButton();
+            getDBWorkStage();
 
-        getDBWorkStage();
-
-        DBWorkController.setName(null);
-        DBWorkController.setPrice(0);
+            DBWorkController.setName(null);
+            DBWorkController.setPrice(0);
+        } catch (NumberFormatException e) {
+            showAlert();
+        }
     }
 
     private void setCloseButton() {
@@ -84,5 +88,16 @@ public class AddFuelController {
         primaryStage.setTitle("");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
+    }
+
+    private void showAlert() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
+        alert.setTitle("Ошибка");
+        alert.setHeaderText(null);
+        alert.setContentText("Неверный тип данных");
+        alert.initStyle(StageStyle.TRANSPARENT);
+
+        alert.showAndWait();
     }
 }

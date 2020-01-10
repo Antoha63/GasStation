@@ -40,11 +40,11 @@ public class DBWorkController {
 
     private Stage primaryStage = new Stage();
     private static String name;
-    private static int price;
+    private static double price;
 
     private static long carId;
     private static String model;
-    private static int tankVolume;
+    private static double tankVolume;
 
     @FXML
     public AnchorPane anchorPane;
@@ -75,7 +75,7 @@ public class DBWorkController {
         DBWorkController.model = model;
     }
 
-    public static int getTankVolume() {
+    public static double getTankVolume() {
         return tankVolume;
     }
 
@@ -91,7 +91,7 @@ public class DBWorkController {
         DBWorkController.name = name;
     }
 
-    public static int getPrice() {
+    public static double getPrice() {
         return price;
     }
 

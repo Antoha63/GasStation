@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -44,7 +45,7 @@ public class AddCarController {
     @FXML
     private Button closeButton;
 
-    public void initialize(){
+    public void initialize() {
         closeButton.setOnAction(event -> {
             setCloseButton();
             try {
@@ -60,33 +61,37 @@ public class AddCarController {
         }
 
         List<Fuel> fuelList = fuelRepository.findAll();
-        for (Fuel fuel: fuelList) {
+        for (Fuel fuel : fuelList) {
             fuelTypes.add(fuel.getName());
         }
 
         comboBox.setItems(fuelTypes);
         comboBox.setValue(fuelTypes.get(0));
     }
+
     public void add() throws IOException {
-        if(DBWorkController.getCarId() != 0){
+        if (DBWorkController.getCarId() != 0) {
             carRepository.delete(carRepository.getOne(DBWorkController.getCarId()));
             DBWorkController.setCarId(0);
         }
         Car car = new Car();
         car.setModel(model.getText());
         car.setFuelType(comboBox.getValue());
-        car.setTankVolume(Integer.parseInt(tankVolume.getText()));
-        carRepository.save(car);
+        try {
+            car.setTankVolume(Double.parseDouble(tankVolume.getText()));
+            carRepository.save(car);
 
-        setCloseButton();
+            setCloseButton();
+            getDBWorkStage();
 
-        getDBWorkStage();
-
-        DBWorkController.setModel(null);
-        DBWorkController.setTankVolume(0);
+            DBWorkController.setModel(null);
+            DBWorkController.setTankVolume(0);
+        } catch (NumberFormatException e) {
+            showAlert();
+        }
     }
 
-    private void setCloseButton(){
+    private void setCloseButton() {
         Stage stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
     }
@@ -106,5 +111,16 @@ public class AddCarController {
         primaryStage.setTitle("");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
+    }
+
+    private void showAlert() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
+        alert.setTitle("Ошибка");
+        alert.setHeaderText(null);
+        alert.setContentText("Неверный тип данных");
+        alert.initStyle(StageStyle.TRANSPARENT);
+
+        alert.showAndWait();
     }
 }

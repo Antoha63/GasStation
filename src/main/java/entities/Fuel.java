@@ -27,5 +27,5 @@ public class Fuel {
     private String name;
 
     @Column(name = "PRICE", nullable = false)
-    private int price;
+    private double price;
 }

@@ -30,5 +30,5 @@ public class Car {
     private String fuelType;
 
     @Column(name = "TANKVOLUME", nullable = false)
-    private int tankVolume;
+    private double tankVolume;
 }
