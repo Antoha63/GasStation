@@ -1,5 +1,6 @@
 package topologyObjects;
 
+import Log.LogMessage;
 import controller.ImitationController;
 import controller.MoveController;
 import elements.CashBox;
@@ -102,6 +103,7 @@ this.payment = actualFuelVolume *f.getPrice();
 //движение до въезда
             if (this.getX() > Entry.getX() * GridElement.getElementWidth() + Grid.getX0()) {
                 this.moveX(-1 * MoveController.getSliderMode());
+                new LogMessage("Тутуту");
                 imageView.setTranslateX(this.getX());
                 imageView.setTranslateY(this.getY());
                 this.setDirection(LEFT);

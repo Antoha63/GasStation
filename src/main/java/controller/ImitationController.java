@@ -1,5 +1,6 @@
 package controller;
 
+import Log.LogMessage;
 import TimeControl.TimeState;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -84,6 +85,11 @@ public class ImitationController {
         sliderMode.setOnMouseClicked(event -> {
             MoveController.setSliderMode((int)sliderMode.getValue());
         });
+        LogMessage.setImitationController(this);
+    }
+
+    public void addMessageLog(String message){
+        log_list.setText(log_list.getText() + "\n" + message);
     }
 
     private void positionElements() {
