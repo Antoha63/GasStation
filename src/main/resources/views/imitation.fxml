@@ -72,16 +72,6 @@
             </Button>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="log_list_anchorPane" layoutX="824.0" layoutY="40.0" prefHeight="196.0" prefWidth="177.0">
-         <children>
-            <Label layoutX="10.0" styleClass="text" stylesheets="@../styles/styles.css" text="Информационное табло">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <TextArea fx:id="log_list" blendMode="MULTIPLY" disable="true" editable="false" layoutY="25.0" prefHeight="268.0" prefWidth="177.0" />
-         </children>
-      </AnchorPane>
       <AnchorPane fx:id="statistics" layoutX="841.0" layoutY="353.0" prefHeight="87.0" prefWidth="143.0">
          <children>
             <Label layoutX="41.0" styleClass="text" stylesheets="@../styles/styles.css" text="Статистика">
@@ -166,5 +156,11 @@
             <Label fx:id="petrolstationStatus" layoutX="115.0" layoutY="40.0" text="0" />
          </children>
       </AnchorPane>
+      <Label fx:id="infoLabel" layoutX="835.0" layoutY="40.0" prefHeight="18.0" prefWidth="156.0" styleClass="text" stylesheets="@../styles/styles.css" text="Информационное табло">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <TextArea fx:id="log_list" blendMode="MULTIPLY" layoutX="824.0" layoutY="65.0" prefHeight="66.0" prefWidth="177.0" />
    </children>
 </AnchorPane>

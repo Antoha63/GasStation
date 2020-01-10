@@ -56,9 +56,9 @@ public class ImitationController {
     @FXML
     private AnchorPane anchorPane;
     @FXML
-    private TextArea log_list;
+    private Label infoLabel;
     @FXML
-    private AnchorPane log_list_anchorPane;
+    private TextArea log_list;
     @FXML
     private Label cash_value_label;
     @FXML
@@ -96,17 +96,19 @@ public class ImitationController {
         int spacing = 10;
         backButtons.setLayoutX(spacing);
         backButtons.setLayoutY(threadButtons.getLayoutY() + threadButtons.getPrefHeight() + spacing);
-        log_list_anchorPane.setLayoutX(Grid.getGrid()[Grid.getWidth() - 1][0].getTranslateX() +
+        log_list.setLayoutX(Grid.getGrid()[Grid.getWidth() - 1][0].getTranslateX() +
                 GridElement.getElementWidth() + spacing);
-        statistics.setLayoutX(log_list_anchorPane.getLayoutX() + log_list.getPrefWidth() / 2 - statistics.getPrefWidth() / 2);
+        infoLabel.setLayoutX(log_list.getLayoutX() +
+                log_list.getPrefWidth() / 2 - infoLabel.getPrefWidth() / 2);
+        statistics.setLayoutX(log_list.getLayoutX() +
+                log_list.getPrefWidth() / 2 - statistics.getPrefWidth() / 2);
 
         Stage stage = ModellerController.getPrimaryStage();
-        stage.setWidth(log_list_anchorPane.getLayoutX() + log_list_anchorPane.getPrefWidth() + spacing);
+        stage.setWidth(log_list.getLayoutX() + log_list.getPrefWidth() + spacing);
         stage.setHeight(Grid.getGrid()[0][Grid.getHeight()].getTranslateY() + GridElement.getElementHeight() + spacing * 3);
 
-        log_list.setPrefHeight(stage.getHeight() - log_list_anchorPane.getLayoutY() - log_list.getLayoutY() -
-                statistics.getPrefHeight() - 2 * spacing);
-        statistics.setLayoutY(log_list_anchorPane.getLayoutY() + log_list.getPrefHeight() + 3 * spacing);
+        log_list.setPrefHeight(stage.getHeight() - log_list.getLayoutY() - statistics.getPrefHeight() - 2 * spacing);
+        statistics.setLayoutY(log_list.getLayoutY() + log_list.getPrefHeight() + spacing);
         dragableArea.setPrefWidth(stage.getWidth() - 2);
         //anchorPaneMode.setLayoutX(spacing + inConstructorButton.getPrefWidth() / 2 - anchorPaneMode.getPrefWidth() / 2);
         //anchorPaneMode.setLayoutY(backButtons.getLayoutY() + inConstructorButton.getPrefHeight() * 3 + spacing * 3);
