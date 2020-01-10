@@ -37,8 +37,7 @@ public class ImitationController {
     @FXML
     private Label petrolstationStatus;
     @FXML
-    private MoveController moveController = new MoveController();
-    ;
+    private MoveController moveController = new MoveController(this);
     @FXML
     private AnchorPane dragableArea;
     @FXML
@@ -154,7 +153,7 @@ public class ImitationController {
     private void setOnActionStop() {
         stopButton.setOnAction(event -> {
             moveController.setTimeState(TimeState.STOP);
-            moveController = new MoveController();
+            moveController = new MoveController(this);
         });
     }
 }

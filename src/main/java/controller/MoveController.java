@@ -27,6 +27,11 @@ public class MoveController {
     private AnimationTimer animationTimer;
     private TimeState timeState;
     private static int sliderMode;
+    private ImitationController imitationController;
+
+    public MoveController(ImitationController imitationController) {
+        this.imitationController = imitationController;
+    }
 
     public static void setDistribution(Distribution distribution) {
         MoveController.distribution = distribution;
