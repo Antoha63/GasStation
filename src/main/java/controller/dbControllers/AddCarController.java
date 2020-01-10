@@ -2,11 +2,15 @@ package controller.dbControllers;
 
 import entities.Car;
 import entities.Fuel;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -15,20 +19,24 @@ import repositories.CarRepository;
 import repositories.FuelRepository;
 
 import java.io.IOException;
+import java.util.List;
 
 public class AddCarController {
 
     private ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-data-context.xml");
     private CarRepository carRepository = context.getBean(CarRepository.class);
+    private FuelRepository fuelRepository = context.getBean(FuelRepository.class);
 
     private double xOffset;
     private double yOffset;
+
+    private ObservableList<String> fuelTypes = FXCollections.observableArrayList();
 
     @FXML
     private TextField model;
 
     @FXML
-    private TextField fuelType;
+    private ComboBox<String> comboBox;
 
     @FXML
     private TextField tankVolume;
@@ -40,11 +48,19 @@ public class AddCarController {
         closeButton.setOnAction(event -> {
             setCloseButton();
         });
+
+        List<Fuel> fuelList = fuelRepository.findAll();
+        for (Fuel fuel: fuelList) {
+            fuelTypes.add(fuel.getName());
+        }
+
+        comboBox.setItems(fuelTypes);
+        comboBox.setValue(fuelTypes.get(0));
     }
     public void add() throws IOException {
         Car car = new Car();
         car.setModel(model.getText());
-        car.setFuelType(fuelType.getText());
+        car.setFuelType(comboBox.getValue());
         car.setTankVolume(Integer.parseInt(tankVolume.getText()));
         carRepository.save(car);
 

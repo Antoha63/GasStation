@@ -52,7 +52,6 @@ public class DBWorkController {
     public TableColumn<Fuel, String> columnPrice;
 
     @FXML
-    public TableColumn<Car, String> columnId;
     public TableColumn<Car, String> columnModel;
     public TableColumn<Car, String> columnFuelType;
     public TableColumn<Car, String> columnTankVolume;
@@ -99,6 +98,8 @@ public class DBWorkController {
     }
 
     public void addFuel() throws IOException {
+        primaryStage = new Stage();
+        primaryStage.initStyle(StageStyle.TRANSPARENT);
         Parent root = FXMLLoader.load(getClass().getResource("/views/dbWorkViews/fuelParametersAdd.fxml"));
         root.setOnMousePressed(event -> {
             xOffset = event.getSceneX();
@@ -158,7 +159,7 @@ public class DBWorkController {
         carTable.getItems().remove(row);
     }
 
-    public void updateTables() throws IOException {
+    public void updateTables() {
         fuelTable.getItems().clear();
         carTable.getItems().clear();
 

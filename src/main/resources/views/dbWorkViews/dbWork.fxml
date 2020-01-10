@@ -30,9 +30,9 @@
          </styleClass></Button>
       <TableView fx:id="carTable" blendMode="MULTIPLY" layoutX="409.0" layoutY="37.0" prefHeight="318.0" prefWidth="356.0">
         <columns>
-          <TableColumn fx:id="columnModel" prefWidth="87.0" text="Модель" />
+          <TableColumn fx:id="columnModel" prefWidth="144.0" text="Модель" />
             <TableColumn fx:id="columnFuelType" minWidth="0.0" prefWidth="98.0" text="Вид топлива" />
-            <TableColumn fx:id="columnTankVolume" prefWidth="170.0" text="Объём бака (л)" />
+            <TableColumn fx:id="columnTankVolume" prefWidth="113.0" text="Объём бака (л)" />
         </columns>
       </TableView>
       <Button layoutX="489.0" layoutY="374.0" mnemonicParsing="false" onAction="#addCar" prefHeight="30.0" prefWidth="200.0" text="Добавить">

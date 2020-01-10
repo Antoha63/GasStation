@@ -63,7 +63,6 @@ public class DownloadTopologyController {
     public void selectTopology() throws IOException {
         Topology topology = topologyRepository.findByName(tableView.getSelectionModel().getSelectedItem().getName());
         topologyName = tableView.getSelectionModel().getSelectedItem().getName();
-        System.out.println(topology.getWidth() + "     " + topology.getHeight());
 
         ConstructorController constructorController = new ConstructorController();
         constructorController.setBounds(topology.getWidth(), topology.getHeight());
