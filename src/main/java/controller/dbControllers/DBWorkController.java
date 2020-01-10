@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -15,6 +16,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.Window;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import repositories.CarRepository;
 import repositories.FuelRepository;
@@ -107,6 +109,9 @@ public class DBWorkController {
 
     @FXML
     public void initialize() {
+        fuelTable.getItems().clear();
+        carTable.getItems().clear();
+
         primaryStage.initStyle(StageStyle.TRANSPARENT);
 
         closeButton.setOnAction(event -> {
@@ -144,64 +149,106 @@ public class DBWorkController {
     }
 
     public void addFuel() throws IOException {
-        primaryStage = new Stage();
-        primaryStage.initStyle(StageStyle.TRANSPARENT);
-        Parent root = FXMLLoader.load(getClass().getResource("/views/dbWorkViews/fuelParametersAdd.fxml"));
-
-        primaryStage.setTitle("");
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
+        setCloseButton();
+        getParentFuel();
     }
 
     public void changeFuel() throws IOException {
-        name = fuelTable.getSelectionModel().getSelectedItem().getName();
-        price = fuelTable.getSelectionModel().getSelectedItem().getPrice();
+        if (fuelTable.getSelectionModel().getSelectedItem() == null) {
+            showAlert();
+        } else {
+            setCloseButton();
+            name = fuelTable.getSelectionModel().getSelectedItem().getName();
+            price = fuelTable.getSelectionModel().getSelectedItem().getPrice();
 
-        Parent root = FXMLLoader.load(getClass().getResource("/views/dbWorkViews/fuelParametersAdd.fxml"));
-        primaryStage.setTitle("");
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
+            getParentFuel();
+        }
     }
 
-    public void removeFuel() {
-        int row = fuelTable.getSelectionModel().getSelectedIndex();
-        fuelRepository.delete(fuelRepository.findByName(fuelTable.getSelectionModel().getSelectedItem().getName()));
-        fuelTable.getItems().remove(row);
+    public void removeFuel() throws IOException {
+        if (fuelTable.getSelectionModel().getSelectedItem() == null) {
+            showAlert();
+        } else {
+            setCloseButton();
+            int row = fuelTable.getSelectionModel().getSelectedIndex();
+            fuelRepository.delete(fuelRepository.findByName(fuelTable.getSelectionModel().getSelectedItem().getName()));
+            fuelTable.getItems().remove(row);
+        }
+        getDBWorkStage();
     }
 
     public void addCar() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/views/dbWorkViews/carParametersAdd.fxml"));
-        primaryStage.setTitle("");
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
+        setCloseButton();
+        getParentCar();
     }
 
     public void changeCar() throws IOException {
-        model = carTable.getSelectionModel().getSelectedItem().getModel();
-        tankVolume = carTable.getSelectionModel().getSelectedItem().getTankVolume();
-        carId = carTable.getSelectionModel().getSelectedItem().getId();
+        if (carTable.getSelectionModel().getSelectedItem() == null) {
+            showAlert();
+        } else {
+            setCloseButton();
+            model = carTable.getSelectionModel().getSelectedItem().getModel();
+            tankVolume = carTable.getSelectionModel().getSelectedItem().getTankVolume();
+            carId = carTable.getSelectionModel().getSelectedItem().getId();
 
-        Parent root = FXMLLoader.load(getClass().getResource("/views/dbWorkViews/carParametersAdd.fxml"));
-        primaryStage.setTitle("");
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
+            getParentCar();
+        }
     }
 
-    public void removeCar() {
-        int row = carTable.getSelectionModel().getSelectedIndex();
-        carRepository.delete(carRepository.getOne(carTable.getSelectionModel().getSelectedItem().getId()));
-        carTable.getItems().remove(row);
-    }
-
-    public void updateTables() {
-        fuelTable.getItems().clear();
-        carTable.getItems().clear();
-
-        initData();
+    public void removeCar() throws IOException {
+        if (carTable.getSelectionModel().getSelectedItem() == null) {
+            showAlert();
+        } else {
+            setCloseButton();
+            int row = carTable.getSelectionModel().getSelectedIndex();
+            carRepository.delete(carRepository.getOne(carTable.getSelectionModel().getSelectedItem().getId()));
+            carTable.getItems().remove(row);
+        }
+        getDBWorkStage();
     }
 
     private void setCloseButton() {
         Stage stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
+    }
+
+    private void getParentFuel() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/views/dbWorkViews/fuelParametersAdd.fxml"));
+        primaryStage.setTitle("");
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
+    }
+
+    private void getParentCar() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/views/dbWorkViews/carParametersAdd.fxml"));
+        primaryStage.setTitle("");
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
+    }
+
+    private void showAlert() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
+        alert.setTitle("Ошибка");
+        alert.setHeaderText(null);
+        alert.setContentText("Сначала выберите запись из таблицы");
+        alert.initStyle(StageStyle.TRANSPARENT);
+
+        alert.showAndWait();
+    }
+
+    private void getDBWorkStage() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/views/dbWorkViews/dbWork.fxml"));
+        root.setOnMousePressed(event -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+        root.setOnMouseDragged(event -> {
+            primaryStage.setX(event.getScreenX() - xOffset);
+            primaryStage.setY(event.getScreenY() - yOffset);
+        });
+        primaryStage.setTitle("");
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
     }
 }

@@ -34,6 +34,11 @@ public class AddFuelController {
     public void initialize() {
         closeButton.setOnAction(event -> {
             setCloseButton();
+            try {
+                getDBWorkStage();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
 
         if (DBWorkController.getName() != null || DBWorkController.getPrice() != 0) {
@@ -53,6 +58,18 @@ public class AddFuelController {
 
         setCloseButton();
 
+        getDBWorkStage();
+
+        DBWorkController.setName(null);
+        DBWorkController.setPrice(0);
+    }
+
+    private void setCloseButton() {
+        Stage stage = (Stage) closeButton.getScene().getWindow();
+        stage.close();
+    }
+
+    private void getDBWorkStage() throws IOException {
         Stage primaryStage = new Stage();
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         Parent root = FXMLLoader.load(getClass().getResource("/views/dbWorkViews/dbWork.fxml"));
@@ -67,13 +84,5 @@ public class AddFuelController {
         primaryStage.setTitle("");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
-
-        DBWorkController.setName(null);
-        DBWorkController.setPrice(0);
-    }
-
-    private void setCloseButton() {
-        Stage stage = (Stage) closeButton.getScene().getWindow();
-        stage.close();
     }
 }
