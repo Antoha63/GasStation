@@ -34,7 +34,8 @@ public class SaveTopologyController {
     private PetrolStationRepository petrolStationRepository = context.getBean(PetrolStationRepository.class);
     private FuelTankRepository fuelTankRepository = context.getBean(FuelTankRepository.class);
 
-    private  Alert alert = new Alert(Alert.AlertType.INFORMATION);
+    private Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+
     @FXML
     private Button button;
 
@@ -43,6 +44,7 @@ public class SaveTopologyController {
 
     public void initialize() {
         textField.setText(null);
+        alert.initStyle(StageStyle.TRANSPARENT);
     }
 
     public void save() {
@@ -50,35 +52,31 @@ public class SaveTopologyController {
             alert.setTitle("Ошибка");
             alert.setHeaderText(null);
             alert.setContentText("Введите название сохранения");
-            alert.initStyle(StageStyle.TRANSPARENT);
 
             alert.showAndWait();
-
-            textField.setText(null);
-        }
-        else {
+        } else {
             if (topologyRepository.findByName(textField.getText()) != null) {
-                Optional<ButtonType> result = alert.showAndWait();
-
                 alert.setTitle("Ошибка");
                 alert.setHeaderText(null);
                 alert.setContentText("Такое сохранение уже существует. Перезаписать его?");
 
 
-                alert.showAndWait();
-
+                Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK) {
                     topologyRepository.delete(topologyRepository.findByName(textField.getText()));
                     saveTopology();
                 }
+                if (result.get() == ButtonType.CANCEL) {
+                    alert.close();
+                }
             } else {
                 saveTopology();
             }
-            textField.setText(null);
         }
+        textField.setText(null);
     }
 
-    private void saveTopology(){
+    private void saveTopology() {
         Topology topology = new Topology();
         topology.setName(textField.getText());
         topology.setHeight(Grid.getHeight());
