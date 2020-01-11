@@ -1,6 +1,6 @@
 package Log;
 
-import com.sun.org.apache.xerces.internal.impl.xpath.XPath;
+//import com.sun.org.apache.xerces.internal.impl.xpath.XPath;
 import controller.ImitationController;
 
 public class LogMessage {

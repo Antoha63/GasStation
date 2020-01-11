@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -45,14 +46,14 @@ public class DownloadTopologyController {
     private Button button;
 
     @FXML
-    public void initialize(){
+    public void initialize() {
         columnName.setCellValueFactory(new PropertyValueFactory<Topology, String>("name"));
         initData();
     }
 
     private void initData() {
         topologyList = topologyRepository.findAll();
-        for (Topology topology: topologyList) {
+        for (Topology topology : topologyList) {
             topology.getName();
             topologyObservableList.add(topology);
         }
@@ -61,34 +62,49 @@ public class DownloadTopologyController {
     }
 
     public void selectTopology() throws IOException {
-        Topology topology = topologyRepository.findByName(tableView.getSelectionModel().getSelectedItem().getName());
-        topologyName = tableView.getSelectionModel().getSelectedItem().getName();
+        if (tableView.getSelectionModel().getSelectedItem() == null)
+            showAlert();
+        else {
+            Topology topology = topologyRepository.findByName(tableView.getSelectionModel().getSelectedItem().getName());
+            topologyName = tableView.getSelectionModel().getSelectedItem().getName();
 
-        ConstructorController constructorController = new ConstructorController();
-        constructorController.setBounds(topology.getWidth(), topology.getHeight());
-        primaryStage = new Stage();
-        primaryStage.initStyle(StageStyle.TRANSPARENT);
-        Parent root = FXMLLoader.load(getClass().getResource("/views/constructor.fxml"));
-        root.setOnMousePressed(event -> {
-            xOffset = event.getSceneX();
-            yOffset = event.getSceneY();
-        });
-        root.setOnMouseDragged(event -> {
-            primaryStage.setX(event.getScreenX() - xOffset);
-            primaryStage.setY(event.getScreenY() - yOffset);
-        });
-        primaryStage.setTitle("");
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
-        Stage stage = (Stage) button.getScene().getWindow();
-        stage.close();
+            ConstructorController constructorController = new ConstructorController();
+            constructorController.setBounds(topology.getWidth(), topology.getHeight());
+            primaryStage = new Stage();
+            primaryStage.initStyle(StageStyle.TRANSPARENT);
+            Parent root = FXMLLoader.load(getClass().getResource("/views/constructor.fxml"));
+            root.setOnMousePressed(event -> {
+                xOffset = event.getSceneX();
+                yOffset = event.getSceneY();
+            });
+            root.setOnMouseDragged(event -> {
+                primaryStage.setX(event.getScreenX() - xOffset);
+                primaryStage.setY(event.getScreenY() - yOffset);
+            });
+            primaryStage.setTitle("");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+            Stage stage = (Stage) button.getScene().getWindow();
+            stage.close();
+        }
     }
 
-    public static Stage getPrimaryStage(){
+    public static Stage getPrimaryStage() {
         return primaryStage;
     }
 
-    public static String getTopologyName(){
+    public static String getTopologyName() {
         return topologyName;
+    }
+
+    private void showAlert() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
+        alert.setTitle("Ошибка");
+        alert.setHeaderText(null);
+        alert.setContentText("Сначала выберите запись из таблицы");
+        alert.initStyle(StageStyle.TRANSPARENT);
+
+        alert.showAndWait();
     }
 }

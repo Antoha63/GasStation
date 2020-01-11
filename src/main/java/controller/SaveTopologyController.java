@@ -10,7 +10,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
@@ -24,6 +26,7 @@ import visualize.GridElement;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 public class SaveTopologyController {
     private ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-data-context.xml");
@@ -31,20 +34,51 @@ public class SaveTopologyController {
     private PetrolStationRepository petrolStationRepository = context.getBean(PetrolStationRepository.class);
     private FuelTankRepository fuelTankRepository = context.getBean(FuelTankRepository.class);
 
+    private  Alert alert = new Alert(Alert.AlertType.INFORMATION);
     @FXML
     private Button button;
 
     @FXML
     private TextField textField;
 
-//    public void initialize() {
-//        button.setOnAction(event -> {
-//            Stage stage = (Stage) button.getScene().getWindow();
-//            stage.close();
-//        });
-//    }
+    public void initialize() {
+        textField.setText(null);
+    }
 
     public void save() {
+        if (textField.getText() == null) {
+            alert.setTitle("Ошибка");
+            alert.setHeaderText(null);
+            alert.setContentText("Введите название сохранения");
+            alert.initStyle(StageStyle.TRANSPARENT);
+
+            alert.showAndWait();
+
+            textField.setText(null);
+        }
+        else {
+            if (topologyRepository.findByName(textField.getText()) != null) {
+                Optional<ButtonType> result = alert.showAndWait();
+
+                alert.setTitle("Ошибка");
+                alert.setHeaderText(null);
+                alert.setContentText("Такое сохранение уже существует. Перезаписать его?");
+
+
+                alert.showAndWait();
+
+                if (result.get() == ButtonType.OK) {
+                    topologyRepository.delete(topologyRepository.findByName(textField.getText()));
+                    saveTopology();
+                }
+            } else {
+                saveTopology();
+            }
+            textField.setText(null);
+        }
+    }
+
+    private void saveTopology(){
         Topology topology = new Topology();
         topology.setName(textField.getText());
         topology.setHeight(Grid.getHeight());

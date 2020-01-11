@@ -154,9 +154,9 @@ public class DBWorkController {
     }
 
     public void changeFuel() throws IOException {
-        if (fuelTable.getSelectionModel().getSelectedItem() == null) {
+        if (fuelTable.getSelectionModel().getSelectedItem() == null)
             showAlert();
-        } else {
+         else {
             setCloseButton();
             name = fuelTable.getSelectionModel().getSelectedItem().getName();
             price = fuelTable.getSelectionModel().getSelectedItem().getPrice();
@@ -166,9 +166,9 @@ public class DBWorkController {
     }
 
     public void removeFuel() throws IOException {
-        if (fuelTable.getSelectionModel().getSelectedItem() == null) {
+        if (fuelTable.getSelectionModel().getSelectedItem() == null)
             showAlert();
-        } else {
+         else {
             setCloseButton();
             int row = fuelTable.getSelectionModel().getSelectedIndex();
             fuelRepository.delete(fuelRepository.findByName(fuelTable.getSelectionModel().getSelectedItem().getName()));
@@ -183,9 +183,9 @@ public class DBWorkController {
     }
 
     public void changeCar() throws IOException {
-        if (carTable.getSelectionModel().getSelectedItem() == null) {
+        if (carTable.getSelectionModel().getSelectedItem() == null)
             showAlert();
-        } else {
+         else {
             setCloseButton();
             model = carTable.getSelectionModel().getSelectedItem().getModel();
             tankVolume = carTable.getSelectionModel().getSelectedItem().getTankVolume();
@@ -196,9 +196,9 @@ public class DBWorkController {
     }
 
     public void removeCar() throws IOException {
-        if (carTable.getSelectionModel().getSelectedItem() == null) {
+        if (carTable.getSelectionModel().getSelectedItem() == null)
             showAlert();
-        } else {
+         else {
             setCloseButton();
             int row = carTable.getSelectionModel().getSelectedIndex();
             carRepository.delete(carRepository.getOne(carTable.getSelectionModel().getSelectedItem().getId()));

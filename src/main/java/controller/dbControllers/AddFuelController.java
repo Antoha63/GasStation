@@ -49,9 +49,9 @@ public class AddFuelController {
     }
 
     public void add() throws IOException {
-        if (DBWorkController.getName() != null) {
+        if (DBWorkController.getName() != null)
             fuelRepository.delete(fuelRepository.findByName(DBWorkController.getName()));
-        }
+
         Fuel fuel = new Fuel();
         fuel.setName(name.getText());
         try {
