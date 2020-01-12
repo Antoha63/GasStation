@@ -43,7 +43,10 @@ public class DownloadTopologyController {
     private TableView<Topology> tableView;
 
     @FXML
-    private Button button;
+    private Button buttonSelect;
+
+    @FXML
+    private Button buttonDelete;
 
     @FXML
     public void initialize() {
@@ -84,8 +87,18 @@ public class DownloadTopologyController {
             primaryStage.setTitle("");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
-            Stage stage = (Stage) button.getScene().getWindow();
+            Stage stage = (Stage) buttonSelect.getScene().getWindow();
             stage.close();
+        }
+    }
+
+    public void deleteTopology() throws IOException {
+        if (tableView.getSelectionModel().getSelectedItem() == null)
+            showAlert();
+        else {
+            int row = tableView.getSelectionModel().getSelectedIndex();
+            topologyRepository.delete(topologyRepository.getOne(tableView.getSelectionModel().getSelectedItem().getId()));
+            tableView.getItems().remove(row);
         }
     }
 
