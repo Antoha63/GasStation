@@ -22,6 +22,7 @@ import value.UniformDistribution;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.SynchronousQueue;
 
 import static javafx.scene.effect.BlendMode.MULTIPLY;
 
@@ -56,6 +57,14 @@ public class ModellerController {
     @FXML
     private Spinner<Double> intens;
     @FXML
+    private Label timeLabel;
+    @FXML
+    private Label matOLabel;
+    @FXML
+    private Label dispersionLabel;
+    @FXML
+    private Label intensLabel;
+    @FXML
     private Spinner<Double> probabilityOfArrival;
 
     @FXML
@@ -84,31 +93,53 @@ public class ModellerController {
         });
         radioButtonDeterministicDistribution.setOnAction(event -> {
             labelTime.setVisible(true);
+            timeLabel.setVisible(true);
             time.setVisible(true);
+
             labelMatO.setVisible(false);
+            matOLabel.setVisible(false);
             matO.setVisible(false);
+
             labelDispersion.setVisible(false);
+            dispersionLabel.setVisible(false);
             dispersion.setVisible(false);
+
             labelIntens.setVisible(false);
+            intensLabel.setVisible(false);
+            intens.setVisible(false);
         });
         radioButtonUniformDistribution.setOnAction(event -> {
             labelTime.setVisible(false);
+            timeLabel.setVisible(false);
             time.setVisible(false);
+
             labelMatO.setVisible(true);
+            matOLabel.setVisible(true);
             matO.setVisible(true);
+
             labelDispersion.setVisible(true);
+            dispersionLabel.setVisible(true);
             dispersion.setVisible(true);
+
             labelIntens.setVisible(false);
+            intensLabel.setVisible(false);
             intens.setVisible(false);
         });
         radioButtonExponentialDistribution.setOnAction(event -> {
             labelTime.setVisible(false);
+            timeLabel.setVisible(false);
             time.setVisible(false);
+
             labelMatO.setVisible(false);
+            matOLabel.setVisible(false);
             matO.setVisible(false);
+
             labelDispersion.setVisible(false);
+            dispersionLabel.setVisible(false);
             dispersion.setVisible(false);
+
             labelIntens.setVisible(true);
+            intensLabel.setVisible(true);
             intens.setVisible(true);
         });
 
@@ -116,7 +147,7 @@ public class ModellerController {
     }
 
     @FXML
-    public void createImitation() throws IOException {
+    public void createImitation() throws Exception {
         PetrolStation.setSpeed(petrolStationSpeed.getValue());
         // листу FuelTanks нужно каждому FT присвоить ft.setCurrentVolume = fuelTankVolume.getValue()
         // ЛИБО ЭТО СДЕЛАТЬ В КОНСТРУКТОРЕ ФУЕЛТАНКОВ!!!!!! Я думаю так лучше (Никита)
