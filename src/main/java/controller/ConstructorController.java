@@ -48,6 +48,8 @@ public class ConstructorController {
 
     @FXML
     private AnchorPane anchorPane;
+
+
     @FXML
     private ScrollPane scrollPaneElements;
     @FXML
@@ -58,6 +60,7 @@ public class ConstructorController {
     private Button back_button;
     @FXML
     private AnchorPane dragableArea;
+
     @FXML
     private ImageView entry;
     @FXML
@@ -72,6 +75,8 @@ public class ConstructorController {
     private Button checkCorrect;
 
     public void initialize() {
+        disableElements(true);
+        Grid.setConstructorController(this);
         closeButton.setOnAction(event -> {
             Stage stage = (Stage) closeButton.getScene().getWindow();
             stage.close();
@@ -96,7 +101,6 @@ public class ConstructorController {
         }
         scrollPaneElements.setLayoutX(Grid.getGrid()[topologyWidth - 1][0].getTranslateX() + GridElement.getElementWidth() + 10);
         scrollPaneElements.setLayoutY(buttons.getLayoutY());
-
         if (BoundsController.getPrimaryStage() != null) {
             setAdaptiveDesign(BoundsController.getPrimaryStage());
             setBackButtonEvent("/views/topologySize.fxml");
@@ -122,6 +126,12 @@ public class ConstructorController {
         }
     }
 
+    public void disableElements(boolean status) {
+        petrolStation.setDisable(status);
+        cashBox.setDisable(status);
+        fuelTank.setDisable(status);
+    }
+
     private void setBackButtonEvent(String address) {
         back_button.setOnAction(event -> {
             Stage primaryStage = new Stage();
@@ -145,6 +155,11 @@ public class ConstructorController {
             primaryStage.show();
             Stage stage = (Stage) closeButton.getScene().getWindow();
             stage.close();
+            try {
+                this.finalize();
+            } catch (Throwable throwable) {
+                throwable.printStackTrace();
+            }
         });
     }
 

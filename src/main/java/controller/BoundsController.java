@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Spinner;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import visualize.Grid;
 
 import java.io.IOException;
 
@@ -39,8 +40,7 @@ public class BoundsController {
             stage.close();
         });
         back_button.setOnAction(event -> {
-            Stage stage = (Stage) closeButton.getScene().getWindow();
-            stage.close();
+            if(primaryStage != null) primaryStage = null;
             Stage primaryStage = new Stage();
             primaryStage.initStyle(StageStyle.TRANSPARENT);
             Parent root = null;
@@ -60,9 +60,15 @@ public class BoundsController {
             primaryStage.setTitle("МЕНЮ");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
+            Stage stage = (Stage) closeButton.getScene().getWindow();
+            stage.close();
+            try {
+                this.finalize();
+            } catch (Throwable throwable) {
+                throwable.printStackTrace();
+            }
         });
     }
-
 
     @FXML
     public void createConstructor() throws IOException {

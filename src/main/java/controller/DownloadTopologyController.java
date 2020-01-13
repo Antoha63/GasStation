@@ -25,6 +25,11 @@ import java.util.List;
 public class DownloadTopologyController {
     private double xOffset;
     private double yOffset;
+    private static Stage primaryStage;
+    @FXML
+    private Button closeButton;
+    @FXML
+    private Button back_button;
 
     private ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-data-context.xml");
     private TopologyRepository topologyRepository = context.getBean(TopologyRepository.class);
@@ -34,7 +39,6 @@ public class DownloadTopologyController {
     private static String topologyName;
 
     private ObservableList<Topology> topologyObservableList = FXCollections.observableArrayList();
-    private static Stage primaryStage = new Stage();
 
     @FXML
     public TableColumn<Topology, String> columnName;
@@ -55,6 +59,39 @@ public class DownloadTopologyController {
     }
 
     private void initData() {
+        closeButton.setOnAction(event -> {
+            Stage stage = (Stage) closeButton.getScene().getWindow();
+            stage.close();
+        });
+        back_button.setOnAction(event -> {
+            if(primaryStage != null) primaryStage = null;
+            Stage primaryStage = new Stage();
+            primaryStage.initStyle(StageStyle.TRANSPARENT);
+            Parent root = null;
+            try {
+                root = FXMLLoader.load(getClass().getResource("/views/main.fxml"));
+                root.setOnMousePressed(mouseEvent -> {
+                    xOffset = mouseEvent.getSceneX();
+                    yOffset = mouseEvent.getSceneY();
+                });
+                root.setOnMouseDragged(mouseEvent -> {
+                    primaryStage.setX(mouseEvent.getScreenX() - xOffset);
+                    primaryStage.setY(mouseEvent.getScreenY() - yOffset);
+                });
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            primaryStage.setTitle("");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+            Stage stage = (Stage) closeButton.getScene().getWindow();
+            stage.close();
+            try {
+                this.finalize();
+            } catch (Throwable throwable) {
+                throwable.printStackTrace();
+            }
+        });
         topologyList = topologyRepository.findAll();
         for (Topology topology : topologyList) {
             topology.getName();
