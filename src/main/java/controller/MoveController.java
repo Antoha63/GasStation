@@ -1,6 +1,7 @@
 package controller;
 
 import TimeControl.TimeState;
+import elements.CashBox;
 import javafx.animation.AnimationTimer;
 import javafx.scene.layout.AnchorPane;
 import lombok.Getter;
@@ -99,7 +100,7 @@ public class MoveController {
                             e.printStackTrace();
                         }
                         /*COLLECTORCASHBOX*/
-                        if (trigger[0] == 1) {
+                        if (CashBox.checkCashbox()) {
                             collectorCashBox = new VisualisedTransportVehicle((int) Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getTranslateX(),
                                     (int) Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getTranslateY(), COLLECTORCASHBOX);
                             root.getChildren().add(collectorCashBox.getFrameAnimation().getImageView());
@@ -125,6 +126,8 @@ public class MoveController {
                             root.getChildren().remove(collectorCashBox.getFrameAnimation().getImageView());
                         if (collectorFuel != null)
                             root.getChildren().remove(collectorFuel.getFrameAnimation().getImageView());
+                        break;
+                    case PLAY:
                         break;
                     case PAUSE:
                         break;

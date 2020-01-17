@@ -38,6 +38,7 @@ public class Vehicle extends TransportVehicle {
     private int pt = 666;
     private int stop = 0;
     private static double probabilityOfArrival;
+    private boolean comeLogMessage = true;
 
     public static void setProbabilityOfArrival(double poa) {
         probabilityOfArrival = poa;
@@ -103,7 +104,6 @@ this.payment = actualFuelVolume *f.getPrice();
 //движение до въезда
             if (this.getX() > Entry.getX() * GridElement.getElementWidth() + Grid.getX0()) {
                 this.moveX(-1 * MoveController.getSliderMode());
-                new LogMessage("Тутуту");
                 imageView.setTranslateX(this.getX());
                 imageView.setTranslateY(this.getY());
                 this.setDirection(LEFT);
@@ -188,9 +188,15 @@ this.payment = actualFuelVolume *f.getPrice();
 //заправляемся и уезжаем
             else if (pt!=666 && this.getX() == Grid.getListOfPetrolStations().get(pt).getX() * GridElement.getElementWidth() + Grid.getX0()
                     && this.getY() == Grid.getListOfPetrolStations().get(pt).getY() * GridElement.getElementHeight() - GridElement.getElementHeight() + Grid.getY0() && Grid.getListOfPetrolStations().get(pt).getStatus() == false) {
-                if (stop <= 62 * PetrolStation.getSpeed() / 60 * actualFuelVolume / MoveController.getSliderMode())
+                if (stop <= 62 * PetrolStation.getSpeed() / 60 * actualFuelVolume / MoveController.getSliderMode()) {
                     stop++;
+                    if (comeLogMessage) {
+                        new LogMessage(model + " заправляется. Топливо: " + fuelType + ", " + actualFuelVolume + " л");
+                        comeLogMessage = false;
+                    }
+                }
                 else {
+                    new LogMessage(model + " заправлен. Сумма: " + payment + " р");
                     this.fill();
                     CashBox.setPayment(payment);
                     Grid.getListOfPetrolStations().get(pt).setStatus(true);
@@ -199,6 +205,7 @@ this.payment = actualFuelVolume *f.getPrice();
                     imageView.setTranslateX(this.getX());
                     imageView.setTranslateY(this.getY());
                     //System.out.println(CashBox.getBalance());
+                    //System.out.println(CashBox.getCriticalLevel() + "Critical velue");
                 }
             }
 //заправились, тронулись, уезжаем дальше

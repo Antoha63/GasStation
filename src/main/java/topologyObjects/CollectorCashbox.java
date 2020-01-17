@@ -1,5 +1,6 @@
 package topologyObjects;
 
+import Log.LogMessage;
 import controller.MoveController;
 import elements.CashBox;
 import elements.Entry;
@@ -124,12 +125,46 @@ public class CollectorCashbox extends TransportVehicle {
                 stop++;
             }
             else{
+                new LogMessage("Инкассатор забрал " + CashBox.getBalance() + " р");
                 this.setDirection(BOTTOM);
                 this.moveY(+1 * MoveController.getSliderMode());
                 imageView.setTranslateX(this.getX());
                 imageView.setTranslateY(this.getY());
-                //CashBox.setBalance(0);
-                //CashBox.setStatus(true);
+                CashBox.setBalance(0);
+                CashBox.setStatus(true);
+            }
+        }
+
+        else if (this.getX() == Exit.getX() * GridElement.getElementWidth() + Grid.getX0() &&
+                this.getY() == CashBox.getY() * GridElement.getElementHeight() + Grid.getY0() + 1 &&
+                MoveController.getSliderMode() >= 2) {
+            if (stop <= 62 / MoveController.getSliderMode()){
+                stop++;
+            }
+            else{
+                new LogMessage("Инкассатор забрал " + CashBox.getBalance() + " р");
+                this.setDirection(BOTTOM);
+                this.moveY(+2 * MoveController.getSliderMode());
+                imageView.setTranslateX(this.getX());
+                imageView.setTranslateY(this.getY());
+                CashBox.setBalance(0);
+                CashBox.setStatus(true);
+            }
+        }
+        else if (this.getX() == Exit.getX() * GridElement.getElementWidth() + Grid.getX0() &&
+                this.getY() == CashBox.getY() * GridElement.getElementHeight() + Grid.getY0() + 2 &&
+                MoveController.getSliderMode() >= 2) {
+            if (stop <= 62 / MoveController.getSliderMode()){
+                stop++;
+            }
+            else{
+                new LogMessage("Инкассатор забрал " + CashBox.getBalance() + " р");
+                this.setDirection(BOTTOM);
+                this.moveY(+2 * MoveController.getSliderMode());
+                imageView.setTranslateX(this.getX());
+                imageView.setTranslateY(this.getY());
+                CashBox.setBalance(0);
+                CashBox.setStatus(true);
             }
         }
 

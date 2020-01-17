@@ -2,6 +2,8 @@ package controller;
 
 import Log.LogMessage;
 import TimeControl.TimeState;
+import elements.CashBox;
+import elements.FuelTank;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
@@ -89,7 +91,7 @@ public class ImitationController {
     }
 
     public void addMessageLog(String message){
-        log_list.setText(log_list.getText() + "\n" + message);
+        log_list.setText(message + "\n" + log_list.getText());
     }
 
     private void positionElements() {
@@ -162,6 +164,17 @@ public class ImitationController {
         stopButton.setOnAction(event -> {
             moveController.setTimeState(TimeState.STOP);
             moveController = new MoveController(this);
+            CashBox.setStatus(true);
+            CashBox.setBalance(0);
+            CashBox.setProfit(0);
+            for (int i = 0; i < Grid.getListOfPetrolStations().size(); i++){
+                Grid.getListOfPetrolStations().get(i).setStatus(true);
+            }
+            for (int i = 0; i < Grid.getListOfFuelTanks().size(); i++){
+                Grid.getListOfFuelTanks().get(i).setStatus(true);
+                Grid.getListOfFuelTanks().get(i).setCurrentVolume(FuelTank.getVolume());
+            }
+            log_list.clear();
         });
     }
 }

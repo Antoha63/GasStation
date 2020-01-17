@@ -15,7 +15,7 @@ public class CashBox extends MainStaticElement {
     private static int x;
     private static int y;
     private static int profit; //заработок за все время
-    private static int balance;
+    private static int balance = 0;
     private static int criticalLevel; //between 10000 nd 100000
     private static boolean status = true;
 
@@ -32,6 +32,10 @@ public class CashBox extends MainStaticElement {
         criticalLevel = vol;
     }
 
+    public static int getCriticalLevel(){
+        return criticalLevel;
+    }
+
     public static void setStatus(boolean b) {
         status = b;
     }
@@ -40,17 +44,23 @@ public class CashBox extends MainStaticElement {
         balance = i;
     }
 
+    public static void setProfit(int i) {
+        profit = i;
+    }
+
     public static void setPayment(int payment){
         balance += payment;
         profit += payment;
     }
 
-    public boolean checkCashbox(){
-        boolean answer = false;
-        if (balance >= criticalLevel && this.status == true)
+    public static boolean checkCashbox(){
+        boolean answer = true;
+        if (balance >= criticalLevel && status == true)
         {
-            answer = true;
-            this.status = false;
+           status = false;
+        }
+        else{
+            answer = false;
         }
         return answer;
     }
