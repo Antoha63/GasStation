@@ -120,8 +120,6 @@ public class ImitationController {
         log_list.setPrefHeight(stage.getHeight() - log_list.getLayoutY() - statistics.getPrefHeight() - 2 * spacing);
         statistics.setLayoutY(log_list.getLayoutY() + log_list.getPrefHeight() + spacing);
         dragableArea.setPrefWidth(stage.getWidth() - 2);
-        //anchorPaneMode.setLayoutX(spacing + inConstructorButton.getPrefWidth() / 2 - anchorPaneMode.getPrefWidth() / 2);
-        //anchorPaneMode.setLayoutY(backButtons.getLayoutY() + inConstructorButton.getPrefHeight() * 3 + spacing * 3);
     }
 
     private void setOnActionCloseWindow() {
@@ -135,6 +133,7 @@ public class ImitationController {
         for (int i = 0; i < Grid.getWidth(); i++) {
             for (int j = 0; j < Grid.getHeight() + 1; j++) {
                 anchorPane.getChildren().add(Grid.getGrid()[i][j]);
+                Grid.getGrid()[i][j].setOnMouseClicked(null);
             }
         }
         for (Line line : Grid.getLineList()) {

@@ -145,5 +145,10 @@
       <Label fx:id="matOLabel" layoutX="934.0" layoutY="223.0" text="с." visible="false" />
       <Label fx:id="dispersionLabel" layoutX="934.0" layoutY="266.0" text="с." visible="false" />
       <Label fx:id="intensLabel" layoutX="934.0" layoutY="342.0" text="с." visible="false" />
+      <Button fx:id="back_button" layoutX="34.0" layoutY="29.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="15.0" prefWidth="15.0" styleClass="button_back" stylesheets="@../styles/styles.css" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="7.0">
+         <font>
+            <Font size="6.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

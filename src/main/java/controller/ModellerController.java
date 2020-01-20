@@ -46,6 +46,8 @@ public class ModellerController {
     private CarRepository carRepository = context.getBean(CarRepository.class);
 
     @FXML
+    private Button back_button;
+    @FXML
     private AnchorPane anchorPane;
     @FXML
     private Spinner<Integer> fuelTankVolume;
@@ -105,6 +107,10 @@ public class ModellerController {
     public void initialize() {
         closeButton.setOnAction(event -> {
             Stage stage = (Stage) closeButton.getScene().getWindow();
+            stage.close();
+        });
+        back_button.setOnAction(event -> {
+            Stage stage = (Stage) back_button.getScene().getWindow();
             stage.close();
         });
         radioButtonDeterministicDistribution.setOnAction(event -> {
