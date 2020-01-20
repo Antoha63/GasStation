@@ -25,7 +25,6 @@ import visualize.Grid;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.SynchronousQueue;
 
 import static javafx.scene.effect.BlendMode.MULTIPLY;
 
@@ -36,7 +35,7 @@ public class ModellerController {
     private static List<Car> carList;
     private static List<Fuel> fuelList;
     private static List<Fuel> usabledFuelList;
-    private List<RadioButton> radioButtonList = new ArrayList<>();
+    private List<CheckBox> checkBoxes = new ArrayList<>();
 
     public static Stage getPrimaryStage() {
         return primaryStage;
@@ -168,7 +167,7 @@ public class ModellerController {
         carList = carRepository.findAll();
         fuelList = fuelRepository.findAll();
         usabledFuelList = new ArrayList<>();
-        for (RadioButton rb : radioButtonList){
+        for (CheckBox rb : checkBoxes){
             if (rb.isSelected()){
                 for (Fuel fuel : fuelList) {
                     if (fuel.getName().equals(rb.getText())){
@@ -248,15 +247,15 @@ public class ModellerController {
 
         int i = 0;
         for (String name : nameList) {
-            RadioButton radioButton = new RadioButton();
-            radioButton.setText(name);
-            radioButton.setLayoutX(240);
-            radioButton.setLayoutY(300 + i * 30);
-            radioButton.setBlendMode(MULTIPLY);
-            radioButtonList.add(radioButton);
+            CheckBox checkBox = new CheckBox();
+            checkBox.setText(name);
+            checkBox.setLayoutX(240);
+            checkBox.setLayoutY(300 + i * 30);
+            checkBox.setBlendMode(MULTIPLY);
+            checkBoxes.add(checkBox);
             i++;
         }
 
-        anchorPane.getChildren().addAll(radioButtonList);
+        anchorPane.getChildren().addAll(checkBoxes);
     }
 }
