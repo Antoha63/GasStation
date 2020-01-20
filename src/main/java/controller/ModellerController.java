@@ -210,7 +210,7 @@ public class ModellerController {
             primaryStage.show();
         }
         else{
-            usabledFuelList.clear();
+            //usabledFuelList.clear();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Ошибка");
             alert.setHeaderText(null);
