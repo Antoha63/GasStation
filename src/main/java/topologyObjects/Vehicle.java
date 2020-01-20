@@ -88,15 +88,26 @@ this.payment = actualFuelVolume *f.getPrice();
             if (ft.getFuel().equals(this.fuelType)){
                 //System.out.println("actualFuelVolume " + actualFuelVolume);
                 ft.minusVolume((int)actualFuelVolume);
-                System.out.println("ft.getCurrentVolume() " + ft.getCurrentVolume() + " " + ft.getFuel());
+                //System.out.println("ft.getCurrentVolume() " + ft.getCurrentVolume() + " " + ft.getFuel());
             }
         }
     }
 
     @Override
-    public void go(/*List<FuelTank> listOfFuelTanks,*/ ImageView imageView) throws InterruptedException, NullPointerException {
+    public void go(ImageView imageView) throws InterruptedException, NullPointerException {
 
-        if (randValue > probabilityOfArrival) {
+        boolean hasFuelType = false;
+        for (FuelTank ft : Grid.getListOfFuelTanks()){
+            if (ft.getFuel().equals(fuelType))
+                hasFuelType = true;
+        }
+        if (!hasFuelType){
+            this.moveX(-1 * MoveController.getSliderMode());
+            this.setDirection(LEFT);
+            imageView.setTranslateX(this.getX());
+            imageView.setTranslateY(this.getY());
+        }
+        else if (randValue > probabilityOfArrival) {
             this.moveX(-1 * MoveController.getSliderMode());
             this.setDirection(LEFT);
             imageView.setTranslateX(this.getX());

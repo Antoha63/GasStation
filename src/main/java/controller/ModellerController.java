@@ -100,7 +100,7 @@ public class ModellerController {
     public static List<Fuel> getFuelList(){
         return fuelList;
     }
-    public static List<Fuel> getUsablebFuelList(){
+    public static List<Fuel> getUsabledFuelList(){
         return usabledFuelList;    }
 
     public void initialize() {
@@ -165,20 +165,6 @@ public class ModellerController {
 
     @FXML
     public void createImitation() throws Exception {
-        PetrolStation.setSpeed(petrolStationSpeed.getValue());
-        FuelTank.setVolume(fuelTankVolume.getValue());
-        FuelTank.setCriticalLevel(fuelTankCriticalLevel.getValue());
-        PetrolStation.setSpeed(petrolStationSpeed.getValue());
-        CashBox.setCriticalLevel(cashboxCriticalLevel.getValue());
-        Vehicle.setProbabilityOfArrival(probabilityOfArrival.getValue());//TODO: fix it
-        if (radioButtonDeterministicDistribution.isSelected()) {
-            MoveController.setDistribution(new DeterministicDistribution(time.getValue()));
-        } else if (radioButtonExponentialDistribution.isSelected()) {
-            MoveController.setDistribution(new ExponentialDistribution(intens.getValue()));
-        } else if (radioButtonUniformDistribution.isSelected()) {
-            MoveController.setDistribution(new UniformDistribution(matO.getValue(), dispersion.getValue()));
-        }
-
         carList = carRepository.findAll();
         fuelList = fuelRepository.findAll();
         usabledFuelList = new ArrayList<>();
@@ -190,26 +176,48 @@ public class ModellerController {
                 }
             }
         }
-        for (int i = 0; i < Grid.getListOfFuelTanks().size(); i++){
-            Grid.getListOfFuelTanks().get(i).setFuel(usabledFuelList.get(i).getName());
-            Grid.getListOfFuelTanks().get(i).setCurrentVolume(FuelTank.getVolume());
+        if (usabledFuelList.size() == Grid.getListOfFuelTanks().size())
+        {
+            PetrolStation.setSpeed(petrolStationSpeed.getValue());
+            FuelTank.setVolume(fuelTankVolume.getValue());
+            FuelTank.setCriticalLevel(fuelTankCriticalLevel.getValue());
+            PetrolStation.setSpeed(petrolStationSpeed.getValue());
+            CashBox.setCriticalLevel(cashboxCriticalLevel.getValue());
+            Vehicle.setProbabilityOfArrival(probabilityOfArrival.getValue());//TODO: fix it
+            if (radioButtonDeterministicDistribution.isSelected()) {
+                MoveController.setDistribution(new DeterministicDistribution(time.getValue()));
+            } else if (radioButtonExponentialDistribution.isSelected()) {
+                MoveController.setDistribution(new ExponentialDistribution(intens.getValue()));
+            } else if (radioButtonUniformDistribution.isSelected()) {
+                MoveController.setDistribution(new UniformDistribution(matO.getValue(), dispersion.getValue()));
+            }
+            for (int i = 0; i < Grid.getListOfFuelTanks().size(); i++) {
+                Grid.getListOfFuelTanks().get(i).setFuel(usabledFuelList.get(i).getName());
+                Grid.getListOfFuelTanks().get(i).setCurrentVolume(FuelTank.getVolume());
+            }
+            primaryStage = new Stage();
+            primaryStage.initStyle(StageStyle.TRANSPARENT);
+            Parent root = FXMLLoader.load(getClass().getResource("/views/imitation.fxml"));
+            root.setOnMousePressed(event -> {
+                xOffset = event.getSceneX();
+                yOffset = event.getSceneY();
+            });
+            root.setOnMouseDragged(event -> {
+                primaryStage.setX(event.getScreenX() - xOffset);
+                primaryStage.setY(event.getScreenY() - yOffset);
+            });
+            primaryStage.setTitle("ИМИТАЦИЯ");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
         }
-
-
-        primaryStage = new Stage();
-        primaryStage.initStyle(StageStyle.TRANSPARENT);
-        Parent root = FXMLLoader.load(getClass().getResource("/views/imitation.fxml"));
-        root.setOnMousePressed(event -> {
-            xOffset = event.getSceneX();
-            yOffset = event.getSceneY();
-        });
-        root.setOnMouseDragged(event -> {
-            primaryStage.setX(event.getScreenX() - xOffset);
-            primaryStage.setY(event.getScreenY() - yOffset);
-        });
-        primaryStage.setTitle("ИМИТАЦИЯ");
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
+        else{
+            usabledFuelList.clear();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Ошибка");
+            alert.setHeaderText(null);
+            alert.setContentText("Число выбранных видов топлива должно соответствовать количеству топливных баков!");
+            alert.showAndWait();
+        }
     }
 
     @FXML

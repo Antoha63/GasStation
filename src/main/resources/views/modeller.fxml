@@ -76,10 +76,10 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <Spinner id="spinnerFuelTankVolume" fx:id="fuelTankVolume" amountToStepBy="1000" blendMode="MULTIPLY" editable="true" layoutX="421.0" layoutY="96.0" max="20000" min="5000" prefHeight="34.0" prefWidth="74.0" stylesheets="@../styles/styles.css" />
-      <Spinner id="spinnerFuelTankCriticalLevel" fx:id="fuelTankCriticalLevel" blendMode="MULTIPLY" editable="true" layoutX="421.0" layoutY="141.0" max="90" min="10" prefHeight="34.0" prefWidth="74.0" stylesheets="@../styles/styles.css" />
-      <Spinner id="spinnerPetrolStationSpeed" fx:id="petrolStationSpeed" blendMode="MULTIPLY" editable="true" layoutX="421.0" layoutY="180.0" max="100" min="60" prefHeight="34.0" prefWidth="74.0" stylesheets="@../styles/styles.css" />
-      <Spinner id="spinnerCashboxCriticalLevel" fx:id="cashboxCriticalLevel" blendMode="MULTIPLY" editable="true" layoutX="421.0" layoutY="224.0" max="100000" min="10000" prefHeight="34.0" prefWidth="74.0" stylesheets="@../styles/styles.css" />
+      <Spinner id="spinnerFuelTankVolume" fx:id="fuelTankVolume" amountToStepBy="1000" blendMode="MULTIPLY" layoutX="421.0" layoutY="96.0" max="20000" min="5000" prefHeight="34.0" prefWidth="74.0" stylesheets="@../styles/styles.css" />
+      <Spinner id="spinnerFuelTankCriticalLevel" fx:id="fuelTankCriticalLevel" amountToStepBy="10" blendMode="MULTIPLY" layoutX="421.0" layoutY="141.0" max="90" min="10" prefHeight="34.0" prefWidth="74.0" stylesheets="@../styles/styles.css" />
+      <Spinner id="spinnerPetrolStationSpeed" fx:id="petrolStationSpeed" amountToStepBy="5" blendMode="MULTIPLY" layoutX="421.0" layoutY="180.0" max="100" min="60" prefHeight="34.0" prefWidth="74.0" stylesheets="@../styles/styles.css" />
+      <Spinner id="spinnerCashboxCriticalLevel" fx:id="cashboxCriticalLevel" amountToStepBy="10000" blendMode="MULTIPLY" layoutX="421.0" layoutY="224.0" max="100000" min="10000" prefHeight="34.0" prefWidth="74.0" stylesheets="@../styles/styles.css" />
       <RadioButton id="radioButtonDeterministicDistribution" fx:id="radioButtonDeterministicDistribution" blendMode="MULTIPLY" layoutX="581.0" layoutY="100.0" mnemonicParsing="false" stylesheets="@../styles/styles.css" text="Детерминированный закон">
          <font>
             <Font size="15.0" />
@@ -118,16 +118,16 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <Spinner id="spinnerTime" fx:id="time" amountToStepBy="0.1" blendMode="MULTIPLY" editable="true" layoutX="853.0" layoutY="132.0" max="10" min="1" prefHeight="34.0" prefWidth="74.0" stylesheets="@../styles/styles.css" visible="false" />
-      <Spinner id="spinnerMatO" fx:id="matO" amountToStepBy="0.1" blendMode="MULTIPLY" editable="true" layoutX="853.0" layoutY="215.0" max="10" min="1" prefHeight="34.0" prefWidth="74.0" stylesheets="@../styles/styles.css" visible="false" />
-      <Spinner id="spinnerDispersion" fx:id="dispersion" amountToStepBy="0.1" blendMode="MULTIPLY" editable="true" layoutX="853.0" layoutY="259.0" max="4.5" min="0" prefHeight="34.0" prefWidth="74.0" stylesheets="@../styles/styles.css" visible="false" />
-      <Spinner id="spinnerIntens" fx:id="intens" blendMode="MULTIPLY" editable="true" layoutX="853.0" layoutY="335.0" max="4" min="1" prefHeight="34.0" prefWidth="74.0" stylesheets="@../styles/styles.css" visible="false" />
+      <Spinner id="spinnerTime" fx:id="time" amountToStepBy="0.1" blendMode="MULTIPLY" layoutX="853.0" layoutY="132.0" max="10" min="1" prefHeight="34.0" prefWidth="74.0" stylesheets="@../styles/styles.css" visible="false" />
+      <Spinner id="spinnerMatO" fx:id="matO" amountToStepBy="0.1" blendMode="MULTIPLY" layoutX="853.0" layoutY="215.0" max="10" min="1" prefHeight="34.0" prefWidth="74.0" stylesheets="@../styles/styles.css" visible="false" />
+      <Spinner id="spinnerDispersion" fx:id="dispersion" amountToStepBy="0.1" blendMode="MULTIPLY" layoutX="853.0" layoutY="259.0" max="4.5" min="0" prefHeight="34.0" prefWidth="74.0" stylesheets="@../styles/styles.css" visible="false" />
+      <Spinner id="spinnerIntens" fx:id="intens" amountToStepBy="0.1" blendMode="MULTIPLY" layoutX="853.0" layoutY="335.0" max="4" min="1" prefHeight="34.0" prefWidth="74.0" stylesheets="@../styles/styles.css" visible="false" />
       <Label id="labelPOA" layoutX="578.0" layoutY="401.0" stylesheets="@../styles/styles.css" text="Вероятность заезда а/м:">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Spinner id="spinnerPOA" fx:id="probabilityOfArrival" amountToStepBy="0.1" blendMode="MULTIPLY" editable="true" layoutX="853.0" layoutY="395.0" max="1" min="0" prefHeight="34.0" prefWidth="74.0" stylesheets="@../styles/styles.css" />
+      <Spinner id="spinnerPOA" fx:id="probabilityOfArrival" amountToStepBy="0.1" blendMode="MULTIPLY" layoutX="853.0" layoutY="395.0" max="1" min="0" prefHeight="34.0" prefWidth="74.0" stylesheets="@../styles/styles.css" />
       <AnchorPane cache="true" layoutX="1.0" layoutY="1.0" prefHeight="30.0" prefWidth="1000.0" styleClass="close_area" stylesheets="@../styles/styles.css">
          <children>
             <Button fx:id="closeButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="15.0" prefWidth="15.0" style="-fx-background-radius: 20;" styleClass="button_close" stylesheets="@../styles/styles.css" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="7.0">

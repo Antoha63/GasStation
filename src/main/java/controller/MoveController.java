@@ -25,7 +25,7 @@ public class MoveController {
     private ArrayList<VisualisedTransportVehicle> automobiles = new ArrayList<VisualisedTransportVehicle>();
     private VisualisedTransportVehicle collectorFuel;
     private VisualisedTransportVehicle collectorCashBox;
-    private static Distribution distribution = new ExponentialDistribution(1);;
+    private static Distribution distribution = new ExponentialDistribution(1);
     private AnimationTimer animationTimer;
     private TimeState timeState;
     private static int sliderMode;
