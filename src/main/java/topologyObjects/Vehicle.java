@@ -1,7 +1,9 @@
 package topologyObjects;
 
 import Log.LogMessage;
+import Log.LogStatistic;
 import controller.ImitationController;
+import controller.ModellerController;
 import controller.MoveController;
 import elements.CashBox;
 import elements.FuelTank;
@@ -29,7 +31,7 @@ import static topologyObjects.TransportVehicleDirection.*;
 @ToString
 public class Vehicle extends TransportVehicle {
     private String model;
-    private int tankVolume;
+    private double tankVolume;
     private double actualFuelVolume;
     private String fuelType;
     private int payment;
@@ -40,29 +42,28 @@ public class Vehicle extends TransportVehicle {
     private static double probabilityOfArrival;
     private boolean comeLogMessage = true;
 
+    private static int countCars = 0;
+    private static int countLitres = 0;
+
     public static void setProbabilityOfArrival(double poa) {
         probabilityOfArrival = poa;
     }
 
-    public Vehicle(int x, int y, double poa/*CarRepository carRepository, FuelRepository fuelRepository,*/) {
+    public Vehicle(int x, int y, double poa) {
         super(x, y);
         probabilityOfArrival = poa;
         randValue = rand.nextDouble();
-        fuelType = "98";
-        tankVolume = 50;
-        double tv = (double) tankVolume;
-        actualFuelVolume = tv/100*(rand.nextInt(99 ) + 1 );
-        double pymnt = actualFuelVolume * 30;
-        payment = (int) actualFuelVolume * 30;
+        Random rand1 = new Random();
+        Car car = ModellerController.getCarList().get(rand1.nextInt(ModellerController.getCarList().size()));
+        this.model = car.getModel();
+        this.tankVolume = car.getTankVolume();
+        this.fuelType = car.getFuelType();
+        actualFuelVolume = tankVolume/100*(rand1.nextInt(99 ) + 1 );
 
-
-
-/*List<Car> carList = carRepository.findAll();
-Random rand = new Random();
-Car car = carList.get(rand.nextInt(carList.size()));
-this.model = car.getModel();
-this.tankVolume = car.getTankVolume();
-this.fuelType = car.getFuelType();*/
+        for (Fuel f : ModellerController.getFuelList()) {
+            if (f.getName().equals(this.fuelType))
+                this.payment = (int) (actualFuelVolume * f.getPrice());
+            //payment = (int) actualFuelVolume * 30;
 /*double tv = (double) tankVolume;
         actualFuelVolume =  tv/100*(rand.nextInt(99 ) + 1 );*/
 /*List<Fuel> fuelList = fuelRepository.findAll();
@@ -70,7 +71,7 @@ for (Fuel f : fuelList){
 if (f.getName() == this.fuelType)
 this.payment = actualFuelVolume *f.getPrice();
 }*/
-
+        }
     }
 
     public static double getProbabilityOfArrival() {
@@ -87,7 +88,7 @@ this.payment = actualFuelVolume *f.getPrice();
             if (ft.getFuel().equals(this.fuelType)){
                 //System.out.println("actualFuelVolume " + actualFuelVolume);
                 ft.minusVolume((int)actualFuelVolume);
-                //System.out.println("ft.getCurrentVolume() " + ft.getCurrentVolume());
+                System.out.println("ft.getCurrentVolume() " + ft.getCurrentVolume() + " " + ft.getFuel());
             }
         }
     }
@@ -199,6 +200,9 @@ this.payment = actualFuelVolume *f.getPrice();
                     new LogMessage(model + " заправлен. Сумма: " + payment + " р");
                     this.fill();
                     CashBox.setPayment(payment);
+                    countCars++;
+                    countLitres += (int)actualFuelVolume;
+                    new LogStatistic(CashBox.getProfit(),countCars,countLitres);
                     Grid.getListOfPetrolStations().get(pt).setStatus(true);
                     this.setDirection(LEFT);
                     this.moveX(-1 * MoveController.getSliderMode());
@@ -206,6 +210,10 @@ this.payment = actualFuelVolume *f.getPrice();
                     imageView.setTranslateY(this.getY());
                     //System.out.println(CashBox.getBalance());
                     //System.out.println(CashBox.getCriticalLevel() + "Critical velue");
+/*                    for (int i = 0; i < Grid.getListOfFuelTanks().size(); i++) {
+                        if (fuelType.equals(Grid.getListOfFuelTanks().get(i).getFuel()))
+                        System.out.println(Grid.getListOfFuelTanks().get(i).getCurrentVolume() + " " + Grid.getListOfFuelTanks().get(i).getFuel());
+                    }*/
                 }
             }
 //заправились, тронулись, уезжаем дальше

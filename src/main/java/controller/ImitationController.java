@@ -1,6 +1,7 @@
 package controller;
 
 import Log.LogMessage;
+import Log.LogStatistic;
 import TimeControl.TimeState;
 import elements.CashBox;
 import elements.FuelTank;
@@ -88,6 +89,13 @@ public class ImitationController {
             MoveController.setSliderMode((int)sliderMode.getValue());
         });
         LogMessage.setImitationController(this);
+        LogStatistic.setImitationController(this);
+    }
+
+    public void statisticRefresh(int profit, int countCars, int countLitres){
+        cash_value_label.setText(Integer.toString(profit));
+        automobileCountLabel.setText(Integer.toString(countCars));
+        fuelValueLabel.setText(Integer.toString(countLitres));
     }
 
     public void addMessageLog(String message){

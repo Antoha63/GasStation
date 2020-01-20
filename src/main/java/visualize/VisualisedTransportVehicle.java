@@ -52,6 +52,41 @@ public class VisualisedTransportVehicle {
         }
     }
 
+    public VisualisedTransportVehicle(int x, int y, TransportVehicleType type, String fuelType) {
+        switch (type) {
+            case AUTOMOBILE:
+                this.transportVehicle = new Vehicle(x, y, Vehicle.getProbabilityOfArrival());
+                this.frameAnimation = new FrameAnimation(imageOffsetX,
+                        0,
+                        100,
+                        50,
+                        3);
+                this.frameAnimation.getImageView().setFitHeight(40);
+                this.frameAnimation.getImageView().setFitWidth(80);
+                break;
+            case COLLECTORFUEL:
+                this.transportVehicle = new CollectorFuel(x,y,fuelType);
+                this.frameAnimation = new FrameAnimation(imageOffsetX,
+                        2,
+                        100,
+                        50,
+                        3);
+                this.frameAnimation.getImageView().setFitHeight(40);
+                this.frameAnimation.getImageView().setFitWidth(80);
+                break;
+            case COLLECTORCASHBOX:
+                this.transportVehicle = new CollectorCashbox(x,y);
+                this.frameAnimation = new FrameAnimation(imageOffsetX,
+                        1,
+                        100,
+                        50,
+                        3);
+                this.frameAnimation.getImageView().setFitHeight(40);
+                this.frameAnimation.getImageView().setFitWidth(80);
+                break;
+        }
+    }
+
     public void go() throws InterruptedException {
         if(this.transportVehicle.getDirection() == LEFT){
             this.frameAnimation.setImageOffsetX(2);

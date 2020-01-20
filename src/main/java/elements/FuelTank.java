@@ -17,10 +17,10 @@ public class FuelTank extends MainStaticElement {
     private int x;
     private int y;
     private long id;
-    private String fuel = "98";
+    private String fuel;
     private static int volume;  //between 5000 and 20000
-    private int currentVolume = 5000;
-    private static int criticalLevel; //between 10% and 90%
+    private int currentVolume;
+    private static double criticalLevel; //between 10% and 90%
     private boolean status = true;
 
     public FuelTank(int x, int y) {
@@ -34,11 +34,15 @@ public class FuelTank extends MainStaticElement {
     }
 
     public static void setCriticalLevel(int vol){
-        criticalLevel = vol;
+        criticalLevel = (double) vol;
     }
 
     public void setStatus(boolean b) {
         status = b;
+    }
+
+    public boolean getStatus (){
+        return status;
     }
 
     public static int getVolume() {
@@ -50,10 +54,12 @@ public class FuelTank extends MainStaticElement {
     }
 
     public boolean checkFuelTank() {
-        boolean answer = false;
-        if (currentVolume <= criticalLevel / 100 * volume && status) {
-            answer = true;
+        boolean answer = true;
+        if (currentVolume <= (int)(criticalLevel / 100 * volume) && status) {
             this.status = false;
+        }
+        else{
+            answer = false;
         }
         return answer;
     }

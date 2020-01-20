@@ -2,6 +2,7 @@ package controller;
 
 import TimeControl.TimeState;
 import elements.CashBox;
+import elements.FuelTank;
 import javafx.animation.AnimationTimer;
 import javafx.scene.layout.AnchorPane;
 import lombok.Getter;
@@ -83,21 +84,23 @@ public class MoveController {
                             temp[0] = 666;
                         }
                         /*COLLECTORFUEL*/
-                        if (trigger[0] == 1) {
-                            collectorFuel = new VisualisedTransportVehicle((int) Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getTranslateX(),
-                                    (int) Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getTranslateY(), COLLECTORFUEL);
-                            root.getChildren().add(collectorFuel.getFrameAnimation().getImageView());
-                        }
-                        try {
-                            if (collectorFuel != null) {
-                                collectorFuel.go();
-                                if (collectorFuel.getTransportVehicle().getX() <= Grid.getGrid()[0][0].getTranslateX()) {
-                                    root.getChildren().remove(collectorFuel.getFrameAnimation().getImageView());
-                                    collectorFuel = null;
-                                }
+                        for (FuelTank ft : Grid.getListOfFuelTanks()){
+                            if (ft.checkFuelTank()) {
+                                collectorFuel = new VisualisedTransportVehicle((int) Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getTranslateX(),
+                                        (int) Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getTranslateY(), COLLECTORFUEL, ft.getFuel());
+                                root.getChildren().add(collectorFuel.getFrameAnimation().getImageView());
                             }
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
+                            try {
+                                if (collectorFuel != null) {
+                                    collectorFuel.go();
+                                    if (collectorFuel.getTransportVehicle().getX() <= Grid.getGrid()[0][0].getTranslateX()) {
+                                        root.getChildren().remove(collectorFuel.getFrameAnimation().getImageView());
+                                        collectorFuel = null;
+                                    }
+                                }
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
                         }
                         /*COLLECTORCASHBOX*/
                         if (CashBox.checkCashbox()) {

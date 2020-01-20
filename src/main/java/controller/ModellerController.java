@@ -3,6 +3,7 @@ package controller;
 import elements.CashBox;
 import elements.FuelTank;
 import elements.PetrolStation;
+import entities.Car;
 import entities.Fuel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,11 +14,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import repositories.CarRepository;
 import repositories.FuelRepository;
 import topologyObjects.Vehicle;
 import value.DeterministicDistribution;
 import value.ExponentialDistribution;
 import value.UniformDistribution;
+import visualize.Grid;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,6 +33,10 @@ public class ModellerController {
     private double xOffset;
     private double yOffset;
     private static Stage primaryStage;
+    private static List<Car> carList;
+    private static List<Fuel> fuelList;
+    private static List<Fuel> usabledFuelList;
+    private List<RadioButton> radioButtonList = new ArrayList<>();
 
     public static Stage getPrimaryStage() {
         return primaryStage;
@@ -37,6 +44,7 @@ public class ModellerController {
 
     private ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-data-context.xml");
     private FuelRepository fuelRepository = context.getBean(FuelRepository.class);
+    private CarRepository carRepository = context.getBean(CarRepository.class);
 
     @FXML
     private AnchorPane anchorPane;
@@ -85,6 +93,15 @@ public class ModellerController {
 
     @FXML
     private Button closeButton;
+
+    public static List<Car> getCarList(){
+        return carList;
+    }
+    public static List<Fuel> getFuelList(){
+        return fuelList;
+    }
+    public static List<Fuel> getUsablebFuelList(){
+        return usabledFuelList;    }
 
     public void initialize() {
         closeButton.setOnAction(event -> {
@@ -149,8 +166,6 @@ public class ModellerController {
     @FXML
     public void createImitation() throws Exception {
         PetrolStation.setSpeed(petrolStationSpeed.getValue());
-        // листу FuelTanks нужно каждому FT присвоить ft.setCurrentVolume = fuelTankVolume.getValue()
-        // ЛИБО ЭТО СДЕЛАТЬ В КОНСТРУКТОРЕ ФУЕЛТАНКОВ!!!!!! Я думаю так лучше (Никита)
         FuelTank.setVolume(fuelTankVolume.getValue());
         FuelTank.setCriticalLevel(fuelTankCriticalLevel.getValue());
         PetrolStation.setSpeed(petrolStationSpeed.getValue());
@@ -162,6 +177,22 @@ public class ModellerController {
             MoveController.setDistribution(new ExponentialDistribution(intens.getValue()));
         } else if (radioButtonUniformDistribution.isSelected()) {
             MoveController.setDistribution(new UniformDistribution(matO.getValue(), dispersion.getValue()));
+        }
+
+        carList = carRepository.findAll();
+        fuelList = fuelRepository.findAll();
+        usabledFuelList = new ArrayList<>();
+        for (RadioButton rb : radioButtonList){
+            if (rb.isSelected()){
+                for (Fuel fuel : fuelList) {
+                    if (fuel.getName().equals(rb.getText())){
+                        usabledFuelList.add(fuel);}
+                }
+            }
+        }
+        for (int i = 0; i < Grid.getListOfFuelTanks().size(); i++){
+            Grid.getListOfFuelTanks().get(i).setFuel(usabledFuelList.get(i).getName());
+            Grid.getListOfFuelTanks().get(i).setCurrentVolume(FuelTank.getVolume());
         }
 
 
@@ -200,7 +231,6 @@ public class ModellerController {
     }
 
     private void addRadioButtons() {
-        List<RadioButton> radioButtonList = new ArrayList<>();
         List<String> nameList = new ArrayList<>();
         List<Fuel> fuelList = fuelRepository.findAll();
 
@@ -209,14 +239,12 @@ public class ModellerController {
         }
 
         int i = 0;
-        ToggleGroup fuelType = new ToggleGroup();
         for (String name : nameList) {
             RadioButton radioButton = new RadioButton();
             radioButton.setText(name);
             radioButton.setLayoutX(240);
             radioButton.setLayoutY(300 + i * 30);
             radioButton.setBlendMode(MULTIPLY);
-            radioButton.setToggleGroup(fuelType);
             radioButtonList.add(radioButton);
             i++;
         }

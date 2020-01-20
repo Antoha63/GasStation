@@ -1,6 +1,8 @@
 package topologyObjects;
 
+import Log.LogMessage;
 import controller.MoveController;
+import elements.CashBox;
 import elements.Entry;
 import elements.Exit;
 import elements.FuelTank;
@@ -16,9 +18,24 @@ import static topologyObjects.TransportVehicleDirection.*;
 public class CollectorFuel extends TransportVehicle {
 
     private long id;
+    private String fuelType;
+    private int ft = 666;
+    private int stop = 0;
 
     public CollectorFuel (int x, int y){
         super(x,y);
+    }
+
+    public CollectorFuel (int x, int y, String fuelType){
+        super(x,y);
+        this.fuelType = fuelType;
+    }
+
+    public void setFuelType (String s){
+        fuelType = s;
+    }
+    public String getFuelType (){
+        return fuelType;
     }
 
     @Override
@@ -64,6 +81,11 @@ public class CollectorFuel extends TransportVehicle {
                 this.getY() == Grid.getHeight() * GridElement.getElementHeight() + Grid.getY0()) {
             this.setDirection(TOP);
             this.moveY(-1 * MoveController.getSliderMode());
+            //поиск того ТБ, к которому он вызван
+            for (int i = 0; i < Grid.getListOfFuelTanks().size(); i++){
+                if (Grid.getListOfFuelTanks().get(i).getFuel().equals(fuelType) && !Grid.getListOfFuelTanks().get(i).getStatus())
+                    ft = i;
+            }
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());
         }
@@ -89,13 +111,63 @@ public class CollectorFuel extends TransportVehicle {
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());
             if (this.getX() < (Grid.getWidth() - 3) * GridElement.getElementWidth() + Grid.getX0()){
-                this.setX(Exit.getX() * (Grid.getWidth() - 3) * GridElement.getElementWidth() + Grid.getX0());
+                this.setX((Grid.getWidth() - 3) * GridElement.getElementWidth() + Grid.getX0());
                 imageView.setTranslateX(this.getX());
                 imageView.setTranslateY(this.getY());
             }
             //System.out.println("Едем влево по АЗС");
         }
 //доехали до дороги вниз
+
+        else if (this.getX() == (Grid.getWidth() - 3) * GridElement.getElementWidth() + Grid.getX0() && ft != 666 &&
+                this.getY() == Grid.getListOfFuelTanks().get(ft).getY() * GridElement.getElementHeight() + Grid.getY0() + 1 &&
+                MoveController.getSliderMode() >= 2) {
+            if (stop <= 62 / MoveController.getSliderMode()){
+                stop++;
+            }
+            else{
+                new LogMessage("Дозаправщик разгрузился. Топливо: " + fuelType + ", " + (FuelTank.getVolume() - Grid.getListOfFuelTanks().get(ft).getCurrentVolume()) + "л");
+                this.setDirection(BOTTOM);
+                this.moveY(+2 * MoveController.getSliderMode());
+                imageView.setTranslateX(this.getX());
+                imageView.setTranslateY(this.getY());
+                Grid.getListOfFuelTanks().get(ft).setCurrentVolume(FuelTank.getVolume());
+                Grid.getListOfFuelTanks().get(ft).setStatus(true);
+            }
+        }
+        else if (this.getX() == (Grid.getWidth() - 3) * GridElement.getElementWidth() + Grid.getX0() && ft != 666 &&
+                this.getY() == Grid.getListOfFuelTanks().get(ft).getY() * GridElement.getElementHeight() + Grid.getY0() + 2 &&
+                MoveController.getSliderMode() >= 2) {
+            if (stop <= 62 / MoveController.getSliderMode()){
+                stop++;
+            }
+            else{
+                new LogMessage("Дозаправщик разгрузился. Топливо: " + fuelType + ", " + (FuelTank.getVolume() - Grid.getListOfFuelTanks().get(ft).getCurrentVolume()) + "л");
+                this.setDirection(BOTTOM);
+                this.moveY(+2 * MoveController.getSliderMode());
+                imageView.setTranslateX(this.getX());
+                imageView.setTranslateY(this.getY());
+                Grid.getListOfFuelTanks().get(ft).setCurrentVolume(FuelTank.getVolume());
+                Grid.getListOfFuelTanks().get(ft).setStatus(true);
+            }
+        }
+        //притормозим у кассы, заберем бабло
+        else if (this.getX() == (Grid.getWidth() - 3) * GridElement.getElementWidth() + Grid.getX0() && ft != 666 &&
+                this.getY() == Grid.getListOfFuelTanks().get(ft).getY() * GridElement.getElementHeight() + Grid.getY0()) {
+            if (stop <= 62 / MoveController.getSliderMode()){
+                stop++;
+            }
+            else{
+                new LogMessage("Дозаправщик разгрузился. Топливо: " + fuelType + ", " + (FuelTank.getVolume() - Grid.getListOfFuelTanks().get(ft).getCurrentVolume()) + "л");
+                this.setDirection(BOTTOM);
+                this.moveY(+1 * MoveController.getSliderMode());
+                imageView.setTranslateX(this.getX());
+                imageView.setTranslateY(this.getY());
+                Grid.getListOfFuelTanks().get(ft).setCurrentVolume(FuelTank.getVolume());
+                Grid.getListOfFuelTanks().get(ft).setStatus(true);
+            }
+        }
+
         else if (this.getX() == (Grid.getWidth() - 3) * GridElement.getElementWidth() + Grid.getX0() &&
                 this.getY() != Grid.getHeight() * GridElement.getElementHeight() + Grid.getY0()) {
             this.setDirection(BOTTOM);
@@ -109,6 +181,8 @@ public class CollectorFuel extends TransportVehicle {
             }
             //System.out.println("Едем на выезд");
         }
+
+
         //на выезде, обнуляем кассу и уезжаем
         else if (this.getX() == (Grid.getWidth() - 3) * GridElement.getElementWidth() + Grid.getX0() &&
                 this.getY() == Grid.getHeight() * GridElement.getElementHeight() + Grid.getY0()) {

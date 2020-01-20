@@ -103,37 +103,6 @@ public class CollectorCashbox extends TransportVehicle {
         }
 
 //доехали до дороги вниз
-        else if (this.getX() == Exit.getX() * GridElement.getElementWidth() + Grid.getX0() &&
-                this.getY() != Exit.getY() * GridElement.getElementHeight() + Grid.getY0() &&
-                this.getY() != CashBox.getY() * GridElement.getElementHeight() + Grid.getY0()) {
-            this.setDirection(BOTTOM);
-            this.moveY(+1 * MoveController.getSliderMode());
-            imageView.setTranslateX(this.getX());
-            imageView.setTranslateY(this.getY());
-            if (this.getY() > Exit.getY() * GridElement.getElementHeight() + Grid.getY0()){
-                this.setY(Exit.getY() * GridElement.getElementHeight() + Grid.getY0());
-                imageView.setTranslateX(this.getX());
-                imageView.setTranslateY(this.getY());
-            }
-            //System.out.println("Едем на выезд");
-        }
-
-        //притормозим у кассы, заберем бабло
-        else if (this.getX() == Exit.getX() * GridElement.getElementWidth() + Grid.getX0() &&
-                this.getY() == CashBox.getY() * GridElement.getElementHeight() + Grid.getY0()) {
-            if (stop <= 62 / MoveController.getSliderMode()){
-                stop++;
-            }
-            else{
-                new LogMessage("Инкассатор забрал " + CashBox.getBalance() + " р");
-                this.setDirection(BOTTOM);
-                this.moveY(+1 * MoveController.getSliderMode());
-                imageView.setTranslateX(this.getX());
-                imageView.setTranslateY(this.getY());
-                CashBox.setBalance(0);
-                CashBox.setStatus(true);
-            }
-        }
 
         else if (this.getX() == Exit.getX() * GridElement.getElementWidth() + Grid.getX0() &&
                 this.getY() == CashBox.getY() * GridElement.getElementHeight() + Grid.getY0() + 1 &&
@@ -167,6 +136,39 @@ public class CollectorCashbox extends TransportVehicle {
                 CashBox.setStatus(true);
             }
         }
+        //притормозим у кассы, заберем бабло
+        else if (this.getX() == Exit.getX() * GridElement.getElementWidth() + Grid.getX0() &&
+                this.getY() == CashBox.getY() * GridElement.getElementHeight() + Grid.getY0()) {
+            if (stop <= 62 / MoveController.getSliderMode()){
+                stop++;
+            }
+            else{
+                new LogMessage("Инкассатор забрал " + CashBox.getBalance() + " р");
+                this.setDirection(BOTTOM);
+                this.moveY(+1 * MoveController.getSliderMode());
+                imageView.setTranslateX(this.getX());
+                imageView.setTranslateY(this.getY());
+                CashBox.setBalance(0);
+                CashBox.setStatus(true);
+            }
+        }
+
+        else if (this.getX() == Exit.getX() * GridElement.getElementWidth() + Grid.getX0() &&
+                this.getY() != Exit.getY() * GridElement.getElementHeight() + Grid.getY0() &&
+                this.getY() != CashBox.getY() * GridElement.getElementHeight() + Grid.getY0()) {
+            this.setDirection(BOTTOM);
+            this.moveY(+1 * MoveController.getSliderMode());
+            imageView.setTranslateX(this.getX());
+            imageView.setTranslateY(this.getY());
+            if (this.getY() > Exit.getY() * GridElement.getElementHeight() + Grid.getY0()){
+                this.setY(Exit.getY() * GridElement.getElementHeight() + Grid.getY0());
+                imageView.setTranslateX(this.getX());
+                imageView.setTranslateY(this.getY());
+            }
+            //System.out.println("Едем на выезд");
+        }
+
+
 
 
         //на выезде, обнуляем кассу и уезжаем

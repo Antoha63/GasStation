@@ -48,6 +48,10 @@ public class CashBox extends MainStaticElement {
         profit = i;
     }
 
+    public static int getProfit(){
+        return profit;
+    }
+
     public static void setPayment(int payment){
         balance += payment;
         profit += payment;
