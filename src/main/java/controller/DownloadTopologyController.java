@@ -52,6 +52,10 @@ public class DownloadTopologyController {
     @FXML
     private Button buttonDelete;
 
+    public static void setPrimaryStage(Stage newPrimaryStage) {
+        primaryStage = newPrimaryStage;
+    }
+
     @FXML
     public void initialize() {
         columnName.setCellValueFactory(new PropertyValueFactory<Topology, String>("name"));

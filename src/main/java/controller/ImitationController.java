@@ -163,7 +163,7 @@ public class ImitationController {
         statistics.setLayoutX(log_list.getLayoutX() +
                 log_list.getPrefWidth() / 2 - statistics.getPrefWidth() / 2);
 
-        Stage stage = ModellerController.getPrimaryStage();
+        Stage stage = ModellerController.getConstructorStage();
         stage.setWidth(log_list.getLayoutX() + log_list.getPrefWidth() + spacing);
         stage.setHeight(Grid.getGrid()[0][Grid.getHeight()].getTranslateY() + GridElement.getElementHeight() + spacing * 3);
 

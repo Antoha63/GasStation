@@ -37,6 +37,8 @@ public class GridElement extends Pane {
         this.j = j;
         this.setTranslateX(Grid.getX0() + i * GridElement.getElementWidth());
         this.setTranslateY(Grid.getY0() + j * GridElement.getElementHeight());
+//        if(frameAnimation != null)
+//            this.getChildren().add(this.frameAnimation.getImageView());
     }
 
     public void createElement(ElementType type, double rotate) {

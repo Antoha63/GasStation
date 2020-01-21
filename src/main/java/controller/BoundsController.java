@@ -34,6 +34,10 @@ public class BoundsController {
     @FXML
     private Button back_button;
 
+    public static void setPrimaryStage(Stage newPrimaryStage) {
+        primaryStage = newPrimaryStage;
+    }
+
     public void initialize() {
         closeButton.setOnAction(event -> {
             Stage stage = (Stage) closeButton.getScene().getWindow();

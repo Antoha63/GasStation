@@ -31,14 +31,14 @@ import static javafx.scene.effect.BlendMode.MULTIPLY;
 public class ModellerController {
     private double xOffset;
     private double yOffset;
-    private static Stage primaryStage;
+    private static Stage constructorStage;
     private static List<Car> carList;
     private static List<Fuel> fuelList;
     private static List<Fuel> usabledFuelList;
     private List<CheckBox> checkBoxes = new ArrayList<>();
 
-    public static Stage getPrimaryStage() {
-        return primaryStage;
+    public static Stage getConstructorStage() {
+        return constructorStage;
     }
 
     private ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-data-context.xml");
@@ -112,10 +112,9 @@ public class ModellerController {
         back_button.setOnAction(event -> {
             Stage stage = (Stage) back_button.getScene().getWindow();
             stage.close();
-            ConstructorController constructorController = new ConstructorController();
-            constructorController.setBounds(Grid.getWidth(), Grid.getHeight());
-            primaryStage = new Stage();
-            primaryStage.initStyle(StageStyle.TRANSPARENT);
+            ConstructorController.setBounds(Grid.getWidth(), Grid.getHeight());
+            constructorStage = new Stage();
+            constructorStage.initStyle(StageStyle.TRANSPARENT);
             Parent root = null;
             try {
                 root = FXMLLoader.load(getClass().getResource("/views/constructor.fxml"));
@@ -127,12 +126,12 @@ public class ModellerController {
                 yOffset = mouseEvent.getSceneY();
             });
             root.setOnMouseDragged(mouseEvent -> {
-                primaryStage.setX(mouseEvent.getScreenX() - xOffset);
-                primaryStage.setY(mouseEvent.getScreenY() - yOffset);
+                constructorStage.setX(mouseEvent.getScreenX() - xOffset);
+                constructorStage.setY(mouseEvent.getScreenY() - yOffset);
             });
-            primaryStage.setTitle("");
-            primaryStage.setScene(new Scene(root));
-            primaryStage.show();
+            constructorStage.setTitle("");
+            constructorStage.setScene(new Scene(root));
+            constructorStage.show();
         });
         radioButtonDeterministicDistribution.setOnAction(event -> {
             labelTime.setVisible(true);
@@ -220,20 +219,20 @@ public class ModellerController {
                 Grid.getListOfFuelTanks().get(i).setFuel(usabledFuelList.get(i).getName());
                 Grid.getListOfFuelTanks().get(i).setCurrentVolume(FuelTank.getVolume());
             }
-            primaryStage = new Stage();
-            primaryStage.initStyle(StageStyle.TRANSPARENT);
+            constructorStage = new Stage();
+            constructorStage.initStyle(StageStyle.TRANSPARENT);
             Parent root = FXMLLoader.load(getClass().getResource("/views/imitation.fxml"));
             root.setOnMousePressed(event -> {
                 xOffset = event.getSceneX();
                 yOffset = event.getSceneY();
             });
             root.setOnMouseDragged(event -> {
-                primaryStage.setX(event.getScreenX() - xOffset);
-                primaryStage.setY(event.getScreenY() - yOffset);
+                constructorStage.setX(event.getScreenX() - xOffset);
+                constructorStage.setY(event.getScreenY() - yOffset);
             });
-            primaryStage.setTitle("ИМИТАЦИЯ");
-            primaryStage.setScene(new Scene(root));
-            primaryStage.show();
+            constructorStage.setTitle("ИМИТАЦИЯ");
+            constructorStage.setScene(new Scene(root));
+            constructorStage.show();
             Stage stage = (Stage) closeButton.getScene().getWindow();
             stage.close();
         }
