@@ -5,17 +5,27 @@ import Log.LogStatistic;
 import TimeControl.TimeState;
 import elements.CashBox;
 import elements.FuelTank;
+import elements.PetrolStation;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import topologyObjects.Vehicle;
 import visualize.Grid;
 import visualize.GridElement;
 
 import java.io.IOException;
 
 public class ImitationController {
+    private double xOffset;
+    private double yOffset;
+    @FXML
+    private Button back_button;
     @FXML
     private AnchorPane cahshBoxPopup;
     @FXML
@@ -40,7 +50,7 @@ public class ImitationController {
     private Label petrolstationSpeed;
     @FXML
     private Label petrolstationStatus;
-    @FXML
+
     private MoveController moveController = new MoveController(this);
     @FXML
     private AnchorPane dragableArea;
@@ -78,6 +88,7 @@ public class ImitationController {
     private Button inConstructorButton;
 
     public void initialize() {
+        setOnActionBackButton();
         positionElements();
         setOnActionCloseWindow();
         drawGrid();
@@ -90,6 +101,45 @@ public class ImitationController {
         });
         LogMessage.setImitationController(this);
         LogStatistic.setImitationController(this);
+    }
+
+    private void setOnActionBackButton() {
+        back_button.setOnAction(event -> {
+
+            Stage primaryStage = new Stage();
+            primaryStage.initStyle(StageStyle.TRANSPARENT);
+            Parent root = null;
+            try {
+                root = FXMLLoader.load(getClass().getResource("/views/modeller.fxml"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            root.setOnMousePressed(mouseEvent -> {
+                xOffset = mouseEvent.getSceneX();
+                yOffset = mouseEvent.getSceneY();
+            });
+            root.setOnMouseDragged(mouseEvent -> {
+                primaryStage.setX(mouseEvent.getScreenX() - xOffset);
+                primaryStage.setY(mouseEvent.getScreenY() - yOffset);
+            });
+            primaryStage.setTitle("");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+            PetrolStation.setSpeed(0);
+            FuelTank.setVolume(0);
+            FuelTank.setCriticalLevel(0);
+            CashBox.setCriticalLevel(0);
+            Vehicle.setProbabilityOfArrival(0);
+            //Grid.setGrid(null);
+
+            Stage stage = (Stage) closeButton.getScene().getWindow();
+            stage.close();
+            try {
+                this.finalize();
+            } catch (Throwable throwable) {
+                throwable.printStackTrace();
+            }
+        });
     }
 
     public void statisticRefresh(int profit, int countCars, int countLitres){

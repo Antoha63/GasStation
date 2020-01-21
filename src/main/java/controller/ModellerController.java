@@ -112,6 +112,27 @@ public class ModellerController {
         back_button.setOnAction(event -> {
             Stage stage = (Stage) back_button.getScene().getWindow();
             stage.close();
+            ConstructorController constructorController = new ConstructorController();
+            constructorController.setBounds(Grid.getWidth(), Grid.getHeight());
+            primaryStage = new Stage();
+            primaryStage.initStyle(StageStyle.TRANSPARENT);
+            Parent root = null;
+            try {
+                root = FXMLLoader.load(getClass().getResource("/views/constructor.fxml"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            root.setOnMousePressed(mouseEvent -> {
+                xOffset = mouseEvent.getSceneX();
+                yOffset = mouseEvent.getSceneY();
+            });
+            root.setOnMouseDragged(mouseEvent -> {
+                primaryStage.setX(mouseEvent.getScreenX() - xOffset);
+                primaryStage.setY(mouseEvent.getScreenY() - yOffset);
+            });
+            primaryStage.setTitle("");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
         });
         radioButtonDeterministicDistribution.setOnAction(event -> {
             labelTime.setVisible(true);
@@ -186,7 +207,6 @@ public class ModellerController {
             PetrolStation.setSpeed(petrolStationSpeed.getValue());
             FuelTank.setVolume(fuelTankVolume.getValue());
             FuelTank.setCriticalLevel(fuelTankCriticalLevel.getValue());
-            PetrolStation.setSpeed(petrolStationSpeed.getValue());
             CashBox.setCriticalLevel(cashboxCriticalLevel.getValue());
             Vehicle.setProbabilityOfArrival(probabilityOfArrival.getValue());//TODO: fix it
             if (radioButtonDeterministicDistribution.isSelected()) {
@@ -214,9 +234,10 @@ public class ModellerController {
             primaryStage.setTitle("ИМИТАЦИЯ");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
+            Stage stage = (Stage) closeButton.getScene().getWindow();
+            stage.close();
         }
         else{
-            //usabledFuelList.clear();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Ошибка");
             alert.setHeaderText(null);

@@ -373,6 +373,7 @@ public class Grid {
     }
 
 
+
     private void algoritmOfDeicstra(int sourceX, int sourceY, int destX, int destY){
         int size = (width - 3) * height;
         int[][] matrixOfDistance = new int[size][size];
@@ -401,6 +402,10 @@ public class Grid {
 
     public static GridElement[][] getGrid() {
         return grid;
+    }
+
+    public static void setGrid(GridElement[][] newGrid) {
+        grid = newGrid;
     }
 
     public static int getX0() {

@@ -82,7 +82,7 @@ public class ConstructorController {
             stage.close();
         });
         checkCorrect.setOnAction(event -> {
-            System.out.println(Grid.getListOfPetrolStations());
+//            System.out.println(Grid.getListOfPetrolStations());
         });
 
         buttons.setLayoutX(10);
@@ -252,6 +252,8 @@ public class ConstructorController {
         primaryStage.setTitle("");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
+//        Stage stage = (Stage) closeButton.getScene().getWindow();
+//        stage.close();
     }
 
     @FXML
