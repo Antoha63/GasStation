@@ -84,7 +84,7 @@ public class ConstructorController {
             stage.close();
         });
         checkCorrect.setOnAction(event -> {
-//            System.out.println(Grid.getListOfPetrolStations());
+            System.out.println(Grid.getListOfFuelTanks());
         });
 
         buttons.setLayoutX(10);

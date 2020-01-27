@@ -27,7 +27,7 @@ public class ImitationController {
     @FXML
     private Button back_button;
     @FXML
-    private AnchorPane cahshBoxPopup;
+    private AnchorPane cashBoxPopup;
     @FXML
     private Label cashboxProfitValue;
     @FXML
@@ -186,6 +186,35 @@ public class ImitationController {
                 Grid.getGrid()[i][j].setOnMouseClicked(null);
             }
         }
+        for(int i = 0; i < Grid.getListOfPetrolStations().size(); i++){
+            int finalI = i;
+            Grid.getGrid()[Grid.getListOfPetrolStations().get(i).getX()][Grid.getListOfPetrolStations().get(i).getY()].
+                    setOnMouseClicked(mouseEvent -> {
+                        petrolStationPopup.setLayoutX(10);
+                        petrolStationPopup.setLayoutY(threadButtons.getLayoutY() + playButton.getPrefHeight() + 10);
+                        petrolStationPopup.setVisible(!petrolStationPopup.isVisible());
+                        cashBoxPopup.setVisible(false);
+                        fuelTankPopup.setVisible(false);
+                    });
+        }
+        for (int i = 0; i < Grid.getListOfFuelTanks().size();i++){
+            Grid.getGrid()[Grid.getListOfFuelTanks().get(i).getX()][Grid.getListOfFuelTanks().get(i).getY()].
+                    setOnMouseClicked(mouseEvent -> {
+                        fuelTankPopup.setLayoutX(10);
+                        fuelTankPopup.setLayoutY(threadButtons.getLayoutY() + playButton.getPrefHeight() + 10);
+                        fuelTankPopup.setVisible(!fuelTankPopup.isVisible());
+                        cashBoxPopup.setVisible(false);
+                        petrolStationPopup.setVisible(false);
+                    });
+        }
+        Grid.getGrid()[CashBox.getX()][CashBox.getY()].
+                setOnMouseClicked(mouseEvent -> {
+                    cashBoxPopup.setLayoutX(10);
+                    cashBoxPopup.setLayoutY(threadButtons.getLayoutY() + playButton.getPrefHeight() + 10);
+                    cashBoxPopup.setVisible(!cashBoxPopup.isVisible());
+                    fuelTankPopup.setVisible(false);
+                    petrolStationPopup.setVisible(false);
+                });
         for (Line line : Grid.getLineList()) {
             anchorPane.getChildren().add(line);
         }

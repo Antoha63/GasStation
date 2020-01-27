@@ -138,6 +138,7 @@ public class Grid {
             });
             grid[width - 2][j].setOnMouseClicked(event -> {
                 if (grid[width - 2][finalJ].getMainStaticElement() != null) {
+                    listOfFuelTanks.remove(grid[width - 2][finalJ].getMainStaticElement());
                     grid[width - 2][finalJ].deleteElement();
                 }
             });
