@@ -45,6 +45,15 @@ public class Vehicle extends TransportVehicle {
     private static int countCars = 0;
     private static int countLitres = 0;
 
+    public static void setCountCars(int countCars) {
+        Vehicle.countCars = countCars;
+    }
+
+    public static void setCountLitres(int countLitres) {
+
+        Vehicle.countLitres = countLitres;
+    }
+
     public static void setProbabilityOfArrival(double poa) {
         probabilityOfArrival = poa;
     }

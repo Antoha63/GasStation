@@ -224,6 +224,9 @@ public class ImitationController {
             CashBox.setStatus(true);
             CashBox.setBalance(0);
             CashBox.setProfit(0);
+            Vehicle.setCountCars(0);
+            Vehicle.setCountLitres(0);
+            new LogStatistic(0,0,0);
             for (int i = 0; i < Grid.getListOfPetrolStations().size(); i++){
                 Grid.getListOfPetrolStations().get(i).setStatus(true);
             }
