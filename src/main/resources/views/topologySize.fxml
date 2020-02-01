@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="201.0" prefWidth="252.0" styleClass="window_background" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BoundsController">
+<AnchorPane prefHeight="300.0" prefWidth="400.0" styleClass="window_background" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BoundsController">
    <children>
-      <Button fx:id="okButton" layoutX="22.0" layoutY="154.0" mnemonicParsing="false" onAction="#createConstructor" prefHeight="51.0" prefWidth="99.0" stylesheets="@../styles/styles.css" text="ОК">
+      <Button fx:id="okButton" layoutX="100.0" layoutY="241.0" mnemonicParsing="false" onAction="#createConstructor" prefHeight="51.0" prefWidth="99.0" stylesheets="@../styles/styles.css" text="ОК">
          <font>
             <Font size="20.0" />
          </font>
@@ -18,24 +18,24 @@
             <String fx:value="button_restyling_bounds" />
          </styleClass>
       </Button>
-      <Label layoutX="11.0" layoutY="42.0" styleClass="text" stylesheets="@../styles/styles.css" text="Введите размеры:">
+      <Label layoutX="14.0" layoutY="56.0" styleClass="text" stylesheets="@../styles/styles.css" text="Введите размеры топологии:">
          <font>
             <Font size="43.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="84.0" styleClass="text" stylesheets="@../styles/styles.css" text="ВЫСОТА:">
+      <Label layoutX="16.0" layoutY="125.0" styleClass="text" stylesheets="@../styles/styles.css" text="Высота топологии:">
          <font>
             <Font size="43.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="116.0" styleClass="text" stylesheets="@../styles/styles.css" text="ШИРИНА:">
+      <Label layoutX="16.0" layoutY="157.0" styleClass="text" stylesheets="@../styles/styles.css" text="Ширина топологии:">
          <font>
             <Font size="43.0" />
          </font>
       </Label>
-      <Spinner fx:id="topologyHeight" blendMode="MULTIPLY" layoutX="154.0" layoutY="81.0" max="6" min="3" prefHeight="18.0" prefWidth="84.0" />
-      <Spinner fx:id="topologyWidth" blendMode="MULTIPLY" layoutX="154.0" layoutY="113.0" max="10" min="7" prefHeight="25.0" prefWidth="84.0" />
-      <AnchorPane cache="true" layoutX="1.0" layoutY="1.0" prefHeight="30.0" prefWidth="252.0" styleClass="close_area" stylesheets="@../styles/styles.css">
+      <Spinner fx:id="topologyHeight" blendMode="MULTIPLY" layoutX="300.0" layoutY="122.0" max="6" min="3" prefHeight="18.0" prefWidth="84.0" />
+      <Spinner fx:id="topologyWidth" blendMode="MULTIPLY" layoutX="300.0" layoutY="154.0" max="10" min="7" prefHeight="25.0" prefWidth="84.0" />
+      <AnchorPane cache="true" layoutX="1.0" layoutY="1.0" prefHeight="30.0" prefWidth="252.0" styleClass="close_area" stylesheets="@../styles/styles.css" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0">
          <children>
             <Button fx:id="closeButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="15.0" prefWidth="15.0" style="-fx-background-radius: 20;" styleClass="button_close" stylesheets="@../styles/styles.css" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="7.0">
                <font>

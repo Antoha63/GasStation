@@ -28,7 +28,7 @@ import java.util.List;
 
 import static javafx.scene.effect.BlendMode.MULTIPLY;
 
-public class ModellerController {
+public class ModellerController extends Controller {
     private double xOffset;
     private double yOffset;
     private static Stage constructorStage;
@@ -105,6 +105,7 @@ public class ModellerController {
         return usabledFuelList;    }
 
     public void initialize() {
+        ControllersRepository.addController(ControllerType.MODELLERCONTROLLER, this);
         closeButton.setOnAction(event -> {
             Stage stage = (Stage) closeButton.getScene().getWindow();
             stage.close();

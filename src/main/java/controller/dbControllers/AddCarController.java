@@ -1,5 +1,8 @@
 package controller.dbControllers;
 
+import controller.Controller;
+import controller.ControllerType;
+import controller.ControllersRepository;
 import entities.Car;
 import entities.Fuel;
 import javafx.collections.FXCollections;
@@ -22,7 +25,7 @@ import repositories.FuelRepository;
 import java.io.IOException;
 import java.util.List;
 
-public class AddCarController {
+public class AddCarController extends Controller {
 
     private ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-data-context.xml");
     private CarRepository carRepository = context.getBean(CarRepository.class);
@@ -46,6 +49,7 @@ public class AddCarController {
     private Button closeButton;
 
     public void initialize() {
+        ControllersRepository.addController(ControllerType.ADDCARCONTROLLER, this);
         closeButton.setOnAction(event -> {
             setCloseButton();
             try {

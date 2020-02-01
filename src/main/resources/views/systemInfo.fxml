@@ -3,33 +3,23 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
-    <columnConstraints>
-        <ColumnConstraints />
-    </columnConstraints>
-    <rowConstraints>
-        <RowConstraints />
-    </rowConstraints>
-    <AnchorPane prefHeight="275.0" prefWidth="384.0" styleClass="window_background" stylesheets="@../styles/styles.css">
-      <children>
-         <TextArea blendMode="MULTIPLY" editable="false" layoutX="13.0" layoutY="39.0" prefHeight="227.0" prefWidth="359.0" styleClass="text" stylesheets="@../styles/styles.css" text="Сведения всякие...">
-            <font>
-               <Font size="29.0" />
-            </font>
-         </TextArea>
-         <AnchorPane cache="true" layoutX="1.0" layoutY="1.0" prefHeight="30.0" prefWidth="384.0" styleClass="close_area" stylesheets="@../styles/styles.css">
-            <children>
-               <Button fx:id="closeButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="15.0" prefWidth="15.0" style="-fx-background-radius: 20;" styleClass="button_close" stylesheets="@../styles/styles.css" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="7.0">
-                  <font>
-                     <Font size="6.0" />
-                  </font>
-               </Button>
-            </children>
-         </AnchorPane>
-      </children></AnchorPane>
-</GridPane>
+<AnchorPane prefHeight="300.0" prefWidth="400.0" styleClass="window_background" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
+   <children>
+      <TextArea blendMode="MULTIPLY" editable="false" layoutX="21.0" layoutY="49.0" prefHeight="227.0" prefWidth="359.0" styleClass="text" stylesheets="@../styles/styles.css" text="Сведения всякие...">
+         <font>
+            <Font size="29.0" />
+         </font>
+      </TextArea>
+      <AnchorPane cache="true" layoutX="1.0" layoutY="1.0" prefHeight="30.0" prefWidth="384.0" styleClass="close_area" stylesheets="@../styles/styles.css" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0">
+         <children>
+            <Button fx:id="closeButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="15.0" prefWidth="15.0" style="-fx-background-radius: 20;" styleClass="button_close" stylesheets="@../styles/styles.css" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="7.0">
+               <font>
+                  <Font size="6.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

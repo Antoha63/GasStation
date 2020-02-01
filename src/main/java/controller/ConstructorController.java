@@ -1,16 +1,13 @@
 package controller;
 
-import elements.CashBox;
 import elements.ElementType;
 import elements.Entry;
 import elements.Exit;
 import entities.FuelTank;
 import entities.PetrolStation;
 import entities.Topology;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -25,14 +22,16 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import repositories.FuelTankRepository;
 import repositories.PetrolStationRepository;
 import repositories.TopologyRepository;
+import views.Window;
+import views.WindowRepository;
+import views.WindowType;
 import visualize.Grid;
 import visualize.GridElement;
 
-import java.io.Console;
 import java.io.IOException;
 import java.util.List;
 
-public class ConstructorController {
+public class ConstructorController extends Controller {
     private double xOffset;
     private double yOffset;
     private static int topologyWidth;
@@ -76,12 +75,14 @@ public class ConstructorController {
     @FXML
     private Button checkCorrect;
 
+    private int x0;
+    private int y0;
+
     public void initialize() {
+        ControllersRepository.addController(ControllerType.CONSTRUCTORCONTROLLER, this);
         disableElements(true);
-        Grid.setConstructorController(this);
         closeButton.setOnAction(event -> {
-            Stage stage = (Stage) closeButton.getScene().getWindow();
-            stage.close();
+            WindowRepository.getWindow(WindowType.CONSTRUCTORWINDOW).close();
         });
         checkCorrect.setOnAction(event -> {
             System.out.println(Grid.getListOfFuelTanks());
@@ -89,54 +90,44 @@ public class ConstructorController {
 
         buttons.setLayoutX(10);
         buttons.setLayoutY(40);
-        int x0 = (int) (buttons.getLayoutX() * 2 + buttons.getPrefWidth());
-        int y0 = (int) buttons.getLayoutY();
+        x0 = (int) (buttons.getLayoutX() * 2 + buttons.getPrefWidth());
+        y0 = (int) buttons.getLayoutY();
 
-        Grid.initGrid(x0, y0, topologyWidth, topologyHeight);
-        for (int i = 0; i < topologyWidth; i++) {
-            for (int j = 0; j < topologyHeight + 1; j++) {
-                anchorPane.getChildren().add(Grid.getGrid()[i][j]);
-//                anchorPane.getChildren().add(Grid.getGrid()[i][j].getFrameAnimation().getImageView());
-            }
+
+
+        Window window = (Window) WindowRepository.getWindow(WindowType.BOUNDSWINDOW);
+        int width;
+        int height;
+        if (window != null && window.isInitialized()) {
+            setBackButtonEvent();
+            BoundsController boundsController = (BoundsController) ControllersRepository.
+                    getController(ControllerType.BOUNDSCONTROLLER);
+            width = boundsController.getTopologyWidth().getValue();
+            height = boundsController.getTopologyHeight().getValue();
+            drawGrid(width, height);
         }
-        for (Line line : Grid.getLineList()) {
-            anchorPane.getChildren().add(line);
+        else{
+            width = 3;
+            height = 7;
         }
-        scrollPaneElements.setLayoutX(Grid.getGrid()[topologyWidth - 1][0].getTranslateX() + GridElement.getElementWidth() + 10);
-        scrollPaneElements.setLayoutY(buttons.getLayoutY());
-        if (BoundsController.getPrimaryStage() != null) {
-            if(ModellerController.getConstructorStage() != null){
-                setAdaptiveDesign(ModellerController.getConstructorStage());
-/*                Grid.getGrid()[Entry.getX()][Entry.getY()].createElement(ElementType.ENTRY, 180);
-                Grid.getGrid()[Exit.getX()][Exit.getY()].createElement(ElementType.EXIT, 0);
-                Grid.setRoundRoad();
-                for(int i = 0; i < Grid.getListOfPetrolStations().size(); i++)
-                    Grid.getGrid()[Grid.getListOfPetrolStations().get(i).getX()]
-                            [Grid.getListOfPetrolStations().get(i).getY()].createElement(ElementType.PETROLSTATION, 0);
-                for(int i = 0; i < Grid.getListOfFuelTanks().size(); i++)
-                    Grid.getGrid()[Grid.getListOfFuelTanks().get(i).getX()]
-                            [Grid.getListOfFuelTanks().get(i).getY()].createElement(ElementType.FUELTANK, 0);
-                Grid.getGrid()[CashBox.getX()][CashBox.getY()].createElement(ElementType.CASHBOX, 0);*/
-            }
-            else
-                setAdaptiveDesign(BoundsController.getPrimaryStage());
-            setBackButtonEvent("/views/topologySize.fxml");
-        } else if (DownloadTopologyController.getPrimaryStage() != null) {
-            if(ModellerController.getConstructorStage() != null)
-                setAdaptiveDesign(ModellerController.getConstructorStage());
-
-            else
-                setAdaptiveDesign(DownloadTopologyController.getPrimaryStage());
-            setBackButtonEvent("/views/downloadTopology.fxml");
-
+        window = (Window) WindowRepository.getWindow(WindowType.DOWNLOADTOPOLOGYWINDOW);
+        if (window != null && window.isInitialized()) {
+            setBackButtonEvent();
             Topology topology = topologyRepository.findByName(DownloadTopologyController.getTopologyName());
-            Grid.getGrid()[topology.getCashBoxX()][topology.getCashBoxY()].createElement(ElementType.CASHBOX, 0);
-            Grid.getGrid()[topology.getEntranceX()][topology.getEntranceY()].createElement(ElementType.ENTRY, 180);
-            Grid.getGrid()[topology.getExitX()] [topology.getExitY()].createElement(ElementType.EXIT, 180);
+            width = topology.getWidth();
+            height = topology.getHeight();
+            drawGrid(width, height);
+            Grid.getGrid()[topology.getCashBoxX()][topology.getCashBoxY()].
+                    createElement(ElementType.CASHBOX, 0);
+            Grid.getGrid()[topology.getEntranceX()][topology.getEntranceY()].
+                    createElement(ElementType.ENTRY, 180);
+            Grid.getGrid()[topology.getExitX()] [topology.getExitY()].
+                    createElement(ElementType.EXIT, 180);
 
             List<PetrolStation> petrolStationList = petrolStationRepository.findAll();
             for (PetrolStation petrolStation : petrolStationList)
-                Grid.getGrid()[petrolStation.getCoordinateX()][petrolStation.getCoordinateY()].createElement(ElementType.PETROLSTATION, 0);
+                Grid.getGrid()[petrolStation.getCoordinateX()][petrolStation.getCoordinateY()].
+                        createElement(ElementType.PETROLSTATION, 0);
 
             List<FuelTank> fuelTankList = fuelTankRepository.findAll();
             for (FuelTank fuelTank : fuelTankList)
@@ -144,6 +135,22 @@ public class ConstructorController {
 
             if (Entry.getStatus() && Exit.getStatus() && Entry.getX() > Exit.getX())
                 Grid.setRoundRoad();
+        }
+
+        scrollPaneElements.setLayoutX(Grid.getGrid()[width - 1][0].getTranslateX()
+                + GridElement.getElementWidth() + 10);
+        scrollPaneElements.setLayoutY(buttons.getLayoutY());
+    }
+
+    private void drawGrid(int width, int height){
+        Grid.initGrid(x0, y0, width, height);
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height + 1; j++) {
+                anchorPane.getChildren().add(Grid.getGrid()[i][j]);
+            }
+        }
+        for (Line line : Grid.getLineList()) {
+            anchorPane.getChildren().add(line);
         }
     }
 
@@ -153,42 +160,15 @@ public class ConstructorController {
         fuelTank.setDisable(status);
     }
 
-    private void setBackButtonEvent(String address) {
+    private void setBackButtonEvent() {
         back_button.setOnAction(event -> {
-            Stage primaryStage = new Stage();
-            primaryStage.initStyle(StageStyle.TRANSPARENT);
-            Parent root = null;
+            WindowRepository.getWindow(WindowType.CONSTRUCTORWINDOW).close();
             try {
-                root = FXMLLoader.load(getClass().getResource(address));
-                root.setOnMousePressed(mouseEvent -> {
-                    xOffset = mouseEvent.getSceneX();
-                    yOffset = mouseEvent.getSceneY();
-                });
-                root.setOnMouseDragged(mouseEvent -> {
-                    primaryStage.setX(mouseEvent.getScreenX() - xOffset);
-                    primaryStage.setY(mouseEvent.getScreenY() - yOffset);
-                });
+                WindowRepository.getWindow(WindowType.MAINWINDOW).show();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            primaryStage.setTitle("");
-            primaryStage.setScene(new Scene(root));
-            primaryStage.show();
-            Stage stage = (Stage) closeButton.getScene().getWindow();
-            stage.close();
-            try {
-                this.finalize();
-            } catch (Throwable throwable) {
-                throwable.printStackTrace();
-            }
         });
-    }
-
-    private void setAdaptiveDesign(Stage stage) {
-        stage.setWidth(scrollPaneElements.getLayoutX() + scrollPaneElements.getPrefWidth() + 10);
-        stage.setHeight(Grid.getGrid()[0][topologyHeight].getTranslateY() + GridElement.getElementHeight() + 10);
-        scrollPaneElements.setPrefHeight(stage.getHeight() - scrollPaneElements.getLayoutY() - 10);
-        dragableArea.setPrefWidth(stage.getWidth() - 2);
     }
 
     @FXML

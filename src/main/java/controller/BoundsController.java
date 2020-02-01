@@ -8,11 +8,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Spinner;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import lombok.Getter;
+import views.WindowRepository;
+import views.WindowType;
 import visualize.Grid;
 
 import java.io.IOException;
 
-public class BoundsController {
+public class BoundsController extends Controller{
     private double xOffset;
     private double yOffset;
     private static Stage primaryStage;
@@ -21,78 +24,43 @@ public class BoundsController {
         return primaryStage;
     }
 
+    @Getter
     @FXML
     private Spinner<Integer> topologyHeight;
+    @Getter
     @FXML
     private Spinner<Integer> topologyWidth;
-
     @FXML
-    private Button okButton;
-
+    private Button back_button;
     @FXML
     private Button closeButton;
     @FXML
-    private Button back_button;
+    private Button okButton;
 
     public static void setPrimaryStage(Stage newPrimaryStage) {
         primaryStage = newPrimaryStage;
     }
 
     public void initialize() {
+        ControllersRepository.addController(ControllerType.BOUNDSCONTROLLER, this);
         closeButton.setOnAction(event -> {
-            Stage stage = (Stage) closeButton.getScene().getWindow();
-            stage.close();
+            WindowRepository.getWindow(WindowType.BOUNDSWINDOW).close();
         });
         back_button.setOnAction(event -> {
-            if(primaryStage != null) primaryStage = null;
-            Stage primaryStage = new Stage();
-            primaryStage.initStyle(StageStyle.TRANSPARENT);
-            Parent root = null;
+            WindowRepository.getWindow(WindowType.BOUNDSWINDOW).close();
             try {
-                root = FXMLLoader.load(getClass().getResource("/views/main.fxml"));
-                root.setOnMousePressed(mouseEvent -> {
-                    xOffset = mouseEvent.getSceneX();
-                    yOffset = mouseEvent.getSceneY();
-                });
-                root.setOnMouseDragged(mouseEvent -> {
-                    primaryStage.setX(mouseEvent.getScreenX() - xOffset);
-                    primaryStage.setY(mouseEvent.getScreenY() - yOffset);
-                });
+                WindowRepository.getWindow(WindowType.MAINWINDOW).show();
             } catch (IOException e) {
                 e.printStackTrace();
-            }
-            primaryStage.setTitle("МЕНЮ");
-            primaryStage.setScene(new Scene(root));
-            primaryStage.show();
-            Stage stage = (Stage) closeButton.getScene().getWindow();
-            stage.close();
-            try {
-                this.finalize();
-            } catch (Throwable throwable) {
-                throwable.printStackTrace();
             }
         });
     }
 
     @FXML
     public void createConstructor() throws IOException {
-        ConstructorController constructorController = new ConstructorController();
-        constructorController.setBounds(topologyWidth.getValue(), topologyHeight.getValue());
-        primaryStage = new Stage();
-        primaryStage.initStyle(StageStyle.TRANSPARENT);
-        Parent root = FXMLLoader.load(getClass().getResource("/views/constructor.fxml"));
-        root.setOnMousePressed(event -> {
-            xOffset = event.getSceneX();
-            yOffset = event.getSceneY();
-        });
-        root.setOnMouseDragged(event -> {
-            primaryStage.setX(event.getScreenX() - xOffset);
-            primaryStage.setY(event.getScreenY() - yOffset);
-        });
-        primaryStage.setTitle("");
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
-        Stage stage = (Stage) okButton.getScene().getWindow();
-        stage.close();
+//        ConstructorController constructorController = new ConstructorController();
+//        constructorController.setBounds(topologyWidth.getValue(), topologyHeight.getValue());
+        WindowRepository.getWindow(WindowType.CONSTRUCTORWINDOW).show();
+        WindowRepository.getWindow(WindowType.BOUNDSWINDOW).close();
     }
 }

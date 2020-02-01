@@ -1,3 +1,4 @@
+import controller.Controller;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -5,6 +6,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import views.WindowRepository;
+
+import static views.WindowType.*;
 
 public class MainApp extends Application {
 
@@ -18,18 +22,19 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.initStyle(StageStyle.TRANSPARENT);
-        Parent root = FXMLLoader.load(getClass().getResource("/views/main.fxml"));
-        root.setOnMousePressed(event -> {
-            xOffset = event.getSceneX();
-            yOffset = event.getSceneY();
-        });
-        root.setOnMouseDragged(event -> {
-            primaryStage.setX(event.getScreenX() - xOffset);
-            primaryStage.setY(event.getScreenY() - yOffset);
-        });
-        primaryStage.setTitle("МЕНЮ");
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
+        WindowRepository windowRepository = Controller.getWindowRepository();
+
+        windowRepository.addWindow(MAINWINDOW);
+        windowRepository.addWindow(SAVETOPOLOGYWINDOW);
+        windowRepository.addWindow(DEVINFOWINDOW);
+        windowRepository.addWindow(SYSINFOWINDOW);
+        windowRepository.addWindow(CONSTRUCTORWINDOW);
+        windowRepository.addWindow(MODELLERWINDOW);
+        windowRepository.addWindow(DBWORKWINDOW);
+        windowRepository.addWindow(ADDFUELWINDOW);
+        windowRepository.addWindow(ADDCARWINDOW);
+        windowRepository.addWindow(IMITATIONWINDOW);
+
+        windowRepository.getWindow(MAINWINDOW).show();
     }
 }

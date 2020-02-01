@@ -21,7 +21,7 @@ import visualize.GridElement;
 
 import java.io.IOException;
 
-public class ImitationController {
+public class ImitationController extends Controller {
     private double xOffset;
     private double yOffset;
     @FXML
@@ -88,6 +88,7 @@ public class ImitationController {
     private Button inConstructorButton;
 
     public void initialize() {
+        ControllersRepository.addController(ControllerType.IMITATIONCONTROLLER, this);
         setOnActionBackButton();
         positionElements();
         setOnActionCloseWindow();

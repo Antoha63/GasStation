@@ -1,5 +1,8 @@
 package controller.dbControllers;
 
+import controller.Controller;
+import controller.ControllerType;
+import controller.ControllersRepository;
 import entities.Fuel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +18,7 @@ import repositories.FuelRepository;
 
 import java.io.IOException;
 
-public class AddFuelController {
+public class AddFuelController extends Controller {
 
     private ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-data-context.xml");
     private FuelRepository fuelRepository = context.getBean(FuelRepository.class);
@@ -33,6 +36,7 @@ public class AddFuelController {
     private Button closeButton;
 
     public void initialize() {
+        ControllersRepository.addController(ControllerType.ADDFUELCONTROLLER, this);
         closeButton.setOnAction(event -> {
             setCloseButton();
             try {

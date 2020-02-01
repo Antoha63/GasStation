@@ -1,5 +1,8 @@
 package controller.dbControllers;
 
+import controller.Controller;
+import controller.ControllerType;
+import controller.ControllersRepository;
 import entities.Car;
 import entities.Fuel;
 import javafx.collections.FXCollections;
@@ -24,7 +27,7 @@ import repositories.FuelRepository;
 import java.io.IOException;
 import java.util.List;
 
-public class DBWorkController {
+public class DBWorkController extends Controller {
     private double xOffset;
     private double yOffset;
 
@@ -109,6 +112,7 @@ public class DBWorkController {
 
     @FXML
     public void initialize() {
+        ControllersRepository.addController(ControllerType.DBWORKCONTROLLER, this);
         fuelTable.getItems().clear();
         carTable.getItems().clear();
 

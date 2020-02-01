@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="706.0" prefWidth="1007.0" styleClass="window_background" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ImitationController">
+<AnchorPane fx:id="anchorPane" prefHeight="706.0" prefWidth="1007.0" styleClass="window_background" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ImitationController">
    <children>
       <AnchorPane fx:id="threadButtons" layoutX="10.0" layoutY="40.0" prefHeight="50.0" prefWidth="120.0">
          <children>
@@ -42,7 +42,7 @@
          </children>
       </AnchorPane>
       <AnchorPane fx:id="backButtons" layoutX="10.0" layoutY="98.0" />
-      <AnchorPane fx:id="statistics" layoutX="790.0" layoutY="353.0" prefHeight="87.0" prefWidth="170.0">
+      <AnchorPane fx:id="statistics" layoutX="790.0" layoutY="353.0" prefHeight="87.0" prefWidth="204.0">
          <children>
             <Label layoutX="41.0" styleClass="text" stylesheets="@../styles/styles.css" text="Статистика">
                <font>
@@ -79,12 +79,12 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <Label fx:id="cash_value_label1" layoutX="152.0" layoutY="19.0" styleClass="text" stylesheets="@../styles/styles.css" text="руб.">
+            <Label fx:id="cash_value_label1" layoutX="177.0" layoutY="19.0" styleClass="text" stylesheets="@../styles/styles.css" text="руб.">
                <font>
                   <Font size="17.0" />
                </font>
             </Label>
-            <Label fx:id="cash_value_label11" layoutX="152.0" layoutY="69.0" styleClass="text" stylesheets="@../styles/styles.css" text="л.">
+            <Label fx:id="cash_value_label11" layoutX="177.0" layoutY="69.0" styleClass="text" stylesheets="@../styles/styles.css" text="л.">
                <font>
                   <Font size="17.0" />
                </font>

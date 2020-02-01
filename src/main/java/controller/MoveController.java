@@ -21,7 +21,7 @@ import static topologyObjects.TransportVehicleType.*;
 @Getter
 @Setter
 /*Class describes all animation module*/
-public class MoveController {
+public class MoveController extends Controller {
     private ArrayList<VisualisedTransportVehicle> automobiles = new ArrayList<VisualisedTransportVehicle>();
     private VisualisedTransportVehicle collectorFuel;
     private VisualisedTransportVehicle collectorCashBox;
@@ -33,6 +33,8 @@ public class MoveController {
 
     public MoveController(ImitationController imitationController) {
         this.imitationController = imitationController;
+
+        ControllersRepository.addController(ControllerType.MOVECONTROLLER, this);
     }
 
     public static void setDistribution(Distribution distribution) {

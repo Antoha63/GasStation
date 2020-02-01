@@ -147,15 +147,15 @@ this.payment = actualFuelVolume *f.getPrice();
                 if (lOPS.size() != 0) {
                     PetrolStation pt_tmp = lOPS.get(0);
                     for (int i = 1; i < lOPS.size() - 1; i++) {
-                        if (pt_tmp.getX() + pt_tmp.getY() < Grid.getListOfPetrolStations().get(i).getX() + Grid.getListOfPetrolStations().get(i).getY())
-                            pt_tmp = Grid.getListOfPetrolStations().get(i);
+                        if (pt_tmp.getX() + pt_tmp.getY() < lOPS.get(i).getX() + lOPS.get(i).getY())
+                            pt_tmp = lOPS.get(i);
                     }
                     pt = Grid.getListOfPetrolStations().indexOf(pt_tmp);
                 }
                 if (pt != 666)
                     Grid.getListOfPetrolStations().get(pt).setStatus(false);
                 if (pt != 666 && !Grid.getListOfPetrolStations().get(pt).getStatus()) {
-                    //System.out.println("КООРДИНАТЫ ТРК " + Grid.getListOfPetrolStations().get(pt).getX() + "  " + Grid.getListOfPetrolStations().get(pt).getY());
+                    //System.out.println("КООРДИНАТЫ ТРК " + Grid.getListOfPetrolStations().get(pt).getX() + "  " + Grid.getListOfPetrolStations().get(pt).getY()  + "  " + Grid.getListOfPetrolStations().get(pt).getStatus());
                     this.moveY(-1 * MoveController.getSliderMode());
                     this.setDirection(TOP);
                     imageView.setTranslateX(this.getX());

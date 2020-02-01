@@ -22,7 +22,7 @@ import repositories.TopologyRepository;
 import java.io.IOException;
 import java.util.List;
 
-public class DownloadTopologyController {
+public class DownloadTopologyController extends Controller {
     private double xOffset;
     private double yOffset;
     private static Stage primaryStage;
@@ -58,6 +58,7 @@ public class DownloadTopologyController {
 
     @FXML
     public void initialize() {
+        ControllersRepository.addController(ControllerType.DOWNLOADTOPOLOGYCONTROLLER, this);
         columnName.setCellValueFactory(new PropertyValueFactory<Topology, String>("name"));
         initData();
     }

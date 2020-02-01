@@ -1,6 +1,8 @@
 package visualize;
 
 import controller.ConstructorController;
+import controller.ControllerType;
+import controller.ControllersRepository;
 import elements.Entry;
 import elements.Exit;
 import elements.FuelTank;
@@ -43,11 +45,7 @@ public class Grid {
     private static GridPane gridPane = new GridPane();
     private static List<PetrolStation> listOfPetrolStations = new ArrayList<>();
     private static List<FuelTank> listOfFuelTanks = new ArrayList<>();
-    private static ConstructorController constructorController;
 
-    public static void setConstructorController(ConstructorController constructorController) {
-        Grid.constructorController = constructorController;
-    }
 
     public static List<PetrolStation> getListOfPetrolStations() {
         return listOfPetrolStations;
@@ -168,6 +166,8 @@ public class Grid {
                         break;
                 }
                 if (Entry.getStatus() && Exit.getStatus() && Entry.getX() > Exit.getX()) {
+                    ConstructorController constructorController = (ConstructorController) ControllersRepository.
+                            getController(ControllerType.CONSTRUCTORCONTROLLER);
                     constructorController.disableElements(false);
                     setRoundRoad();
                 }
