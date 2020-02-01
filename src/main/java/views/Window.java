@@ -16,7 +16,7 @@ public class Window implements IWindow {
     private String title;
     private int width;
     private int height;
-    private Stage stage = new Stage();
+    private Stage stage;
     private boolean isInitialized = false;
 
     public boolean isInitialized() {
@@ -56,10 +56,13 @@ public class Window implements IWindow {
     @Override
     public void close() {
         hide();
+        stage = null;
         isInitialized = false;
     }
 
     private void init() throws IOException {
+        stage = new Stage();
+        stage.initStyle(StageStyle.TRANSPARENT);
         AnchorPane anchorPane = FXMLLoader.load(getClass().getResource(resource));
         anchorPane.setOnMousePressed(event -> {
             xOffset = event.getSceneX();
@@ -70,7 +73,6 @@ public class Window implements IWindow {
             stage.setY(event.getScreenY() - yOffset);
         });
         stage.setScene(new Scene(anchorPane, width, height));
-        //stage.initStyle(StageStyle.TRANSPARENT);
         stage.setTitle(title);
     }
 
