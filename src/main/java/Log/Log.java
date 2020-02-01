@@ -5,11 +5,15 @@ import controller.ControllerType;
 import controller.ControllersRepository;
 import controller.ImitationController;
 
-public class LogMessage extends Log{
+public class Log {
     private static ImitationController imitationController = (ImitationController)
             ControllersRepository.getController(ControllerType.IMITATIONCONTROLLER);
-    @Override
-    public void sendMessage(String logMessage) {
+
+    public static void sendMessage(String logMessage) {
         imitationController.addMessageLog(logMessage);
+    }
+
+    public static void sendMessage(int profit, int countCars, int countLitres) {
+        imitationController.statisticRefresh(profit, countCars, countLitres);
     }
 }

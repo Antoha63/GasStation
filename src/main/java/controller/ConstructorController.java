@@ -34,23 +34,14 @@ import java.util.List;
 public class ConstructorController extends Controller {
     private double xOffset;
     private double yOffset;
-    private static int topologyWidth;
-    private static int topologyHeight;
 
     private ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-data-context.xml");
     private TopologyRepository topologyRepository = context.getBean(TopologyRepository.class);
     private PetrolStationRepository petrolStationRepository = context.getBean(PetrolStationRepository.class);
     private FuelTankRepository fuelTankRepository = context.getBean(FuelTankRepository.class);
 
-    public static void setBounds(int width, int height) {
-        topologyWidth = width;
-        topologyHeight = height;
-    }
-
     @FXML
     private AnchorPane anchorPane;
-
-
     @FXML
     private ScrollPane scrollPaneElements;
     @FXML
@@ -61,7 +52,6 @@ public class ConstructorController extends Controller {
     private Button back_button;
     @FXML
     private AnchorPane dragableArea;
-
     @FXML
     private ImageView entry;
     @FXML
@@ -186,11 +176,6 @@ public class ConstructorController extends Controller {
     }
 
     @FXML
-    void entryOnMouseClicked(MouseEvent event) {
-        entry.setRotate(entry.getRotate() + 90);
-    }
-
-    @FXML
     void exitOnDragOverEvent(DragEvent event) {
         event.acceptTransferModes(TransferMode.COPY);
     }
@@ -202,11 +187,6 @@ public class ConstructorController extends Controller {
         clipboardContent.putString(exit.getId());
         dragboard.setContent(clipboardContent);
         event.consume();
-    }
-
-    @FXML
-    void exitOnMouseClicked(MouseEvent event) {
-        exit.setRotate(exit.getRotate() + 90);
     }
 
     @FXML
@@ -238,28 +218,6 @@ public class ConstructorController extends Controller {
     }
 
     @FXML
-    public void createModeller() throws IOException {
-        Stage primaryStage = new Stage();
-        primaryStage.initStyle(StageStyle.TRANSPARENT);
-        Parent root = FXMLLoader.load(getClass().getResource("/views/modeller.fxml"));
-        root.setOnMousePressed(event -> {
-            xOffset = event.getSceneX();
-            yOffset = event.getSceneY();
-        });
-        root.setOnMouseDragged(event -> {
-            primaryStage.setX(event.getScreenX() - xOffset);
-            primaryStage.setY(event.getScreenY() - yOffset);
-        });
-        primaryStage.setTitle("");
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
-        Stage stage = (Stage) closeButton.getScene().getWindow();
-        stage.close();
-//        DownloadTopologyController.setPrimaryStage(null);
-//        BoundsController.setPrimaryStage(null);
-    }
-
-    @FXML
     void fuelTankOnDragOverEvent(DragEvent event) {
         event.acceptTransferModes(TransferMode.COPY);
     }
@@ -273,20 +231,13 @@ public class ConstructorController extends Controller {
         event.consume();
     }
 
+    @FXML
+    public void createModeller() throws IOException {
+        WindowRepository.getWindow(WindowType.MODELLERWINDOW).show();
+        WindowRepository.getWindow(WindowType.CONSTRUCTORWINDOW).hide();
+    }
+
     public void saveTopology() throws IOException {
-        Stage primaryStage = new Stage();
-        primaryStage.initStyle(StageStyle.TRANSPARENT);
-        Parent root = FXMLLoader.load(getClass().getResource("/views/saveTopology.fxml"));
-        root.setOnMousePressed(event -> {
-            xOffset = event.getSceneX();
-            yOffset = event.getSceneY();
-        });
-        root.setOnMouseDragged(event -> {
-            primaryStage.setX(event.getScreenX() - xOffset);
-            primaryStage.setY(event.getScreenY() - yOffset);
-        });
-        primaryStage.setTitle("");
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
+        WindowRepository.getWindow(WindowType.SAVETOPOLOGYWINDOW).show();
     }
 }

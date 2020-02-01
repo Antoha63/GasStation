@@ -1,6 +1,7 @@
 package views;
 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -63,16 +64,16 @@ public class Window implements IWindow {
     private void init() throws IOException {
         stage = new Stage();
         stage.initStyle(StageStyle.TRANSPARENT);
-        AnchorPane anchorPane = FXMLLoader.load(getClass().getResource(resource));
-        anchorPane.setOnMousePressed(event -> {
+        Parent root = FXMLLoader.load(getClass().getResource(resource));
+        root.setOnMousePressed(event -> {
             xOffset = event.getSceneX();
             yOffset = event.getSceneY();
         });
-        anchorPane.setOnMouseDragged(event -> {
+        root.setOnMouseDragged(event -> {
             stage.setX(event.getScreenX() - xOffset);
             stage.setY(event.getScreenY() - yOffset);
         });
-        stage.setScene(new Scene(anchorPane, width, height));
+        stage.setScene(new Scene(root, width, height));
         stage.setTitle(title);
     }
 

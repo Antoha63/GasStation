@@ -1,6 +1,9 @@
 package topologyObjects;
 
-import Log.LogMessage;
+import Log.Log;
+import controller.ControllerType;
+import controller.ControllersRepository;
+import controller.ImitationController;
 import controller.MoveController;
 import elements.CashBox;
 import elements.Entry;
@@ -19,6 +22,8 @@ public class CollectorCashbox extends TransportVehicle {
     private int stop = 0;
     long start;
     long finish;
+    private ImitationController imitationController = (ImitationController)
+            ControllersRepository.getController(ControllerType.IMITATIONCONTROLLER);
 
     public CollectorCashbox (int x, int y){
         super(x,y);
@@ -26,6 +31,7 @@ public class CollectorCashbox extends TransportVehicle {
 
     @Override
     public void go(ImageView imageView) throws InterruptedException {
+        int sliderMode = (int)imitationController.getSliderMode().getValue();
 
         /*CashBox.setStatus(false);
         this.setX(Grid.getWidth() - 1);
@@ -55,7 +61,7 @@ public class CollectorCashbox extends TransportVehicle {
 
 
         if (this.getX() > Entry.getX() * GridElement.getElementWidth() + Grid.getX0()) {
-            this.moveX(-1 * MoveController.getSliderMode());
+            this.moveX(-1 * sliderMode);
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());
             this.setDirection(LEFT);
@@ -70,7 +76,7 @@ public class CollectorCashbox extends TransportVehicle {
         else if (this.getX() == Entry.getX() * GridElement.getElementWidth() + Grid.getX0() &&
                 this.getY() == Entry.getY() * GridElement.getElementHeight() + Grid.getY0()) {
             this.setDirection(TOP);
-            this.moveY(-1 * MoveController.getSliderMode());
+            this.moveY(-1 * sliderMode);
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());
         }
@@ -78,7 +84,7 @@ public class CollectorCashbox extends TransportVehicle {
         else if (this.getX() == Entry.getX() * GridElement.getElementWidth() + Grid.getX0() &&
                 this.getY() < Entry.getY() * GridElement.getElementHeight() + Grid.getY0() &&
                 this.getY() > Grid.getY0()) {
-            this.moveY(-1 * MoveController.getSliderMode());
+            this.moveY(-1 * sliderMode);
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());
             if (this.getY() < Grid.getY0()){
@@ -91,7 +97,7 @@ public class CollectorCashbox extends TransportVehicle {
         //заправились, транулись, уезжаем дальше
         else if (this.getY() == Grid.getY0() && this.getX() > Exit.getX() * GridElement.getElementWidth() + Grid.getX0()) {
             this.setDirection(LEFT);
-            this.moveX(-1 * MoveController.getSliderMode());
+            this.moveX(-1 * sliderMode);
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());
             if (this.getX() < Exit.getX() * GridElement.getElementWidth() + Grid.getX0()){
@@ -106,14 +112,14 @@ public class CollectorCashbox extends TransportVehicle {
 
         else if (this.getX() == Exit.getX() * GridElement.getElementWidth() + Grid.getX0() &&
                 this.getY() == CashBox.getY() * GridElement.getElementHeight() + Grid.getY0() + 1 &&
-                MoveController.getSliderMode() >= 2) {
-            if (stop <= 62 / MoveController.getSliderMode()){
+                sliderMode >= 2) {
+            if (stop <= 62 / sliderMode){
                 stop++;
             }
             else{
-                new LogMessage("Инкассатор забрал " + CashBox.getBalance() + " р");
+                Log.sendMessage("Инкассатор забрал " + CashBox.getBalance() + " р");
                 this.setDirection(BOTTOM);
-                this.moveY(+2 * MoveController.getSliderMode());
+                this.moveY(+2 * sliderMode);
                 imageView.setTranslateX(this.getX());
                 imageView.setTranslateY(this.getY());
                 CashBox.setBalance(0);
@@ -122,14 +128,14 @@ public class CollectorCashbox extends TransportVehicle {
         }
         else if (this.getX() == Exit.getX() * GridElement.getElementWidth() + Grid.getX0() &&
                 this.getY() == CashBox.getY() * GridElement.getElementHeight() + Grid.getY0() + 2 &&
-                MoveController.getSliderMode() >= 2) {
-            if (stop <= 62 / MoveController.getSliderMode()){
+                sliderMode >= 2) {
+            if (stop <= 62 / sliderMode){
                 stop++;
             }
             else{
-                new LogMessage("Инкассатор забрал " + CashBox.getBalance() + " р");
+                Log.sendMessage("Инкассатор забрал " + CashBox.getBalance() + " р");
                 this.setDirection(BOTTOM);
-                this.moveY(+2 * MoveController.getSliderMode());
+                this.moveY(+2 * sliderMode);
                 imageView.setTranslateX(this.getX());
                 imageView.setTranslateY(this.getY());
                 CashBox.setBalance(0);
@@ -139,13 +145,13 @@ public class CollectorCashbox extends TransportVehicle {
         //притормозим у кассы, заберем бабло
         else if (this.getX() == Exit.getX() * GridElement.getElementWidth() + Grid.getX0() &&
                 this.getY() == CashBox.getY() * GridElement.getElementHeight() + Grid.getY0()) {
-            if (stop <= 62 / MoveController.getSliderMode()){
+            if (stop <= 62 / sliderMode){
                 stop++;
             }
             else{
-                new LogMessage("Инкассатор забрал " + CashBox.getBalance() + " р");
+                Log.sendMessage("Инкассатор забрал " + CashBox.getBalance() + " р");
                 this.setDirection(BOTTOM);
-                this.moveY(+1 * MoveController.getSliderMode());
+                this.moveY(+1 * sliderMode);
                 imageView.setTranslateX(this.getX());
                 imageView.setTranslateY(this.getY());
                 CashBox.setBalance(0);
@@ -157,7 +163,7 @@ public class CollectorCashbox extends TransportVehicle {
                 this.getY() != Exit.getY() * GridElement.getElementHeight() + Grid.getY0() &&
                 this.getY() != CashBox.getY() * GridElement.getElementHeight() + Grid.getY0()) {
             this.setDirection(BOTTOM);
-            this.moveY(+1 * MoveController.getSliderMode());
+            this.moveY(+1 * sliderMode);
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());
             if (this.getY() > Exit.getY() * GridElement.getElementHeight() + Grid.getY0()){
@@ -175,7 +181,7 @@ public class CollectorCashbox extends TransportVehicle {
         else if (this.getX() == Exit.getX() * GridElement.getElementWidth() + Grid.getX0() &&
                 this.getY() == Exit.getY() * GridElement.getElementHeight() + Grid.getY0()) {
             this.setDirection(LEFT);
-            this.moveX(-1 * MoveController.getSliderMode());
+            this.moveX(-1 * sliderMode);
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());
             //System.out.println("Уезжает в закат");
@@ -183,7 +189,7 @@ public class CollectorCashbox extends TransportVehicle {
 //выехали на дорогу, уезжаем
         else if (this.getX() < Exit.getX() * GridElement.getElementWidth() + Grid.getX0() &&
                 this.getY() == Exit.getY() * GridElement.getElementHeight() + Grid.getY0()) {
-            this.moveX(-1 * MoveController.getSliderMode());
+            this.moveX(-1 * sliderMode);
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());
             if (this.getX() < Grid.getX0()){

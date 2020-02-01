@@ -23,6 +23,8 @@ import javafx.stage.Window;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import repositories.CarRepository;
 import repositories.FuelRepository;
+import views.WindowRepository;
+import views.WindowType;
 
 import java.io.IOException;
 import java.util.List;
@@ -217,17 +219,11 @@ public class DBWorkController extends Controller {
     }
 
     private void getParentFuel() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/views/dbWorkViews/fuelParametersAdd.fxml"));
-        primaryStage.setTitle("");
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
+        WindowRepository.getWindow(WindowType.ADDFUELWINDOW).show();
     }
 
     private void getParentCar() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/views/dbWorkViews/carParametersAdd.fxml"));
-        primaryStage.setTitle("");
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
+        WindowRepository.getWindow(WindowType.ADDCARWINDOW).show();
     }
 
     private void showAlert() {

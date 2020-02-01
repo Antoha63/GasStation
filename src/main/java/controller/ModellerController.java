@@ -20,6 +20,8 @@ import topologyObjects.Vehicle;
 import value.DeterministicDistribution;
 import value.ExponentialDistribution;
 import value.UniformDistribution;
+import views.WindowRepository;
+import views.WindowType;
 import visualize.Grid;
 
 import java.io.IOException;
@@ -31,15 +33,10 @@ import static javafx.scene.effect.BlendMode.MULTIPLY;
 public class ModellerController extends Controller {
     private double xOffset;
     private double yOffset;
-    private static Stage constructorStage;
     private static List<Car> carList;
     private static List<Fuel> fuelList;
     private static List<Fuel> usabledFuelList;
     private List<CheckBox> checkBoxes = new ArrayList<>();
-
-    public static Stage getConstructorStage() {
-        return constructorStage;
-    }
 
     private ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-data-context.xml");
     private FuelRepository fuelRepository = context.getBean(FuelRepository.class);
@@ -107,32 +104,15 @@ public class ModellerController extends Controller {
     public void initialize() {
         ControllersRepository.addController(ControllerType.MODELLERCONTROLLER, this);
         closeButton.setOnAction(event -> {
-            Stage stage = (Stage) closeButton.getScene().getWindow();
-            stage.close();
+            WindowRepository.getWindow(WindowType.MODELLERWINDOW).close();
         });
         back_button.setOnAction(event -> {
-            Stage stage = (Stage) back_button.getScene().getWindow();
-            stage.close();
-            ConstructorController.setBounds(Grid.getWidth(), Grid.getHeight());
-            constructorStage = new Stage();
-            constructorStage.initStyle(StageStyle.TRANSPARENT);
-            Parent root = null;
+            WindowRepository.getWindow(WindowType.MODELLERWINDOW).close();
             try {
-                root = FXMLLoader.load(getClass().getResource("/views/constructor.fxml"));
+                WindowRepository.getWindow(WindowType.CONSTRUCTORWINDOW).show();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            root.setOnMousePressed(mouseEvent -> {
-                xOffset = mouseEvent.getSceneX();
-                yOffset = mouseEvent.getSceneY();
-            });
-            root.setOnMouseDragged(mouseEvent -> {
-                constructorStage.setX(mouseEvent.getScreenX() - xOffset);
-                constructorStage.setY(mouseEvent.getScreenY() - yOffset);
-            });
-            constructorStage.setTitle("");
-            constructorStage.setScene(new Scene(root));
-            constructorStage.show();
         });
         radioButtonDeterministicDistribution.setOnAction(event -> {
             labelTime.setVisible(true);
@@ -220,22 +200,8 @@ public class ModellerController extends Controller {
                 Grid.getListOfFuelTanks().get(i).setFuel(usabledFuelList.get(i).getName());
                 Grid.getListOfFuelTanks().get(i).setCurrentVolume(FuelTank.getVolume());
             }
-            constructorStage = new Stage();
-            constructorStage.initStyle(StageStyle.TRANSPARENT);
-            Parent root = FXMLLoader.load(getClass().getResource("/views/imitation.fxml"));
-            root.setOnMousePressed(event -> {
-                xOffset = event.getSceneX();
-                yOffset = event.getSceneY();
-            });
-            root.setOnMouseDragged(event -> {
-                constructorStage.setX(event.getScreenX() - xOffset);
-                constructorStage.setY(event.getScreenY() - yOffset);
-            });
-            constructorStage.setTitle("ИМИТАЦИЯ");
-            constructorStage.setScene(new Scene(root));
-            constructorStage.show();
-            Stage stage = (Stage) closeButton.getScene().getWindow();
-            stage.close();
+            WindowRepository.getWindow(WindowType.IMITATIONWINDOW).show();
+            WindowRepository.getWindow(WindowType.MODELLERWINDOW).hide();
         }
         else{
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -248,20 +214,8 @@ public class ModellerController extends Controller {
 
     @FXML
     public void createDBWork() throws IOException {
-        Stage primaryStage = new Stage();
-        primaryStage.initStyle(StageStyle.TRANSPARENT);
-        Parent root = FXMLLoader.load(getClass().getResource("/views/dbWorkViews/dbWork.fxml"));
-        root.setOnMousePressed(event -> {
-            xOffset = event.getSceneX();
-            yOffset = event.getSceneY();
-        });
-        root.setOnMouseDragged(event -> {
-            primaryStage.setX(event.getScreenX() - xOffset);
-            primaryStage.setY(event.getScreenY() - yOffset);
-        });
-        primaryStage.setTitle("");
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
+        WindowRepository.getWindow(WindowType.DBWORKWINDOW).show();
+        WindowRepository.getWindow(WindowType.MODELLERWINDOW).hide();
     }
 
     private void addRadioButtons() {

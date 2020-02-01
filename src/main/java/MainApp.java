@@ -12,7 +12,7 @@ import static views.WindowType.*;
 
 public class MainApp extends Application {
 
-    private ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-data-context.xml");
+//    private ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-data-context.xml");
 
     private double xOffset;
     private double yOffset;

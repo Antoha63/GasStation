@@ -28,7 +28,6 @@ public class MoveController extends Controller {
     private static Distribution distribution = new ExponentialDistribution(1);
     private AnimationTimer animationTimer;
     private TimeState timeState;
-    private static int sliderMode;
     private ImitationController imitationController;
 
     public MoveController(ImitationController imitationController) {
@@ -142,13 +141,5 @@ public class MoveController extends Controller {
             }
         };
         animationTimer.start();
-    }
-
-    public static void setSliderMode(int value) {
-        sliderMode = value;
-        System.out.println(sliderMode);
-    }
-    public static int getSliderMode(){
-        return sliderMode;
     }
 }
