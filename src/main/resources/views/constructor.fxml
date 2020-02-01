@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" maxWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" styleClass="window_background" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ConstructorController">
+<AnchorPane fx:id="anchorPane" maxWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" styleClass="window_background" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ConstructorController">
       <children>
-      <AnchorPane fx:id="buttons" layoutX="14.0" layoutY="71.0" prefHeight="150.0" prefWidth="200.0">
+      <AnchorPane fx:id="buttons" layoutX="14.0" layoutY="71.0" prefHeight="150.0" prefWidth="200.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="45.0">
          <children>
                <Button mnemonicParsing="false" onAction="#saveTopology" prefHeight="94.0" prefWidth="153.0" stylesheets="@../styles/styles.css" text="Сохранить топологию" wrapText="true">
                   <font>
@@ -43,7 +43,7 @@
             </Button>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="dragableArea" cache="true" layoutX="1.0" layoutY="1.0" prefHeight="30.0" prefWidth="900.0" styleClass="close_area" stylesheets="@../styles/styles.css">
+      <AnchorPane fx:id="dragableArea" cache="true" layoutX="1.0" layoutY="1.0" prefHeight="30.0" prefWidth="900.0" styleClass="close_area" stylesheets="@../styles/styles.css" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0">
          <children>
             <Button fx:id="closeButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="15.0" prefWidth="15.0" style="-fx-background-radius: 20;" styleClass="button_close" stylesheets="@../styles/styles.css" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="7.0">
                <font>
@@ -57,11 +57,11 @@
             </Button>
          </children>
       </AnchorPane>
-      <ScrollPane fx:id="scrollPaneElements" blendMode="MULTIPLY" layoutX="735.0" layoutY="71.0" prefHeight="322.0" prefWidth="166.0">
+      <ScrollPane fx:id="scrollPaneElements" blendMode="MULTIPLY" layoutX="735.0" layoutY="45.0" prefHeight="545.0" prefWidth="166.0" AnchorPane.bottomAnchor="11.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="45.0">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="376.0" prefWidth="147.0">
                <children>
-                  <ImageView fx:id="entry" fitHeight="50.0" fitWidth="50.0" layoutX="15.0" layoutY="53.0" onDragDetected="#entryOnDragDetectedEvent" onDragOver="#entryOnDragOverEvent" onMouseClicked="#entryOnMouseClicked" pickOnBounds="true" preserveRatio="true" rotate="180.0">
+                  <ImageView fx:id="entry" fitHeight="50.0" fitWidth="50.0" layoutX="15.0" layoutY="53.0" onDragDetected="#entryOnDragDetectedEvent" onDragOver="#entryOnDragOverEvent" pickOnBounds="true" preserveRatio="true" rotate="180.0">
                      <image>
                         <Image url="@../pics/sprites.png" />
                      </image>
@@ -118,7 +118,7 @@
                         <Rectangle2D height="50.0" minX="100.0" minY="150.0" width="50.0" />
                      </viewport>
                   </ImageView>
-                  <ImageView fx:id="exit" fitHeight="50.0" fitWidth="50.0" layoutX="15.0" layoutY="123.0" onDragDetected="#exitOnDragDetectedEvent" onDragOver="#exitOnDragOverEvent" onMouseClicked="#exitOnMouseClicked" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="exit" fitHeight="50.0" fitWidth="50.0" layoutX="15.0" layoutY="123.0" onDragDetected="#exitOnDragDetectedEvent" onDragOver="#exitOnDragOverEvent" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../pics/sprites.png" />
                      </image>

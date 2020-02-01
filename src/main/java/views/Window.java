@@ -51,7 +51,7 @@ public class Window implements IWindow {
 
     @Override
     public void hide() {
-        stage.hide();
+        stage.close();
     }
 
     @Override

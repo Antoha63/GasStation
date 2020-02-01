@@ -58,8 +58,6 @@ public class BoundsController extends Controller{
 
     @FXML
     public void createConstructor() throws IOException {
-//        ConstructorController constructorController = new ConstructorController();
-//        constructorController.setBounds(topologyWidth.getValue(), topologyHeight.getValue());
         WindowRepository.getWindow(WindowType.CONSTRUCTORWINDOW).show();
         WindowRepository.getWindow(WindowType.BOUNDSWINDOW).close();
     }

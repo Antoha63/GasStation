@@ -25,8 +25,8 @@ public class WindowFactory {
             case SAVETOPOLOGYWINDOW:
                 resource = "/views/saveTopology.fxml";
                 title = "Сохранить топологию";
-                width = 800;
-                height = 600;
+                width = 400;
+                height = 300;
                 break;
             case DOWNLOADTOPOLOGYWINDOW:
                 resource = "/views/downloadTopology.fxml";
@@ -49,19 +49,19 @@ public class WindowFactory {
             case CONSTRUCTORWINDOW:
                 resource = "/views/constructor.fxml";
                 title = "Конструктор";
-                width = 800;
+                width = 1000;
                 height = 600;
                 break;
             case MODELLERWINDOW:
                 resource = "/views/modeller.fxml";
                 title = "Моделлер";
-                width = 800;
+                width = 1000;
                 height = 600;
                 break;
             case DBWORKWINDOW:
                 resource = "/views/dbWorkViews/dbWork.fxml";
                 title = "Работа с БД";
-                width = 800;
+                width = 1000;
                 height = 600;
                 break;
             case ADDFUELWINDOW:
@@ -79,7 +79,7 @@ public class WindowFactory {
             case IMITATIONWINDOW:
                 resource = "/views/imitation.fxml";
                 title = "Имитация";
-                width = 800;
+                width = 1000;
                 height = 600;
                 break;
             default:{

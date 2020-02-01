@@ -18,6 +18,8 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import repositories.TopologyRepository;
+import sun.nio.ch.WindowsAsynchronousChannelProvider;
+import views.Window;
 import views.WindowRepository;
 import views.WindowType;
 
@@ -67,36 +69,14 @@ public class DownloadTopologyController extends Controller {
 
     private void initData() {
         closeButton.setOnAction(event -> {
-            Stage stage = (Stage) closeButton.getScene().getWindow();
-            stage.close();
+            WindowRepository.getWindow(WindowType.DOWNLOADTOPOLOGYWINDOW).close();
         });
         back_button.setOnAction(event -> {
-            if(primaryStage != null) primaryStage = null;
-            Stage primaryStage = new Stage();
-            primaryStage.initStyle(StageStyle.TRANSPARENT);
-            Parent root = null;
+            WindowRepository.getWindow(WindowType.DOWNLOADTOPOLOGYWINDOW).close();
             try {
-                root = FXMLLoader.load(getClass().getResource("/views/main.fxml"));
-                root.setOnMousePressed(mouseEvent -> {
-                    xOffset = mouseEvent.getSceneX();
-                    yOffset = mouseEvent.getSceneY();
-                });
-                root.setOnMouseDragged(mouseEvent -> {
-                    primaryStage.setX(mouseEvent.getScreenX() - xOffset);
-                    primaryStage.setY(mouseEvent.getScreenY() - yOffset);
-                });
+                WindowRepository.getWindow(WindowType.MAINWINDOW).show();
             } catch (IOException e) {
                 e.printStackTrace();
-            }
-            primaryStage.setTitle("");
-            primaryStage.setScene(new Scene(root));
-            primaryStage.show();
-            Stage stage = (Stage) closeButton.getScene().getWindow();
-            stage.close();
-            try {
-                this.finalize();
-            } catch (Throwable throwable) {
-                throwable.printStackTrace();
             }
         });
         topologyList = topologyRepository.findAll();
@@ -112,6 +92,7 @@ public class DownloadTopologyController extends Controller {
         if (tableView.getSelectionModel().getSelectedItem() == null)
             showAlert();
         else {
+            topologyName = tableView.getSelectionModel().getSelectedItem().getName();
             WindowRepository.getWindow(WindowType.CONSTRUCTORWINDOW).show();
             WindowRepository.getWindow(WindowType.DOWNLOADTOPOLOGYWINDOW).close();
         }
@@ -125,10 +106,6 @@ public class DownloadTopologyController extends Controller {
             topologyRepository.delete(topologyRepository.getOne(tableView.getSelectionModel().getSelectedItem().getId()));
             tableView.getItems().remove(row);
         }
-    }
-
-    public static Stage getPrimaryStage() {
-        return primaryStage;
     }
 
     public static String getTopologyName() {

@@ -30,9 +30,6 @@ import java.io.IOException;
 import java.util.List;
 
 public class DBWorkController extends Controller {
-    private double xOffset;
-    private double yOffset;
-
     private ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-data-context.xml");
     private FuelRepository fuelRepository = context.getBean(FuelRepository.class);
     private CarRepository carRepository = context.getBean(CarRepository.class);
@@ -121,7 +118,12 @@ public class DBWorkController extends Controller {
         primaryStage.initStyle(StageStyle.TRANSPARENT);
 
         closeButton.setOnAction(event -> {
-            setCloseButton();
+            try {
+                WindowRepository.getWindow(WindowType.MODELLERWINDOW).show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            WindowRepository.getWindow(WindowType.DBWORKWINDOW).close();
         });
 
         columnName.setCellValueFactory(new PropertyValueFactory<Fuel, String>("name"));
@@ -155,7 +157,6 @@ public class DBWorkController extends Controller {
     }
 
     public void addFuel() throws IOException {
-        setCloseButton();
         getParentFuel();
     }
 
@@ -163,7 +164,6 @@ public class DBWorkController extends Controller {
         if (fuelTable.getSelectionModel().getSelectedItem() == null)
             showAlert();
          else {
-            setCloseButton();
             name = fuelTable.getSelectionModel().getSelectedItem().getName();
             price = fuelTable.getSelectionModel().getSelectedItem().getPrice();
 
@@ -175,16 +175,13 @@ public class DBWorkController extends Controller {
         if (fuelTable.getSelectionModel().getSelectedItem() == null)
             showAlert();
          else {
-            setCloseButton();
             int row = fuelTable.getSelectionModel().getSelectedIndex();
             fuelRepository.delete(fuelRepository.findByName(fuelTable.getSelectionModel().getSelectedItem().getName()));
             fuelTable.getItems().remove(row);
-            getDBWorkStage();
         }
     }
 
     public void addCar() throws IOException {
-        setCloseButton();
         getParentCar();
     }
 
@@ -192,7 +189,6 @@ public class DBWorkController extends Controller {
         if (carTable.getSelectionModel().getSelectedItem() == null)
             showAlert();
          else {
-            setCloseButton();
             model = carTable.getSelectionModel().getSelectedItem().getModel();
             tankVolume = carTable.getSelectionModel().getSelectedItem().getTankVolume();
             carId = carTable.getSelectionModel().getSelectedItem().getId();
@@ -205,17 +201,10 @@ public class DBWorkController extends Controller {
         if (carTable.getSelectionModel().getSelectedItem() == null)
             showAlert();
          else {
-            setCloseButton();
             int row = carTable.getSelectionModel().getSelectedIndex();
             carRepository.delete(carRepository.getOne(carTable.getSelectionModel().getSelectedItem().getId()));
             carTable.getItems().remove(row);
-            getDBWorkStage();
         }
-    }
-
-    private void setCloseButton() {
-        Stage stage = (Stage) closeButton.getScene().getWindow();
-        stage.close();
     }
 
     private void getParentFuel() throws IOException {
@@ -235,20 +224,5 @@ public class DBWorkController extends Controller {
         alert.initStyle(StageStyle.TRANSPARENT);
 
         alert.showAndWait();
-    }
-
-    private void getDBWorkStage() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/views/dbWorkViews/dbWork.fxml"));
-        root.setOnMousePressed(event -> {
-            xOffset = event.getSceneX();
-            yOffset = event.getSceneY();
-        });
-        root.setOnMouseDragged(event -> {
-            primaryStage.setX(event.getScreenX() - xOffset);
-            primaryStage.setY(event.getScreenY() - yOffset);
-        });
-        primaryStage.setTitle("");
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
     }
 }
