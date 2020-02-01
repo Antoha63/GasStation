@@ -21,19 +21,13 @@ import static topologyObjects.TransportVehicleType.*;
 @Getter
 @Setter
 /*Class describes all animation module*/
-public class MoveController {
+public class MoveController extends Controller {
     private ArrayList<VisualisedTransportVehicle> automobiles = new ArrayList<VisualisedTransportVehicle>();
     private VisualisedTransportVehicle collectorFuel;
     private VisualisedTransportVehicle collectorCashBox;
     private static Distribution distribution = new ExponentialDistribution(1);
     private AnimationTimer animationTimer;
     private TimeState timeState;
-    private static int sliderMode;
-    private ImitationController imitationController;
-
-    public MoveController(ImitationController imitationController) {
-        this.imitationController = imitationController;
-    }
 
     public static void setDistribution(Distribution distribution) {
         MoveController.distribution = distribution;
@@ -140,13 +134,5 @@ public class MoveController {
             }
         };
         animationTimer.start();
-    }
-
-    public static void setSliderMode(int value) {
-        sliderMode = value;
-        System.out.println(sliderMode);
-    }
-    public static int getSliderMode(){
-        return sliderMode;
     }
 }

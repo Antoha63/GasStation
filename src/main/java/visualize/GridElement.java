@@ -47,7 +47,6 @@ public class GridElement extends Pane {
                 this.mainStaticElement = new PetrolStation(i, j);
                 mainStaticElement.setElementType(PETROLSTATION);
                 this.setOccupied(true);
-                System.out.println(this.mainStaticElement);
                 this.frameAnimation = new FrameAnimation(0, 3, 50, 50, 3);
                 this.getChildren().add(this.frameAnimation.getImageView());
                 break;

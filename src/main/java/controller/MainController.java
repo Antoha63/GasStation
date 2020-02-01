@@ -1,28 +1,26 @@
 package controller;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
+import views.WindowRepository;
+import views.WindowType;
 
 import java.io.IOException;
 
-public class MainController {
-    private double xOffset;
-    private double yOffset;
+import static views.WindowType.BOUNDSWINDOW;
+import static views.WindowType.DOWNLOADTOPOLOGYWINDOW;
+
+public class MainController extends Controller {
 
     @FXML
     AnchorPane anchorPane;
     @FXML
     private Button closeButton;
-    @FXML
-    private Button createTopologyButton;
 
     public void initialize(){
+        ControllersRepository.addController(ControllerType.MAINCONTROLLER, this);
         closeButton.setOnAction(event -> {
             Stage stage = (Stage) closeButton.getScene().getWindow();
             stage.close();
@@ -30,75 +28,24 @@ public class MainController {
     }
 
     public void createTopology() throws IOException {
-        Stage primaryStage = new Stage();
-        primaryStage.initStyle(StageStyle.TRANSPARENT);
-        Parent root = FXMLLoader.load(getClass().getResource("/views/topologySize.fxml"));
-        root.setOnMousePressed(event -> {
-            xOffset = event.getSceneX();
-            yOffset = event.getSceneY();
-        });
-        root.setOnMouseDragged(event -> {
-            primaryStage.setX(event.getScreenX() - xOffset);
-            primaryStage.setY(event.getScreenY() - yOffset);
-        });
-        primaryStage.setTitle("");
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
-        Stage stage = (Stage) createTopologyButton.getScene().getWindow();
-        stage.close();
+        WindowRepository windowRepository = Controller.getWindowRepository();
+        windowRepository.addWindow(BOUNDSWINDOW);
+        WindowRepository.getWindow(WindowType.BOUNDSWINDOW).show();
+        WindowRepository.getWindow(WindowType.MAINWINDOW).close();
     }
 
     public void downloadTopology() throws IOException {
-        Stage primaryStage = new Stage();
-        primaryStage.initStyle(StageStyle.TRANSPARENT);
-        Parent root = FXMLLoader.load(getClass().getResource("/views/downloadTopology.fxml"));
-        root.setOnMousePressed(event -> {
-            xOffset = event.getSceneX();
-            yOffset = event.getSceneY();
-        });
-        root.setOnMouseDragged(event -> {
-            primaryStage.setX(event.getScreenX() - xOffset);
-            primaryStage.setY(event.getScreenY() - yOffset);
-        });
-        primaryStage.setTitle("");
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
-        Stage stage = (Stage) createTopologyButton.getScene().getWindow();
-        stage.close();
+        WindowRepository windowRepository = Controller.getWindowRepository();
+        windowRepository.addWindow(DOWNLOADTOPOLOGYWINDOW);
+        WindowRepository.getWindow(WindowType.DOWNLOADTOPOLOGYWINDOW).show();
+        WindowRepository.getWindow(WindowType.MAINWINDOW).close();
     }
 
     public void developerInfo() throws IOException {
-        Stage primaryStage = new Stage();
-        primaryStage.initStyle(StageStyle.TRANSPARENT);
-        Parent root = FXMLLoader.load(getClass().getResource("/views/developerInfo.fxml"));
-        root.setOnMousePressed(event -> {
-            xOffset = event.getSceneX();
-            yOffset = event.getSceneY();
-        });
-        root.setOnMouseDragged(event -> {
-            primaryStage.setX(event.getScreenX() - xOffset);
-            primaryStage.setY(event.getScreenY() - yOffset);
-        });
-        primaryStage.setTitle("О РАЗРАБОТЧИКЕ");
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
+        WindowRepository.getWindow(WindowType.DEVINFOWINDOW).show();
     }
 
     public void systemInfo() throws IOException {
-        Stage primaryStage = new Stage();
-        primaryStage.initStyle(StageStyle.TRANSPARENT);
-        Parent root = FXMLLoader.load(getClass().getResource("/views/systemInfo.fxml"));
-        root.setOnMousePressed(event -> {
-            xOffset = event.getSceneX();
-            yOffset = event.getSceneY();
-        });
-        root.setOnMouseDragged(event -> {
-            primaryStage.setX(event.getScreenX() - xOffset);
-            primaryStage.setY(event.getScreenY() - yOffset);
-        });
-        primaryStage.setTitle("О СИСТЕМЕ");
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
-
+        WindowRepository.getWindow(WindowType.SYSINFOWINDOW).show();
     }
 }

@@ -1,29 +1,27 @@
 package controller;
 
-import Log.LogMessage;
-import Log.LogStatistic;
+import Log.Log;
 import TimeControl.TimeState;
 import elements.CashBox;
 import elements.FuelTank;
 import elements.PetrolStation;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
+import lombok.Getter;
 import topologyObjects.Vehicle;
+import views.WindowRepository;
+import views.WindowType;
 import visualize.Grid;
 import visualize.GridElement;
 
 import java.io.IOException;
 
-public class ImitationController {
-    private double xOffset;
-    private double yOffset;
+public class ImitationController extends Controller {
+    private MoveController moveController;
+
     @FXML
     private Button back_button;
     @FXML
@@ -50,22 +48,14 @@ public class ImitationController {
     private Label petrolstationSpeed;
     @FXML
     private Label petrolstationStatus;
-
-    private MoveController moveController = new MoveController(this);
-    @FXML
-    private AnchorPane dragableArea;
     @FXML
     private AnchorPane threadButtons;
-    @FXML
-    private AnchorPane statistics;
     @FXML
     private Button playButton;
     @FXML
     private Button pauseButton;
     @FXML
     private Button stopButton;
-    @FXML
-    private AnchorPane backButtons;
     @FXML
     private AnchorPane anchorPane;
     @FXML
@@ -81,50 +71,29 @@ public class ImitationController {
     @FXML
     private Button closeButton;
     @FXML
-    private AnchorPane anchorPaneMode;
-    @FXML
+    @Getter
     private Slider sliderMode;
-    @FXML
-    private Button inConstructorButton;
 
     public void initialize() {
+        ControllersRepository.addController(ControllerType.IMITATIONCONTROLLER, this);
+        ControllersRepository.addController(ControllerType.MOVECONTROLLER, new MoveController());
+        moveController = (MoveController) ControllersRepository.
+                getController(ControllerType.MOVECONTROLLER);
         setOnActionBackButton();
-        positionElements();
         setOnActionCloseWindow();
         drawGrid();
         setOnActionPlay();
         setOnActionPause();
         setOnActionStop();
-        MoveController.setSliderMode((int)sliderMode.getValue());
-        sliderMode.setOnMouseClicked(event -> {
-            MoveController.setSliderMode((int)sliderMode.getValue());
-        });
-        LogMessage.setImitationController(this);
-        LogStatistic.setImitationController(this);
     }
 
     private void setOnActionBackButton() {
         back_button.setOnAction(event -> {
-
-            Stage primaryStage = new Stage();
-            primaryStage.initStyle(StageStyle.TRANSPARENT);
-            Parent root = null;
             try {
-                root = FXMLLoader.load(getClass().getResource("/views/modeller.fxml"));
+                WindowRepository.getWindow(WindowType.MODELLERWINDOW).show();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            root.setOnMousePressed(mouseEvent -> {
-                xOffset = mouseEvent.getSceneX();
-                yOffset = mouseEvent.getSceneY();
-            });
-            root.setOnMouseDragged(mouseEvent -> {
-                primaryStage.setX(mouseEvent.getScreenX() - xOffset);
-                primaryStage.setY(mouseEvent.getScreenY() - yOffset);
-            });
-            primaryStage.setTitle("");
-            primaryStage.setScene(new Scene(root));
-            primaryStage.show();
             PetrolStation.setSpeed(0);
             FuelTank.setVolume(0);
             FuelTank.setCriticalLevel(0);
@@ -147,14 +116,7 @@ public class ImitationController {
             log_list.clear();
 
             //Grid.setGrid(null);
-
-            Stage stage = (Stage) closeButton.getScene().getWindow();
-            stage.close();
-            try {
-                this.finalize();
-            } catch (Throwable throwable) {
-                throwable.printStackTrace();
-            }
+            WindowRepository.getWindow(WindowType.IMITATIONWINDOW).close();
         });
     }
 
@@ -168,43 +130,23 @@ public class ImitationController {
         log_list.setText(message + "\n" + log_list.getText());
     }
 
-    private void positionElements() {
-        int spacing = 10;
-        backButtons.setLayoutX(spacing);
-        backButtons.setLayoutY(threadButtons.getLayoutY() + threadButtons.getPrefHeight() + spacing);
-        log_list.setLayoutX(Grid.getGrid()[Grid.getWidth() - 1][0].getTranslateX() +
-                GridElement.getElementWidth() + spacing);
-        infoLabel.setLayoutX(log_list.getLayoutX() +
-                log_list.getPrefWidth() / 2 - infoLabel.getPrefWidth() / 2);
-        statistics.setLayoutX(log_list.getLayoutX() +
-                log_list.getPrefWidth() / 2 - statistics.getPrefWidth() / 2);
-
-        Stage stage = ModellerController.getConstructorStage();
-        stage.setWidth(log_list.getLayoutX() + log_list.getPrefWidth() + spacing);
-        stage.setHeight(Grid.getGrid()[0][Grid.getHeight()].getTranslateY() + GridElement.getElementHeight() + spacing * 3);
-
-        log_list.setPrefHeight(stage.getHeight() - log_list.getLayoutY() - statistics.getPrefHeight() - 2 * spacing);
-        statistics.setLayoutY(log_list.getLayoutY() + log_list.getPrefHeight() + spacing);
-        dragableArea.setPrefWidth(stage.getWidth() - 2);
-    }
-
     private void setOnActionCloseWindow() {
         closeButton.setOnAction(event -> {
-            Stage stage = (Stage) closeButton.getScene().getWindow();
-            stage.close();
+            WindowRepository.getWindow(WindowType.IMITATIONWINDOW).close();
         });
     }
 
     private void drawGrid() {
+        GridElement[][] tempGrid = Grid.getGrid();
         for (int i = 0; i < Grid.getWidth(); i++) {
             for (int j = 0; j < Grid.getHeight() + 1; j++) {
-                anchorPane.getChildren().add(Grid.getGrid()[i][j]);
-                Grid.getGrid()[i][j].setOnMouseClicked(null);
+                anchorPane.getChildren().add(tempGrid[i][j]);
+                tempGrid[i][j].setOnMouseClicked(null);
             }
         }
         for(int i = 0; i < Grid.getListOfPetrolStations().size(); i++){
             int finalI = i;
-            Grid.getGrid()[Grid.getListOfPetrolStations().get(i).getX()][Grid.getListOfPetrolStations().get(i).getY()].
+            tempGrid[Grid.getListOfPetrolStations().get(i).getX()][Grid.getListOfPetrolStations().get(i).getY()].
                     setOnMouseClicked(mouseEvent -> {
                         petrolStationPopup.setLayoutX(10);
                         petrolStationPopup.setLayoutY(threadButtons.getLayoutY() + playButton.getPrefHeight() + 10);
@@ -214,7 +156,7 @@ public class ImitationController {
                     });
         }
         for (int i = 0; i < Grid.getListOfFuelTanks().size();i++){
-            Grid.getGrid()[Grid.getListOfFuelTanks().get(i).getX()][Grid.getListOfFuelTanks().get(i).getY()].
+            tempGrid[Grid.getListOfFuelTanks().get(i).getX()][Grid.getListOfFuelTanks().get(i).getY()].
                     setOnMouseClicked(mouseEvent -> {
                         fuelTankPopup.setLayoutX(10);
                         fuelTankPopup.setLayoutY(threadButtons.getLayoutY() + playButton.getPrefHeight() + 10);
@@ -223,7 +165,7 @@ public class ImitationController {
                         petrolStationPopup.setVisible(false);
                     });
         }
-        Grid.getGrid()[CashBox.getX()][CashBox.getY()].
+        tempGrid[CashBox.getX()][CashBox.getY()].
                 setOnMouseClicked(mouseEvent -> {
                     cashBoxPopup.setLayoutX(10);
                     cashBoxPopup.setLayoutY(threadButtons.getLayoutY() + playButton.getPrefHeight() + 10);
@@ -265,13 +207,12 @@ public class ImitationController {
     private void setOnActionStop() {
         stopButton.setOnAction(event -> {
             moveController.setTimeState(TimeState.STOP);
-            moveController = new MoveController(this);
             CashBox.setStatus(true);
             CashBox.setBalance(0);
             CashBox.setProfit(0);
             Vehicle.setCountCars(0);
             Vehicle.setCountLitres(0);
-            new LogStatistic(0,0,0);
+            Log.sendMessage(0, 0, 0);
             for (int i = 0; i < Grid.getListOfPetrolStations().size(); i++){
                 Grid.getListOfPetrolStations().get(i).setStatus(true);
             }

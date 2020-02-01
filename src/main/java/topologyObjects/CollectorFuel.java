@@ -1,9 +1,10 @@
 package topologyObjects;
 
-import Log.LogMessage;
+import Log.Log;
+import controller.ControllerType;
+import controller.ControllersRepository;
+import controller.ImitationController;
 import controller.MoveController;
-import elements.CashBox;
-import elements.Entry;
 import elements.Exit;
 import elements.FuelTank;
 import javafx.scene.image.ImageView;
@@ -21,6 +22,8 @@ public class CollectorFuel extends TransportVehicle {
     private String fuelType;
     private int ft = 666;
     private int stop = 0;
+    private ImitationController imitationController = (ImitationController)
+            ControllersRepository.getController(ControllerType.IMITATIONCONTROLLER);
 
     public CollectorFuel (int x, int y){
         super(x,y);
@@ -40,6 +43,7 @@ public class CollectorFuel extends TransportVehicle {
 
     @Override
     public void go(ImageView imageView) throws InterruptedException {
+        int sliderMode = (int)imitationController.getSliderMode().getValue();
 
         /*FuelTank.setStatus(false);
         this.setX(Grid.getWidth() - 1);
@@ -66,7 +70,7 @@ public class CollectorFuel extends TransportVehicle {
 
         if (this.getX() > (Grid.getWidth() - 1) * GridElement.getElementWidth() + Grid.getX0()) {
             this.setDirection(LEFT);
-            this.moveX(-1 * MoveController.getSliderMode());
+            this.moveX(-1 * sliderMode);
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());
             if (this.getX() < (Grid.getWidth() - 1) * GridElement.getElementWidth() + Grid.getX0()) {
@@ -80,7 +84,7 @@ public class CollectorFuel extends TransportVehicle {
         else if (this.getX() == (Grid.getWidth() - 1) * GridElement.getElementWidth() + Grid.getX0() &&
                 this.getY() == Grid.getHeight() * GridElement.getElementHeight() + Grid.getY0()) {
             this.setDirection(TOP);
-            this.moveY(-1 * MoveController.getSliderMode());
+            this.moveY(-1 * sliderMode);
             //поиск того ТБ, к которому он вызван
             for (int i = 0; i < Grid.getListOfFuelTanks().size(); i++){
                 if (Grid.getListOfFuelTanks().get(i).getFuel().equals(fuelType) && !Grid.getListOfFuelTanks().get(i).getStatus())
@@ -93,7 +97,7 @@ public class CollectorFuel extends TransportVehicle {
         else if (this.getX() == (Grid.getWidth() - 1) * GridElement.getElementWidth() + Grid.getX0() &&
                 this.getY() < Grid.getHeight() * GridElement.getElementHeight() + Grid.getY0() &&
                 this.getY() > Grid.getY0()) {
-            this.moveY(-1 * MoveController.getSliderMode());
+            this.moveY(-1 * sliderMode);
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());
             if (this.getY() < Grid.getY0()){
@@ -107,7 +111,7 @@ public class CollectorFuel extends TransportVehicle {
         else if (this.getY() == Grid.getY0() &&
                 this.getX() > (Grid.getWidth() - 3) * GridElement.getElementWidth() + Grid.getX0()) {
             this.setDirection(LEFT);
-            this.moveX(-1 * MoveController.getSliderMode());
+            this.moveX(-1 * sliderMode);
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());
             if (this.getX() < (Grid.getWidth() - 3) * GridElement.getElementWidth() + Grid.getX0()){
@@ -121,14 +125,14 @@ public class CollectorFuel extends TransportVehicle {
 
         else if (this.getX() == (Grid.getWidth() - 3) * GridElement.getElementWidth() + Grid.getX0() && ft != 666 &&
                 this.getY() == Grid.getListOfFuelTanks().get(ft).getY() * GridElement.getElementHeight() + Grid.getY0() + 1 &&
-                MoveController.getSliderMode() >= 2) {
-            if (stop <= 62 / MoveController.getSliderMode()){
+                sliderMode >= 2) {
+            if (stop <= 62 / sliderMode){
                 stop++;
             }
             else{
-                new LogMessage("Дозаправщик разгрузился. Топливо: " + fuelType + ", " + (FuelTank.getVolume() - Grid.getListOfFuelTanks().get(ft).getCurrentVolume()) + "л");
+                Log.sendMessage("Дозаправщик разгрузился. Топливо: " + fuelType + ", " + (FuelTank.getVolume() - Grid.getListOfFuelTanks().get(ft).getCurrentVolume()) + "л");
                 this.setDirection(BOTTOM);
-                this.moveY(+2 * MoveController.getSliderMode());
+                this.moveY(+2 * sliderMode);
                 imageView.setTranslateX(this.getX());
                 imageView.setTranslateY(this.getY());
                 Grid.getListOfFuelTanks().get(ft).setCurrentVolume(FuelTank.getVolume());
@@ -137,14 +141,14 @@ public class CollectorFuel extends TransportVehicle {
         }
         else if (this.getX() == (Grid.getWidth() - 3) * GridElement.getElementWidth() + Grid.getX0() && ft != 666 &&
                 this.getY() == Grid.getListOfFuelTanks().get(ft).getY() * GridElement.getElementHeight() + Grid.getY0() + 2 &&
-                MoveController.getSliderMode() >= 2) {
-            if (stop <= 62 / MoveController.getSliderMode()){
+                sliderMode >= 2) {
+            if (stop <= 62 / sliderMode){
                 stop++;
             }
             else{
-                new LogMessage("Дозаправщик разгрузился. Топливо: " + fuelType + ", " + (FuelTank.getVolume() - Grid.getListOfFuelTanks().get(ft).getCurrentVolume()) + "л");
+                Log.sendMessage("Дозаправщик разгрузился. Топливо: " + fuelType + ", " + (FuelTank.getVolume() - Grid.getListOfFuelTanks().get(ft).getCurrentVolume()) + "л");
                 this.setDirection(BOTTOM);
-                this.moveY(+2 * MoveController.getSliderMode());
+                this.moveY(+2 * sliderMode);
                 imageView.setTranslateX(this.getX());
                 imageView.setTranslateY(this.getY());
                 Grid.getListOfFuelTanks().get(ft).setCurrentVolume(FuelTank.getVolume());
@@ -154,13 +158,13 @@ public class CollectorFuel extends TransportVehicle {
         //притормозим у кассы, заберем бабло
         else if (this.getX() == (Grid.getWidth() - 3) * GridElement.getElementWidth() + Grid.getX0() && ft != 666 &&
                 this.getY() == Grid.getListOfFuelTanks().get(ft).getY() * GridElement.getElementHeight() + Grid.getY0()) {
-            if (stop <= 62 / MoveController.getSliderMode()){
+            if (stop <= 62 / sliderMode){
                 stop++;
             }
             else{
-                new LogMessage("Дозаправщик разгрузился. Топливо: " + fuelType + ", " + (FuelTank.getVolume() - Grid.getListOfFuelTanks().get(ft).getCurrentVolume()) + "л");
+                Log.sendMessage("Дозаправщик разгрузился. Топливо: " + fuelType + ", " + (FuelTank.getVolume() - Grid.getListOfFuelTanks().get(ft).getCurrentVolume()) + "л");
                 this.setDirection(BOTTOM);
-                this.moveY(+1 * MoveController.getSliderMode());
+                this.moveY(+1 * sliderMode);
                 imageView.setTranslateX(this.getX());
                 imageView.setTranslateY(this.getY());
                 Grid.getListOfFuelTanks().get(ft).setCurrentVolume(FuelTank.getVolume());
@@ -171,7 +175,7 @@ public class CollectorFuel extends TransportVehicle {
         else if (this.getX() == (Grid.getWidth() - 3) * GridElement.getElementWidth() + Grid.getX0() &&
                 this.getY() != Grid.getHeight() * GridElement.getElementHeight() + Grid.getY0()) {
             this.setDirection(BOTTOM);
-            this.moveY(+1 * MoveController.getSliderMode());
+            this.moveY(+1 * sliderMode);
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());
             if (this.getY() > Exit.getY() * GridElement.getElementHeight() + Grid.getY0()){
@@ -187,7 +191,7 @@ public class CollectorFuel extends TransportVehicle {
         else if (this.getX() == (Grid.getWidth() - 3) * GridElement.getElementWidth() + Grid.getX0() &&
                 this.getY() == Grid.getHeight() * GridElement.getElementHeight() + Grid.getY0()) {
             this.setDirection(LEFT);
-            this.moveX(-1 * MoveController.getSliderMode());
+            this.moveX(-1 * sliderMode);
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());
             //ft.setCurrentVolume();
@@ -197,7 +201,7 @@ public class CollectorFuel extends TransportVehicle {
 //выехали на дорогу, уезжаем
         else if (this.getX() < (Grid.getWidth() - 3) * GridElement.getElementWidth() + Grid.getX0() &&
                 this.getY() == Grid.getHeight() * GridElement.getElementHeight() + Grid.getY0()) {
-            this.moveX(-1 * MoveController.getSliderMode());
+            this.moveX(-1 * sliderMode);
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());
             if (this.getX() < Grid.getX0()){

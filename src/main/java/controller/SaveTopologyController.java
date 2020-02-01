@@ -28,7 +28,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
-public class SaveTopologyController {
+public class SaveTopologyController extends Controller {
     private ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-data-context.xml");
     private TopologyRepository topologyRepository = context.getBean(TopologyRepository.class);
     private PetrolStationRepository petrolStationRepository = context.getBean(PetrolStationRepository.class);
@@ -43,6 +43,7 @@ public class SaveTopologyController {
     private TextField textField;
 
     public void initialize() {
+        ControllersRepository.addController(ControllerType.SAVETOPOLOGYCONTROLLER, this);
         textField.setText(null);
         alert.initStyle(StageStyle.TRANSPARENT);
     }

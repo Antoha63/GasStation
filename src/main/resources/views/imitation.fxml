@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="706.0" prefWidth="1007.0" styleClass="window_background" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ImitationController">
+<AnchorPane fx:id="anchorPane" prefHeight="600.0" prefWidth="1000.0" styleClass="window_background" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ImitationController">
    <children>
       <AnchorPane fx:id="threadButtons" layoutX="10.0" layoutY="40.0" prefHeight="50.0" prefWidth="120.0">
          <children>
@@ -41,10 +41,9 @@
             </Button>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="backButtons" layoutX="10.0" layoutY="98.0" />
-      <AnchorPane fx:id="statistics" layoutX="790.0" layoutY="353.0" prefHeight="87.0" prefWidth="170.0">
+      <AnchorPane fx:id="statistics" layoutX="761.0" layoutY="562.0" prefHeight="87.0" prefWidth="204.0" AnchorPane.bottomAnchor="10.0">
          <children>
-            <Label layoutX="41.0" styleClass="text" stylesheets="@../styles/styles.css" text="Статистика">
+            <Label layoutX="65.0" styleClass="text" stylesheets="@../styles/styles.css" text="Статистика">
                <font>
                   <Font size="17.0" />
                </font>
@@ -79,19 +78,19 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <Label fx:id="cash_value_label1" layoutX="152.0" layoutY="19.0" styleClass="text" stylesheets="@../styles/styles.css" text="руб.">
+            <Label fx:id="cash_value_label1" layoutX="177.0" layoutY="19.0" styleClass="text" stylesheets="@../styles/styles.css" text="руб.">
                <font>
                   <Font size="17.0" />
                </font>
             </Label>
-            <Label fx:id="cash_value_label11" layoutX="152.0" layoutY="69.0" styleClass="text" stylesheets="@../styles/styles.css" text="л.">
+            <Label fx:id="cash_value_label11" layoutX="177.0" layoutY="69.0" styleClass="text" stylesheets="@../styles/styles.css" text="л.">
                <font>
                   <Font size="17.0" />
                </font>
             </Label>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="dragableArea" cache="true" layoutX="1.0" layoutY="1.0" prefHeight="30.0" prefWidth="1004.0" styleClass="close_area" stylesheets="@../styles/styles.css">
+      <AnchorPane fx:id="dragableArea" cache="true" layoutX="1.0" layoutY="1.0" prefHeight="30.0" prefWidth="1004.0" styleClass="close_area" stylesheets="@../styles/styles.css" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0">
          <children>
             <Button fx:id="closeButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="15.0" prefWidth="15.0" styleClass="button_close" stylesheets="@../styles/styles.css" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="7.0">
                <font>
@@ -105,13 +104,13 @@
             </Button>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="anchorPaneMode" layoutX="39.0" layoutY="206.0" prefHeight="66.0" prefWidth="143.0">
+      <AnchorPane fx:id="anchorPaneMode" layoutX="24.0" layoutY="98.0" prefHeight="66.0" prefWidth="143.0">
          <children>
             <Label layoutX="28.0" layoutY="5.0" styleClass="text" text="Режим работы" />
             <Slider fx:id="sliderMode" blendMode="MULTIPLY" blockIncrement="1.0" layoutX="3.0" layoutY="28.0" majorTickUnit="2.0" max="3.0" min="1.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="cashBoxPopup" layoutX="39.0" layoutY="572.0" prefHeight="96.0" prefWidth="143.0" styleClass="window_background">
+      <AnchorPane fx:id="cashBoxPopup" layoutX="24.0" layoutY="170.0" prefHeight="96.0" prefWidth="143.0" visible="false">
          <children>
             <Label layoutX="10.0" layoutY="10.0" text="Profit" />
             <Label layoutX="10.0" layoutY="40.0" text="Balance" />
@@ -121,7 +120,7 @@
             <Label fx:id="cashboxCriticalValue" layoutX="115.0" layoutY="70.0" text="0" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="fuelTankPopup" layoutX="221.0" layoutY="560.0" prefHeight="102.0" prefWidth="140.0" styleClass="window_background">
+      <AnchorPane fx:id="fuelTankPopup" layoutX="26.0" layoutY="170.0" prefHeight="102.0" prefWidth="140.0" visible="false">
          <children>
             <Label layoutX="10.0" layoutY="10.0" text="Fuel" />
             <Label layoutX="10.0" layoutY="31.0" text="Volume" />
@@ -133,7 +132,7 @@
             <Label fx:id="fueltankCurrentVolume" layoutX="115.0" layoutY="74.0" text="0" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="petrolStationPopup" layoutX="399.0" layoutY="539.0" prefHeight="66.0" prefWidth="143.0" styleClass="window_background">
+      <AnchorPane fx:id="petrolStationPopup" layoutX="24.0" layoutY="170.0" prefHeight="66.0" prefWidth="143.0" visible="false">
          <children>
             <Label layoutX="10.0" layoutY="40.0" text="Status" />
             <Label fx:id="petrolstationSpeed" layoutX="115.0" layoutY="10.0" text="0" />
@@ -141,11 +140,17 @@
             <Label layoutX="10.0" layoutY="10.0" text="Speed" />
          </children>
       </AnchorPane>
-      <Label fx:id="infoLabel" layoutX="835.0" layoutY="40.0" prefHeight="18.0" prefWidth="156.0" styleClass="text" stylesheets="@../styles/styles.css" text="Информационное табло">
+      <Label fx:id="infoLabel" layoutX="782.0" layoutY="40.0" prefHeight="18.0" prefWidth="156.0" styleClass="text" stylesheets="@../styles/styles.css" text="Информационное табло" AnchorPane.topAnchor="40.0">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
-      <TextArea fx:id="log_list" blendMode="MULTIPLY" layoutX="744.0" layoutY="65.0" prefHeight="66.0" prefWidth="257.0" />
+      <TextArea fx:id="log_list" blendMode="MULTIPLY" layoutX="744.0" layoutY="65.0" prefHeight="363.0" prefWidth="257.0" AnchorPane.rightAnchor="13.0" />
+      <Button fx:id="backToMenuButton" layoutX="14.0" layoutY="911.0" mnemonicParsing="false" text="В меню" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0">
+         <styleClass>
+            <String fx:value="button_restyling_bounds" />
+            <String fx:value="button_restyling" />
+         </styleClass>
+      </Button>
    </children>
 </AnchorPane>

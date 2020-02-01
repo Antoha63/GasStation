@@ -1,5 +1,8 @@
 package controller.dbControllers;
 
+import controller.Controller;
+import controller.ControllerType;
+import controller.ControllersRepository;
 import entities.Fuel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,10 +15,13 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import repositories.FuelRepository;
+import views.Window;
+import views.WindowRepository;
+import views.WindowType;
 
 import java.io.IOException;
 
-public class AddFuelController {
+public class AddFuelController extends Controller {
 
     private ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-data-context.xml");
     private FuelRepository fuelRepository = context.getBean(FuelRepository.class);
@@ -33,13 +39,9 @@ public class AddFuelController {
     private Button closeButton;
 
     public void initialize() {
+        ControllersRepository.addController(ControllerType.ADDFUELCONTROLLER, this);
         closeButton.setOnAction(event -> {
-            setCloseButton();
-            try {
-                getDBWorkStage();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            closeWindow();
         });
 
         if (DBWorkController.getName() != null || DBWorkController.getPrice() != 0) {
@@ -58,8 +60,7 @@ public class AddFuelController {
             fuel.setPrice(Double.parseDouble(price.getText()));
             fuelRepository.save(fuel);
 
-            setCloseButton();
-            getDBWorkStage();
+            closeWindow();
         } catch (NumberFormatException e) {
             showAlert();
         }
@@ -67,26 +68,8 @@ public class AddFuelController {
         DBWorkController.setPrice(0);
     }
 
-    private void setCloseButton() {
-        Stage stage = (Stage) closeButton.getScene().getWindow();
-        stage.close();
-    }
-
-    private void getDBWorkStage() throws IOException {
-        Stage primaryStage = new Stage();
-        primaryStage.initStyle(StageStyle.TRANSPARENT);
-        Parent root = FXMLLoader.load(getClass().getResource("/views/dbWorkViews/dbWork.fxml"));
-        root.setOnMousePressed(event -> {
-            xOffset = event.getSceneX();
-            yOffset = event.getSceneY();
-        });
-        root.setOnMouseDragged(event -> {
-            primaryStage.setX(event.getScreenX() - xOffset);
-            primaryStage.setY(event.getScreenY() - yOffset);
-        });
-        primaryStage.setTitle("");
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
+    private void closeWindow() {
+        WindowRepository.getWindow(WindowType.ADDFUELWINDOW).close();
     }
 
     private void showAlert() {
