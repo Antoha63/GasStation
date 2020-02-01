@@ -15,6 +15,7 @@ import topologyObjects.Vehicle;
 import views.WindowRepository;
 import views.WindowType;
 import visualize.Grid;
+import visualize.GridElement;
 
 import java.io.IOException;
 
@@ -120,15 +121,16 @@ public class ImitationController extends Controller {
     }
 
     private void drawGrid() {
+        GridElement[][] tempGrid = Grid.getGrid();
         for (int i = 0; i < Grid.getWidth(); i++) {
             for (int j = 0; j < Grid.getHeight() + 1; j++) {
-                anchorPane.getChildren().add(Grid.getGrid()[i][j]);
-                Grid.getGrid()[i][j].setOnMouseClicked(null);
+                anchorPane.getChildren().add(tempGrid[i][j]);
+                tempGrid[i][j].setOnMouseClicked(null);
             }
         }
         for(int i = 0; i < Grid.getListOfPetrolStations().size(); i++){
             int finalI = i;
-            Grid.getGrid()[Grid.getListOfPetrolStations().get(i).getX()][Grid.getListOfPetrolStations().get(i).getY()].
+            tempGrid[Grid.getListOfPetrolStations().get(i).getX()][Grid.getListOfPetrolStations().get(i).getY()].
                     setOnMouseClicked(mouseEvent -> {
                         petrolStationPopup.setLayoutX(10);
                         petrolStationPopup.setLayoutY(threadButtons.getLayoutY() + playButton.getPrefHeight() + 10);
@@ -138,7 +140,7 @@ public class ImitationController extends Controller {
                     });
         }
         for (int i = 0; i < Grid.getListOfFuelTanks().size();i++){
-            Grid.getGrid()[Grid.getListOfFuelTanks().get(i).getX()][Grid.getListOfFuelTanks().get(i).getY()].
+            tempGrid[Grid.getListOfFuelTanks().get(i).getX()][Grid.getListOfFuelTanks().get(i).getY()].
                     setOnMouseClicked(mouseEvent -> {
                         fuelTankPopup.setLayoutX(10);
                         fuelTankPopup.setLayoutY(threadButtons.getLayoutY() + playButton.getPrefHeight() + 10);
@@ -147,7 +149,7 @@ public class ImitationController extends Controller {
                         petrolStationPopup.setVisible(false);
                     });
         }
-        Grid.getGrid()[CashBox.getX()][CashBox.getY()].
+        tempGrid[CashBox.getX()][CashBox.getY()].
                 setOnMouseClicked(mouseEvent -> {
                     cashBoxPopup.setLayoutX(10);
                     cashBoxPopup.setLayoutY(threadButtons.getLayoutY() + playButton.getPrefHeight() + 10);

@@ -125,7 +125,7 @@ public class ConstructorController extends Controller {
         scrollPaneElements.setLayoutY(buttons.getLayoutY());
     }
 
-    private void drawGrid(int width, int height){
+    public void drawGrid(int width, int height){
         if(Grid.getGrid() == null) {
             Grid.initGrid(x0, y0, width, height);
         }
