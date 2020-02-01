@@ -19,9 +19,7 @@ import visualize.Grid;
 import java.io.IOException;
 
 public class ImitationController extends Controller {
-    private double xOffset;
-    private double yOffset;
-    private MoveController moveController = new MoveController(this);
+    private MoveController moveController;
 
     @FXML
     private Button back_button;
@@ -50,19 +48,13 @@ public class ImitationController extends Controller {
     @FXML
     private Label petrolstationStatus;
     @FXML
-    private AnchorPane dragableArea;
-    @FXML
     private AnchorPane threadButtons;
-    @FXML
-    private AnchorPane statistics;
     @FXML
     private Button playButton;
     @FXML
     private Button pauseButton;
     @FXML
     private Button stopButton;
-    @FXML
-    private AnchorPane backButtons;
     @FXML
     private AnchorPane anchorPane;
     @FXML
@@ -78,15 +70,14 @@ public class ImitationController extends Controller {
     @FXML
     private Button closeButton;
     @FXML
-    private AnchorPane anchorPaneMode;
-    @FXML
     @Getter
     private Slider sliderMode;
-    @FXML
-    private Button inConstructorButton;
 
     public void initialize() {
         ControllersRepository.addController(ControllerType.IMITATIONCONTROLLER, this);
+        ControllersRepository.addController(ControllerType.MOVECONTROLLER, new MoveController());
+        moveController = (MoveController) ControllersRepository.
+                getController(ControllerType.MOVECONTROLLER);
         setOnActionBackButton();
         setOnActionCloseWindow();
         drawGrid();
@@ -124,8 +115,7 @@ public class ImitationController extends Controller {
 
     private void setOnActionCloseWindow() {
         closeButton.setOnAction(event -> {
-            Stage stage = (Stage) closeButton.getScene().getWindow();
-            stage.close();
+            WindowRepository.getWindow(WindowType.IMITATIONWINDOW).close();
         });
     }
 
@@ -199,7 +189,6 @@ public class ImitationController extends Controller {
     private void setOnActionStop() {
         stopButton.setOnAction(event -> {
             moveController.setTimeState(TimeState.STOP);
-            moveController = new MoveController(this);
             CashBox.setStatus(true);
             CashBox.setBalance(0);
             CashBox.setProfit(0);

@@ -1,5 +1,6 @@
 package controller;
 
+import elements.CashBox;
 import elements.ElementType;
 import elements.Entry;
 import elements.Exit;
@@ -32,13 +33,6 @@ import java.io.IOException;
 import java.util.List;
 
 public class ConstructorController extends Controller {
-    private double xOffset;
-    private double yOffset;
-
-    private ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-data-context.xml");
-    private TopologyRepository topologyRepository = context.getBean(TopologyRepository.class);
-    private PetrolStationRepository petrolStationRepository = context.getBean(PetrolStationRepository.class);
-    private FuelTankRepository fuelTankRepository = context.getBean(FuelTankRepository.class);
 
     @FXML
     private AnchorPane anchorPane;
@@ -62,8 +56,6 @@ public class ConstructorController extends Controller {
     private ImageView petrolStation;
     @FXML
     private ImageView fuelTank;
-    @FXML
-    private Button checkCorrect;
 
     private int x0;
     private int y0;
@@ -74,9 +66,7 @@ public class ConstructorController extends Controller {
         closeButton.setOnAction(event -> {
             WindowRepository.getWindow(WindowType.CONSTRUCTORWINDOW).close();
         });
-        checkCorrect.setOnAction(event -> {
-            System.out.println(Grid.getListOfFuelTanks());
-        });
+        setBackButtonEvent();
 
         buttons.setLayoutX(10);
         buttons.setLayoutY(40);
@@ -89,7 +79,6 @@ public class ConstructorController extends Controller {
         int width;
         int height;
         if (window != null && window.isInitialized()) {
-            setBackButtonEvent();
             BoundsController boundsController = (BoundsController) ControllersRepository.
                     getController(ControllerType.BOUNDSCONTROLLER);
             width = boundsController.getTopologyWidth().getValue();
@@ -102,7 +91,11 @@ public class ConstructorController extends Controller {
         }
         window = (Window) WindowRepository.getWindow(WindowType.DOWNLOADTOPOLOGYWINDOW);
         if (window != null && window.isInitialized()) {
-            setBackButtonEvent();
+            ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-data-context.xml");
+            TopologyRepository topologyRepository = context.getBean(TopologyRepository.class);
+            PetrolStationRepository petrolStationRepository = context.getBean(PetrolStationRepository.class);
+            FuelTankRepository fuelTankRepository = context.getBean(FuelTankRepository.class);
+
             Topology topology = topologyRepository.findByName(DownloadTopologyController.getTopologyName());
             width = topology.getWidth();
             height = topology.getHeight();
@@ -133,7 +126,9 @@ public class ConstructorController extends Controller {
     }
 
     private void drawGrid(int width, int height){
-        Grid.initGrid(x0, y0, width, height);
+        if(Grid.getGrid() == null) {
+            Grid.initGrid(x0, y0, width, height);
+        }
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height + 1; j++) {
                 anchorPane.getChildren().add(Grid.getGrid()[i][j]);
@@ -158,7 +153,42 @@ public class ConstructorController extends Controller {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        });
+
+            try {
+                Grid.getGrid()[Entry.getX()][Entry.getY()].setFrameAnimation(null);
+                Grid.getGrid()[Entry.getX()][Entry.getY()].setMainStaticElement(null);
+                Entry.setStatus(false);
+
+                Grid.getGrid()[Exit.getX()][Exit.getY()].setFrameAnimation(null);
+                Grid.getGrid()[Exit.getX()][Exit.getY()].setMainStaticElement(null);
+                Exit.setStatus(false);
+
+                Grid.getGrid()[CashBox.getX()][CashBox.getY()].setFrameAnimation(null);
+                Grid.getGrid()[CashBox.getX()][CashBox.getY()].setMainStaticElement(null);
+
+                if (Grid.getListOfPetrolStations() != null) {
+                    for (int i = 0; i < Grid.getListOfPetrolStations().size(); i++) {
+                        Grid.getGrid()[Grid.getListOfPetrolStations().get(i).getX()]
+                                [Grid.getListOfPetrolStations().get(i).getY()].setFrameAnimation(null);
+
+                        Grid.getGrid()[Grid.getListOfPetrolStations().get(i).getX()]
+                                [Grid.getListOfPetrolStations().get(i).getY()].setMainStaticElement(null);
+                    }
+                    Grid.setListOfPetrolStations(null);
+                }
+
+                if (Grid.getListOfFuelTanks() != null) {
+                    for (int i = 0; i < Grid.getListOfFuelTanks().size(); i++) {
+                        Grid.getGrid()[Grid.getListOfFuelTanks().get(i).getX()]
+                                [Grid.getListOfFuelTanks().get(i).getY()].setFrameAnimation(null);
+
+                        Grid.getGrid()[Grid.getListOfFuelTanks().get(i).getX()]
+                                [Grid.getListOfFuelTanks().get(i).getY()].setMainStaticElement(null);
+                    }
+                    Grid.setListOfFuelTanks(null);
+                }
+            }
+            catch (NullPointerException ignored){}});
     }
 
     @FXML

@@ -28,13 +28,6 @@ public class MoveController extends Controller {
     private static Distribution distribution = new ExponentialDistribution(1);
     private AnimationTimer animationTimer;
     private TimeState timeState;
-    private ImitationController imitationController;
-
-    public MoveController(ImitationController imitationController) {
-        this.imitationController = imitationController;
-
-        ControllersRepository.addController(ControllerType.MOVECONTROLLER, this);
-    }
 
     public static void setDistribution(Distribution distribution) {
         MoveController.distribution = distribution;

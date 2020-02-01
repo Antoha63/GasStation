@@ -16,14 +16,6 @@ import visualize.Grid;
 import java.io.IOException;
 
 public class BoundsController extends Controller{
-    private double xOffset;
-    private double yOffset;
-    private static Stage primaryStage;
-
-    public static Stage getPrimaryStage() {
-        return primaryStage;
-    }
-
     @Getter
     @FXML
     private Spinner<Integer> topologyHeight;
@@ -36,10 +28,6 @@ public class BoundsController extends Controller{
     private Button closeButton;
     @FXML
     private Button okButton;
-
-    public static void setPrimaryStage(Stage newPrimaryStage) {
-        primaryStage = newPrimaryStage;
-    }
 
     public void initialize() {
         ControllersRepository.addController(ControllerType.BOUNDSCONTROLLER, this);

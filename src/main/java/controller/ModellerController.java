@@ -31,8 +31,6 @@ import java.util.List;
 import static javafx.scene.effect.BlendMode.MULTIPLY;
 
 public class ModellerController extends Controller {
-    private double xOffset;
-    private double yOffset;
     private static List<Car> carList;
     private static List<Fuel> fuelList;
     private static List<Fuel> usabledFuelList;
@@ -230,7 +228,7 @@ public class ModellerController extends Controller {
         for (String name : nameList) {
             CheckBox checkBox = new CheckBox();
             checkBox.setText(name);
-            checkBox.setLayoutX(240);
+            checkBox.setLayoutX(20);
             checkBox.setLayoutY(300 + i * 30);
             checkBox.setBlendMode(MULTIPLY);
             checkBoxes.add(checkBox);
