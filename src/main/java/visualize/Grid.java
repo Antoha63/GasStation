@@ -7,7 +7,6 @@ import elements.Entry;
 import elements.Exit;
 import elements.FuelTank;
 import elements.PetrolStation;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Line;
@@ -86,7 +85,8 @@ public class Grid {
                 int finalJ = j;
 
                 grid[i][j].setOnDragOver(event -> {
-                    if (event.getDragboard().hasString() && !grid[finalI][finalJ].getIsOccupied()) {
+                    if (event.getDragboard().hasString() && !grid[finalI][finalJ].getIsOccupied()
+                            && Exit.getStatus() && Entry.getStatus()) {
                         switch (event.getDragboard().getString()) {
                             case "cashBox":
                             case "petrolStation":
@@ -96,15 +96,16 @@ public class Grid {
                     }
                 });
                 grid[i][j].setOnDragDropped(event -> {
-                    switch (event.getDragboard().getString()) {
-                        case "cashBox":
-                            grid[finalI][finalJ].createElement(CASHBOX, 0);
-                            break;
-                        case "petrolStation":
-                            grid[finalI][finalJ].createElement(PETROLSTATION, 0);
-                            setPetrolRoad(finalI, finalJ);
-                            break;
-                    }
+                    if(Exit.getStatus() && Entry.getStatus())
+                        switch (event.getDragboard().getString()) {
+                            case "cashBox":
+                                grid[finalI][finalJ].createElement(CASHBOX, 0);
+                                break;
+                            case "petrolStation":
+                                grid[finalI][finalJ].createElement(PETROLSTATION, 0);
+                                setPetrolRoad(finalI, finalJ);
+                                break;
+                        }
                 });
                 grid[i][j].setOnMouseClicked(event -> {
                     if (grid[finalI][finalJ].getMainStaticElement() != null) {
@@ -119,7 +120,7 @@ public class Grid {
         for (int j = 1; j < height; j++) {
             int finalJ = j;
             grid[width - 2][j].setOnDragOver(event -> {
-                if (event.getDragboard().hasString()) {
+                if (event.getDragboard().hasString()&& Exit.getStatus() && Entry.getStatus()) {
                     switch (event.getDragboard().getString()) {
                         case "fuelTank":
                             event.acceptTransferModes(TransferMode.COPY);
@@ -128,11 +129,12 @@ public class Grid {
                 }
             });
             grid[width - 2][j].setOnDragDropped(event -> {
-                switch (event.getDragboard().getString()) {
-                    case "fuelTank":
-                        grid[width - 2][finalJ].createElement(FUELTANK, 0);
-                        break;
-                }
+                if(Exit.getStatus() && Entry.getStatus())
+                    switch (event.getDragboard().getString()) {
+                        case "fuelTank":
+                            grid[width - 2][finalJ].createElement(FUELTANK, 0);
+                            break;
+                    }
             });
             grid[width - 2][j].setOnMouseClicked(event -> {
                 if (grid[width - 2][finalJ].getMainStaticElement() != null) {
@@ -155,14 +157,15 @@ public class Grid {
                     }
                 }
             });
-            grid[i][Grid.height].setOnDragDropped(event -> {//TODO: fix readd round road when deleting the Entry
+            grid[i][Grid.height].setOnDragDropped(event -> {
                 switch (event.getDragboard().getString()) {
                     case "exit":
-                        if (finalI <= Entry.getX() && Entry.getStatus())
+                        if (finalI <= Entry.getX() && Entry.getStatus() && !Exit.getStatus())
                             grid[finalI][Grid.height].createElement(EXIT, 180);
                         break;
                     case "entry":
-                        grid[finalI][Grid.height].createElement(ENTRY, 180);
+                        if(!Entry.getStatus())
+                            grid[finalI][Grid.height].createElement(ENTRY, 180);
                         break;
                 }
                 if (Entry.getStatus() && Exit.getStatus() && Entry.getX() > Exit.getX()) {
@@ -174,28 +177,23 @@ public class Grid {
             });
             grid[i][Grid.height].setOnMouseClicked(event -> {
                 if (grid[finalI][Grid.height].getIsOccupied()) {
-                    if (Entry.getX() == 0 ^ Exit.getX() == 0 && (finalI == Exit.getX() || finalI == Entry.getX())) {
+                    if (grid[finalI][Grid.height].getMainStaticElement().getElementType() == ENTRY) {
+                        removeRoundRoad();
                         grid[finalI][Grid.height].deleteElement();
-                    }
-                    if (Entry.getX() != 0 && Exit.getX() != 0 && (finalI == Exit.getX() || finalI == Entry.getX())) {
-                        if (grid[finalI][Grid.height].getMainStaticElement().getElementType() == ENTRY) {
-                            removeRoundRoad();
-                            grid[finalI][Grid.height].deleteElement();
-                            Entry.setX(0);
-                            Entry.setY(0);
-                            Entry.setStatus(false);
-                        } else {
-                            removeRoundRoad();
-                            grid[finalI][Grid.height].deleteElement();
-                            Exit.setX(0);
-                            Exit.setY(0);
-                            Exit.setStatus(false);
-                        }
+                        Entry.setX(0);
+                        Entry.setY(0);
+                        Entry.setStatus(false);
+                    } else {
+                        removeRoundRoad();
+                        grid[finalI][Grid.height].deleteElement();
+                        Exit.setX(0);
+                        Exit.setY(0);
+                        Exit.setStatus(false);
                     }
                 }
             });
         }
-        setRoad();
+        setInputCrossRoad();
         setStationRoad();
     }
 
@@ -318,7 +316,7 @@ public class Grid {
         return lineList;
     }
 
-    private static void setRoad() {
+    private static void setInputCrossRoad() {
         for (int i = 0; i < width; i++) {
             grid[i][height].createElement(ROAD, 0);
         }

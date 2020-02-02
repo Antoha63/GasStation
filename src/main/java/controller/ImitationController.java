@@ -9,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Line;
-import javafx.stage.Stage;
 import lombok.Getter;
 import topologyObjects.Vehicle;
 import views.WindowRepository;
@@ -82,9 +81,15 @@ public class ImitationController extends Controller {
         setOnActionBackButton();
         setOnActionCloseWindow();
         drawGrid();
-        setOnActionPlay();
-        setOnActionPause();
-        setOnActionStop();
+        playButton.setOnAction(actionEvent -> {
+            playImitation();
+        });
+        pauseButton.setOnAction(actionEvent -> {
+            pauseImitation();
+        });
+        stopButton.setOnAction(actionEvent -> {
+            stopImitation();
+        });
     }
 
     private void setOnActionBackButton() {
@@ -100,22 +105,8 @@ public class ImitationController extends Controller {
             CashBox.setCriticalLevel(0);
             Vehicle.setProbabilityOfArrival(0);
 
-            CashBox.setStatus(true);
-            CashBox.setBalance(0);
-            CashBox.setProfit(0);
-            Vehicle.setCountCars(0);
-            Vehicle.setCountLitres(0);
-            Log.sendMessage(0,0,0);
-            for (int i = 0; i < Grid.getListOfPetrolStations().size(); i++){
-                Grid.getListOfPetrolStations().get(i).setStatus(true);
-            }
-            for (int i = 0; i < Grid.getListOfFuelTanks().size(); i++){
-                Grid.getListOfFuelTanks().get(i).setStatus(true);
-                Grid.getListOfFuelTanks().get(i).setCurrentVolume(FuelTank.getVolume());
-            }
-            log_list.clear();
+            stopImitation();
 
-            //Grid.setGrid(null);
             WindowRepository.getWindow(WindowType.IMITATIONWINDOW).close();
         });
     }
@@ -178,49 +169,44 @@ public class ImitationController extends Controller {
         }
     }
 
-    private void setOnActionPlay() {
-        playButton.setOnAction(event -> {
-            try {
-                if(moveController.getTimeState() == TimeState.START || moveController.getTimeState() == TimeState.PAUSE){
+    private void playImitation() {
+        try {
+            if(moveController.getTimeState() == TimeState.START || moveController.getTimeState() == TimeState.PAUSE){
 
-                }
-                else{
-                    moveController.setTimeState(TimeState.START);
-                    moveController.go(anchorPane);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
             }
-        });
-    }
-
-    private void setOnActionPause() {
-        pauseButton.setOnAction(event -> {
-            if (moveController.getTimeState() == TimeState.START)
-                moveController.setTimeState(TimeState.PAUSE);
-            else if (moveController.getTimeState() == TimeState.PAUSE) {
+            else{
                 moveController.setTimeState(TimeState.START);
+                moveController.go(anchorPane);
             }
-        });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    private void setOnActionStop() {
-        stopButton.setOnAction(event -> {
-            moveController.setTimeState(TimeState.STOP);
-            CashBox.setStatus(true);
-            CashBox.setBalance(0);
-            CashBox.setProfit(0);
-            Vehicle.setCountCars(0);
-            Vehicle.setCountLitres(0);
-            Log.sendMessage(0, 0, 0);
-            for (int i = 0; i < Grid.getListOfPetrolStations().size(); i++){
-                Grid.getListOfPetrolStations().get(i).setStatus(true);
-            }
-            for (int i = 0; i < Grid.getListOfFuelTanks().size(); i++){
-                Grid.getListOfFuelTanks().get(i).setStatus(true);
-                Grid.getListOfFuelTanks().get(i).setCurrentVolume(FuelTank.getVolume());
-            }
-            log_list.clear();
-        });
+    private void pauseImitation() {
+        if (moveController.getTimeState() == TimeState.START)
+            moveController.setTimeState(TimeState.PAUSE);
+        else if (moveController.getTimeState() == TimeState.PAUSE) {
+            moveController.setTimeState(TimeState.START);
+        }
+    }
+
+    private void stopImitation() {
+        moveController.setTimeState(TimeState.STOP);
+        CashBox.setStatus(true);
+        CashBox.setBalance(0);
+        CashBox.setProfit(0);
+        Vehicle.setCountCars(0);
+        Vehicle.setCountLitres(0);
+        Log.sendMessage(0, 0, 0);
+        for (int i = 0; i < Grid.getListOfPetrolStations().size(); i++){
+            Grid.getListOfPetrolStations().get(i).setStatus(true);
+        }
+        for (int i = 0; i < Grid.getListOfFuelTanks().size(); i++){
+            Grid.getListOfFuelTanks().get(i).setStatus(true);
+            Grid.getListOfFuelTanks().get(i).setCurrentVolume(FuelTank.getVolume());
+        }
+
+        log_list.clear();
     }
 }
