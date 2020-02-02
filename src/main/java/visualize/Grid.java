@@ -34,8 +34,15 @@ public class Grid {
     private static int y0;
     private static int x;
     private static int y;
+    @Setter
     private static int width;
+    @Setter
     private static int height;
+
+    static {
+        width = 0;
+        height = 0;
+    }
 
     private static GridElement[][] grid;
     private static String[] dragboardStrings;
@@ -370,34 +377,6 @@ public class Grid {
             grid[width - 1][i].createElement(ROAD, 90);
         }
     }
-
-
-
-    private void algoritmOfDeicstra(int sourceX, int sourceY, int destX, int destY){
-        int size = (width - 3) * height;
-        int[][] matrixOfDistance = new int[size][size];
-        int[] minimalDistance = new int[size];
-        boolean[] isVisited = new boolean[size];
-
-        /*initDistances*/
-        for(int i = 0; i < size; i ++){
-            matrixOfDistance[i][i] = 0;
-            for(int j = i + 1; j < size; j++){
-                matrixOfDistance[i][j] = 1;
-                matrixOfDistance[j][i] = 1;
-            }
-        }
-
-        /*initVisitedAndMinDistances*/
-        for(int i = 0; i < size; i++){
-            isVisited[i] = false;
-            minimalDistance[i] = 99999;
-        }
-
-        //TODO:
-    }
-
-
 
     public static GridElement[][] getGrid() {
         return grid;

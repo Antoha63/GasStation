@@ -35,6 +35,6 @@ public class MainApp extends Application {
         windowRepository.addWindow(ADDCARWINDOW);
         windowRepository.addWindow(IMITATIONWINDOW);
 
-        windowRepository.getWindow(MAINWINDOW).show();
+        WindowRepository.getWindow(MAINWINDOW).show();
     }
 }

@@ -113,7 +113,7 @@ public class ModellerController extends Controller {
             }
             ConstructorController constructorController = (ConstructorController)
                     ControllersRepository.getController(ControllerType.CONSTRUCTORCONTROLLER);
-            constructorController.drawGrid(Grid.getWidth(), Grid.getHeight());
+            constructorController.initialize();
         });
         radioButtonDeterministicDistribution.setOnAction(event -> {
             labelTime.setVisible(true);

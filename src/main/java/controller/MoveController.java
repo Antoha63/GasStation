@@ -28,6 +28,8 @@ public class MoveController extends Controller {
     private static Distribution distribution = new ExponentialDistribution(1);
     private AnimationTimer animationTimer;
     private TimeState timeState;
+    private ImitationController imitationController = (ImitationController)
+            ControllersRepository.getController(ControllerType.IMITATIONCONTROLLER);
 
     public static void setDistribution(Distribution distribution) {
         MoveController.distribution = distribution;
@@ -42,13 +44,15 @@ public class MoveController extends Controller {
         final int[] numOfVehicle = {0};
         final int[] temp = {666};
         final int[] trigger = {0};
+        final boolean[] autoCreated = {false};
         animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
                 switch (timeState) {
                     case START:
                         trigger[0]++;
-                        while ((int) (distribution.getTimes()[j[0]] * 61) == i[0]) {//TODO: fix distributions
+                        if ((int) (distribution.getTimes()[j[0]] * 61 /
+                                imitationController.getSliderMode().getValue()) == i[0]) {//TODO: fix distributions
                             VisualisedTransportVehicle visualisedTransportVehicle =
                                     new VisualisedTransportVehicle(
                                             (int) Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getTranslateX(),
@@ -57,11 +61,15 @@ public class MoveController extends Controller {
                             automobiles.add(visualisedTransportVehicle);
                             root.getChildren().add(automobiles.get(numOfVehicle[0]).getFrameAnimation().getImageView());
                             numOfVehicle[0]++;
-                            i[0] = 0;
+                            autoCreated[0] = true;
                             if (j[0] == 99) j[0] = 0;
                             j[0]++;
                         }
                         i[0]++;
+                        if(autoCreated[0]){
+                            i[0] = 0;
+                            autoCreated[0] = false;
+                        }
                         for (int k = 0; k < automobiles.size(); k++) {
                             try {
                                 if (automobiles.get(k) != null) {

@@ -30,7 +30,6 @@ public class BoundsController extends Controller{
     private Button okButton;
 
     public void initialize() {
-        ControllersRepository.addController(ControllerType.BOUNDSCONTROLLER, this);
         closeButton.setOnAction(event -> {
             WindowRepository.getWindow(WindowType.BOUNDSWINDOW).close();
         });
@@ -46,6 +45,7 @@ public class BoundsController extends Controller{
 
     @FXML
     public void createConstructor() throws IOException {
+        ControllersRepository.addController(ControllerType.BOUNDSCONTROLLER, this);
         WindowRepository.getWindow(WindowType.CONSTRUCTORWINDOW).show();
         WindowRepository.getWindow(WindowType.BOUNDSWINDOW).close();
     }

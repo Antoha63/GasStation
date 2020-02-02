@@ -16,6 +16,7 @@ public class ControllersRepository {
     }
 
     public static void removeController(ControllerType controllerType){
-        controllers.remove(controllerType);
+        if(controllers.containsKey(controllerType))
+            controllers.remove(controllerType);
     }
 }

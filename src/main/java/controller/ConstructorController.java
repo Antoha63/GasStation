@@ -126,12 +126,13 @@ public class ConstructorController extends Controller {
     }
 
     public void drawGrid(int width, int height){
-        if(Grid.getGrid() == null) {
+        if(Grid.getWidth() != width || Grid.getHeight() != height) {
             Grid.initGrid(x0, y0, width, height);
         }
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height + 1; j++) {
-                anchorPane.getChildren().add(Grid.getGrid()[i][j]);
+                if(!anchorPane.getChildren().contains(Grid.getGrid()[i][j]))
+                    anchorPane.getChildren().add(Grid.getGrid()[i][j]);
             }
         }
         for (Line line : Grid.getLineList()) {
@@ -147,6 +148,8 @@ public class ConstructorController extends Controller {
 
     private void setBackButtonEvent() {
         back_button.setOnAction(event -> {
+            ControllersRepository.removeController(ControllerType.BOUNDSCONTROLLER);
+            ControllersRepository.removeController(ControllerType.DOWNLOADTOPOLOGYCONTROLLER);
             WindowRepository.getWindow(WindowType.CONSTRUCTORWINDOW).close();
             try {
                 WindowRepository.getWindow(WindowType.MAINWINDOW).show();
