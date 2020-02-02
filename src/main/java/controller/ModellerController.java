@@ -189,7 +189,7 @@ public class ModellerController extends Controller {
             FuelTank.setVolume(fuelTankVolume.getValue());
             FuelTank.setCriticalLevel(fuelTankCriticalLevel.getValue());
             CashBox.setCriticalLevel(cashboxCriticalLevel.getValue());
-            Vehicle.setProbabilityOfArrival(probabilityOfArrival.getValue());//TODO: fix it
+            Vehicle.setProbabilityOfArrival(probabilityOfArrival.getValue());
             if (radioButtonDeterministicDistribution.isSelected()) {
                 MoveController.setDistribution(new DeterministicDistribution(time.getValue()));
             } else if (radioButtonExponentialDistribution.isSelected()) {

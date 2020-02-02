@@ -12,11 +12,10 @@ public class ControllersRepository {
     }
 
     public static Controller getController(ControllerType controllerType){
-        return controllers.get(controllerType);
+        return controllers.getOrDefault(controllerType, null);
     }
 
     public static void removeController(ControllerType controllerType){
-        if(controllers.containsKey(controllerType))
             controllers.remove(controllerType);
     }
 }

@@ -79,6 +79,7 @@ if (f.getName() == this.fuelType)
 this.payment = actualFuelVolume *f.getPrice();
 }*/
         }
+        this.comeLogMessage = true;
     }
 
     public static double getProbabilityOfArrival() {
