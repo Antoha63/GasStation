@@ -75,9 +75,7 @@ public class ImitationController extends Controller {
 
     public void initialize() {
         ControllersRepository.addController(ControllerType.IMITATIONCONTROLLER, this);
-        ControllersRepository.addController(ControllerType.MOVECONTROLLER, new MoveController());
-        moveController = (MoveController) ControllersRepository.
-                getController(ControllerType.MOVECONTROLLER);
+        moveController = new MoveController();
         setOnActionBackButton();
         setOnActionCloseWindow();
         drawGrid();
@@ -193,6 +191,7 @@ public class ImitationController extends Controller {
 
     private void stopImitation() {
         moveController.setTimeState(TimeState.STOP);
+        moveController = new MoveController();
         CashBox.setStatus(true);
         CashBox.setBalance(0);
         CashBox.setProfit(0);

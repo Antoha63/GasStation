@@ -47,11 +47,13 @@ public class MoveController extends Controller {
             public void handle(long now) {
                 switch (timeState) {
                     case START:
-                        i[0]++;
                         trigger[0]++;
-                        if ((int) (distribution.getTimes()[j[0]] * 100) == i[0]) {//TODO: fix distributions
-                            VisualisedTransportVehicle visualisedTransportVehicle = new VisualisedTransportVehicle((int) Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getTranslateX(),
-                                    (int) Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getTranslateY(), AUTOMOBILE);
+                        while ((int) (distribution.getTimes()[j[0]] * 61) == i[0]) {//TODO: fix distributions
+                            VisualisedTransportVehicle visualisedTransportVehicle =
+                                    new VisualisedTransportVehicle(
+                                            (int) Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getTranslateX(),
+                                            (int) Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getTranslateY(),
+                                            AUTOMOBILE);
                             automobiles.add(visualisedTransportVehicle);
                             root.getChildren().add(automobiles.get(numOfVehicle[0]).getFrameAnimation().getImageView());
                             numOfVehicle[0]++;
@@ -59,6 +61,7 @@ public class MoveController extends Controller {
                             if (j[0] == 99) j[0] = 0;
                             j[0]++;
                         }
+                        i[0]++;
                         for (int k = 0; k < automobiles.size(); k++) {
                             try {
                                 if (automobiles.get(k) != null) {
@@ -116,14 +119,24 @@ public class MoveController extends Controller {
                         break;
                     case STOP:
                         animationTimer.stop();
+                        distribution.modelFunc();
                         for (VisualisedTransportVehicle automobile : automobiles){
                             root.getChildren().remove(automobile.getFrameAnimation().getImageView());
+                        }
+                        for (int i = 0; i < automobiles.size(); i++){
+                            automobiles.remove(i);
                         }
                         if (collectorCashBox != null)
                             root.getChildren().remove(collectorCashBox.getFrameAnimation().getImageView());
                         if (collectorFuel != null)
                             root.getChildren().remove(collectorFuel.getFrameAnimation().getImageView());
-                        break;
+
+                        i[0] = 0;
+                        j[0] = 0;
+                        numOfVehicle[0] = 0;
+                        temp[0] = 666;
+                        trigger[0] = 0;
+                        return;
                     case PLAY:
                         break;
                     case PAUSE:
