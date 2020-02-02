@@ -105,7 +105,7 @@ public class ImitationController extends Controller {
             CashBox.setProfit(0);
             Vehicle.setCountCars(0);
             Vehicle.setCountLitres(0);
-            new LogStatistic(0,0,0);
+            Log.sendMessage(0,0,0);
             for (int i = 0; i < Grid.getListOfPetrolStations().size(); i++){
                 Grid.getListOfPetrolStations().get(i).setStatus(true);
             }

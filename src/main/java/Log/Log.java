@@ -6,8 +6,12 @@ import controller.ControllersRepository;
 import controller.ImitationController;
 
 public class Log {
-    private static ImitationController imitationController = (ImitationController)
-            ControllersRepository.getController(ControllerType.IMITATIONCONTROLLER);
+    private static ImitationController imitationController;
+
+    static{
+        imitationController = (ImitationController)
+                ControllersRepository.getController(ControllerType.IMITATIONCONTROLLER);
+    }
 
     public static void sendMessage(String logMessage) {
         imitationController.addMessageLog(logMessage);
