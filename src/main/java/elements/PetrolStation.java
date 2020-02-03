@@ -30,7 +30,7 @@ public class PetrolStation extends MainStaticElement {
     public PetrolStation (int x, int y){
         this.x = x;
         this.y = y;
-        Grid.setListOfPetrolStations(this);
+        Grid.addPetrolStation(this);
     }
 
     public static void setSpeed(int sp){

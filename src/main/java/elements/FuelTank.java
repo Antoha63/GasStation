@@ -1,12 +1,9 @@
 package elements;
 
 import elements.mainElement.MainStaticElement;
-import entities.Fuel;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import topologyObjects.CollectorFuel;
 import visualize.Grid;
 
 @Setter
@@ -26,7 +23,7 @@ public class FuelTank extends MainStaticElement {
     public FuelTank(int x, int y) {
         this.x = x;
         this.y = y;
-        Grid.setListOfFuelTanks(this);
+        Grid.addFuelTank(this);
     }
 
     public static void setVolume(int vol){

@@ -21,6 +21,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import repositories.FuelTankRepository;
 import repositories.PetrolStationRepository;
 import repositories.TopologyRepository;
+import views.WindowRepository;
+import views.WindowType;
 import visualize.Grid;
 import visualize.GridElement;
 
@@ -38,11 +40,14 @@ public class SaveTopologyController extends Controller {
 
     @FXML
     private Button button;
-
+    @FXML
+    private Button closeButton;
     @FXML
     private TextField textField;
 
     public void initialize() {
+        closeButton.setOnAction(event ->
+                WindowRepository.getWindow(WindowType.SAVETOPOLOGYWINDOW).close());
         ControllersRepository.addController(ControllerType.SAVETOPOLOGYCONTROLLER, this);
         textField.setText(null);
         alert.initStyle(StageStyle.TRANSPARENT);

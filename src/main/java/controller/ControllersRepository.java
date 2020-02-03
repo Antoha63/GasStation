@@ -8,6 +8,9 @@ public class ControllersRepository {
     private static Map<ControllerType, Controller> controllers = new HashMap<>();;
 
     public static void addController(ControllerType controllerType, Controller controller){
+        if(controllers.containsKey(controllerType)){
+            removeController(controllerType);
+        }
         controllers.put(controllerType, controller);
     }
 

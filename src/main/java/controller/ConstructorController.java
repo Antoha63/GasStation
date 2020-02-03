@@ -8,17 +8,12 @@ import entities.FuelTank;
 import entities.PetrolStation;
 import entities.Topology;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Line;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import repositories.FuelTankRepository;
 import repositories.PetrolStationRepository;
@@ -177,7 +172,7 @@ public class ConstructorController extends Controller {
                         Grid.getGrid()[Grid.getListOfPetrolStations().get(i).getX()]
                                 [Grid.getListOfPetrolStations().get(i).getY()].setMainStaticElement(null);
                     }
-                    Grid.setListOfPetrolStations(null);
+                    Grid.addPetrolStation(null);
                 }
 
                 if (Grid.getListOfFuelTanks() != null) {
@@ -188,7 +183,7 @@ public class ConstructorController extends Controller {
                         Grid.getGrid()[Grid.getListOfFuelTanks().get(i).getX()]
                                 [Grid.getListOfFuelTanks().get(i).getY()].setMainStaticElement(null);
                     }
-                    Grid.setListOfFuelTanks(null);
+                    Grid.addFuelTank(null);
                 }
             }
             catch (NullPointerException ignored){}});

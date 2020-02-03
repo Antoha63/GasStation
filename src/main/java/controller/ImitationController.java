@@ -21,6 +21,9 @@ import java.io.IOException;
 public class ImitationController extends Controller {
     private MoveController moveController;
 
+    {
+        ControllersRepository.addController(ControllerType.IMITATIONCONTROLLER, this);
+    }
     @FXML
     private Button back_button;
     @FXML
@@ -74,7 +77,8 @@ public class ImitationController extends Controller {
     private Slider sliderMode;
 
     public void initialize() {
-        ControllersRepository.addController(ControllerType.IMITATIONCONTROLLER, this);
+//        ControllersRepository.addController(ControllerType.IMITATIONCONTROLLER, this);
+        Log.setImitationController(this);
         moveController = new MoveController();
         setOnActionBackButton();
         setOnActionCloseWindow();
@@ -168,6 +172,8 @@ public class ImitationController extends Controller {
     }
 
     private void playImitation() {
+        if(ControllersRepository.getController(ControllerType.IMITATIONCONTROLLER) != this)
+            ControllersRepository.addController(ControllerType.IMITATIONCONTROLLER, this);
         try {
             if(moveController.getTimeState() == TimeState.START || moveController.getTimeState() == TimeState.PAUSE){
 
