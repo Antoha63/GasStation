@@ -31,6 +31,7 @@ public class PetrolStation extends MainStaticElement {
         this.x = x;
         this.y = y;
         Grid.addPetrolStation(this);
+        System.out.println(Grid.getListOfPetrolStations());
     }
 
     public static void setSpeed(int sp){

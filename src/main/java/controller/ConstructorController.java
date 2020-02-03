@@ -121,7 +121,9 @@ public class ConstructorController extends Controller {
     }
 
     public void drawGrid(int width, int height){
+        System.out.println(1);
         if(Grid.getWidth() != width || Grid.getHeight() != height) {
+            System.out.println(2);
             Grid.initGrid(x0, y0, width, height);
         }
         for (int i = 0; i < width; i++) {
@@ -146,6 +148,7 @@ public class ConstructorController extends Controller {
             ControllersRepository.removeController(ControllerType.BOUNDSCONTROLLER);
             ControllersRepository.removeController(ControllerType.DOWNLOADTOPOLOGYCONTROLLER);
             WindowRepository.getWindow(WindowType.CONSTRUCTORWINDOW).close();
+
             try {
                 WindowRepository.getWindow(WindowType.MAINWINDOW).show();
             } catch (IOException e) {
@@ -153,6 +156,10 @@ public class ConstructorController extends Controller {
             }
 
             try {
+                Grid.setHeight(0);
+                Grid.setWidth(0);
+                Grid.setGrid(null);
+
                 Grid.getGrid()[Entry.getX()][Entry.getY()].setFrameAnimation(null);
                 Grid.getGrid()[Entry.getX()][Entry.getY()].setMainStaticElement(null);
                 Entry.setStatus(false);

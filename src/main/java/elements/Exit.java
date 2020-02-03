@@ -39,7 +39,7 @@ public class Exit extends MainStaticElement {
     }
 
     public static boolean getStatus() {
-        return status;
+         return status;
     }
 
     public static void setStatus(boolean f) {

@@ -6,6 +6,8 @@ import lombok.Setter;
 import lombok.ToString;
 import visualize.Grid;
 
+import java.awt.*;
+
 @Setter
 @Getter
 @ToString
@@ -24,6 +26,7 @@ public class FuelTank extends MainStaticElement {
         this.x = x;
         this.y = y;
         Grid.addFuelTank(this);
+        System.out.println(Grid.getListOfFuelTanks());
     }
 
     public static void setVolume(int vol){
