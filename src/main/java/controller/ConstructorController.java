@@ -121,9 +121,7 @@ public class ConstructorController extends Controller {
     }
 
     public void drawGrid(int width, int height){
-        System.out.println(1);
         if(Grid.getWidth() != width || Grid.getHeight() != height) {
-            System.out.println(2);
             Grid.initGrid(x0, y0, width, height);
         }
         for (int i = 0; i < width; i++) {

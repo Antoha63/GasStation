@@ -17,7 +17,7 @@ public class Window implements IWindow {
     private String title;
     private int width;
     private int height;
-    private Stage stage;
+    private Stage stage = new Stage();
     private boolean isInitialized = false;
 
     public boolean isInitialized() {
@@ -51,19 +51,16 @@ public class Window implements IWindow {
 
     @Override
     public void hide() {
-        stage.close();
+        stage.hide();
     }
 
     @Override
     public void close() {
         hide();
-        stage = null;
         isInitialized = false;
     }
 
     private void init() throws IOException {
-        stage = new Stage();
-        stage.initStyle(StageStyle.TRANSPARENT);
         Parent root = FXMLLoader.load(getClass().getResource(resource));
         root.setOnMousePressed(event -> {
             xOffset = event.getSceneX();

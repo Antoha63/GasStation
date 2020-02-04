@@ -96,8 +96,6 @@ public class ModellerController extends Controller {
     public static List<Fuel> getFuelList(){
         return fuelList;
     }
-    public static List<Fuel> getUsabledFuelList(){
-        return usabledFuelList;    }
 
     public void initialize() {
         ControllersRepository.addController(ControllerType.MODELLERCONTROLLER, this);
@@ -113,7 +111,7 @@ public class ModellerController extends Controller {
             }
             ConstructorController constructorController = (ConstructorController)
                     ControllersRepository.getController(ControllerType.CONSTRUCTORCONTROLLER);
-            constructorController.initialize();
+            constructorController.drawGrid(Grid.getWidth(), Grid.getHeight());
         });
         radioButtonDeterministicDistribution.setOnAction(event -> {
             labelTime.setVisible(true);
@@ -202,6 +200,9 @@ public class ModellerController extends Controller {
                 Grid.getListOfFuelTanks().get(i).setCurrentVolume(FuelTank.getVolume());
             }
             WindowRepository.getWindow(WindowType.IMITATIONWINDOW).show();
+            ImitationController imitationController = (ImitationController)
+                    ControllersRepository.getController(ControllerType.IMITATIONCONTROLLER);
+            imitationController.drawGrid();
             WindowRepository.getWindow(WindowType.MODELLERWINDOW).hide();
         }
         else{

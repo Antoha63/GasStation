@@ -16,9 +16,4 @@ public class Log {
     public static void sendMessage(int profit, int countCars, int countLitres) {
         imitationController.statisticRefresh(profit, countCars, countLitres);
     }
-
-
-    public static void setImitationController(ImitationController ic) {
-        imitationController = ic;
-    }
 }

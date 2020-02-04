@@ -1,6 +1,7 @@
 package views;
 
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class WindowFactory {
     public IWindow createWindow(WindowType windowType) {
@@ -9,6 +10,7 @@ public class WindowFactory {
         int width = 0;
         int height = 0;
         Stage stage = new Stage();
+        stage.initStyle(StageStyle.TRANSPARENT);
         switch (windowType){
             case MAINWINDOW:
                 resource = "/views/main.fxml";

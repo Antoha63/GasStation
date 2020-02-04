@@ -21,9 +21,9 @@ import java.io.IOException;
 public class ImitationController extends Controller {
     private MoveController moveController;
 
-    {
+/*    {
         ControllersRepository.addController(ControllerType.IMITATIONCONTROLLER, this);
-    }
+    }*/
     @FXML
     private Button back_button;
     @FXML
@@ -77,8 +77,7 @@ public class ImitationController extends Controller {
     private Slider sliderMode;
 
     public void initialize() {
-//        ControllersRepository.addController(ControllerType.IMITATIONCONTROLLER, this);
-        Log.setImitationController(this);
+        ControllersRepository.addController(ControllerType.IMITATIONCONTROLLER, this);
         moveController = new MoveController();
         setOnActionBackButton();
         setOnActionCloseWindow();
@@ -109,7 +108,7 @@ public class ImitationController extends Controller {
 
             stopImitation();
 
-            WindowRepository.getWindow(WindowType.IMITATIONWINDOW).close();
+            WindowRepository.getWindow(WindowType.IMITATIONWINDOW).hide();
         });
     }
 
@@ -129,7 +128,7 @@ public class ImitationController extends Controller {
         });
     }
 
-    private void drawGrid() {
+    public void drawGrid() {
         GridElement[][] tempGrid = Grid.getGrid();
         for (int i = 0; i < Grid.getWidth(); i++) {
             for (int j = 0; j < Grid.getHeight() + 1; j++) {
