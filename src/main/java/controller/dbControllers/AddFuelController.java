@@ -41,7 +41,11 @@ public class AddFuelController extends Controller {
     public void initialize() {
         ControllersRepository.addController(ControllerType.ADDFUELCONTROLLER, this);
         closeButton.setOnAction(event -> {
-            closeWindow();
+            try {
+                closeWindow();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
 
         if (DBWorkController.getName() != null || DBWorkController.getPrice() != 0) {
@@ -68,8 +72,10 @@ public class AddFuelController extends Controller {
         DBWorkController.setPrice(0);
     }
 
-    private void closeWindow() {
+    private void closeWindow() throws IOException {
         WindowRepository.getWindow(WindowType.ADDFUELWINDOW).close();
+        WindowRepository.getWindow(WindowType.DBWORKWINDOW).close();
+        WindowRepository.getWindow(WindowType.DBWORKWINDOW).show();
     }
 
     private void showAlert() {

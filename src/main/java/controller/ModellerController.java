@@ -199,10 +199,15 @@ public class ModellerController extends Controller {
                 Grid.getListOfFuelTanks().get(i).setFuel(usabledFuelList.get(i).getName());
                 Grid.getListOfFuelTanks().get(i).setCurrentVolume(FuelTank.getVolume());
             }
+            //TODO: топология не отрисовывается при повторном задании объектов топологии при заходе в имитацию
+/*            if (ControllersRepository.getControllers().containsValue(
+                    ControllersRepository.getController(ControllerType.IMITATIONCONTROLLER))) {
+                ImitationController imitationController = (ImitationController)
+                        ControllersRepository.getController(ControllerType.IMITATIONCONTROLLER);
+                System.out.println("+");
+                imitationController.drawGrid();
+            }*/
             WindowRepository.getWindow(WindowType.IMITATIONWINDOW).show();
-            ImitationController imitationController = (ImitationController)
-                    ControllersRepository.getController(ControllerType.IMITATIONCONTROLLER);
-            imitationController.drawGrid();
             WindowRepository.getWindow(WindowType.MODELLERWINDOW).hide();
         }
         else{
@@ -217,7 +222,7 @@ public class ModellerController extends Controller {
     @FXML
     public void createDBWork() throws IOException {
         WindowRepository.getWindow(WindowType.DBWORKWINDOW).show();
-        WindowRepository.getWindow(WindowType.MODELLERWINDOW).hide();
+        WindowRepository.getWindow(WindowType.MODELLERWINDOW).close();
     }
 
     private void addRadioButtons() {

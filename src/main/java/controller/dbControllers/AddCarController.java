@@ -48,7 +48,11 @@ public class AddCarController extends Controller {
     public void initialize() {
         ControllersRepository.addController(ControllerType.ADDCARCONTROLLER, this);
         closeButton.setOnAction(event -> {
-            closeWindow();
+            try {
+                closeWindow();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
 
         if (DBWorkController.getModel() != null || DBWorkController.getTankVolume() != 0) {
@@ -84,8 +88,10 @@ public class AddCarController extends Controller {
         DBWorkController.setTankVolume(0);
     }
 
-    private void closeWindow() {
+    private void closeWindow() throws IOException {
         WindowRepository.getWindow(WindowType.ADDCARWINDOW).close();
+        WindowRepository.getWindow(WindowType.DBWORKWINDOW).close();
+        WindowRepository.getWindow(WindowType.DBWORKWINDOW).show();
     }
 
     private void showAlert() {

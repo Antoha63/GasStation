@@ -145,7 +145,7 @@ public class ConstructorController extends Controller {
         back_button.setOnAction(event -> {
             ControllersRepository.removeController(ControllerType.BOUNDSCONTROLLER);
             ControllersRepository.removeController(ControllerType.DOWNLOADTOPOLOGYCONTROLLER);
-            WindowRepository.getWindow(WindowType.CONSTRUCTORWINDOW).close();
+            WindowRepository.getWindow(WindowType.CONSTRUCTORWINDOW).hide();
 
             try {
                 WindowRepository.getWindow(WindowType.MAINWINDOW).show();
@@ -158,16 +158,23 @@ public class ConstructorController extends Controller {
                 Grid.setWidth(0);
                 Grid.setGrid(null);
 
-                Grid.getGrid()[Entry.getX()][Entry.getY()].setFrameAnimation(null);
-                Grid.getGrid()[Entry.getX()][Entry.getY()].setMainStaticElement(null);
+                Entry.setX(0);
+                Entry.setY(0);
                 Entry.setStatus(false);
 
-                Grid.getGrid()[Exit.getX()][Exit.getY()].setFrameAnimation(null);
-                Grid.getGrid()[Exit.getX()][Exit.getY()].setMainStaticElement(null);
+                Exit.setX(0);
+                Exit.setY(0);
                 Exit.setStatus(false);
 
                 Grid.getGrid()[CashBox.getX()][CashBox.getY()].setFrameAnimation(null);
                 Grid.getGrid()[CashBox.getX()][CashBox.getY()].setMainStaticElement(null);
+                //TODO: неправильная отрисовка топологии при изменении способа создания
+//                for (int i = 0; i < Grid.getWidth(); i++) {
+//                    for (int j = 0; j < Grid.getHeight() + 1; j++) {
+//                        anchorPane.getChildren().remove(Grid.getGrid()[i][j].
+//                                getFrameAnimation().getImageView());
+//                    }
+//                }
 
                 if (Grid.getListOfPetrolStations() != null) {
                     for (int i = 0; i < Grid.getListOfPetrolStations().size(); i++) {

@@ -86,22 +86,146 @@ public class Grid {
             }
         }
         /*Область трк*/
+
         for (int i = 0; i < width - 3; i++)
             for (int j = 0; j < height; j++) {
-                grid[i][j].setEvents();
+                int finalI = i;
+                int finalJ = j;
+
+                grid[i][j].setOnDragOver(event -> {
+                    if (event.getDragboard().hasString() && !grid[finalI][finalJ].getIsOccupied()
+                            && Exit.getStatus() && Entry.getStatus()) {
+                        switch (event.getDragboard().getString()) {
+                            case "petrolStation":
+                                if(Entry.getStatus() && Exit.getStatus()
+                                    && finalI < Entry.getX() && finalI > Exit.getX())
+                                    event.acceptTransferModes(TransferMode.COPY);
+                                break;
+                        }
+                    }
+                });
+                grid[i][j].setOnDragDropped(event -> {
+                    if(Exit.getStatus() && Entry.getStatus())
+                        switch (event.getDragboard().getString()) {
+                            case "petrolStation":
+                                grid[finalI][finalJ].createElement(PETROLSTATION, 0);
+                                setPetrolRoad(finalI, finalJ);
+                                break;
+                        }
+                });
+                grid[i][j].setOnMouseClicked(event -> {
+                    if (grid[finalI][finalJ].getMainStaticElement().
+                            getElementType().equals(PETROLSTATION)) {
+                        removePetrolRoad(finalI, finalJ);
+                        listOfPetrolStations.remove(grid[finalI][finalJ].getMainStaticElement());
+                        grid[finalI][finalJ].deleteElement();
+                    }
+                });
             }
         /*Область кассы*/
         for (int j = 0; j < height + 1; j++) {
-            grid[0][j].setEvents();
+            int finalJ = j;
+            grid[0][j].setOnDragOver(event -> {
+                if (event.getDragboard().hasString() && !grid[0][finalJ].getIsOccupied()
+                        && Exit.getStatus() && Entry.getStatus()) {
+                    switch (event.getDragboard().getString()) {
+                        case "cashBox":
+                            event.acceptTransferModes(TransferMode.COPY);
+                            break;
+                    }
+                }
+            });
+            grid[0][j].setOnDragDropped(event -> {
+                if(Exit.getStatus() && Entry.getStatus())
+                    switch (event.getDragboard().getString()) {
+                        case "cashBox":
+                            grid[0][finalJ].createElement(CASHBOX, 0);
+                            break;
+                    }
+            });
+            grid[0][j].setOnMouseClicked(event -> {
+                if (grid[0][finalJ].getMainStaticElement() != null) {
+                    grid[0][finalJ].deleteElement();
+                }
+            });
         }
         /*Область топливных баков*/
         for (int j = 1; j < height; j++) {
-            grid[width - 2][j].setEvents();
+            int finalJ = j;
+            grid[width - 2][j].setOnDragOver(event -> {
+                if (event.getDragboard().hasString()&& Exit.getStatus() && Entry.getStatus()) {
+                    switch (event.getDragboard().getString()) {
+                        case "fuelTank":
+                            event.acceptTransferModes(TransferMode.COPY);
+                            break;
+                    }
+                }
+            });
+            grid[width - 2][j].setOnDragDropped(event -> {
+                if(Exit.getStatus() && Entry.getStatus())
+                    switch (event.getDragboard().getString()) {
+                        case "fuelTank":
+                            grid[width - 2][finalJ].createElement(FUELTANK, 0);
+                            break;
+                    }
+            });
+            grid[width - 2][j].setOnMouseClicked(event -> {
+                if (grid[width - 2][finalJ].getMainStaticElement() != null) {
+                    listOfFuelTanks.remove(grid[width - 2][finalJ].getMainStaticElement());
+                    grid[width - 2][finalJ].deleteElement();
+                }
+            });
         }
         /*Область въезда и выезда*/
         for (int i = 1; i < width - 3; i++) {
-            grid[i][Grid.height].setEvents();
-            grid[i][Grid.height].setEvents();
+            int finalI = i;
+
+            grid[i][Grid.height].setOnDragOver(event -> {
+                if (event.getDragboard().hasString()) {
+                    switch (event.getDragboard().getString()) {
+                        case "entry":
+                        case "exit":
+                            event.acceptTransferModes(TransferMode.COPY);
+                            break;
+                    }
+                }
+            });
+            grid[i][Grid.height].setOnDragDropped(event -> {
+                switch (event.getDragboard().getString()) {
+                    case "exit":
+                        if (finalI <= Entry.getX() && Entry.getStatus() && !Exit.getStatus())
+                            grid[finalI][Grid.height].createElement(EXIT, 180);
+                        break;
+                    case "entry":
+                        if(!Entry.getStatus())
+                            grid[finalI][Grid.height].createElement(ENTRY, 180);
+                        break;
+                }
+                if (Entry.getStatus() && Exit.getStatus() && Entry.getX() > Exit.getX()) {
+                    ConstructorController constructorController =
+                            (ConstructorController) ControllersRepository.
+                                    getController(ControllerType.CONSTRUCTORCONTROLLER);
+                    constructorController.disableElements(false);
+                    setRoundRoad();
+                }
+            });
+            grid[i][Grid.height].setOnMouseClicked(event -> {
+                if (grid[finalI][Grid.height].getIsOccupied()) {
+                    if (grid[finalI][Grid.height].getMainStaticElement().getElementType() == ENTRY) {
+                        removeRoundRoad();
+                        grid[finalI][Grid.height].deleteElement();
+                        Entry.setX(0);
+                        Entry.setY(0);
+                        Entry.setStatus(false);
+                    } else {
+                        removeRoundRoad();
+                        grid[finalI][Grid.height].deleteElement();
+                        Exit.setX(0);
+                        Exit.setY(0);
+                        Exit.setStatus(false);
+                    }
+                }
+            });
         }
         setInputCrossRoad();
         setStationRoad();
