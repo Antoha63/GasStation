@@ -18,50 +18,18 @@ public class CashBox extends MainStaticElement {
     private static int balance = 0;
     private static int criticalLevel; //between 10000 nd 100000
     private static boolean status = true;
+    private static boolean setted = false;
 
     public CashBox (int x, int y){
         CashBox.x = x;
         CashBox.y = y;
     }
 
-    public static int getBalance (){
-        return balance;
-    }
-
-    public static void setCriticalLevel(int vol){
-        criticalLevel = vol;
-    }
-
-    public static int getCriticalLevel(){
-        return criticalLevel;
-    }
-
-    public static void setStatus(boolean b) {
-        status = b;
-    }
-
-    public static void setBalance(int i) {
-        balance = i;
-    }
-
-    public static void setProfit(int i) {
-        profit = i;
-    }
-
-    public static int getProfit(){
-        return profit;
-    }
-
-    public static void setPayment(int payment){
-        balance += payment;
-        profit += payment;
-    }
-
     public static boolean checkCashbox(){
         boolean answer = true;
         if (balance >= criticalLevel && status == true)
         {
-           status = false;
+            status = false;
         }
         else{
             answer = false;
@@ -69,15 +37,47 @@ public class CashBox extends MainStaticElement {
         return answer;
     }
 
+    public static int getBalance (){
+        return balance;
+    }
+    public static void setBalance(int i) {
+        balance = i;
+    }
+    public static int getCriticalLevel(){
+        return criticalLevel;
+    }
+    public static void setCriticalLevel(int vol){
+        criticalLevel = vol;
+    }
+    public static boolean getStatus(){
+        return CashBox.status;
+    }
+    public static void setStatus(boolean b) {
+        status = b;
+    }
+    public static int getProfit(){
+        return profit;
+    }
+    public static void setProfit(int i) {
+        profit = i;
+    }
+
+    public static void setPayment(int payment){
+        balance += payment;
+        profit += payment;
+    }
+
     public static int getX(){
         return CashBox.x;
     }
-
     public static int getY(){
         return CashBox.y;
     }
 
-    public static boolean getStatus(){
-        return CashBox.status;
+    public static boolean getSetted() {
+        return setted;
+    }
+    public static void  setSetted(boolean s){
+        setted = s;
     }
 }

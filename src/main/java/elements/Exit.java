@@ -22,28 +22,24 @@ public class Exit extends MainStaticElement {
         status = f;
     }
 
+
     public static void setX(int x) {
         Exit.x = x;
     }
-
-    public static void setY(int y) {
-        Exit.y = y;
-    }
-
     public static int getX() {
         return x;
     }
-
+    public static void setY(int y) {
+        Exit.y = y;
+    }
     public static int getY() {
         return y;
     }
-
-    public static boolean getStatus() {
-         return status;
-    }
-
     public static void setStatus(boolean f) {
         status = f;
+    }
+    public static boolean getStatus() {
+        return status;
     }
 }
 

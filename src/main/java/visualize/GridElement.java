@@ -122,7 +122,6 @@ public class GridElement extends Pane {
 
     public void deleteElement() {
         //if (!elementType.equals(ROAD) && !elementType.equals(CROSSROAD))
-        System.out.println(mainStaticElement);
         this.getChildren().remove(frameAnimation.getImageView());
         frameAnimation = null;
         mainStaticElement = null;

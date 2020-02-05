@@ -3,10 +3,7 @@ package visualize;
 import controller.ConstructorController;
 import controller.ControllerType;
 import controller.ControllersRepository;
-import elements.Entry;
-import elements.Exit;
-import elements.FuelTank;
-import elements.PetrolStation;
+import elements.*;
 import javafx.scene.Parent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
@@ -83,101 +80,12 @@ public class Grid {
         }
         lines = getLineList();
 
-        /*Область трк*/
-        for (int i = 0; i < width - 3; i++)
-            for (int j = 0; j < height; j++) {
-                int finalI = i;
-                int finalJ = j;
 
-                grid[i][j].setOnDragOver(event -> {
-                    if (event.getDragboard().hasString() && !grid[finalI][finalJ].getIsOccupied()
-                            && Exit.getStatus() && Entry.getStatus()) {
-                        switch (event.getDragboard().getString()) {
-                            case "petrolStation":
-                                if(Entry.getStatus() && Exit.getStatus()
-                                    && finalI < Entry.getX() && finalI > Exit.getX())
-                                    event.acceptTransferModes(TransferMode.COPY);
-                                break;
-                        }
-                    }
-                });
-                grid[i][j].setOnDragDropped(event -> {
-                    if(Exit.getStatus() && Entry.getStatus())
-                        switch (event.getDragboard().getString()) {
-                            case "petrolStation":
-                                grid[finalI][finalJ].createElement(PETROLSTATION, 0);
-                                setPetrolRoad(finalI, finalJ);
-                                break;
-                        }
-                });
-                grid[i][j].setOnMouseClicked(event -> {
-                    if (grid[finalI][finalJ].getMainStaticElement().
-                            getElementType().equals(PETROLSTATION)) {
-                        removePetrolRoad(finalI, finalJ);
-                        listOfPetrolStations.remove(grid[finalI][finalJ].getMainStaticElement());
-                        grid[finalI][finalJ].deleteElement();
-                    }
-                });
-            }
-        /*Область кассы*/
-        for (int j = 0; j < height + 1; j++) {
-            int finalJ = j;
-            grid[0][j].setOnDragOver(event -> {
-                if (event.getDragboard().hasString() && !grid[0][finalJ].getIsOccupied()
-                        && Exit.getStatus() && Entry.getStatus()) {
-                    switch (event.getDragboard().getString()) {
-                        case "cashBox":
-                            event.acceptTransferModes(TransferMode.COPY);
-                            break;
-                    }
-                }
-            });
-            grid[0][j].setOnDragDropped(event -> {
-                if(Exit.getStatus() && Entry.getStatus())
-                    switch (event.getDragboard().getString()) {
-                        case "cashBox":
-                            grid[0][finalJ].createElement(CASHBOX, 0);
-                            break;
-                    }
-            });
-            grid[0][j].setOnMouseClicked(event -> {
-                if (grid[0][finalJ].getMainStaticElement() != null) {
-                    grid[0][finalJ].deleteElement();
-                }
-            });
-        }
-        /*Область топливных баков*/
-        for (int j = 1; j < height; j++) {
-            int finalJ = j;
-            grid[width - 2][j].setOnDragOver(event -> {
-                if (event.getDragboard().hasString()&& Exit.getStatus() && Entry.getStatus()) {
-                    switch (event.getDragboard().getString()) {
-                        case "fuelTank":
-                            event.acceptTransferModes(TransferMode.COPY);
-                            break;
-                    }
-                }
-            });
-            grid[width - 2][j].setOnDragDropped(event -> {
-                if(Exit.getStatus() && Entry.getStatus())
-                    switch (event.getDragboard().getString()) {
-                        case "fuelTank":
-                            grid[width - 2][finalJ].createElement(FUELTANK, 0);
-                            break;
-                    }
-            });
-            grid[width - 2][j].setOnMouseClicked(event -> {
-                if (grid[width - 2][finalJ].getMainStaticElement() != null) {
-                    listOfFuelTanks.remove(grid[width - 2][finalJ].getMainStaticElement());
-                    grid[width - 2][finalJ].deleteElement();
-                }
-            });
-        }
         /*Область въезда и выезда*/
-        for (int i = 1; i < width - 3; i++) {
-            int finalI = i;
+        for (int k = 1; k < width - 3; k++) {
+            int finalK = k;
 
-            grid[i][Grid.height].setOnDragOver(event -> {
+            grid[k][Grid.height].setOnDragOver(event -> {
                 if (event.getDragboard().hasString()) {
                     switch (event.getDragboard().getString()) {
                         case "entry":
@@ -187,15 +95,18 @@ public class Grid {
                     }
                 }
             });
-            grid[i][Grid.height].setOnDragDropped(event -> {
+            grid[k][Grid.height].setOnDragDropped(event -> {
                 switch (event.getDragboard().getString()) {
                     case "exit":
-                        if (finalI < Entry.getX() - 1 && Entry.getStatus() && !Exit.getStatus())
-                            grid[finalI][Grid.height].createElement(EXIT, 180);
+                        if (finalK < Entry.getX() - 1 && Entry.getStatus() && !Exit.getStatus()) {
+                            //TODO: заблокированный элемент слева от выезда
+                            grid[finalK][Grid.height].createElement(EXIT, 180);
+                            setRoundRoad();
+                        }
                         break;
                     case "entry":
-                        if(finalI >= 3 && !Entry.getStatus())
-                            grid[finalI][Grid.height].createElement(ENTRY, 180);
+                        if(finalK >= 3 && !Entry.getStatus())
+                            grid[finalK][Grid.height].createElement(ENTRY, 180);
                         break;
                 }
                 if (Entry.getStatus() && Exit.getStatus() && Entry.getX() > Exit.getX()) {
@@ -203,20 +114,106 @@ public class Grid {
                             (ConstructorController) ControllersRepository.
                                     getController(ControllerType.CONSTRUCTORCONTROLLER);
                     constructorController.disableElements(false);
-                    setRoundRoad();
+                    /*Область трк*/
+                    for (int i = 0; i < width - 3; i++)
+                        for (int j = 0; j < height; j++) {
+                            int finalI = i;
+                            int finalJ = j;
+
+                            grid[i][j].setOnDragOver(dragEvent -> {
+                                if (dragEvent.getDragboard().hasString() &&
+                                        !grid[finalI][finalJ].getIsOccupied()
+                                        && Exit.getStatus() && Entry.getStatus()) {
+                                    if ("petrolStation".equals(dragEvent.getDragboard().getString())) {
+                                        if (Entry.getStatus() && Exit.getStatus()
+                                                && finalI <= Entry.getX() && finalI >= Exit.getX())
+                                            dragEvent.acceptTransferModes(TransferMode.COPY);
+                                    }
+                                }
+                            });
+                            grid[i][j].setOnDragDropped(dragEvent -> {
+                                if(Exit.getStatus() && Entry.getStatus())
+                                    if ("petrolStation".equals(dragEvent.getDragboard().getString())) {
+                                        grid[finalI][finalJ].createElement(PETROLSTATION, 0);
+
+                                        setPetrolRoad(finalI, finalJ);
+                                    }
+                            });
+                            grid[i][j].setOnMouseClicked(dragEvent -> {
+                                if (grid[finalI][finalJ].getMainStaticElement() != null &&
+                                        grid[finalI][finalJ].getMainStaticElement().
+                                                getElementType().equals(PETROLSTATION)) {
+                                    removePetrolRoad(finalI, finalJ);
+                                    listOfPetrolStations.remove(grid[finalI][finalJ].getMainStaticElement());
+                                    grid[finalI][finalJ].deleteElement();
+                                }
+                            });
+                        }
+                    /*Область кассы*/
+                    for (int j = 0; j < height + 1; j++) {
+                        int finalJ = j;
+                        grid[Exit.getX() - 1][j].setOnDragOver(dragEvent -> {
+                            if (event.getDragboard().hasString() && !grid[0][finalJ].getIsOccupied()
+                                    && Exit.getStatus() && Entry.getStatus() && !CashBox.getSetted()) {
+                                if ("cashBox".equals(dragEvent.getDragboard().getString())) {
+                                    dragEvent.acceptTransferModes(TransferMode.COPY);
+                                }
+                            }
+                        });
+                        grid[Exit.getX() - 1][j].setOnDragDropped(dragEvent -> {
+                            if(Exit.getStatus() && Entry.getStatus())
+                                if ("cashBox".equals(event.getDragboard().getString())) {
+                                    grid[Exit.getX() - 1][finalJ].createElement(CASHBOX, 0);
+                                    CashBox.setSetted(true);
+                                }
+                        });
+                        grid[Exit.getX() - 1][j].setOnMouseClicked(dragEvent -> {
+                            if (grid[Exit.getX() - 1][finalJ].getMainStaticElement() != null &&
+                                    grid[Exit.getX() - 1][finalJ].getMainStaticElement().getElementType().equals(CASHBOX)) {
+                                grid[Exit.getX() - 1][finalJ].deleteElement();
+                                CashBox.setSetted(false);
+                            }
+                        });
+                    }
+                    /*Область топливных баков*/
+                    for (int j = 1; j < height; j++) {
+                        int finalJ = j;
+                        grid[width - 2][j].setOnDragOver(dragEvent -> {
+                            if (event.getDragboard().hasString()&& Exit.getStatus() && Entry.getStatus()) {
+                                if ("fuelTank".equals(event.getDragboard().getString())) {
+                                    event.acceptTransferModes(TransferMode.COPY);
+                                }
+                            }
+                        });
+                        grid[width - 2][j].setOnDragDropped(dragEvent -> {
+                            if(Exit.getStatus() && Entry.getStatus())
+                                if ("fuelTank".equals(event.getDragboard().getString())) {
+                                    grid[width - 2][finalJ].createElement(FUELTANK, 0);
+                                }
+                        });
+                        grid[width - 2][j].setOnMouseClicked(dragEvent -> {
+                            if (grid[width - 2][finalJ].getMainStaticElement() != null) {
+                                listOfFuelTanks.remove(grid[width - 2][finalJ].getMainStaticElement());
+                                grid[width - 2][finalJ].deleteElement();
+                            }
+                        });
+                    }
                 }
             });
-            grid[i][Grid.height].setOnMouseClicked(event -> {
-                if (grid[finalI][Grid.height].getIsOccupied()) {
-                    if (grid[finalI][Grid.height].getMainStaticElement().getElementType() == ENTRY) {
+            grid[k][Grid.height].setOnMouseClicked(event -> {
+                if (grid[finalK][Grid.height].getIsOccupied()
+                        && listOfPetrolStations.isEmpty() &&
+                        listOfFuelTanks.isEmpty() &&
+                        !CashBox.getSetted()) {
+                    if (grid[finalK][Grid.height].getMainStaticElement().getElementType() == ENTRY) {
                         removeRoundRoad();
-                        grid[finalI][Grid.height].deleteElement();
+                        grid[finalK][Grid.height].deleteElement();
                         Entry.setX(0);
                         Entry.setY(0);
                         Entry.setStatus(false);
                     } else {
                         removeRoundRoad();
-                        grid[finalI][Grid.height].deleteElement();
+                        grid[finalK][Grid.height].deleteElement();
                         Exit.setX(0);
                         Exit.setY(0);
                         Exit.setStatus(false);
@@ -276,13 +273,15 @@ public class Grid {
         Grid.setListOfPetrolStations(null);
     }
 
-    public static void setPetrolRoad(int PetrolStationX, int PetrolStationY) {
+    private static void setPetrolRoad(int PetrolStationX, int PetrolStationY) {
         if (Exit.getStatus() && Entry.getStatus()) {
             if (grid[PetrolStationX][PetrolStationY - 1].getIsOccupied() &&
                     !grid[PetrolStationX][PetrolStationY + 1].getIsOccupied()) {
                 for (int i = Exit.getX() + 1; i <= Entry.getX() - 1; i++) {
                     grid[i][PetrolStationY + 1].createElement(ROAD, 0);
                 }
+                grid[Exit.getX()][PetrolStationY + 1].deleteElement();
+                grid[Entry.getX()][PetrolStationY + 1].deleteElement();
                 grid[Exit.getX()][PetrolStationY + 1].createElement(CROSSROAD, 270);
                 grid[Entry.getX()][PetrolStationY + 1].createElement(CROSSROAD, 90);
             } else if (!grid[PetrolStationX][PetrolStationY - 1].getIsOccupied() &&
@@ -290,6 +289,8 @@ public class Grid {
                 for (int i = Exit.getX() + 1; i <= Entry.getX() - 1; i++) {
                     grid[i][PetrolStationY - 1].createElement(ROAD, 0);
                 }
+                grid[Exit.getX()][PetrolStationY - 1].deleteElement();
+                grid[Entry.getX()][PetrolStationY - 1].deleteElement();
                 grid[Exit.getX()][PetrolStationY - 1].createElement(CROSSROAD, 270);
                 grid[Entry.getX()][PetrolStationY - 1].createElement(CROSSROAD, 90);
             } else if (grid[PetrolStationX][PetrolStationY - 1].getIsOccupied() &&
@@ -300,6 +301,10 @@ public class Grid {
                     grid[i][PetrolStationY + 1].createElement(ROAD, 0);
                     grid[i][PetrolStationY - 1].createElement(ROAD, 0);
                 }
+                grid[Exit.getX()][PetrolStationY + 1].deleteElement();
+                grid[Entry.getX()][PetrolStationY + 1].deleteElement();
+                grid[Exit.getX()][PetrolStationY - 1].deleteElement();
+                grid[Entry.getX()][PetrolStationY - 1].deleteElement();
                 grid[Exit.getX()][PetrolStationY + 1].createElement(CROSSROAD, 270);
                 grid[Entry.getX()][PetrolStationY + 1].createElement(CROSSROAD, 90);
                 grid[Exit.getX()][PetrolStationY - 1].createElement(CROSSROAD, 270);
@@ -308,7 +313,7 @@ public class Grid {
         }
     }
 
-    public static void removePetrolRoad(int PetrolStationX, int PetrolStationY) {
+    private static void removePetrolRoad(int PetrolStationX, int PetrolStationY) {
         try {
             if (PetrolStationY == 1) {
                 for (int i = Exit.getX() + 1; i <= Entry.getX() - 1; i++) {
@@ -407,29 +412,23 @@ public class Grid {
     public static void setRoundRoad() {
         grid[Entry.getX()][0].createElement(TURNROAD, 90);
         grid[Exit.getX()][0].createElement(TURNROAD, 0);
-        for (int j = Exit.getX() + 1; j < Entry.getX(); j++) {
-            grid[j][0].createElement(ROAD, 0);
+        for (int i = Exit.getX() + 1; i < Entry.getX(); i++) {
+            grid[i][0].createElement(ROAD, 0);
         }
-
-
-        for (int i = 1; i < height; i++) {
-            grid[Entry.getX()][i].createElement(ROAD, 90);
-            grid[Exit.getX()][i].createElement(ROAD, 90);
+        for (int j = 1; j < height; j++) {
+            grid[Entry.getX()][j].createElement(ROAD, 90);
+            grid[Exit.getX()][j].createElement(ROAD, 90);
         }
     }
 
-    static void removeRoundRoad() {
-        if (Exit.getX() != 0 && Entry.getX() != 0) {
-            grid[Entry.getX()][0].deleteElement();
-            grid[Exit.getX()][0].deleteElement();
-            for (int j = Exit.getX() + 1; j < Entry.getX(); j++) {
-                grid[j][0].deleteElement();
+    private static void removeRoundRoad() {
+        if (Exit.getStatus() && Entry.getStatus()) {
+            for (int i = Exit.getX() + 1; i < Entry.getX(); i++) {
+                grid[i][0].deleteElement();
             }
-
-
-            for (int i = 1; i < height; i++) {
-                grid[Entry.getX()][i].deleteElement();
-                grid[Exit.getX()][i].deleteElement();
+            for (int j = 0; j < height; j++) {
+                grid[Entry.getX()][j].deleteElement();
+                grid[Exit.getX()][j].deleteElement();
             }
         }
     }

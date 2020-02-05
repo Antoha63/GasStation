@@ -140,8 +140,6 @@ public class ImitationController extends Controller {
             int finalI = i;
             tempGrid[Grid.getListOfPetrolStations().get(i).getX()][Grid.getListOfPetrolStations().get(i).getY()].
                     setOnMouseClicked(mouseEvent -> {
-                        petrolStationPopup.setLayoutX(10);
-                        petrolStationPopup.setLayoutY(threadButtons.getLayoutY() + playButton.getPrefHeight() + 10);
                         petrolStationPopup.setVisible(!petrolStationPopup.isVisible());
                         cashBoxPopup.setVisible(false);
                         fuelTankPopup.setVisible(false);
@@ -150,8 +148,6 @@ public class ImitationController extends Controller {
         for (int i = 0; i < Grid.getListOfFuelTanks().size();i++){
             tempGrid[Grid.getListOfFuelTanks().get(i).getX()][Grid.getListOfFuelTanks().get(i).getY()].
                     setOnMouseClicked(mouseEvent -> {
-                        fuelTankPopup.setLayoutX(10);
-                        fuelTankPopup.setLayoutY(threadButtons.getLayoutY() + playButton.getPrefHeight() + 10);
                         fuelTankPopup.setVisible(!fuelTankPopup.isVisible());
                         cashBoxPopup.setVisible(false);
                         petrolStationPopup.setVisible(false);
@@ -159,8 +155,6 @@ public class ImitationController extends Controller {
         }
         tempGrid[CashBox.getX()][CashBox.getY()].
                 setOnMouseClicked(mouseEvent -> {
-                    cashBoxPopup.setLayoutX(10);
-                    cashBoxPopup.setLayoutY(threadButtons.getLayoutY() + playButton.getPrefHeight() + 10);
                     cashBoxPopup.setVisible(!cashBoxPopup.isVisible());
                     fuelTankPopup.setVisible(false);
                     petrolStationPopup.setVisible(false);

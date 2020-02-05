@@ -7,8 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter
-@Setter
+
 @ToString
 
 public class Entry extends MainStaticElement {
@@ -23,28 +22,22 @@ public class Entry extends MainStaticElement {
         status = f;
     }
 
-    public static void setX(int x) {
-        Entry.x = x;
-    }
-
-    public static void setY(int y) {
-        Entry.y = y;
-    }
-
     public static int getX() {
         return x;
     }
-
+    public static void setX(int x) {
+        Entry.x = x;
+    }
     public static int getY() {
         return y;
     }
-
+    public static void setY(int y) {
+        Entry.y = y;
+    }
     public static boolean getStatus() {
         return status;
     }
-
     public static void setStatus(boolean f) {
         status = f;
     }
-
 }
