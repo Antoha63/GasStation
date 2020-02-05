@@ -7,6 +7,7 @@ import elements.Entry;
 import elements.Exit;
 import elements.FuelTank;
 import elements.PetrolStation;
+import javafx.scene.Parent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Line;
@@ -45,22 +46,16 @@ public class Grid {
     }
 
     private static GridElement[][] grid;
-    private static String[] dragboardStrings;
-
     private static GridElement gridElement;
-    private static GridPane gridPane = new GridPane();
+
+    @Getter
+    @Setter
     private static List<PetrolStation> listOfPetrolStations = new ArrayList<>();
+    @Getter
+    @Setter
     private static List<FuelTank> listOfFuelTanks = new ArrayList<>();
     @Getter
     private static List<Line> lines;
-
-    public static List<PetrolStation> getListOfPetrolStations() {
-        return listOfPetrolStations;
-    }
-
-    public static List<FuelTank> getListOfFuelTanks() {
-        return listOfFuelTanks;
-    }
 
     public static void addPetrolStation(PetrolStation petrolStation) {
         listOfPetrolStations.add(petrolStation);
@@ -195,11 +190,11 @@ public class Grid {
             grid[i][Grid.height].setOnDragDropped(event -> {
                 switch (event.getDragboard().getString()) {
                     case "exit":
-                        if (finalI <= Entry.getX() && Entry.getStatus() && !Exit.getStatus())
+                        if (finalI < Entry.getX() - 1 && Entry.getStatus() && !Exit.getStatus())
                             grid[finalI][Grid.height].createElement(EXIT, 180);
                         break;
                     case "entry":
-                        if(!Entry.getStatus())
+                        if(finalI >= 3 && !Entry.getStatus())
                             grid[finalI][Grid.height].createElement(ENTRY, 180);
                         break;
                 }
@@ -231,6 +226,54 @@ public class Grid {
         }
         setInputCrossRoad();
         setStationRoad();
+    }
+
+
+    public static void drawGrid(int width, int height, AnchorPane root){
+        if(Grid.width != width || Grid.height != height) {
+            ConstructorController constructorController = (ConstructorController)
+                    ControllersRepository.getController(ControllerType.CONSTRUCTORCONTROLLER);
+
+            x0 = (int) (constructorController.getButtons().getLayoutX()
+                    * 2 + constructorController.getButtons().getPrefWidth());
+            y0 = (int) constructorController.getButtons().getLayoutY();
+            initGrid(x0, y0, width, height);
+        }
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height + 1; j++) {
+                if(!root.getChildren().contains(grid[i][j]))
+                    root.getChildren().add(grid[i][j]);
+            }
+        }
+        for (Line line : Grid.getLines()) {
+            root.getChildren().add(line);
+        }
+    }
+
+    public static void removeGrid(AnchorPane root) {
+        for (int i = 0; i < Grid.width; i++) {
+            for (int j = 0; j < Grid.height + 1; j++) {
+                root.getChildren().remove(Grid.grid[i][j]);
+            }
+        }
+        for (Line line : lines) {
+            root.getChildren().remove(line);
+        }
+
+        Grid.height = 0;
+        Grid.width = 0;
+        grid = null;
+
+        Entry.setX(0);
+        Entry.setY(0);
+        Entry.setStatus(false);
+
+        Exit.setX(0);
+        Exit.setY(0);
+        Exit.setStatus(false);
+
+        Grid.setListOfFuelTanks(null);
+        Grid.setListOfPetrolStations(null);
     }
 
     public static void setPetrolRoad(int PetrolStationX, int PetrolStationY) {

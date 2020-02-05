@@ -51,8 +51,8 @@ public class MoveController extends Controller {
                 switch (timeState) {
                     case START:
                         trigger[0]++;
-                        if ((int) (distribution.getTimes()[j[0]] * 61 /
-                                imitationController.getSliderMode().getValue()) == i[0]) {
+                        if ((int) (distribution.getTimes()[j[0]] * 61 /*/
+                                imitationController.getSliderMode().getValue()*/) == i[0]) {
                             VisualisedTransportVehicle visualisedTransportVehicle =
                                     new VisualisedTransportVehicle(
                                             (int) Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getTranslateX(),

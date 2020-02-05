@@ -14,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Line;
+import lombok.Getter;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import repositories.FuelTankRepository;
 import repositories.PetrolStationRepository;
@@ -27,6 +28,8 @@ import visualize.GridElement;
 import java.io.IOException;
 import java.util.List;
 
+import static visualize.Grid.drawGrid;
+
 public class ConstructorController extends Controller {
 
     @FXML
@@ -34,6 +37,7 @@ public class ConstructorController extends Controller {
     @FXML
     private ScrollPane scrollPaneElements;
     @FXML
+    @Getter
     private AnchorPane buttons;
     @FXML
     private Button closeButton;
@@ -65,8 +69,6 @@ public class ConstructorController extends Controller {
 
         buttons.setLayoutX(10);
         buttons.setLayoutY(40);
-        x0 = (int) (buttons.getLayoutX() * 2 + buttons.getPrefWidth());
-        y0 = (int) buttons.getLayoutY();
 
 
 
@@ -78,7 +80,7 @@ public class ConstructorController extends Controller {
                     getController(ControllerType.BOUNDSCONTROLLER);
             width = boundsController.getTopologyWidth().getValue();
             height = boundsController.getTopologyHeight().getValue();
-            drawGrid(width, height);
+            Grid.drawGrid(width, height, anchorPane);
         }
         else{
             width = 3;
@@ -94,7 +96,7 @@ public class ConstructorController extends Controller {
             Topology topology = topologyRepository.findByName(DownloadTopologyController.getTopologyName());
             width = topology.getWidth();
             height = topology.getHeight();
-            drawGrid(width, height);
+            Grid.drawGrid(width, height, anchorPane);
             Grid.getGrid()[topology.getCashBoxX()][topology.getCashBoxY()].
                     createElement(ElementType.CASHBOX, 0);
             Grid.getGrid()[topology.getEntranceX()][topology.getEntranceY()].
@@ -120,70 +122,6 @@ public class ConstructorController extends Controller {
         scrollPaneElements.setLayoutY(buttons.getLayoutY());
     }
 
-    public void drawGrid(int width, int height){
-        if(Grid.getWidth() != width || Grid.getHeight() != height) {
-            Grid.initGrid(x0, y0, width, height);
-        }
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height + 1; j++) {
-                if(!anchorPane.getChildren().contains(Grid.getGrid()[i][j]))
-                    anchorPane.getChildren().add(Grid.getGrid()[i][j]);
-            }
-        }
-        for (Line line : Grid.getLines()) {
-            anchorPane.getChildren().add(line);
-        }
-    }
-
-    private void removeGrid() {
-        for (int i = 0; i < Grid.getWidth(); i++) {
-            for (int j = 0; j < Grid.getHeight() + 1; j++) {
-                anchorPane.getChildren().remove(Grid.getGrid()[i][j]);
-            }
-        }
-        for (Line line : Grid.getLines()) {
-            anchorPane.getChildren().remove(line);
-        }
-
-        try {
-            Grid.setHeight(0);
-            Grid.setWidth(0);
-            Grid.setGrid(null);
-
-            Entry.setX(0);
-            Entry.setY(0);
-            Entry.setStatus(false);
-
-            Exit.setX(0);
-            Exit.setY(0);
-            Exit.setStatus(false);
-
-            Grid.getGrid()[CashBox.getX()][CashBox.getY()].setFrameAnimation(null);
-            Grid.getGrid()[CashBox.getX()][CashBox.getY()].setMainStaticElement(null);
-            if (Grid.getListOfPetrolStations() != null) {
-                for (int i = 0; i < Grid.getListOfPetrolStations().size(); i++) {
-                    Grid.getGrid()[Grid.getListOfPetrolStations().get(i).getX()]
-                            [Grid.getListOfPetrolStations().get(i).getY()].setFrameAnimation(null);
-
-                    Grid.getGrid()[Grid.getListOfPetrolStations().get(i).getX()]
-                            [Grid.getListOfPetrolStations().get(i).getY()].setMainStaticElement(null);
-                }
-                Grid.addPetrolStation(null);
-            }
-
-            if (Grid.getListOfFuelTanks() != null) {
-                for (int i = 0; i < Grid.getListOfFuelTanks().size(); i++) {
-                    Grid.getGrid()[Grid.getListOfFuelTanks().get(i).getX()]
-                            [Grid.getListOfFuelTanks().get(i).getY()].setFrameAnimation(null);
-
-                    Grid.getGrid()[Grid.getListOfFuelTanks().get(i).getX()]
-                            [Grid.getListOfFuelTanks().get(i).getY()].setMainStaticElement(null);
-                }
-                Grid.addFuelTank(null);
-            }
-        }
-        catch (NullPointerException ignored){}
-    }
 
     public void disableElements(boolean status) {
         petrolStation.setDisable(status);
@@ -195,7 +133,7 @@ public class ConstructorController extends Controller {
         back_button.setOnAction(event -> {
             ControllersRepository.removeController(ControllerType.BOUNDSCONTROLLER);
             ControllersRepository.removeController(ControllerType.DOWNLOADTOPOLOGYCONTROLLER);
-            removeGrid();
+            Grid.removeGrid(anchorPane);
             WindowRepository.getWindow(WindowType.CONSTRUCTORWINDOW).hide();
 
             try {

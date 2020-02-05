@@ -109,9 +109,9 @@ public class ModellerController extends Controller {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            ConstructorController constructorController = (ConstructorController)
-                    ControllersRepository.getController(ControllerType.CONSTRUCTORCONTROLLER);
-            constructorController.drawGrid(Grid.getWidth(), Grid.getHeight());
+//            ConstructorController constructorController = (ConstructorController)
+//                    ControllersRepository.getController(ControllerType.CONSTRUCTORCONTROLLER);
+//            constructorController.drawGrid(Grid.getWidth(), Grid.getHeight());
         });
         radioButtonDeterministicDistribution.setOnAction(event -> {
             labelTime.setVisible(true);

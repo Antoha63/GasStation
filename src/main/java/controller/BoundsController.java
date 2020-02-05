@@ -47,11 +47,11 @@ public class BoundsController extends Controller{
     @FXML
     public void createConstructor() throws IOException {
         ControllersRepository.addController(ControllerType.BOUNDSCONTROLLER, this);
-        if(ControllersRepository.getControllers().containsKey(ControllerType.CONSTRUCTORCONTROLLER)) {
-            ConstructorController constructorController = (ConstructorController)
-                    ControllersRepository.getController(ControllerType.CONSTRUCTORCONTROLLER);
-            constructorController.drawGrid(topologyWidth.getValue(), topologyHeight.getValue());
-        }
+//        if(ControllersRepository.getControllers().containsKey(ControllerType.CONSTRUCTORCONTROLLER)) {
+//            ConstructorController constructorController = (ConstructorController)
+//                    ControllersRepository.getController(ControllerType.CONSTRUCTORCONTROLLER);
+//            constructorController.drawGrid(topologyWidth.getValue(), topologyHeight.getValue());
+//        }
         WindowRepository.getWindow(WindowType.CONSTRUCTORWINDOW).show();
         WindowRepository.getWindow(WindowType.BOUNDSWINDOW).close();
     }
