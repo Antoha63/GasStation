@@ -52,13 +52,14 @@ public class MoveController extends Controller {
                     case START:
                         trigger[0]++;
                         if ((int) (distribution.getTimes()[j[0]] * 61 /
-                                imitationController.getSliderMode().getValue()) == i[0]) {//TODO: fix distributions
+                                imitationController.getSliderMode().getValue()) == i[0]) {
                             VisualisedTransportVehicle visualisedTransportVehicle =
                                     new VisualisedTransportVehicle(
                                             (int) Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getTranslateX(),
                                             (int) Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getTranslateY(),
                                             AUTOMOBILE);
                             automobiles.add(visualisedTransportVehicle);
+                            //TODO: иногда вылетает duplicate target exception
                             root.getChildren().add(automobiles.get(numOfVehicle[0]).getFrameAnimation().getImageView());
                             numOfVehicle[0]++;
                             autoCreated[0] = true;

@@ -165,7 +165,7 @@ public class ImitationController extends Controller {
                     fuelTankPopup.setVisible(false);
                     petrolStationPopup.setVisible(false);
                 });
-        for (Line line : Grid.getLineList()) {
+        for (Line line : Grid.getLines()) {
             anchorPane.getChildren().add(line);
         }
     }

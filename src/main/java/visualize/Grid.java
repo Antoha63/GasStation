@@ -51,7 +51,8 @@ public class Grid {
     private static GridPane gridPane = new GridPane();
     private static List<PetrolStation> listOfPetrolStations = new ArrayList<>();
     private static List<FuelTank> listOfFuelTanks = new ArrayList<>();
-
+    @Getter
+    private static List<Line> lines;
 
     public static List<PetrolStation> getListOfPetrolStations() {
         return listOfPetrolStations;
@@ -85,8 +86,9 @@ public class Grid {
                 grid[i][j] = new GridElement(i, j, false);
             }
         }
-        /*Область трк*/
+        lines = getLineList();
 
+        /*Область трк*/
         for (int i = 0; i < width - 3; i++)
             for (int j = 0; j < height; j++) {
                 int finalI = i;
@@ -321,7 +323,7 @@ public class Grid {
         }
     }
 
-    public static List<Line> getLineList() {
+    private static List<Line> getLineList() {
         List<Line> lineList = new ArrayList<>();
         for (int j = 0; j < height + 1; j++) {
             Line lineHorizontal = new Line(grid[0][j].getTranslateX(),

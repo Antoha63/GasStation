@@ -130,9 +130,59 @@ public class ConstructorController extends Controller {
                     anchorPane.getChildren().add(Grid.getGrid()[i][j]);
             }
         }
-        for (Line line : Grid.getLineList()) {
+        for (Line line : Grid.getLines()) {
             anchorPane.getChildren().add(line);
         }
+    }
+
+    private void removeGrid() {
+        for (int i = 0; i < Grid.getWidth(); i++) {
+            for (int j = 0; j < Grid.getHeight() + 1; j++) {
+                anchorPane.getChildren().remove(Grid.getGrid()[i][j]);
+            }
+        }
+        for (Line line : Grid.getLines()) {
+            anchorPane.getChildren().remove(line);
+        }
+
+        try {
+            Grid.setHeight(0);
+            Grid.setWidth(0);
+            Grid.setGrid(null);
+
+            Entry.setX(0);
+            Entry.setY(0);
+            Entry.setStatus(false);
+
+            Exit.setX(0);
+            Exit.setY(0);
+            Exit.setStatus(false);
+
+            Grid.getGrid()[CashBox.getX()][CashBox.getY()].setFrameAnimation(null);
+            Grid.getGrid()[CashBox.getX()][CashBox.getY()].setMainStaticElement(null);
+            if (Grid.getListOfPetrolStations() != null) {
+                for (int i = 0; i < Grid.getListOfPetrolStations().size(); i++) {
+                    Grid.getGrid()[Grid.getListOfPetrolStations().get(i).getX()]
+                            [Grid.getListOfPetrolStations().get(i).getY()].setFrameAnimation(null);
+
+                    Grid.getGrid()[Grid.getListOfPetrolStations().get(i).getX()]
+                            [Grid.getListOfPetrolStations().get(i).getY()].setMainStaticElement(null);
+                }
+                Grid.addPetrolStation(null);
+            }
+
+            if (Grid.getListOfFuelTanks() != null) {
+                for (int i = 0; i < Grid.getListOfFuelTanks().size(); i++) {
+                    Grid.getGrid()[Grid.getListOfFuelTanks().get(i).getX()]
+                            [Grid.getListOfFuelTanks().get(i).getY()].setFrameAnimation(null);
+
+                    Grid.getGrid()[Grid.getListOfFuelTanks().get(i).getX()]
+                            [Grid.getListOfFuelTanks().get(i).getY()].setMainStaticElement(null);
+                }
+                Grid.addFuelTank(null);
+            }
+        }
+        catch (NullPointerException ignored){}
     }
 
     public void disableElements(boolean status) {
@@ -145,6 +195,7 @@ public class ConstructorController extends Controller {
         back_button.setOnAction(event -> {
             ControllersRepository.removeController(ControllerType.BOUNDSCONTROLLER);
             ControllersRepository.removeController(ControllerType.DOWNLOADTOPOLOGYCONTROLLER);
+            removeGrid();
             WindowRepository.getWindow(WindowType.CONSTRUCTORWINDOW).hide();
 
             try {
@@ -152,53 +203,7 @@ public class ConstructorController extends Controller {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-            try {
-                Grid.setHeight(0);
-                Grid.setWidth(0);
-                Grid.setGrid(null);
-
-                Entry.setX(0);
-                Entry.setY(0);
-                Entry.setStatus(false);
-
-                Exit.setX(0);
-                Exit.setY(0);
-                Exit.setStatus(false);
-
-                Grid.getGrid()[CashBox.getX()][CashBox.getY()].setFrameAnimation(null);
-                Grid.getGrid()[CashBox.getX()][CashBox.getY()].setMainStaticElement(null);
-                //TODO: неправильная отрисовка топологии при изменении способа создания
-//                for (int i = 0; i < Grid.getWidth(); i++) {
-//                    for (int j = 0; j < Grid.getHeight() + 1; j++) {
-//                        anchorPane.getChildren().remove(Grid.getGrid()[i][j].
-//                                getFrameAnimation().getImageView());
-//                    }
-//                }
-
-                if (Grid.getListOfPetrolStations() != null) {
-                    for (int i = 0; i < Grid.getListOfPetrolStations().size(); i++) {
-                        Grid.getGrid()[Grid.getListOfPetrolStations().get(i).getX()]
-                                [Grid.getListOfPetrolStations().get(i).getY()].setFrameAnimation(null);
-
-                        Grid.getGrid()[Grid.getListOfPetrolStations().get(i).getX()]
-                                [Grid.getListOfPetrolStations().get(i).getY()].setMainStaticElement(null);
-                    }
-                    Grid.addPetrolStation(null);
-                }
-
-                if (Grid.getListOfFuelTanks() != null) {
-                    for (int i = 0; i < Grid.getListOfFuelTanks().size(); i++) {
-                        Grid.getGrid()[Grid.getListOfFuelTanks().get(i).getX()]
-                                [Grid.getListOfFuelTanks().get(i).getY()].setFrameAnimation(null);
-
-                        Grid.getGrid()[Grid.getListOfFuelTanks().get(i).getX()]
-                                [Grid.getListOfFuelTanks().get(i).getY()].setMainStaticElement(null);
-                    }
-                    Grid.addFuelTank(null);
-                }
-            }
-            catch (NullPointerException ignored){}});
+});
     }
 
     @FXML
