@@ -146,11 +146,18 @@ public class ImitationController extends Controller {
                     });
         }
         for (int i = 0; i < Grid.getListOfFuelTanks().size();i++){
+            int finalI = i;
             tempGrid[Grid.getListOfFuelTanks().get(i).getX()][Grid.getListOfFuelTanks().get(i).getY()].
                     setOnMouseClicked(mouseEvent -> {
                         fuelTankPopup.setVisible(!fuelTankPopup.isVisible());
                         cashBoxPopup.setVisible(false);
                         petrolStationPopup.setVisible(false);
+
+                        FuelTank tempFuelTank = Grid.getListOfFuelTanks().get(finalI);
+                        fueltankFuelValue.setText(tempFuelTank.getFuel());
+                        fueltankCriticalLevel.setText(String.valueOf(FuelTank.getCriticalLevel()));
+                        fueltankCurrentVolume.setText(String.valueOf(tempFuelTank.getCurrentVolume()));
+                        fueltankVolumeValue.setText(String.valueOf(FuelTank.getVolume()));
                     });
         }
         tempGrid[CashBox.getX()][CashBox.getY()].

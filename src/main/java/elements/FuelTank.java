@@ -6,8 +6,6 @@ import lombok.Setter;
 import lombok.ToString;
 import visualize.Grid;
 
-import java.awt.*;
-
 @Setter
 @Getter
 @ToString
@@ -35,6 +33,10 @@ public class FuelTank extends MainStaticElement {
 
     public static void setCriticalLevel(int vol){
         criticalLevel = (double) vol;
+    }
+
+    public static double getCriticalLevel() {
+        return criticalLevel;
     }
 
     public void setStatus(boolean b) {
@@ -73,4 +75,5 @@ public class FuelTank extends MainStaticElement {
     public String getFuel() {
         return fuel;
     }
+
 }
