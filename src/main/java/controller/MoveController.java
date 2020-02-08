@@ -59,8 +59,11 @@ public class MoveController extends Controller {
                                             (int) Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getTranslateY(),
                                             AUTOMOBILE);
                             automobiles.add(visualisedTransportVehicle);
-                            //TODO: иногда вылетает duplicate target exception
-                            root.getChildren().add(automobiles.get(numOfVehicle[0]).getFrameAnimation().getImageView());
+                            try {
+                                //TODO: иногда вылетает duplicate target exception
+                                root.getChildren().add(automobiles.get(numOfVehicle[0]).getFrameAnimation().getImageView());
+                            }
+                            catch (IllegalArgumentException ignore){}
                             numOfVehicle[0]++;
                             autoCreated[0] = true;
                             if (j[0] == 99) j[0] = 0;

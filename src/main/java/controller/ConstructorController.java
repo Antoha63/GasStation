@@ -21,6 +21,7 @@ import repositories.PetrolStationRepository;
 import repositories.TopologyRepository;
 import views.Window;
 import views.WindowRepository;
+import views.WindowState;
 import views.WindowType;
 import visualize.Grid;
 import visualize.GridElement;
@@ -63,7 +64,7 @@ public class ConstructorController extends Controller {
         Window window = (Window) WindowRepository.getWindow(WindowType.BOUNDSWINDOW);
         int width;
         int height;
-        if (window != null && window.isInitialized()) {
+        if (window != null && window.getState().equals(WindowState.HIDED)) {
             BoundsController boundsController = (BoundsController) ControllersRepository.
                     getController(ControllerType.BOUNDSCONTROLLER);
             width = boundsController.getTopologyWidth().getValue();
@@ -75,7 +76,7 @@ public class ConstructorController extends Controller {
             height = 7;
         }
         window = (Window) WindowRepository.getWindow(WindowType.DOWNLOADTOPOLOGYWINDOW);
-        if (window != null && window.isInitialized()) {
+        if (window != null && window.getState() == WindowState.HIDED) {
             ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-data-context.xml");
             TopologyRepository topologyRepository = context.getBean(TopologyRepository.class);
             PetrolStationRepository petrolStationRepository = context.getBean(PetrolStationRepository.class);
@@ -84,26 +85,39 @@ public class ConstructorController extends Controller {
             Topology topology = topologyRepository.findByName(DownloadTopologyController.getTopologyName());
             width = topology.getWidth();
             height = topology.getHeight();
-            Grid.drawGrid(width, height, anchorPane);
-            Grid.getGrid()[topology.getCashBoxX()][topology.getCashBoxY()].
-                    createElement(ElementType.CASHBOX, 0);
+
+            Grid.initGrid(width, height);
             Grid.getGrid()[topology.getEntranceX()][topology.getEntranceY()].
                     createElement(ElementType.ENTRY, 180);
             Grid.getGrid()[topology.getExitX()] [topology.getExitY()].
                     createElement(ElementType.EXIT, 180);
 
+            Grid.setCashBoxEvents();
+            Grid.getGrid()[topology.getCashBoxX()][topology.getCashBoxY()].
+                    createElement(ElementType.CASHBOX, 0);
+            CashBox.setSetted(true);
+
+            Grid.setPetrolStationsEvents();
             List<PetrolStation> petrolStationList = petrolStationRepository.findAll();
-            for (PetrolStation petrolStation : petrolStationList)
+            for (PetrolStation petrolStation : petrolStationList) {
                 Grid.getGrid()[petrolStation.getCoordinateX()][petrolStation.getCoordinateY()].
                         createElement(ElementType.PETROLSTATION, 0);
+/*                Grid.setPetrolRoad(petrolStation.getCoordinateX(),
+                                    petrolStation.getCoordinateY());*/
+                //TODO: перекрёстки рисуются под дорогой
+                //TODO: не удаляются некоторые элементы
+            }
 
+            Grid.setFuelTanksEvents();
             List<FuelTank> fuelTankList = fuelTankRepository.findAll();
             for (FuelTank fuelTank : fuelTankList)
                 Grid.getGrid()[fuelTank.getCoordinateX()][fuelTank.getCoordinateY()].createElement(ElementType.FUELTANK, 0);
 
             if (Entry.getStatus() && Exit.getStatus() && Entry.getX() > Exit.getX())
                 Grid.setRoundRoad();
+            Grid.drawGrid(width, height, anchorPane);
         }
+
 
         scrollPaneElements.setLayoutX(Grid.getGrid()[width - 1][0].getTranslateX()
                 + GridElement.getElementWidth() + 10);
@@ -118,18 +132,24 @@ public class ConstructorController extends Controller {
     }
 
     private void setBackButtonEvent() {
+        //TODO: элементы не ставятся после загрузки топологии в создании
         back_button.setOnAction(event -> {
             ControllersRepository.removeController(ControllerType.BOUNDSCONTROLLER);
             ControllersRepository.removeController(ControllerType.DOWNLOADTOPOLOGYCONTROLLER);
             Grid.removeGrid(anchorPane);
             WindowRepository.getWindow(WindowType.CONSTRUCTORWINDOW).hide();
+            try {
+                WindowRepository.getWindow(WindowType.BOUNDSWINDOW).close();
+                WindowRepository.getWindow(WindowType.DOWNLOADTOPOLOGYWINDOW).close();
+            }
+            catch (NullPointerException ignored){}
 
             try {
                 WindowRepository.getWindow(WindowType.MAINWINDOW).show();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-});
+        });
     }
 
     public void drawGrid(int width, int height){

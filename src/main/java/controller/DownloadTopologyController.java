@@ -80,8 +80,14 @@ public class DownloadTopologyController extends Controller {
             showAlert();
         else {
             topologyName = tableView.getSelectionModel().getSelectedItem().getName();
-            WindowRepository.getWindow(WindowType.CONSTRUCTORWINDOW).show();
             WindowRepository.getWindow(WindowType.DOWNLOADTOPOLOGYWINDOW).hide();
+            if(ControllersRepository.getControllers().containsKey
+                    (ControllerType.CONSTRUCTORCONTROLLER)) {
+                ConstructorController constructorController = (ConstructorController)
+                        ControllersRepository.getController(ControllerType.CONSTRUCTORCONTROLLER);
+                constructorController.initialize();
+            }
+            WindowRepository.getWindow(WindowType.CONSTRUCTORWINDOW).show();
         }
     }
 

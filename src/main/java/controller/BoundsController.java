@@ -38,6 +38,7 @@ public class BoundsController extends Controller{
             WindowRepository.getWindow(WindowType.BOUNDSWINDOW).close();
             try {
                 WindowRepository.getWindow(WindowType.MAINWINDOW).show();
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -47,6 +48,8 @@ public class BoundsController extends Controller{
     @FXML
     public void createConstructor() throws IOException {
         ControllersRepository.addController(ControllerType.BOUNDSCONTROLLER, this);
+
+        WindowRepository.getWindow(WindowType.BOUNDSWINDOW).hide();
         if(ControllersRepository.getControllers().containsKey
                 (ControllerType.CONSTRUCTORCONTROLLER)) {
             ConstructorController constructorController = (ConstructorController)
@@ -54,6 +57,5 @@ public class BoundsController extends Controller{
             constructorController.drawGrid(topologyWidth.getValue(), topologyHeight.getValue());
         }
         WindowRepository.getWindow(WindowType.CONSTRUCTORWINDOW).show();
-        WindowRepository.getWindow(WindowType.BOUNDSWINDOW).close();
     }
 }

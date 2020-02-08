@@ -104,7 +104,10 @@ public class GridElement extends Pane {
                 break;
             case CROSSROAD:
                 this.setOccupied(true);
-                this.getChildren().remove(this.getChildren().size() - 1); //deleting road image from pane
+                if(this.frameAnimation != null &&
+                        this.frameAnimation.getImageOffsetX() < 3 &&
+                        this.frameAnimation.getImageOffsetY() == 4)
+                    this.getChildren().remove(this.getChildren().size() - 1); //deleting road image from pane
                 this.frameAnimation = new FrameAnimation(4, 4, 50, 50, 6);
                 this.frameAnimation.getImageView().setRotate(rotate);
                 this.getChildren().add(this.frameAnimation.getImageView());

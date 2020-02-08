@@ -3,13 +3,13 @@ package views;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.IOException;
+
+import static views.WindowState.*;
 
 @Setter
 public class Window implements IWindow {
@@ -19,6 +19,8 @@ public class Window implements IWindow {
     private int height;
     private Stage stage = new Stage();
     private boolean isInitialized = false;
+    @Getter
+    private WindowState state = CLOSED;
 
     public boolean isInitialized() {
         return isInitialized;
@@ -42,22 +44,31 @@ public class Window implements IWindow {
 
     @Override
     public void show() throws IOException {
-        if (!isInitialized) {
-            init();
-            isInitialized = true;
+        if(!state.equals(SHOWED)) {
+            if (!isInitialized) {
+                init();
+                isInitialized = true;
+            }
+            stage.show();
+            state = SHOWED;
         }
-        stage.show();
     }
 
     @Override
     public void hide() {
-        stage.hide();
+        if(!state.equals(HIDED)) {
+            stage.hide();
+            state = HIDED;
+        }
     }
 
     @Override
     public void close() {
-        hide();
-        isInitialized = false;
+        if(!state.equals(CLOSED)) {
+            stage.hide();
+            isInitialized = false;
+            state = CLOSED;
+        }
     }
 
     private void init() throws IOException {
