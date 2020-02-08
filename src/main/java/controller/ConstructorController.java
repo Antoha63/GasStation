@@ -8,12 +8,12 @@ import entities.FuelTank;
 import entities.PetrolStation;
 import entities.Topology;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
-import javafx.scene.layout.*;
-import javafx.scene.shape.Line;
+import javafx.scene.layout.AnchorPane;
 import lombok.Getter;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import repositories.FuelTankRepository;
@@ -27,8 +27,6 @@ import visualize.GridElement;
 
 import java.io.IOException;
 import java.util.List;
-
-import static visualize.Grid.drawGrid;
 
 public class ConstructorController extends Controller {
 
@@ -44,8 +42,6 @@ public class ConstructorController extends Controller {
     @FXML
     private Button back_button;
     @FXML
-    private AnchorPane dragableArea;
-    @FXML
     private ImageView entry;
     @FXML
     private ImageView exit;
@@ -56,9 +52,6 @@ public class ConstructorController extends Controller {
     @FXML
     private ImageView fuelTank;
 
-    private int x0;
-    private int y0;
-
     public void initialize() {
         ControllersRepository.addController(ControllerType.CONSTRUCTORCONTROLLER, this);
         disableElements(true);
@@ -66,11 +59,6 @@ public class ConstructorController extends Controller {
             WindowRepository.getWindow(WindowType.CONSTRUCTORWINDOW).close();
         });
         setBackButtonEvent();
-
-        buttons.setLayoutX(10);
-        buttons.setLayoutY(40);
-
-
 
         Window window = (Window) WindowRepository.getWindow(WindowType.BOUNDSWINDOW);
         int width;
@@ -142,6 +130,10 @@ public class ConstructorController extends Controller {
                 e.printStackTrace();
             }
 });
+    }
+
+    public void drawGrid(int width, int height){
+        Grid.drawGrid(width, height, anchorPane);
     }
 
     @FXML
@@ -216,11 +208,49 @@ public class ConstructorController extends Controller {
 
     @FXML
     public void createModeller() throws IOException {
-        WindowRepository.getWindow(WindowType.MODELLERWINDOW).show();
-        WindowRepository.getWindow(WindowType.CONSTRUCTORWINDOW).hide();
+        if(checkTopology()){
+            WindowRepository.getWindow(WindowType.MODELLERWINDOW).show();
+            WindowRepository.getWindow(WindowType.CONSTRUCTORWINDOW).hide();
+        }
     }
 
     public void saveTopology() throws IOException {
-        WindowRepository.getWindow(WindowType.SAVETOPOLOGYWINDOW).show();
+        if(checkTopology()){
+            WindowRepository.getWindow(WindowType.SAVETOPOLOGYWINDOW).show();
+        }
+    }
+
+    @FXML
+    public boolean checkTopology() throws IOException {
+        boolean isCorrect;
+        if (Grid.getListOfFuelTanks().size() < 1 ){
+            isCorrect = false;
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Ошибка");
+            alert.setHeaderText(null);
+            alert.setContentText("Количество ТБ должно быть от 1 до 5!");
+            alert.showAndWait();
+        }
+        else if (Grid.getListOfPetrolStations().size() < 1 |
+                Grid.getListOfPetrolStations().size() > 4){
+            isCorrect = false;
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Ошибка");
+            alert.setHeaderText(null);
+            alert.setContentText("Количество ТРК должно быть от 1 до 4!");
+            alert.showAndWait();
+        }
+        else if (CashBox.getX() == 666){
+            isCorrect = false;
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Ошибка");
+            alert.setHeaderText(null);
+            alert.setContentText("Отсутствует касса!");
+            alert.showAndWait();
+        }
+        else{
+            isCorrect = true;
+        }
+        return isCorrect;
     }
 }

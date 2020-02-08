@@ -95,7 +95,6 @@ public class GridElement extends Pane {
                 this.getChildren().add(this.frameAnimation.getImageView());
                 break;
             case ROAD:
-                //mainStaticElement.setElementType(ROAD);
                 this.setOccupied(true);
                 this.frameAnimation = new FrameAnimation
                         ((int) (rand.nextDouble() * 3),
@@ -104,14 +103,13 @@ public class GridElement extends Pane {
                 this.getChildren().add(this.frameAnimation.getImageView());
                 break;
             case CROSSROAD:
-                //this.getMainStaticElement().setElementType(CROSSROAD);
                 this.setOccupied(true);
+                this.getChildren().remove(this.getChildren().size() - 1); //deleting road image from pane
                 this.frameAnimation = new FrameAnimation(4, 4, 50, 50, 6);
                 this.frameAnimation.getImageView().setRotate(rotate);
                 this.getChildren().add(this.frameAnimation.getImageView());
                 break;
             case EMPTYPLACE:
-                //this.getMainStaticElement().setElementType(EMPTYPLACE);
                 this.setOccupied(false);
                 this.frameAnimation = new FrameAnimation(3, 4, 50, 50, 6);
                 this.frameAnimation.getImageView().setRotate(rotate);
@@ -121,7 +119,6 @@ public class GridElement extends Pane {
     }
 
     public void deleteElement() {
-        //if (!elementType.equals(ROAD) && !elementType.equals(CROSSROAD))
         this.getChildren().remove(frameAnimation.getImageView());
         frameAnimation = null;
         mainStaticElement = null;

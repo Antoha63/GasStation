@@ -27,9 +27,6 @@ import java.io.IOException;
 import java.util.List;
 
 public class DownloadTopologyController extends Controller {
-    private double xOffset;
-    private double yOffset;
-    private static Stage primaryStage;
     @FXML
     private Button closeButton;
     @FXML
@@ -49,16 +46,6 @@ public class DownloadTopologyController extends Controller {
 
     @FXML
     private TableView<Topology> tableView;
-
-    @FXML
-    private Button buttonSelect;
-
-    @FXML
-    private Button buttonDelete;
-
-    public static void setPrimaryStage(Stage newPrimaryStage) {
-        primaryStage = newPrimaryStage;
-    }
 
     @FXML
     public void initialize() {
@@ -103,7 +90,8 @@ public class DownloadTopologyController extends Controller {
             showAlert();
         else {
             int row = tableView.getSelectionModel().getSelectedIndex();
-            topologyRepository.delete(topologyRepository.getOne(tableView.getSelectionModel().getSelectedItem().getId()));
+            topologyRepository.delete(topologyRepository.getOne
+                    (tableView.getSelectionModel().getSelectedItem().getId()));
             tableView.getItems().remove(row);
         }
     }

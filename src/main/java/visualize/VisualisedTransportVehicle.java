@@ -88,17 +88,19 @@ public class VisualisedTransportVehicle {
     }
 
     public void go() throws InterruptedException {
-        if(this.transportVehicle.getDirection() == LEFT){
-            this.frameAnimation.setImageOffsetX(2);
-            this.transportVehicle.go(this.frameAnimation.getImageView());
-        }
-        else if(this.transportVehicle.getDirection() == TOP){
-            this.frameAnimation.setImageOffsetX(0);
-            this.transportVehicle.go(this.frameAnimation.getImageView());
-        }
-        else if(this.transportVehicle.getDirection() == BOTTOM){
-            this.frameAnimation.setImageOffsetX(1);
-            this.transportVehicle.go(this.frameAnimation.getImageView());
+        switch (transportVehicle.getDirection()){
+            case BOTTOM:
+                this.frameAnimation.setImageOffsetX(1);
+                this.transportVehicle.go(this.frameAnimation.getImageView());
+                break;
+            case LEFT:
+                this.frameAnimation.setImageOffsetX(2);
+                this.transportVehicle.go(this.frameAnimation.getImageView());
+                break;
+            case TOP:
+                this.frameAnimation.setImageOffsetX(0);
+                this.transportVehicle.go(this.frameAnimation.getImageView());
+                break;
         }
     }
 }
