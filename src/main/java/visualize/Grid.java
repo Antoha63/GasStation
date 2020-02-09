@@ -281,7 +281,10 @@ public class Grid {
     }
 
     public static void setPetrolRoad(int PetrolStationX, int PetrolStationY) {
+        System.out.println("Exit.getX() + 1 = " + (Exit.getX() + 1));
+        System.out.println("Entry.getX() - 1 = " + (Entry.getX() - 1));
         for (int i = Exit.getX() + 1; i <= Entry.getX() - 1; i++) {
+            System.out.println(grid[i][PetrolStationY - 1].getFrameAnimation().getImageOffsetX());
             if (PetrolStationY > 1 &&
                     grid[i][PetrolStationY - 1].getFrameAnimation().getImageOffsetX() >= 3) {
                 grid[i][PetrolStationY - 1].createElement(ROAD, 0);
@@ -301,6 +304,7 @@ public class Grid {
             for (int i = Exit.getX() + 1; i <= Entry.getX() - 1; i++) {
                 if (PetrolStationY > 1) {
                     grid[i][PetrolStationY - 1].deleteElement();
+                    grid[i][PetrolStationY - 1].createElement(EMPTYPLACE, 0);
                 }
                 grid[i][PetrolStationY + 1].setOccupied(false);
             }
