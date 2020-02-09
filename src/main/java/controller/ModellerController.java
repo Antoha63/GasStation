@@ -100,18 +100,18 @@ public class ModellerController extends Controller {
     public void initialize() {
         ControllersRepository.addController(ControllerType.MODELLERCONTROLLER, this);
         closeButton.setOnAction(event -> {
-            WindowRepository.getWindow(WindowType.MODELLERWINDOW).close();
+            WindowRepository.getWindow(WindowType.MODELLERWINDOW).hide();
         });
         back_button.setOnAction(event -> {
-            WindowRepository.getWindow(WindowType.MODELLERWINDOW).close();
+            WindowRepository.getWindow(WindowType.MODELLERWINDOW).hide();
+            ConstructorController constructorController = (ConstructorController)
+                    ControllersRepository.getController(ControllerType.CONSTRUCTORCONTROLLER);
+            constructorController.drawGrid(Grid.getWidth(), Grid.getHeight());
             try {
                 WindowRepository.getWindow(WindowType.CONSTRUCTORWINDOW).show();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            ConstructorController constructorController = (ConstructorController)
-                    ControllersRepository.getController(ControllerType.CONSTRUCTORCONTROLLER);
-            constructorController.drawGrid(Grid.getWidth(), Grid.getHeight());
         });
         radioButtonDeterministicDistribution.setOnAction(event -> {
             labelTime.setVisible(true);
@@ -199,14 +199,12 @@ public class ModellerController extends Controller {
                 Grid.getListOfFuelTanks().get(i).setFuel(usabledFuelList.get(i).getName());
                 Grid.getListOfFuelTanks().get(i).setCurrentVolume(FuelTank.getVolume());
             }
-            //TODO: топология не отрисовывается при повторном задании объектов топологии при заходе в имитацию
-/*            if (ControllersRepository.getControllers().containsValue(
-                    ControllersRepository.getController(ControllerType.IMITATIONCONTROLLER))) {
+            if(ControllersRepository.getControllers().containsKey
+                    (ControllerType.IMITATIONCONTROLLER)) {
                 ImitationController imitationController = (ImitationController)
-                        ControllersRepository.getController(ControllerType.IMITATIONCONTROLLER);
-                System.out.println("+");
+                    ControllersRepository.getController(ControllerType.IMITATIONCONTROLLER);
                 imitationController.drawGrid();
-            }*/
+            }
             WindowRepository.getWindow(WindowType.IMITATIONWINDOW).show();
             WindowRepository.getWindow(WindowType.MODELLERWINDOW).hide();
         }

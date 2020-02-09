@@ -250,7 +250,8 @@ public class Grid {
             }
         }
         for (Line line : lines) {
-            root.getChildren().add(line);
+            if(!root.getChildren().contains(line))
+                root.getChildren().add(line);
         }
     }
 
