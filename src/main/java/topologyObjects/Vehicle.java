@@ -212,7 +212,7 @@ this.payment = actualFuelVolume *f.getPrice();
                 if (stop <= 62 * PetrolStation.getSpeed() / 60 * actualFuelVolume / sliderMode) {
                     stop++;
                     if (comeLogMessage) {
-                        Log.sendMessage(model + " заправляется. Топливо: " + fuelType + ", " + actualFuelVolume + " л");
+                        Log.sendMessage(model + " заправляется. Топливо: " + fuelType + ", " + (int)actualFuelVolume + " л");
                         comeLogMessage = false;
                     }
                 }

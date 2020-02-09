@@ -58,7 +58,7 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <Label layoutY="19.0" styleClass="text" stylesheets="@../styles/styles.css" text="Касса:">
+            <Label layoutY="19.0" styleClass="text" stylesheets="@../styles/styles.css" text="Заработок:">
                <font>
                   <Font size="17.0" />
                </font>
@@ -112,9 +112,9 @@
       </AnchorPane>
       <AnchorPane fx:id="cashBoxPopup" layoutX="24.0" layoutY="170.0" prefHeight="96.0" prefWidth="143.0" visible="false">
          <children>
-            <Label layoutX="10.0" layoutY="10.0" text="Profit" />
-            <Label layoutX="10.0" layoutY="40.0" text="Balance" />
-            <Label layoutX="10.0" layoutY="70.0" text="CriticalLevel" />
+            <Label layoutX="10.0" layoutY="10.0" text="Заработок:" />
+            <Label layoutX="10.0" layoutY="40.0" text="Баланс:" />
+            <Label layoutX="10.0" layoutY="70.0" text="Крит. уровень:" />
             <Label fx:id="cashboxProfitValue" layoutX="115.0" layoutY="10.0" text="0" />
             <Label fx:id="cashboxBalanceValue" layoutX="115.0" layoutY="40.0" text="0" />
             <Label fx:id="cashboxCriticalValue" layoutX="115.0" layoutY="70.0" text="0" />
@@ -122,25 +122,25 @@
       </AnchorPane>
       <AnchorPane fx:id="fuelTankPopup" layoutX="26.0" layoutY="170.0" prefHeight="102.0" prefWidth="140.0" visible="false">
          <children>
-            <Label layoutX="10.0" layoutY="10.0" text="Fuel" />
-            <Label layoutX="10.0" layoutY="31.0" text="Volume" />
-            <Label layoutX="10.0" layoutY="52.0" text="CriticalLevel" />
+            <Label layoutX="10.0" layoutY="10.0" text="Вид топлива:" />
+            <Label layoutX="10.0" layoutY="31.0" text="Объём:" />
+            <Label layoutX="10.0" layoutY="52.0" text="Крит. уровень:" />
             <Label fx:id="fueltankFuelValue" layoutX="115.0" layoutY="10.0" text="0" />
             <Label fx:id="fueltankVolumeValue" layoutX="115.0" layoutY="31.0" text="0" />
             <Label fx:id="fueltankCriticalLevel" layoutX="115.0" layoutY="52.0" text="0" />
-            <Label layoutX="10.0" layoutY="74.0" text="CurrentVolume" />
+            <Label layoutX="10.0" layoutY="74.0" text="Баланс:" />
             <Label fx:id="fueltankCurrentVolume" layoutX="115.0" layoutY="74.0" text="0" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="petrolStationPopup" layoutX="24.0" layoutY="170.0" prefHeight="66.0" prefWidth="143.0" visible="false">
          <children>
-            <Label layoutX="10.0" layoutY="40.0" text="Status" />
+            <!--<Label layoutX="10.0" layoutY="40.0" text="Status" />-->
             <Label fx:id="petrolstationSpeed" layoutX="115.0" layoutY="10.0" text="0" />
-            <Label fx:id="petrolstationStatus" layoutX="115.0" layoutY="40.0" text="0" />
-            <Label layoutX="10.0" layoutY="10.0" text="Speed" />
+            <!--<Label fx:id="petrolstationStatus" layoutX="115.0" layoutY="40.0" text="0" />-->
+            <Label layoutX="10.0" layoutY="10.0" text="Скорость:" />
          </children>
       </AnchorPane>
-      <Label fx:id="infoLabel" layoutX="782.0" layoutY="40.0" prefHeight="18.0" prefWidth="156.0" styleClass="text" stylesheets="@../styles/styles.css" text="Информационное табло" AnchorPane.topAnchor="40.0">
+      <Label fx:id="infoLabel" layoutX="782.0" layoutY="40.0" prefHeight="18.0" prefWidth="156.0" styleClass="text" stylesheets="@../styles/styles.css" text="Лог событий" AnchorPane.topAnchor="40.0">
          <font>
             <Font size="17.0" />
          </font>

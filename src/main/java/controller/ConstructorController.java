@@ -133,7 +133,6 @@ public class ConstructorController extends Controller {
     }
 
     private void setBackButtonEvent() {
-        //TODO: элементы не ставятся после загрузки топологии в создании
         back_button.setOnAction(event -> {
             ControllersRepository.removeController(ControllerType.BOUNDSCONTROLLER);
             ControllersRepository.removeController(ControllerType.DOWNLOADTOPOLOGYCONTROLLER);
