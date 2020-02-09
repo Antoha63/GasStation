@@ -2,6 +2,7 @@ package controller;
 
 import Log.Log;
 import TimeControl.TimeState;
+import com.sun.xml.internal.ws.api.ha.StickyFeature;
 import elements.CashBox;
 import elements.FuelTank;
 import elements.PetrolStation;
@@ -143,6 +144,10 @@ public class ImitationController extends Controller {
                         petrolStationPopup.setVisible(!petrolStationPopup.isVisible());
                         cashBoxPopup.setVisible(false);
                         fuelTankPopup.setVisible(false);
+
+                        PetrolStation tempPetrolStation = Grid.getListOfPetrolStations().get(finalI);
+                        petrolstationSpeed.setText(String.valueOf(PetrolStation.getSpeed()));
+                        petrolstationStatus.setText(String.valueOf(tempPetrolStation.getStatus()));
                     });
         }
         for(int i = 0; i < Grid.getListOfPetrolStations().size(); i++){
@@ -183,6 +188,10 @@ public class ImitationController extends Controller {
                     cashBoxPopup.setVisible(!cashBoxPopup.isVisible());
                     fuelTankPopup.setVisible(false);
                     petrolStationPopup.setVisible(false);
+
+                    cashboxBalanceValue.setText(String.valueOf(CashBox.getBalance()));
+                    cashboxCriticalValue.setText(String.valueOf(CashBox.getCriticalLevel()));
+                    cashboxProfitValue.setText(String.valueOf(CashBox.getProfit()));
                 });
         tempGrid[CashBox.getX()][CashBox.getY()].
                 setOnMouseExited(mouseEvent -> {
