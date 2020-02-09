@@ -277,6 +277,9 @@ public class Grid {
         Exit.setY(0);
         Exit.setStatus(false);
 
+        CashBox.setX(666);
+        CashBox.setY(666);
+
         listOfFuelTanks = new ArrayList<>();
         listOfPetrolStations = new ArrayList<>();
     }
