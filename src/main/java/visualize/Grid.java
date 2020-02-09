@@ -187,8 +187,7 @@ public class Grid {
         for (int j = 0; j < height + 1; j++) {
             int finalJ = j;
             grid[Exit.getX() - 1][j].setOnDragOver(dragEvent -> {
-                if (dragEvent.getDragboard().hasString() && !grid[0][finalJ].getIsOccupied()
-                        && Exit.getStatus() && Entry.getStatus() && !CashBox.getSetted()) {
+                if (!CashBox.getSetted()) {
                     if ("cashBox".equals(dragEvent.getDragboard().getString())) {
                         dragEvent.acceptTransferModes(TransferMode.COPY);
                     }
@@ -279,6 +278,7 @@ public class Grid {
 
         CashBox.setX(666);
         CashBox.setY(666);
+        CashBox.setSetted(false);
 
         listOfFuelTanks = new ArrayList<>();
         listOfPetrolStations = new ArrayList<>();
