@@ -92,6 +92,7 @@ public class ConstructorController extends Controller {
             Grid.getGrid()[topology.getExitX()] [topology.getExitY()].
                     createElement(ElementType.EXIT, 180);
 
+            disableElements(false);
             Grid.setCashBoxEvents();
             Grid.getGrid()[topology.getCashBoxX()][topology.getCashBoxY()].
                     createElement(ElementType.CASHBOX, 0);
