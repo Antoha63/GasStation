@@ -43,14 +43,12 @@ public class MoveController extends Controller {
         final int[] j = {0};
         final int[] numOfVehicle = {0};
         final int[] temp = {666};
-        final int[] trigger = {0};
         final boolean[] autoCreated = {false};
         animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
                 switch (timeState) {
                     case START:
-                        trigger[0]++;
                         if ((int) (distribution.getTimes()[j[0]] * 61 /*/
                                 imitationController.getSliderMode().getValue()*/) == i[0]) {
                             VisualisedTransportVehicle visualisedTransportVehicle =
@@ -60,14 +58,17 @@ public class MoveController extends Controller {
                                             AUTOMOBILE);
                             automobiles.add(visualisedTransportVehicle);
                             try {
-                                //TODO: иногда вылетает duplicate target exception
+                                //иногда вылетает duplicate target
                                 root.getChildren().add(automobiles.get(numOfVehicle[0]).getFrameAnimation().getImageView());
                             }
-                            catch (IllegalArgumentException ignore){}
+                            catch (IllegalArgumentException e){
+                                automobiles.remove(automobiles.size() - 1);
+                                root.getChildren().remove(root.getChildren().size() - 1);
+                            }
                             numOfVehicle[0]++;
                             autoCreated[0] = true;
                             if (j[0] == 99) j[0] = 0;
-                            j[0]++;
+                            else j[0]++;
                         }
                         i[0]++;
                         if(autoCreated[0]){
@@ -147,7 +148,6 @@ public class MoveController extends Controller {
                         j[0] = 0;
                         numOfVehicle[0] = 0;
                         temp[0] = 666;
-                        trigger[0] = 0;
                         return;
                     case PLAY:
                         break;
