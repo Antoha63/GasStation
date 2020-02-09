@@ -2,28 +2,28 @@
 	-fx-font-family: Constantia;
 	-fx-font-size: 14px;
 	-fx-text-alignment: center;
-	-fx-border-color: #3e3e3e;
-	-fx-border-radius: 5px;
+	-fx-border-radius: 0px;
 	-fx-background-color: linear-gradient(#e4dcc6, #E5CFBD);
-	-fx-background-radius: 5px;
+	-fx-background-radius: 0px;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 5, 0, 2, 2); 
 }
 .button_restyling:hover{
 	-fx-font-family: Constantia;
 	-fx-font-size: 14px;
 	-fx-text-alignment: center;
-	-fx-border-color: #3e3e3e;
-	-fx-border-radius: 5px;
+	-fx-border-radius: 0px;
 	-fx-background-color: #E5CFBD;
-	-fx-background-radius: 5px;
+	-fx-background-radius: 0px;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 5, 0, 2, 2); 
 }
 .button_restyling:pressed{
 	-fx-font-family: Constantia;
 	-fx-font-size: 14px;
 	-fx-text-alignment: center;
-	-fx-border-color: #3e3e3e;
-	-fx-border-radius: 5px;
+	-fx-border-radius: 0px;
 	-fx-background-color: #D9B79B;
-	-fx-background-radius: 5px;
+	-fx-background-radius: 0px;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 5, 0, 2, 2); 
 }
 .button_restyling_bounds{
 	-fx-pref-width: 200px;
@@ -55,7 +55,6 @@
 	-fx-background-color: #f1ede1;
 	-fx-background-size: cover;
 	-fx-border-color: #3e3e3e;
-	/*-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 4, 4); */
 }
 .button_close{
 	-fx-background-repeat: no-repeat;
@@ -83,5 +82,5 @@
 }
 .close_area{
 	-fx-background-color: #e4dcc6;
-	-fx-background-radius: 0 0 5px 5px;
+	-fx-background-radius: 0 0 0px 0px;
 }
