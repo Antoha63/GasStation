@@ -3,26 +3,27 @@
 	-fx-font-size: 14px;
 	-fx-text-alignment: center;
 	-fx-border-radius: 0px;
-	-fx-background-color: linear-gradient(#9e9e9e, #757575);
+	-fx-background-color: linear-gradient(#e4dcc6, #E5CFBD);
 	-fx-background-radius: 0px;
-	-fx-text-fill: #eceff1;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 5, 0, 2, 2); 
 }
 .button_restyling:hover{
 	-fx-font-family: Constantia;
 	-fx-font-size: 14px;
 	-fx-text-alignment: center;
 	-fx-border-radius: 0px;
-	-fx-background-color: #757575;
+	-fx-background-color: #E5CFBD;
 	-fx-background-radius: 0px;
-	-fx-text-fill: #eceff1;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 5, 0, 2, 2); 
 }
 .button_restyling:pressed{
 	-fx-font-family: Constantia;
 	-fx-font-size: 14px;
 	-fx-text-alignment: center;
 	-fx-border-radius: 0px;
-	-fx-background-color: #616161;
+	-fx-background-color: #D9B79B;
 	-fx-background-radius: 0px;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 5, 0, 2, 2); 
 }
 .button_restyling_bounds{
 	-fx-pref-width: 200px;
@@ -53,8 +54,7 @@
 .window_background{
 	-fx-background-color: #fafafa;
 	-fx-background-size: cover;
-	-fx-border-color: #212121;
-	/*-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 4, 4); */
+	-fx-border-color: #3e3e3e;
 }
 .button_close{
 	-fx-background-repeat: no-repeat;
@@ -81,5 +81,6 @@
 	-fx-min-height: -fx-pref-height; 
 }
 .close_area{
-	-fx-background-color: #9e9e9e;
+	-fx-background-color: #e4dcc6;
+	-fx-background-radius: 0 0 0px 0px;
 }

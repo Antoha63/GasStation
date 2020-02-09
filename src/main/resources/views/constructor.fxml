@@ -117,7 +117,7 @@
             </AnchorPane>
         </content>
       </ScrollPane>
-         <Button layoutX="817.0" layoutY="561.0" mnemonicParsing="false" onAction="#createModeller" prefHeight="94.0" prefWidth="153.0" stylesheets="@../styles/styles.css" text="Перейти к моделированию" wrapText="true" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
+         <Button layoutX="119.0" layoutY="260.0" mnemonicParsing="false" onAction="#createModeller" prefHeight="94.0" prefWidth="153.0" stylesheets="@../styles/styles.css" text="Перейти к моделированию" wrapText="true" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
             <font>
                <Font size="17.0" />
             </font>
@@ -126,7 +126,7 @@
             <String fx:value="button_restyling_bounds" />
          </styleClass>
       </Button>
-         <Button fx:id="checkCorrect" layoutX="583.0" layoutY="559.0" mnemonicParsing="false" onAction="#checkTopology" prefHeight="94.0" prefWidth="153.0" style="-fx-text-fill: #fff;" stylesheets="@../styles/styles.css" text="Проверка корректности" wrapText="true">
+         <Button fx:id="checkCorrect" layoutX="580.0" layoutY="559.0" mnemonicParsing="false" onAction="#checkTopology" prefHeight="94.0" prefWidth="153.0" stylesheets="@../styles/styles.css" text="Проверка корректности" wrapText="true" AnchorPane.bottomAnchor="10.0">
             <font>
                <Font size="17.0" />
             </font>
