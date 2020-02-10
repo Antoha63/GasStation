@@ -270,6 +270,11 @@ public class ConstructorController extends Controller {
         }
         else{
             isCorrect = true;
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Ошибок нет");
+            alert.setHeaderText(null);
+            alert.setContentText("Ошибок нет!");
+            alert.showAndWait();
         }
         return isCorrect;
     }
