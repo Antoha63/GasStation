@@ -10,37 +10,6 @@
 
 <AnchorPane fx:id="anchorPane" prefHeight="600.0" prefWidth="1000.0" styleClass="window_background" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ImitationController">
    <children>
-      <AnchorPane fx:id="threadButtons" layoutX="10.0" layoutY="40.0" prefHeight="50.0" prefWidth="120.0">
-         <children>
-            <Button fx:id="playButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-image: &quot;@pics/icons8-play-48.png&quot;;" stylesheets="@../styles/styles.css" wrapText="true">
-               <font>
-                  <Font size="24.0" />
-               </font>
-               <styleClass>
-                  <String fx:value="button_restyling" />
-                  <String fx:value="button_play" />
-               </styleClass>
-            </Button>
-            <Button fx:id="pauseButton" layoutX="60.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" stylesheets="@../styles/styles.css" wrapText="true">
-               <font>
-                  <Font size="16.0" />
-               </font>
-               <styleClass>
-                  <String fx:value="button_restyling" />
-                  <String fx:value="button_pause" />
-               </styleClass>
-            </Button>
-            <Button fx:id="stopButton" layoutX="120.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" stylesheets="@../styles/styles.css" wrapText="true">
-               <font>
-                  <Font name="Arial" size="26.0" />
-               </font>
-               <styleClass>
-                  <String fx:value="button_restyling" />
-                  <String fx:value="button_stop" />
-               </styleClass>
-            </Button>
-         </children>
-      </AnchorPane>
       <AnchorPane fx:id="statistics" layoutX="761.0" layoutY="562.0" prefHeight="87.0" prefWidth="204.0" AnchorPane.bottomAnchor="10.0">
          <children>
             <Label layoutX="65.0" styleClass="text" stylesheets="@../styles/styles.css" text="Статистика">
@@ -101,6 +70,37 @@
                <font>
                   <Font size="6.0" />
                </font>
+            </Button>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="threadButtons" layoutX="10.0" layoutY="40.0" prefHeight="50.0" prefWidth="120.0">
+         <children>
+            <Button fx:id="playButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-image: &quot;@pics/icons8-play-48.png&quot;;" stylesheets="@../styles/styles.css" wrapText="true">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="button_restyling" />
+                  <String fx:value="button_play" />
+               </styleClass>
+            </Button>
+            <Button fx:id="pauseButton" layoutX="60.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" stylesheets="@../styles/styles.css" wrapText="true">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="button_restyling" />
+                  <String fx:value="button_pause" />
+               </styleClass>
+            </Button>
+            <Button fx:id="stopButton" layoutX="120.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" stylesheets="@../styles/styles.css" wrapText="true">
+               <font>
+                  <Font name="Arial" size="26.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="button_restyling" />
+                  <String fx:value="button_stop" />
+               </styleClass>
             </Button>
          </children>
       </AnchorPane>
