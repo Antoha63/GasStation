@@ -83,4 +83,5 @@
 .close_area{
 	-fx-background-color: #e4dcc6;
 	-fx-background-radius: 0 0 0px 0px;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 30, 0, 0, 2); 
 }
