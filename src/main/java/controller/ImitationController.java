@@ -2,7 +2,6 @@ package controller;
 
 import Log.Log;
 import TimeControl.TimeState;
-import com.sun.xml.internal.ws.api.ha.StickyFeature;
 import elements.CashBox;
 import elements.FuelTank;
 import elements.PetrolStation;
@@ -130,20 +129,18 @@ public class ImitationController extends Controller {
         GridElement[][] tempGrid = Grid.getGrid();
         for (int i = 0; i < Grid.getWidth(); i++) {
             for (int j = 0; j < Grid.getHeight() + 1; j++) {
-                anchorPane.getChildren().add(tempGrid[i][j]);
-                tempGrid[i][j].setOnMouseClicked(null);
+                anchorPane.getChildren().add(tempGrid[i][j]);  //TODO: (high priority) при возврате с имитации в параметры не заходит обратно в имитацию
+                tempGrid[i][j].setOnMouseClicked(null);        //TODO: (high priority) добавить возможность удаления элементов при возвращении в контруктор
             }
         }
         for(int i = 0; i < Grid.getListOfPetrolStations().size(); i++){
-            int finalI = i;
             tempGrid[Grid.getListOfPetrolStations().get(i).getX()][Grid.getListOfPetrolStations().get(i).getY()].
                     setOnMouseEntered(mouseEvent -> {
                         petrolStationPopup.setVisible(!petrolStationPopup.isVisible());
                         cashBoxPopup.setVisible(false);
                         fuelTankPopup.setVisible(false);
 
-                        PetrolStation tempPetrolStation = Grid.getListOfPetrolStations().get(finalI);
-                        petrolstationSpeed.setText(String.valueOf(PetrolStation.getSpeed())+ " л/мин");
+                        petrolstationSpeed.setText(PetrolStation.getSpeed() + " л/мин");
                     });
         }
         for(int i = 0; i < Grid.getListOfPetrolStations().size(); i++){

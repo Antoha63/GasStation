@@ -91,7 +91,7 @@ public class Grid {
             int finalK = k;
 
             grid[k][Grid.height].setOnDragOver(event -> {
-                if (event.getDragboard().hasString()) {
+                if (event.getDragboard().hasString() ) {
                     switch (event.getDragboard().getString()) {
                         case "entry":
                         case "exit":
@@ -104,14 +104,16 @@ public class Grid {
                 switch (event.getDragboard().getString()) {
                     case "exit":
                         if (finalK < Entry.getX() - 1 && Entry.getStatus() && !Exit.getStatus()) {
-                            //TODO: заблокированный элемент слева от выезда
                             grid[finalK][Grid.height].createElement(EXIT, 180);
                             setRoundRoad();
                         }
                         break;
                     case "entry":
-                        if(finalK >= 3 && !Entry.getStatus())
+                        if(finalK >= 3 && !Entry.getStatus()) {
                             grid[finalK][Grid.height].createElement(ENTRY, 180);
+                            if (Exit.getStatus())
+                                setRoundRoad();
+                        }
                         break;
                 }
                 if (Entry.getStatus() && Exit.getStatus() && Entry.getX() > Exit.getX()) {
@@ -184,7 +186,7 @@ public class Grid {
     }
 
     public static void setCashBoxEvents() {
-        for (int j = 0; j < height + 1; j++) {
+        for (int j = 0; j < height; j++) {
             int finalJ = j;
             grid[Exit.getX() - 1][j].setOnDragOver(dragEvent -> {
                 if (!CashBox.getSetted()) {
@@ -206,7 +208,6 @@ public class Grid {
                                 getElementType().equals(CASHBOX)) {
                     grid[Exit.getX() - 1][finalJ].deleteElement();
                     CashBox.setSetted(false);
-                    CashBox.setX(666);
                 }
             });
         }
@@ -218,7 +219,8 @@ public class Grid {
             grid[width - 2][j].setOnDragOver(dragEvent -> {
                 if (dragEvent.getDragboard().hasString() &&
                         Exit.getStatus() && Entry.getStatus() &&
-                        dragEvent.getDragboard().getString().equals("fuelTank")) {
+                        dragEvent.getDragboard().getString().equals("fuelTank") &&
+                        !grid[width - 2][finalJ].getIsOccupied()) {
                     dragEvent.acceptTransferModes(TransferMode.COPY);
                 }
             });
