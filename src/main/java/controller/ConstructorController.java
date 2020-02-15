@@ -228,20 +228,30 @@ public class ConstructorController extends Controller {
 
     @FXML
     public void createModeller() throws IOException {
-        if(checkTopology()){
+        if(checkCorrect()){
             WindowRepository.getWindow(WindowType.MODELLERWINDOW).show();
             WindowRepository.getWindow(WindowType.CONSTRUCTORWINDOW).hide();
         }
     }
 
     public void saveTopology() throws IOException {
-        if(checkTopology()){
+        if(checkCorrect()){
             WindowRepository.getWindow(WindowType.SAVETOPOLOGYWINDOW).show();
         }
     }
 
     @FXML
-    public boolean checkTopology() throws IOException {
+    public void checkTopology() {
+        if (checkCorrect()){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Ошибок нет");
+            alert.setHeaderText(null);
+            alert.setContentText("Ошибок нет!");
+            alert.showAndWait();
+        }
+    }
+
+    private boolean checkCorrect(){
         boolean isCorrect;
         if (Grid.getListOfFuelTanks().size() < 1 ){
             isCorrect = false;
@@ -270,11 +280,6 @@ public class ConstructorController extends Controller {
         }
         else{
             isCorrect = true;
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Ошибок нет");
-            alert.setHeaderText(null);
-            alert.setContentText("Ошибок нет!");
-            alert.showAndWait();
         }
         return isCorrect;
     }

@@ -47,10 +47,6 @@ public class ImitationController extends Controller {
     @FXML
     private Label petrolstationSpeed;
     @FXML
-    private Label petrolstationStatus;
-    @FXML
-    private AnchorPane threadButtons;
-    @FXML
     private Button playButton;
     @FXML
     private Button pauseButton;
@@ -58,8 +54,6 @@ public class ImitationController extends Controller {
     private Button stopButton;
     @FXML
     private AnchorPane anchorPane;
-    @FXML
-    private Label infoLabel;
     @FXML
     private TextArea log_list;
     @FXML
@@ -135,19 +129,16 @@ public class ImitationController extends Controller {
             }
         }
         for(int i = 0; i < Grid.getListOfPetrolStations().size(); i++){
-            int finalI = i;
             tempGrid[Grid.getListOfPetrolStations().get(i).getX()][Grid.getListOfPetrolStations().get(i).getY()].
                     setOnMouseEntered(mouseEvent -> {
                         petrolStationPopup.setVisible(!petrolStationPopup.isVisible());
                         cashBoxPopup.setVisible(false);
                         fuelTankPopup.setVisible(false);
 
-                        PetrolStation tempPetrolStation = Grid.getListOfPetrolStations().get(finalI);
-                        petrolstationSpeed.setText(String.valueOf(PetrolStation.getSpeed())+ " л/мин");
+                        petrolstationSpeed.setText(PetrolStation.getSpeed() + " л/мин");
                     });
         }
         for(int i = 0; i < Grid.getListOfPetrolStations().size(); i++){
-            int finalI = i;
             tempGrid[Grid.getListOfPetrolStations().get(i).getX()][Grid.getListOfPetrolStations().get(i).getY()].
                     setOnMouseExited(mouseEvent -> {
                         petrolStationPopup.setVisible(!petrolStationPopup.isVisible());
@@ -165,13 +156,12 @@ public class ImitationController extends Controller {
 
                         FuelTank tempFuelTank = Grid.getListOfFuelTanks().get(finalI);
                         fueltankFuelValue.setText(tempFuelTank.getFuel());
-                        fueltankCriticalLevel.setText(String.valueOf((int)FuelTank.getCriticalLevel())+ " %");
-                        fueltankCurrentVolume.setText(String.valueOf(tempFuelTank.getCurrentVolume())+ " л");
-                        fueltankVolumeValue.setText(String.valueOf(FuelTank.getVolume())+ " л");
+                        fueltankCriticalLevel.setText((int) FuelTank.getCriticalLevel() + " %");
+                        fueltankCurrentVolume.setText(tempFuelTank.getCurrentVolume() + " л");
+                        fueltankVolumeValue.setText(FuelTank.getVolume() + " л");
                     });
         }
         for (int i = 0; i < Grid.getListOfFuelTanks().size();i++){
-            int finalI = i;
             tempGrid[Grid.getListOfFuelTanks().get(i).getX()][Grid.getListOfFuelTanks().get(i).getY()].
                     setOnMouseExited(mouseEvent -> {
                         fuelTankPopup.setVisible(!fuelTankPopup.isVisible());
@@ -185,9 +175,9 @@ public class ImitationController extends Controller {
                     fuelTankPopup.setVisible(false);
                     petrolStationPopup.setVisible(false);
 
-                    cashboxBalanceValue.setText(String.valueOf(CashBox.getBalance()) + " р");
-                    cashboxCriticalValue.setText(String.valueOf(CashBox.getCriticalLevel()) + " р");
-                    cashboxProfitValue.setText(String.valueOf(CashBox.getProfit()) + " р");
+                    cashboxBalanceValue.setText(CashBox.getBalance() + " р");
+                    cashboxCriticalValue.setText(CashBox.getCriticalLevel() + " р");
+                    cashboxProfitValue.setText(CashBox.getProfit() + " р");
                 });
         tempGrid[CashBox.getX()][CashBox.getY()].
                 setOnMouseExited(mouseEvent -> {

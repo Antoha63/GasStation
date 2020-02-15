@@ -6,13 +6,8 @@ import elements.PetrolStation;
 import entities.Car;
 import entities.Fuel;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import repositories.CarRepository;
 import repositories.FuelRepository;
@@ -33,7 +28,6 @@ import static javafx.scene.effect.BlendMode.MULTIPLY;
 public class ModellerController extends Controller {
     private static List<Car> carList;
     private static List<Fuel> fuelList;
-    private static List<Fuel> usabledFuelList;
     private List<CheckBox> checkBoxes = new ArrayList<>();
 
     private ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-data-context.xml");
@@ -172,7 +166,7 @@ public class ModellerController extends Controller {
     public void createImitation() throws Exception {
         carList = carRepository.findAll();
         fuelList = fuelRepository.findAll();
-        usabledFuelList = new ArrayList<>();
+        List<Fuel> usabledFuelList = new ArrayList<>();
         for (CheckBox rb : checkBoxes){
             if (rb.isSelected()){
                 for (Fuel fuel : fuelList) {
