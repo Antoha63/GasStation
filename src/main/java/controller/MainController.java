@@ -7,6 +7,8 @@ import javafx.stage.Stage;
 import views.WindowRepository;
 import views.WindowType;
 
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 
 import static views.WindowType.BOUNDSWINDOW;
@@ -41,11 +43,19 @@ public class MainController extends Controller {
         WindowRepository.getWindow(WindowType.MAINWINDOW).close();
     }
 
+    //TODO: (easy) не открывается окно о системе и разработчиках
     public void developerInfo() throws IOException {
         WindowRepository.getWindow(WindowType.DEVINFOWINDOW).show();
     }
 
     public void systemInfo() throws IOException {
-        WindowRepository.getWindow(WindowType.SYSINFOWINDOW).show();
+        String url = "C:/Users/user/IdeaProjects/GasStation/src/main/resources/html/help.html";
+        File htmlFile = new File(url);
+        Desktop.getDesktop().browse(htmlFile.toURI());
     }
 }
+
+//TODO: при изменении координаты въезда не отрисовывается дорога внутри ТРК
+//TODO: (easy) при сохранении топологии окно не закрывается
+//TODO: (easy) поменять местами кнопки "выбрать" и "удалить" в разделе "загрузить топологию"
+//TODO: (easy) в конструкторе тень мешает кнопкам

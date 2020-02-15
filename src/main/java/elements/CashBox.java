@@ -12,8 +12,8 @@ import lombok.ToString;
 @ToString
 public class CashBox extends MainStaticElement {
 
-    private static int x = 666;
-    private static int y = 666;
+    private static int x;
+    private static int y;
     private static int profit; //заработок за все время
     private static int balance = 0;
     private static int criticalLevel; //between 10000 nd 100000

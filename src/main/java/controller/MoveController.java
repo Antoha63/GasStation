@@ -58,7 +58,7 @@ public class MoveController extends Controller {
                                             AUTOMOBILE);
                             automobiles.add(visualisedTransportVehicle);
                             try {
-                                //иногда вылетает duplicate target
+                                //TODO: иногда вылетает duplicate target
                                 root.getChildren().add(automobiles.get(numOfVehicle[0]).getFrameAnimation().getImageView());
                             }
                             catch (IllegalArgumentException e){
@@ -94,6 +94,7 @@ public class MoveController extends Controller {
                             temp[0] = 666;
                         }
                         /*COLLECTORFUEL*/
+                        //TODO: возможна ситуация появления нескольких дозаправщиков
                         for (FuelTank ft : Grid.getListOfFuelTanks()){
                             if (ft.checkFuelTank()) {
                                 collectorFuel = new VisualisedTransportVehicle((int) Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getTranslateX(),

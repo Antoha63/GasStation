@@ -70,8 +70,7 @@ public class ConstructorController extends Controller {
             width = boundsController.getTopologyWidth().getValue();
             height = boundsController.getTopologyHeight().getValue();
             Grid.drawGrid(width, height, anchorPane);
-        }
-        else{
+        } else {
             width = 3;
             height = 7;
         }
@@ -89,14 +88,14 @@ public class ConstructorController extends Controller {
             Grid.initGrid(width, height);
             Grid.getGrid()[topology.getEntranceX()][topology.getEntranceY()].
                     createElement(ElementType.ENTRY, 180);
-            Grid.getGrid()[topology.getExitX()] [topology.getExitY()].
+            Grid.getGrid()[topology.getExitX()][topology.getExitY()].
                     createElement(ElementType.EXIT, 180);
 
             disableElements(false);
             Grid.setCashBoxEvents();
             Grid.getGrid()[topology.getCashBoxX()][topology.getCashBoxY()].
                     createElement(ElementType.CASHBOX, 0);
-            CashBox.setSetted(true);
+            CashBox.setSetted(true); //TODO: касса не удаляется при закрузке из БД
 
             Grid.setPetrolStationsEvents();
             List<PetrolStation> petrolStationList = petrolStationRepository.findAll();
@@ -141,8 +140,8 @@ public class ConstructorController extends Controller {
             try {
                 WindowRepository.getWindow(WindowType.BOUNDSWINDOW).close();
                 WindowRepository.getWindow(WindowType.DOWNLOADTOPOLOGYWINDOW).close();
+            } catch (NullPointerException ignored) {
             }
-            catch (NullPointerException ignored){}
 
             try {
                 WindowRepository.getWindow(WindowType.MAINWINDOW).show();
@@ -152,7 +151,7 @@ public class ConstructorController extends Controller {
         });
     }
 
-    public void drawGrid(int width, int height){
+    public void drawGrid(int width, int height) {
         Grid.drawGrid(width, height, anchorPane);
     }
 
@@ -253,32 +252,43 @@ public class ConstructorController extends Controller {
 
     private boolean checkCorrect(){
         boolean isCorrect;
-        if (Grid.getListOfFuelTanks().size() < 1 ){
+        if (!Entry.getStatus()) {
+            isCorrect = false;
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Ошибка");
+            alert.setHeaderText(null);
+            alert.setContentText("Въезд не установлен!");
+            alert.showAndWait();
+        } else if (!Exit.getStatus()) {
+            isCorrect = false;
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Ошибка");
+            alert.setHeaderText(null);
+            alert.setContentText("Выезд не установлен!");
+            alert.showAndWait();
+        } else if (Grid.getListOfFuelTanks().size() < 1) {
             isCorrect = false;
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Ошибка");
             alert.setHeaderText(null);
             alert.setContentText("Количество ТБ должно быть от 1 до 5!");
             alert.showAndWait();
-        }
-        else if (Grid.getListOfPetrolStations().size() < 1 |
-                Grid.getListOfPetrolStations().size() > 4){
+        } else if (Grid.getListOfPetrolStations().size() < 1 |
+                Grid.getListOfPetrolStations().size() > 4) {
             isCorrect = false;
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Ошибка");
             alert.setHeaderText(null);
             alert.setContentText("Количество ТРК должно быть от 1 до 4!");
             alert.showAndWait();
-        }
-        else if (CashBox.getX() == 666){
+        } else if (!CashBox.getSetted()) {
             isCorrect = false;
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Ошибка");
             alert.setHeaderText(null);
             alert.setContentText("Отсутствует касса!");
             alert.showAndWait();
-        }
-        else{
+        } else {
             isCorrect = true;
         }
         return isCorrect;

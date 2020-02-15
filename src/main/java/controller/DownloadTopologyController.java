@@ -18,7 +18,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import repositories.TopologyRepository;
-import sun.nio.ch.WindowsAsynchronousChannelProvider;
 import views.Window;
 import views.WindowRepository;
 import views.WindowType;

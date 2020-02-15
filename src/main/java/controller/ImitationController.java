@@ -2,7 +2,6 @@ package controller;
 
 import Log.Log;
 import TimeControl.TimeState;
-import com.sun.xml.internal.ws.api.ha.StickyFeature;
 import elements.CashBox;
 import elements.FuelTank;
 import elements.PetrolStation;
@@ -124,8 +123,8 @@ public class ImitationController extends Controller {
         GridElement[][] tempGrid = Grid.getGrid();
         for (int i = 0; i < Grid.getWidth(); i++) {
             for (int j = 0; j < Grid.getHeight() + 1; j++) {
-                anchorPane.getChildren().add(tempGrid[i][j]);
-                tempGrid[i][j].setOnMouseClicked(null);
+                anchorPane.getChildren().add(tempGrid[i][j]);  //TODO: (high priority) при возврате с имитации в параметры не заходит обратно в имитацию
+                tempGrid[i][j].setOnMouseClicked(null);        //TODO: (high priority) добавить возможность удаления элементов при возвращении в контруктор
             }
         }
         for(int i = 0; i < Grid.getListOfPetrolStations().size(); i++){
