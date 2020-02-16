@@ -99,14 +99,6 @@ public class ConstructorController extends Controller {
 
             Grid.setPetrolStationsEvents();
             List<PetrolStation> petrolStationList = petrolStationRepository.findAll();
-            for (PetrolStation petrolStation : petrolStationList) {
-                Grid.getGrid()[petrolStation.getCoordinateX()][petrolStation.getCoordinateY()].
-                        createElement(ElementType.PETROLSTATION, 0);
-/*                Grid.setPetrolRoad(petrolStation.getCoordinateX(),
-                                    petrolStation.getCoordinateY());*/
-                //TODO: перекрёстки рисуются под дорогой
-                //TODO: не удаляются некоторые элементы
-            }
 
             Grid.setFuelTanksEvents();
             List<FuelTank> fuelTankList = fuelTankRepository.findAll();
@@ -116,6 +108,12 @@ public class ConstructorController extends Controller {
             if (Entry.getStatus() && Exit.getStatus() && Entry.getX() > Exit.getX())
                 Grid.setRoundRoad();
             Grid.drawGrid(width, height, anchorPane);
+            for (PetrolStation petrolStation : petrolStationList) {
+                Grid.getGrid()[petrolStation.getCoordinateX()][petrolStation.getCoordinateY()].
+                        createElement(ElementType.PETROLSTATION, 0);
+                Grid.setPetrolRoad(petrolStation.getCoordinateX(),
+                        petrolStation.getCoordinateY());
+            }
         }
 
 

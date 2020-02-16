@@ -145,9 +145,7 @@ public class ImitationController extends Controller {
         for (int i = 0; i < Grid.getWidth(); i++) {
             for (int j = 0; j < Grid.getHeight() + 1; j++) {
                 anchorPane.getChildren().add(Grid.getGrid()[i][j]);
-                //TODO: (high priority) при возврате с имитации в параметры не заходит обратно в имитацию
                 Grid.getGrid()[i][j].setOnMouseClicked(null);
-                //TODO: (high priority) добавить возможность удаления элементов при возвращении в контруктор
             }
         }
         for(int i = 0; i < Grid.getListOfPetrolStations().size(); i++){
