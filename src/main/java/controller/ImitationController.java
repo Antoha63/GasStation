@@ -3,10 +3,14 @@ package controller;
 import Log.Log;
 import TimeControl.TimeState;
 import elements.CashBox;
+import elements.Exit;
 import elements.FuelTank;
 import elements.PetrolStation;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Line;
 import lombok.Getter;
@@ -14,9 +18,9 @@ import topologyObjects.Vehicle;
 import views.WindowRepository;
 import views.WindowType;
 import visualize.Grid;
-import visualize.GridElement;
 
 import java.io.IOException;
+
 
 public class ImitationController extends Controller {
     private MoveController moveController;
@@ -70,37 +74,58 @@ public class ImitationController extends Controller {
     public void initialize() {
         ControllersRepository.addController(ControllerType.IMITATIONCONTROLLER, this);
         moveController = new MoveController();
-        setOnActionBackButton();
-        setOnActionCloseWindow();
+        back_button.setOnAction(event -> backToModeller());
+        closeButton.setOnAction(event -> WindowRepository.getWindow(WindowType.IMITATIONWINDOW).close());
         drawGrid();
-        playButton.setOnAction(actionEvent -> {
-            playImitation();
-        });
-        pauseButton.setOnAction(actionEvent -> {
-            pauseImitation();
-        });
-        stopButton.setOnAction(actionEvent -> {
-            stopImitation();
-        });
+        playButton.setOnAction(actionEvent -> playImitation());
+        pauseButton.setOnAction(actionEvent -> pauseImitation());
+        stopButton.setOnAction(actionEvent -> stopImitation());
     }
 
-    private void setOnActionBackButton() {
-        back_button.setOnAction(event -> {
-            try {
-                WindowRepository.getWindow(WindowType.MODELLERWINDOW).show();
-            } catch (IOException e) {
-                e.printStackTrace();
+    private void backToModeller() {
+        try {
+            WindowRepository.getWindow(WindowType.MODELLERWINDOW).show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        PetrolStation.setSpeed(0);
+        FuelTank.setVolume(0);
+        FuelTank.setCriticalLevel(0);
+        CashBox.setCriticalLevel(0);
+        Vehicle.setProbabilityOfArrival(0);
+        for (int i = 0; i < Grid.getWidth(); i++) {
+            for (int j = 0; j < Grid.getHeight() + 1; j++) {
+                anchorPane.getChildren().remove(Grid.getGrid()[i][j]);
+                Grid.getGrid()[i][j].setOnMouseEntered(null);
+                Grid.getGrid()[i][j].setOnMouseExited(null);
             }
-            PetrolStation.setSpeed(0);
-            FuelTank.setVolume(0);
-            FuelTank.setCriticalLevel(0);
-            CashBox.setCriticalLevel(0);
-            Vehicle.setProbabilityOfArrival(0);
+        }
+        for (Line line : Grid.getLines()) {
+            anchorPane.getChildren().remove(line);
+        }
+        for (int k = 1; k < Grid.getWidth() - 3; k++) {
+            int finalK = k;
+            Grid.getGrid()[k][Grid.getHeight()].setOnMouseClicked(event -> Grid.deleteEntryExit(finalK));
+        }
+        for (int j = 0; j < Grid.getHeight(); j++) {
+            int finalJ = j;
+            Grid.getGrid()[Exit.getX() - 1][j].setOnMouseClicked(dragEvent -> Grid.deleteCashBox(finalJ));
+        }
+        for (int i = 0; i < Grid.getWidth() - 3; i++)
+            for (int j = 0; j < Grid.getHeight(); j++) {
+                int finalI = i;
+                int finalJ = j;
+                Grid.getGrid()[i][j].setOnMouseClicked(event -> Grid.deletePetrolStation(finalI, finalJ));
+            }
+        for (int j = 1; j < Grid.getHeight(); j++) {
+            int finalJ = j;
+            Grid.getGrid()[Grid.getWidth() - 2][j].setOnMouseClicked(dragEvent ->
+                    Grid.deleteFuelTank(finalJ));
+        }
 
-            stopImitation();
+        stopImitation();
 
-            WindowRepository.getWindow(WindowType.IMITATIONWINDOW).hide();
-        });
+        WindowRepository.getWindow(WindowType.IMITATIONWINDOW).hide();
     }
 
     public void statisticRefresh(int profit, int countCars, int countLitres){
@@ -114,21 +139,19 @@ public class ImitationController extends Controller {
     }
 
     private void setOnActionCloseWindow() {
-        closeButton.setOnAction(event -> {
-            WindowRepository.getWindow(WindowType.IMITATIONWINDOW).close();
-        });
     }
 
     public void drawGrid() {
-        GridElement[][] tempGrid = Grid.getGrid();
         for (int i = 0; i < Grid.getWidth(); i++) {
             for (int j = 0; j < Grid.getHeight() + 1; j++) {
-                anchorPane.getChildren().add(tempGrid[i][j]);  //TODO: (high priority) при возврате с имитации в параметры не заходит обратно в имитацию
-                tempGrid[i][j].setOnMouseClicked(null);        //TODO: (high priority) добавить возможность удаления элементов при возвращении в контруктор
+                anchorPane.getChildren().add(Grid.getGrid()[i][j]);
+                //TODO: (high priority) при возврате с имитации в параметры не заходит обратно в имитацию
+                Grid.getGrid()[i][j].setOnMouseClicked(null);
+                //TODO: (high priority) добавить возможность удаления элементов при возвращении в контруктор
             }
         }
         for(int i = 0; i < Grid.getListOfPetrolStations().size(); i++){
-            tempGrid[Grid.getListOfPetrolStations().get(i).getX()][Grid.getListOfPetrolStations().get(i).getY()].
+            Grid.getGrid()[Grid.getListOfPetrolStations().get(i).getX()][Grid.getListOfPetrolStations().get(i).getY()].
                     setOnMouseEntered(mouseEvent -> {
                         petrolStationPopup.setVisible(!petrolStationPopup.isVisible());
                         cashBoxPopup.setVisible(false);
@@ -138,7 +161,7 @@ public class ImitationController extends Controller {
                     });
         }
         for(int i = 0; i < Grid.getListOfPetrolStations().size(); i++){
-            tempGrid[Grid.getListOfPetrolStations().get(i).getX()][Grid.getListOfPetrolStations().get(i).getY()].
+            Grid.getGrid()[Grid.getListOfPetrolStations().get(i).getX()][Grid.getListOfPetrolStations().get(i).getY()].
                     setOnMouseExited(mouseEvent -> {
                         petrolStationPopup.setVisible(!petrolStationPopup.isVisible());
                         cashBoxPopup.setVisible(false);
@@ -147,7 +170,7 @@ public class ImitationController extends Controller {
         }
         for (int i = 0; i < Grid.getListOfFuelTanks().size();i++){
             int finalI = i;
-            tempGrid[Grid.getListOfFuelTanks().get(i).getX()][Grid.getListOfFuelTanks().get(i).getY()].
+            Grid.getGrid()[Grid.getListOfFuelTanks().get(i).getX()][Grid.getListOfFuelTanks().get(i).getY()].
                     setOnMouseEntered(mouseEvent -> {
                         fuelTankPopup.setVisible(!fuelTankPopup.isVisible());
                         cashBoxPopup.setVisible(false);
@@ -161,14 +184,14 @@ public class ImitationController extends Controller {
                     });
         }
         for (int i = 0; i < Grid.getListOfFuelTanks().size();i++){
-            tempGrid[Grid.getListOfFuelTanks().get(i).getX()][Grid.getListOfFuelTanks().get(i).getY()].
+            Grid.getGrid()[Grid.getListOfFuelTanks().get(i).getX()][Grid.getListOfFuelTanks().get(i).getY()].
                     setOnMouseExited(mouseEvent -> {
                         fuelTankPopup.setVisible(!fuelTankPopup.isVisible());
                         cashBoxPopup.setVisible(false);
                         petrolStationPopup.setVisible(false);
                     });
         }
-        tempGrid[CashBox.getX()][CashBox.getY()].
+        Grid.getGrid()[CashBox.getX()][CashBox.getY()].
                 setOnMouseEntered(mouseEvent -> {
                     cashBoxPopup.setVisible(!cashBoxPopup.isVisible());
                     fuelTankPopup.setVisible(false);
@@ -178,7 +201,7 @@ public class ImitationController extends Controller {
                     cashboxCriticalValue.setText(CashBox.getCriticalLevel() + " р");
                     cashboxProfitValue.setText(CashBox.getProfit() + " р");
                 });
-        tempGrid[CashBox.getX()][CashBox.getY()].
+        Grid.getGrid()[CashBox.getX()][CashBox.getY()].
                 setOnMouseExited(mouseEvent -> {
                     cashBoxPopup.setVisible(!cashBoxPopup.isVisible());
                     fuelTankPopup.setVisible(false);

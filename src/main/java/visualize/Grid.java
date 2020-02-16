@@ -126,26 +126,55 @@ public class Grid {
                     setFuelTanksEvents();
                 }
             });
-            grid[k][Grid.height].setOnMouseClicked(event -> {
-                if (grid[finalK][Grid.height].getIsOccupied()
-                        && listOfPetrolStations.isEmpty() &&
-                        listOfFuelTanks.isEmpty() &&
-                        !CashBox.getSetted()) {
-                    if (grid[finalK][Grid.height].getMainStaticElement().getElementType() == ENTRY) {
-                        removeRoundRoad();
-                        grid[finalK][Grid.height].deleteElement();
-                        Entry.setX(0);
-                        Entry.setY(0);
-                        Entry.setStatus(false);
-                    } else {
-                        removeRoundRoad();
-                        grid[finalK][Grid.height].deleteElement();
-                        Exit.setX(0);
-                        Exit.setY(0);
-                        Exit.setStatus(false);
-                    }
-                }
-            });
+            grid[k][Grid.height].setOnMouseClicked(event -> deleteEntryExit(finalK));
+        }
+    }
+
+    public static void deleteEntryExit(int k) {
+
+        if (grid[k][Grid.height].getIsOccupied()
+                && listOfPetrolStations.isEmpty() &&
+                listOfFuelTanks.isEmpty() &&
+                !CashBox.getSetted()) {
+            if (grid[k][Grid.height].getMainStaticElement().getElementType() == ENTRY) {
+                removeRoundRoad();
+                grid[k][Grid.height].deleteElement();
+                Entry.setX(0);
+                Entry.setY(0);
+                Entry.setStatus(false);
+            } else {
+                removeRoundRoad();
+                grid[k][Grid.height].deleteElement();
+                Exit.setX(0);
+                Exit.setY(0);
+                Exit.setStatus(false);
+            }
+        }
+    }
+
+    public static void deletePetrolStation(int i, int j) {
+        if (grid[i][j].getMainStaticElement() != null &&
+                grid[i][j].getMainStaticElement().
+                        getElementType().equals(PETROLSTATION)) {
+            removePetrolRoad(i, j);
+            listOfPetrolStations.remove(grid[i][j].getMainStaticElement());
+            grid[i][j].deleteElement();
+        }
+    }
+
+    public static void deleteFuelTank(int j){
+        if (grid[width - 2][j].getMainStaticElement() != null) {
+            listOfFuelTanks.remove(grid[width - 2][j].getMainStaticElement());
+            grid[width - 2][j].deleteElement();
+        }
+    }
+
+    public static void deleteCashBox(int j){
+        if (grid[Exit.getX() - 1][j].getMainStaticElement() != null &&
+                grid[Exit.getX() - 1][j].getMainStaticElement().
+                        getElementType().equals(CASHBOX)) {
+            grid[Exit.getX() - 1][j].deleteElement();
+            CashBox.setSetted(false);
         }
     }
 
@@ -174,13 +203,7 @@ public class Grid {
                     }
                 });
                 grid[i][j].setOnMouseClicked(dragEvent -> {
-                    if (grid[finalI][finalJ].getMainStaticElement() != null &&
-                            grid[finalI][finalJ].getMainStaticElement().
-                                    getElementType().equals(PETROLSTATION)) {
-                        removePetrolRoad(finalI, finalJ);
-                        listOfPetrolStations.remove(grid[finalI][finalJ].getMainStaticElement());
-                        grid[finalI][finalJ].deleteElement();
-                    }
+                    deletePetrolStation(finalI, finalJ);
                 });
             }
     }
@@ -203,12 +226,7 @@ public class Grid {
                     }
             });
             grid[Exit.getX() - 1][j].setOnMouseClicked(dragEvent -> {
-                if (grid[Exit.getX() - 1][finalJ].getMainStaticElement() != null &&
-                        grid[Exit.getX() - 1][finalJ].getMainStaticElement().
-                                getElementType().equals(CASHBOX)) {
-                    grid[Exit.getX() - 1][finalJ].deleteElement();
-                    CashBox.setSetted(false);
-                }
+                deleteCashBox(finalJ);
             });
         }
     }
@@ -231,14 +249,10 @@ public class Grid {
                     }
             });
             grid[width - 2][j].setOnMouseClicked(dragEvent -> {
-                if (grid[width - 2][finalJ].getMainStaticElement() != null) {
-                    listOfFuelTanks.remove(grid[width - 2][finalJ].getMainStaticElement());
-                    grid[width - 2][finalJ].deleteElement();
-                }
+                deleteFuelTank(finalJ);
             });
         }
     }
-
 
     public static void drawGrid(int width, int height, AnchorPane root){
         if(Grid.width != width || Grid.height != height) {

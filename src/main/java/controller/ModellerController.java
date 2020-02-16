@@ -30,7 +30,8 @@ public class ModellerController extends Controller {
     private static List<Fuel> fuelList;
     private List<CheckBox> checkBoxes = new ArrayList<>();
 
-    private ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-data-context.xml");
+    private ClassPathXmlApplicationContext context =
+            new ClassPathXmlApplicationContext("spring-data-context.xml");
     private FuelRepository fuelRepository = context.getBean(FuelRepository.class);
     private CarRepository carRepository = context.getBean(CarRepository.class);
 
@@ -187,7 +188,8 @@ public class ModellerController extends Controller {
             } else if (radioButtonExponentialDistribution.isSelected()) {
                 MoveController.setDistribution(new ExponentialDistribution(intens.getValue()));
             } else if (radioButtonUniformDistribution.isSelected()) {
-                MoveController.setDistribution(new UniformDistribution(matO.getValue(), dispersion.getValue()));
+                MoveController.setDistribution(new UniformDistribution(matO.getValue(),
+                        dispersion.getValue()));
             }
             for (int i = 0; i < Grid.getListOfFuelTanks().size(); i++) {
                 Grid.getListOfFuelTanks().get(i).setFuel(usabledFuelList.get(i).getName());
@@ -206,7 +208,8 @@ public class ModellerController extends Controller {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Ошибка");
             alert.setHeaderText(null);
-            alert.setContentText("Число выбранных видов топлива должно соответствовать количеству топливных баков!");
+            alert.setContentText("Число выбранных видов топлива должно соответствовать " +
+                    "количеству топливных баков!");
             alert.showAndWait();
         }
     }
