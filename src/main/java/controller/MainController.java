@@ -11,11 +11,9 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-import static views.WindowType.BOUNDSWINDOW;
-import static views.WindowType.DOWNLOADTOPOLOGYWINDOW;
+import static views.WindowType.*;
 
 public class MainController extends Controller {
-
     @FXML
     AnchorPane anchorPane;
     @FXML
@@ -24,8 +22,7 @@ public class MainController extends Controller {
     public void initialize(){
         ControllersRepository.addController(ControllerType.MAINCONTROLLER, this);
         closeButton.setOnAction(event -> {
-            Stage stage = (Stage) closeButton.getScene().getWindow();
-            stage.close();
+            WindowRepository.getWindow(MAINWINDOW).close();
         });
     }
 
@@ -43,7 +40,6 @@ public class MainController extends Controller {
         WindowRepository.getWindow(WindowType.MAINWINDOW).close();
     }
 
-    //TODO: (easy) не открывается окно о системе и разработчиках
     public void developerInfo() throws IOException {
         WindowRepository.getWindow(WindowType.DEVINFOWINDOW).show();
     }
@@ -56,6 +52,3 @@ public class MainController extends Controller {
 }
 
 //TODO: при изменении координаты въезда не отрисовывается дорога внутри ТРК
-//TODO: (easy) при сохранении топологии окно не закрывается
-//TODO: (easy) поменять местами кнопки "выбрать" и "удалить" в разделе "загрузить топологию"
-//TODO: (easy) в конструкторе тень мешает кнопкам

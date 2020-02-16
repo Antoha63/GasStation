@@ -36,8 +36,6 @@ public class SaveTopologyController extends Controller {
     private PetrolStationRepository petrolStationRepository = context.getBean(PetrolStationRepository.class);
     private FuelTankRepository fuelTankRepository = context.getBean(FuelTankRepository.class);
 
-    private Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-
     @FXML
     private Button button;
     @FXML
@@ -50,10 +48,11 @@ public class SaveTopologyController extends Controller {
                 WindowRepository.getWindow(WindowType.SAVETOPOLOGYWINDOW).close());
         ControllersRepository.addController(ControllerType.SAVETOPOLOGYCONTROLLER, this);
         textField.setText(null);
-        alert.initStyle(StageStyle.TRANSPARENT);
     }
 
     public void save() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.initStyle(StageStyle.TRANSPARENT);
         if (textField.getText() == null) {
             alert.setTitle("Ошибка");
             alert.setHeaderText(null);
@@ -125,8 +124,6 @@ public class SaveTopologyController extends Controller {
                 fuelTankRepository.save(fuelTank);
             }
         }
-
-        Stage stage = (Stage) button.getScene().getWindow();
-        stage.close();
+        WindowRepository.getWindow(WindowType.SAVETOPOLOGYWINDOW).close();
     }
 }

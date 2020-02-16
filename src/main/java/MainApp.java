@@ -27,7 +27,6 @@ public class MainApp extends Application {
         windowRepository.addWindow(MAINWINDOW);
         windowRepository.addWindow(SAVETOPOLOGYWINDOW);
         windowRepository.addWindow(DEVINFOWINDOW);
-        windowRepository.addWindow(SYSINFOWINDOW);
         windowRepository.addWindow(CONSTRUCTORWINDOW);
         windowRepository.addWindow(MODELLERWINDOW);
         windowRepository.addWindow(DBWORKWINDOW);

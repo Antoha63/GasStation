@@ -250,6 +250,7 @@ public class ConstructorController extends Controller {
         }
     }
 
+    @FXML
     private boolean checkCorrect(){
         boolean isCorrect;
         if (!Entry.getStatus()) {

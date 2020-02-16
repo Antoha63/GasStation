@@ -42,12 +42,6 @@ public class WindowFactory {
                 width = 400;
                 height = 300;
                 break;
-            case SYSINFOWINDOW:
-                resource = "/views/systemInfo.fxml";
-                title = "Информация о системе";
-                width = 400;
-                height = 300;
-                break;
             case CONSTRUCTORWINDOW:
                 resource = "/views/constructor.fxml";
                 title = "Конструктор";
