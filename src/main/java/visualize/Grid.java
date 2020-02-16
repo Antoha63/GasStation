@@ -4,7 +4,6 @@ import controller.ConstructorController;
 import controller.ControllerType;
 import controller.ControllersRepository;
 import elements.*;
-import javafx.scene.Parent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Line;
@@ -156,9 +155,15 @@ public class Grid {
         if (grid[i][j].getMainStaticElement() != null &&
                 grid[i][j].getMainStaticElement().
                         getElementType().equals(PETROLSTATION)) {
-            removePetrolRoad(i, j);
+            removePetrolRoad(j);
             listOfPetrolStations.remove(grid[i][j].getMainStaticElement());
             grid[i][j].deleteElement();
+            for(int k = 0; k < listOfPetrolStations.size(); k++){
+                for (int a = Exit.getX() + 1; a <= Entry.getX() - 1; a++) {
+                    grid[a][listOfPetrolStations.get(k).getY() - 1].setOccupied(true);
+                    grid[a][listOfPetrolStations.get(k).getY() + 1].setOccupied(true);
+                }
+            }
         }
     }
 
@@ -199,7 +204,7 @@ public class Grid {
                     if(Exit.getStatus() && Entry.getStatus() &&
                             dragEvent.getDragboard().getString().equals("petrolStation")) {
                         grid[finalI][finalJ].createElement(PETROLSTATION, 0);
-                        setPetrolRoad(finalI, finalJ);
+                        setPetrolRoad(finalJ);
                     }
                 });
                 grid[i][j].setOnMouseClicked(dragEvent -> {
@@ -300,15 +305,9 @@ public class Grid {
         listOfPetrolStations = new ArrayList<>();
     }
 
-    public static void setPetrolRoad(int PetrolStationX, int PetrolStationY) {
-        System.out.println("Exit.getX() + 1 = " + (Exit.getX() + 1));
-        System.out.println("Entry.getX() - 1 = " + (Entry.getX() - 1));
+    public static void setPetrolRoad(int PetrolStationY) {
         for (int i = Exit.getX() + 1; i <= Entry.getX() - 1; i++) {
-            System.out.println(grid[i][PetrolStationY - 1].getFrameAnimation().getImageOffsetX());
-            if (PetrolStationY > 1 &&
-                    grid[i][PetrolStationY - 1].getFrameAnimation().getImageOffsetX() >= 3) {
-                grid[i][PetrolStationY - 1].createElement(ROAD, 0);
-            }
+            if (PetrolStationY > 1) grid[i][PetrolStationY - 1].createElement(ROAD, 0);
             grid[i][PetrolStationY + 1].setOccupied(true);
         }
         if (PetrolStationY > 1){
@@ -319,7 +318,7 @@ public class Grid {
         }
     }
 
-    private static void removePetrolRoad(int PetrolStationX, int PetrolStationY) {
+    private static void removePetrolRoad(int PetrolStationY) {
         try{
             for (int i = Exit.getX() + 1; i <= Entry.getX() - 1; i++) {
                 if (PetrolStationY > 1) {

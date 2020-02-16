@@ -111,7 +111,7 @@ public class ConstructorController extends Controller {
             for (PetrolStation petrolStation : petrolStationList) {
                 Grid.getGrid()[petrolStation.getCoordinateX()][petrolStation.getCoordinateY()].
                         createElement(ElementType.PETROLSTATION, 0);
-                Grid.setPetrolRoad(petrolStation.getCoordinateX(),
+                Grid.setPetrolRoad(
                         petrolStation.getCoordinateY());
             }
         }

@@ -50,5 +50,3 @@ public class MainController extends Controller {
         Desktop.getDesktop().browse(htmlFile.toURI());
     }
 }
-
-//TODO: при изменении координаты въезда не отрисовывается дорога внутри ТРК
