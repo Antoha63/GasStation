@@ -1,6 +1,6 @@
 package controller;
 
-import TimeControl.TimeState;
+import TimeState.TimeState;
 import elements.CashBox;
 import elements.FuelTank;
 import javafx.animation.AnimationTimer;
