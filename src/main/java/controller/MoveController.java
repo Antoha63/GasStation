@@ -1,13 +1,12 @@
 package controller;
 
-import TimeControl.TimeState;
+import TimeState.TimeState;
 import elements.CashBox;
 import elements.FuelTank;
 import javafx.animation.AnimationTimer;
 import javafx.scene.layout.AnchorPane;
 import lombok.Getter;
 import lombok.Setter;
-import value.DeterministicDistribution;
 import value.Distribution;
 import value.ExponentialDistribution;
 import visualize.Grid;

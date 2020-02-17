@@ -4,7 +4,6 @@ import Log.Log;
 import controller.ControllerType;
 import controller.ControllersRepository;
 import controller.ImitationController;
-import controller.MoveController;
 import elements.CashBox;
 import elements.Entry;
 import elements.Exit;
@@ -17,11 +16,7 @@ import static topologyObjects.TransportVehicleDirection.*;
 
 @NoArgsConstructor
 public class CollectorCashbox extends TransportVehicle {
-
-    private long id;
-    private int stop = 0;
-    long start;
-    long finish;
+    private int timeToStop = 0;
     private ImitationController imitationController = (ImitationController)
             ControllersRepository.getController(ControllerType.IMITATIONCONTROLLER);
 
@@ -113,8 +108,8 @@ public class CollectorCashbox extends TransportVehicle {
         else if (this.getX() == Exit.getX() * GridElement.getElementWidth() + Grid.getX0() &&
                 this.getY() == CashBox.getY() * GridElement.getElementHeight() + Grid.getY0() + 1 &&
                 sliderMode >= 2) {
-            if (stop <= 62 / sliderMode){
-                stop++;
+            if (timeToStop <= 62 / sliderMode){
+                timeToStop++;
             }
             else{
                 Log.sendMessage("Инкассатор забрал " + CashBox.getBalance() + " р");
@@ -129,8 +124,8 @@ public class CollectorCashbox extends TransportVehicle {
         else if (this.getX() == Exit.getX() * GridElement.getElementWidth() + Grid.getX0() &&
                 this.getY() == CashBox.getY() * GridElement.getElementHeight() + Grid.getY0() + 2 &&
                 sliderMode >= 2) {
-            if (stop <= 62 / sliderMode){
-                stop++;
+            if (timeToStop <= 62 / sliderMode){
+                timeToStop++;
             }
             else{
                 Log.sendMessage("Инкассатор забрал " + CashBox.getBalance() + " р");
@@ -145,8 +140,8 @@ public class CollectorCashbox extends TransportVehicle {
         //притормозим у кассы, заберем бабло
         else if (this.getX() == Exit.getX() * GridElement.getElementWidth() + Grid.getX0() &&
                 this.getY() == CashBox.getY() * GridElement.getElementHeight() + Grid.getY0()) {
-            if (stop <= 62 / sliderMode){
-                stop++;
+            if (timeToStop <= 62 / sliderMode){
+                timeToStop++;
             }
             else{
                 Log.sendMessage("Инкассатор забрал " + CashBox.getBalance() + " р");

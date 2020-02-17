@@ -27,15 +27,11 @@ public class MainController extends Controller {
     }
 
     public void createTopology() throws IOException {
-        WindowRepository windowRepository = Controller.getWindowRepository();
-        windowRepository.addWindow(BOUNDSWINDOW);
         WindowRepository.getWindow(WindowType.BOUNDSWINDOW).show();
         WindowRepository.getWindow(WindowType.MAINWINDOW).close();
     }
 
     public void downloadTopology() throws IOException {
-        WindowRepository windowRepository = Controller.getWindowRepository();
-        windowRepository.addWindow(DOWNLOADTOPOLOGYWINDOW);
         WindowRepository.getWindow(WindowType.DOWNLOADTOPOLOGYWINDOW).show();
         WindowRepository.getWindow(WindowType.MAINWINDOW).close();
     }

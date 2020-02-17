@@ -4,7 +4,6 @@ import Log.Log;
 import controller.ControllerType;
 import controller.ControllersRepository;
 import controller.ImitationController;
-import controller.MoveController;
 import elements.Exit;
 import elements.FuelTank;
 import javafx.scene.image.ImageView;
@@ -17,11 +16,9 @@ import static topologyObjects.TransportVehicleDirection.*;
 
 @NoArgsConstructor
 public class CollectorFuel extends TransportVehicle {
-
-    private long id;
     private String fuelType;
-    private int ft = 666;
-    private int stop = 0;
+    private int numOfFuelTank = 666;
+    private int timeToStop = 0;
     private ImitationController imitationController = (ImitationController)
             ControllersRepository.getController(ControllerType.IMITATIONCONTROLLER);
 
@@ -88,7 +85,7 @@ public class CollectorFuel extends TransportVehicle {
             //поиск того ТБ, к которому он вызван
             for (int i = 0; i < Grid.getListOfFuelTanks().size(); i++){
                 if (Grid.getListOfFuelTanks().get(i).getFuel().equals(fuelType) && !Grid.getListOfFuelTanks().get(i).getStatus())
-                    ft = i;
+                    numOfFuelTank = i;
             }
             imageView.setTranslateX(this.getX());
             imageView.setTranslateY(this.getY());
@@ -123,52 +120,52 @@ public class CollectorFuel extends TransportVehicle {
         }
 //доехали до дороги вниз
 
-        else if (this.getX() == (Grid.getWidth() - 3) * GridElement.getElementWidth() + Grid.getX0() && ft != 666 &&
-                this.getY() == Grid.getListOfFuelTanks().get(ft).getY() * GridElement.getElementHeight() + Grid.getY0() + 1 &&
+        else if (this.getX() == (Grid.getWidth() - 3) * GridElement.getElementWidth() + Grid.getX0() && numOfFuelTank != 666 &&
+                this.getY() == Grid.getListOfFuelTanks().get(numOfFuelTank).getY() * GridElement.getElementHeight() + Grid.getY0() + 1 &&
                 sliderMode >= 2) {
-            if (stop <= 62 / sliderMode){
-                stop++;
+            if (timeToStop <= 62 / sliderMode){
+                timeToStop++;
             }
             else{
-                Log.sendMessage("Дозаправщик разгрузился. Топливо: " + fuelType + ", " + (FuelTank.getVolume() - Grid.getListOfFuelTanks().get(ft).getCurrentVolume()) + "л");
+                Log.sendMessage("Дозаправщик разгрузился. Топливо: " + fuelType + ", " + (FuelTank.getVolume() - Grid.getListOfFuelTanks().get(numOfFuelTank).getCurrentVolume()) + "л");
                 this.setDirection(BOTTOM);
                 this.moveY(+2 * sliderMode);
                 imageView.setTranslateX(this.getX());
                 imageView.setTranslateY(this.getY());
-                Grid.getListOfFuelTanks().get(ft).setCurrentVolume(FuelTank.getVolume());
-                Grid.getListOfFuelTanks().get(ft).setStatus(true);
+                Grid.getListOfFuelTanks().get(numOfFuelTank).setCurrentVolume(FuelTank.getVolume());
+                Grid.getListOfFuelTanks().get(numOfFuelTank).setStatus(true);
             }
         }
-        else if (this.getX() == (Grid.getWidth() - 3) * GridElement.getElementWidth() + Grid.getX0() && ft != 666 &&
-                this.getY() == Grid.getListOfFuelTanks().get(ft).getY() * GridElement.getElementHeight() + Grid.getY0() + 2 &&
+        else if (this.getX() == (Grid.getWidth() - 3) * GridElement.getElementWidth() + Grid.getX0() && numOfFuelTank != 666 &&
+                this.getY() == Grid.getListOfFuelTanks().get(numOfFuelTank).getY() * GridElement.getElementHeight() + Grid.getY0() + 2 &&
                 sliderMode >= 2) {
-            if (stop <= 62 / sliderMode){
-                stop++;
+            if (timeToStop <= 62 / sliderMode){
+                timeToStop++;
             }
             else{
-                Log.sendMessage("Дозаправщик разгрузился. Топливо: " + fuelType + ", " + (FuelTank.getVolume() - Grid.getListOfFuelTanks().get(ft).getCurrentVolume()) + "л");
+                Log.sendMessage("Дозаправщик разгрузился. Топливо: " + fuelType + ", " + (FuelTank.getVolume() - Grid.getListOfFuelTanks().get(numOfFuelTank).getCurrentVolume()) + "л");
                 this.setDirection(BOTTOM);
                 this.moveY(+2 * sliderMode);
                 imageView.setTranslateX(this.getX());
                 imageView.setTranslateY(this.getY());
-                Grid.getListOfFuelTanks().get(ft).setCurrentVolume(FuelTank.getVolume());
-                Grid.getListOfFuelTanks().get(ft).setStatus(true);
+                Grid.getListOfFuelTanks().get(numOfFuelTank).setCurrentVolume(FuelTank.getVolume());
+                Grid.getListOfFuelTanks().get(numOfFuelTank).setStatus(true);
             }
         }
         //притормозим у кассы, заберем бабло
-        else if (this.getX() == (Grid.getWidth() - 3) * GridElement.getElementWidth() + Grid.getX0() && ft != 666 &&
-                this.getY() == Grid.getListOfFuelTanks().get(ft).getY() * GridElement.getElementHeight() + Grid.getY0()) {
-            if (stop <= 62 / sliderMode){
-                stop++;
+        else if (this.getX() == (Grid.getWidth() - 3) * GridElement.getElementWidth() + Grid.getX0() && numOfFuelTank != 666 &&
+                this.getY() == Grid.getListOfFuelTanks().get(numOfFuelTank).getY() * GridElement.getElementHeight() + Grid.getY0()) {
+            if (timeToStop <= 62 / sliderMode){
+                timeToStop++;
             }
             else{
-                Log.sendMessage("Дозаправщик разгрузился. Топливо: " + fuelType + ", " + (FuelTank.getVolume() - Grid.getListOfFuelTanks().get(ft).getCurrentVolume()) + "л");
+                Log.sendMessage("Дозаправщик разгрузился. Топливо: " + fuelType + ", " + (FuelTank.getVolume() - Grid.getListOfFuelTanks().get(numOfFuelTank).getCurrentVolume()) + "л");
                 this.setDirection(BOTTOM);
                 this.moveY(+1 * sliderMode);
                 imageView.setTranslateX(this.getX());
                 imageView.setTranslateY(this.getY());
-                Grid.getListOfFuelTanks().get(ft).setCurrentVolume(FuelTank.getVolume());
-                Grid.getListOfFuelTanks().get(ft).setStatus(true);
+                Grid.getListOfFuelTanks().get(numOfFuelTank).setCurrentVolume(FuelTank.getVolume());
+                Grid.getListOfFuelTanks().get(numOfFuelTank).setStatus(true);
             }
         }
 

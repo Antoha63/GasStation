@@ -1,19 +1,18 @@
 package views;
 
+import lombok.NoArgsConstructor;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+@NoArgsConstructor
 public class WindowRepository {
     private static Map<WindowType, IWindow> windows;
-    private WindowFactory windowFactory;
+    private WindowFactory windowFactory = new WindowFactory();
 
     static {
         windows = new HashMap<>();
-    }
-
-    public WindowRepository(WindowFactory windowFactory) {
-        this.windowFactory = windowFactory;
     }
 
     public boolean isExists(WindowType windowType) {

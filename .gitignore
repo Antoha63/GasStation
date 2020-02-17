@@ -4,6 +4,10 @@
 # Log file
 *.log
 
+#Jar files
+**/classes
+**/META-INF
+
 # Maven
 **/target
 

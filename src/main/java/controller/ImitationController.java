@@ -1,7 +1,7 @@
 package controller;
 
 import Log.Log;
-import TimeControl.TimeState;
+import TimeState.TimeState;
 import elements.CashBox;
 import elements.Exit;
 import elements.FuelTank;

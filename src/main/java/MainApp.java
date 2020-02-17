@@ -5,7 +5,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import lombok.Getter;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import views.WindowFactory;
 import views.WindowRepository;
 
 import static views.WindowType.*;
@@ -22,12 +24,14 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        WindowRepository windowRepository = Controller.getWindowRepository();
+        WindowRepository windowRepository = new WindowRepository();
 
         windowRepository.addWindow(MAINWINDOW);
-        windowRepository.addWindow(SAVETOPOLOGYWINDOW);
+        windowRepository.addWindow(BOUNDSWINDOW);
+        windowRepository.addWindow(DOWNLOADTOPOLOGYWINDOW);
         windowRepository.addWindow(DEVINFOWINDOW);
         windowRepository.addWindow(CONSTRUCTORWINDOW);
+        windowRepository.addWindow(SAVETOPOLOGYWINDOW);
         windowRepository.addWindow(MODELLERWINDOW);
         windowRepository.addWindow(DBWORKWINDOW);
         windowRepository.addWindow(ADDFUELWINDOW);
