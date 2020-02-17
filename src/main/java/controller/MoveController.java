@@ -1,12 +1,13 @@
 package controller;
 
-import TimeState.TimeState;
+import TimeControl.TimeState;
 import elements.CashBox;
 import elements.FuelTank;
 import javafx.animation.AnimationTimer;
 import javafx.scene.layout.AnchorPane;
 import lombok.Getter;
 import lombok.Setter;
+import value.DeterministicDistribution;
 import value.Distribution;
 import value.ExponentialDistribution;
 import visualize.Grid;
@@ -22,6 +23,7 @@ import static topologyObjects.TransportVehicleType.*;
 /*Class describes all animation module*/
 public class MoveController extends Controller {
     private ArrayList<VisualisedTransportVehicle> automobiles = new ArrayList<VisualisedTransportVehicle>();
+    private ArrayList<VisualisedTransportVehicle> collectorfuels = new ArrayList<VisualisedTransportVehicle>();
     private VisualisedTransportVehicle collectorFuel;
     private VisualisedTransportVehicle collectorCashBox;
     private static Distribution distribution = new ExponentialDistribution(1);
@@ -57,7 +59,7 @@ public class MoveController extends Controller {
                                             AUTOMOBILE);
                             automobiles.add(visualisedTransportVehicle);
                             try {
-                                //TODO: иногда вылетает duplicate target
+                                //иногда вылетает duplicate target
                                 root.getChildren().add(automobiles.get(numOfVehicle[0]).getFrameAnimation().getImageView());
                             }
                             catch (IllegalArgumentException e){
@@ -93,19 +95,20 @@ public class MoveController extends Controller {
                             temp[0] = 666;
                         }
                         /*COLLECTORFUEL*/
-                        //TODO: возможна ситуация появления нескольких дозаправщиков
                         for (FuelTank ft : Grid.getListOfFuelTanks()){
                             if (ft.checkFuelTank()) {
                                 collectorFuel = new VisualisedTransportVehicle((int) Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getTranslateX(),
                                         (int) Grid.getGrid()[Grid.getWidth() - 1][Grid.getHeight()].getTranslateY(), COLLECTORFUEL, ft.getFuel());
                                 root.getChildren().add(collectorFuel.getFrameAnimation().getImageView());
+                                collectorfuels.add(collectorFuel);
                             }
                             try {
-                                if (collectorFuel != null) {
-                                    collectorFuel.go();
-                                    if (collectorFuel.getTransportVehicle().getX() <= Grid.getGrid()[0][0].getTranslateX()) {
-                                        root.getChildren().remove(collectorFuel.getFrameAnimation().getImageView());
-                                        collectorFuel = null;
+                                for (int k = 0; k < collectorfuels.size(); k++) {
+                                    if (collectorfuels.get(k) != null) {
+                                        collectorfuels.get(k).go();
+                                        if (collectorfuels.get(k).getTransportVehicle().getX() <= Grid.getGrid()[0][0].getTranslateX()) {
+                                            root.getChildren().remove(collectorfuels.get(k).getFrameAnimation().getImageView());
+                                        }
                                     }
                                 }
                             } catch (InterruptedException e) {
