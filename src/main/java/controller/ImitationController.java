@@ -14,6 +14,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Line;
 import lombok.Getter;
+import lombok.Setter;
 import topologyObjects.Vehicle;
 import views.WindowRepository;
 import views.WindowType;
@@ -24,7 +25,11 @@ import java.io.IOException;
 
 public class ImitationController extends Controller {
     private MoveController moveController;
-
+    @FXML
+    private Label gameTime;
+    public void setTime(int time){
+        gameTime.setText(time + "c.");
+    }
     @FXML
     private Button back_button;
     @FXML
@@ -74,6 +79,8 @@ public class ImitationController extends Controller {
     public void initialize() {
         ControllersRepository.addController(ControllerType.IMITATIONCONTROLLER, this);
         moveController = new MoveController();
+        int[] t = {0};
+        sliderMode.setOnInputMethodTextChanged(event -> moveController.setTime(t));
         back_button.setOnAction(event -> backToModeller());
         closeButton.setOnAction(event -> WindowRepository.getWindow(WindowType.IMITATIONWINDOW).close());
         drawGrid();

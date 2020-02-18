@@ -1,5 +1,6 @@
 package controller;
 
+import Log.Log;
 import TimeState.TimeState;
 import elements.CashBox;
 import elements.FuelTank;
@@ -32,6 +33,11 @@ public class MoveController extends Controller {
     private ImitationController imitationController = (ImitationController)
             ControllersRepository.getController(ControllerType.IMITATIONCONTROLLER);
 
+    private int[] time = {0};
+    public void setTime(int[] t){
+        time = t;
+    }
+
     public static void setDistribution(Distribution distribution) {
         MoveController.distribution = distribution;
     }
@@ -44,12 +50,14 @@ public class MoveController extends Controller {
         final int[] j = {0};
         final int[] numOfVehicle = {0};
         final int[] temp = {666};
+        final int[] realTime = {0};
         final boolean[] autoCreated = {false};
         animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
                 switch (timeState) {
                     case START:
+                        time[0]++;
                         if ((int) (distribution.getTimes()[j[0]] * 61 /*/
                                 imitationController.getSliderMode().getValue()*/) == i[0]) {
                             VisualisedTransportVehicle visualisedTransportVehicle =
@@ -75,6 +83,11 @@ public class MoveController extends Controller {
                         if(autoCreated[0]){
                             i[0] = 0;
                             autoCreated[0] = false;
+                        }
+                        if(time[0] == (int)(61 / imitationController.getSliderMode().getValue())){
+                            realTime[0]++;
+                            Log.sendMessage(realTime[0]);
+                            time[0] = 0;
                         }
                         for (int k = 0; k < automobiles.size(); k++) {
                             try {

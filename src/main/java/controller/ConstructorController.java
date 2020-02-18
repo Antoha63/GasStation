@@ -103,16 +103,19 @@ public class ConstructorController extends Controller {
             Grid.setFuelTanksEvents();
             List<FuelTank> fuelTankList = fuelTankRepository.findAll();
             for (FuelTank fuelTank : fuelTankList)
-                Grid.getGrid()[fuelTank.getCoordinateX()][fuelTank.getCoordinateY()].createElement(ElementType.FUELTANK, 0);
+                if (fuelTank.getTopology().getId() == topology.getId())   //TODO: сделать не костыльную выборку топологии
+                    Grid.getGrid()[fuelTank.getCoordinateX()][fuelTank.getCoordinateY()].createElement(ElementType.FUELTANK, 0);
 
             if (Entry.getStatus() && Exit.getStatus() && Entry.getX() > Exit.getX())
                 Grid.setRoundRoad();
             Grid.drawGrid(width, height, anchorPane);
-            for (PetrolStation petrolStation : petrolStationList) {
-                Grid.getGrid()[petrolStation.getCoordinateX()][petrolStation.getCoordinateY()].
-                        createElement(ElementType.PETROLSTATION, 0);
-                Grid.setPetrolRoad(
-                        petrolStation.getCoordinateY());
+            for (PetrolStation petrolStation : petrolStationList) {   //TODO: сделать не костыльную выборку топологии
+                if (petrolStation.getTopology().getId() == topology.getId()) {
+                    Grid.getGrid()[petrolStation.getCoordinateX()][petrolStation.getCoordinateY()].
+                            createElement(ElementType.PETROLSTATION, 0);
+                    Grid.setPetrolRoad(
+                            petrolStation.getCoordinateY());
+                }
             }
         }
 
@@ -225,21 +228,21 @@ public class ConstructorController extends Controller {
 
     @FXML
     public void createModeller() throws IOException {
-        if(checkCorrect()){
+        if (checkCorrect()) {
             WindowRepository.getWindow(WindowType.MODELLERWINDOW).show();
             WindowRepository.getWindow(WindowType.CONSTRUCTORWINDOW).hide();
         }
     }
 
     public void saveTopology() throws IOException {
-        if(checkCorrect()){
+        if (checkCorrect()) {
             WindowRepository.getWindow(WindowType.SAVETOPOLOGYWINDOW).show();
         }
     }
 
     @FXML
     public void checkTopology() {
-        if (checkCorrect()){
+        if (checkCorrect()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Ошибок нет");
             alert.setHeaderText(null);
@@ -249,7 +252,7 @@ public class ConstructorController extends Controller {
     }
 
     @FXML
-    private boolean checkCorrect(){
+    private boolean checkCorrect() {
         boolean isCorrect;
         if (!Entry.getStatus()) {
             isCorrect = false;
