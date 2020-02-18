@@ -10,8 +10,8 @@ import repositories.FuelTankRepository;
 import repositories.PetrolStationRepository;
 import repositories.TopologyRepository;
 
-public class Main {
-    public static void main(String[] args) {
+public class MainTest {
+    public void common() {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-data-context.xml");
 
         TopologyRepository topologyRepository = context.getBean(TopologyRepository.class);
@@ -48,5 +48,19 @@ public class Main {
         fuel.setName("92");
         fuel.setPrice(40);
         fuelRepository.save(fuel);
+    }
+
+    PetrolStation petrolStationFindByTopology_Id(long topologyId){
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-data-context.xml");
+        PetrolStationRepository petrolStationRepository = context.getBean(PetrolStationRepository.class);
+
+        return petrolStationRepository.findByTopology_Id(topologyId);
+    }
+
+    FuelTank fuelTankFindByTopology_Id(long topologyId){
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-data-context.xml");
+        FuelTankRepository fuelTankRepository = context.getBean(FuelTankRepository.class);
+
+        return fuelTankRepository.findByTopology_Id(topologyId);
     }
 }

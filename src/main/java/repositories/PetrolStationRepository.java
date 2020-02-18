@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PetrolStationRepository extends JpaRepository<PetrolStation, Long> {
+    PetrolStation findByTopology_Id(long topology_id);
 }
