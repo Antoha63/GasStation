@@ -80,7 +80,10 @@ public class ImitationController extends Controller {
         ControllersRepository.addController(ControllerType.IMITATIONCONTROLLER, this);
         moveController = new MoveController();
         int[] t = {0};
-        sliderMode.setOnInputMethodTextChanged(event -> moveController.setTime(t));
+        sliderMode.setOnMouseClicked(event -> {
+            t[0] = 0;
+            moveController.setTime(t);
+        });
         back_button.setOnAction(event -> backToModeller());
         closeButton.setOnAction(event -> WindowRepository.getWindow(WindowType.IMITATIONWINDOW).close());
         drawGrid();
@@ -143,9 +146,6 @@ public class ImitationController extends Controller {
 
     public void addMessageLog(String message){
         log_list.setText(message + "\n" + log_list.getText());
-    }
-
-    private void setOnActionCloseWindow() {
     }
 
     public void drawGrid() {
