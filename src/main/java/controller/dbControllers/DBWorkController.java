@@ -162,8 +162,8 @@ public class DBWorkController extends Controller {
 
     public void changeFuel() throws IOException {
         if (fuelTable.getSelectionModel().getSelectedItem() == null)
-            showAlert();
-         else {
+            showAlert("Сначала выберите запись из таблицы");
+        else {
             name = fuelTable.getSelectionModel().getSelectedItem().getName();
             price = fuelTable.getSelectionModel().getSelectedItem().getPrice();
 
@@ -173,8 +173,8 @@ public class DBWorkController extends Controller {
 
     public void removeFuel() throws IOException {
         if (fuelTable.getSelectionModel().getSelectedItem() == null)
-            showAlert();
-         else {
+            showAlert("Сначала выберите запись из таблицы");
+        else {
             int row = fuelTable.getSelectionModel().getSelectedIndex();
             fuelRepository.delete(fuelRepository.findByName(fuelTable.getSelectionModel().getSelectedItem().getName()));
             fuelTable.getItems().remove(row);
@@ -187,8 +187,8 @@ public class DBWorkController extends Controller {
 
     public void changeCar() throws IOException {
         if (carTable.getSelectionModel().getSelectedItem() == null)
-            showAlert();
-         else {
+            showAlert("Сначала выберите запись из таблицы");
+        else {
             model = carTable.getSelectionModel().getSelectedItem().getModel();
             tankVolume = carTable.getSelectionModel().getSelectedItem().getTankVolume();
             carId = carTable.getSelectionModel().getSelectedItem().getId();
@@ -199,8 +199,8 @@ public class DBWorkController extends Controller {
 
     public void removeCar() throws IOException {
         if (carTable.getSelectionModel().getSelectedItem() == null)
-            showAlert();
-         else {
+            showAlert("Сначала выберите запись из таблицы");
+        else {
             int row = carTable.getSelectionModel().getSelectedIndex();
             carRepository.delete(carRepository.getOne(carTable.getSelectionModel().getSelectedItem().getId()));
             carTable.getItems().remove(row);
@@ -212,15 +212,19 @@ public class DBWorkController extends Controller {
     }
 
     private void getParentCar() throws IOException {
-        WindowRepository.getWindow(WindowType.ADDCARWINDOW).show();
+        List<Fuel> fuelList = fuelRepository.findAll();
+        if (!fuelList.isEmpty()) {
+            WindowRepository.getWindow(WindowType.ADDCARWINDOW).show();
+        } else
+            showAlert("Создайте хотя бы 1 вид топлива!");
     }
 
-    private void showAlert() {
+    private void showAlert(String value) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
         alert.setTitle("Ошибка");
         alert.setHeaderText(null);
-        alert.setContentText("Сначала выберите запись из таблицы");
+        alert.setContentText(value);
         alert.initStyle(StageStyle.TRANSPARENT);
 
         alert.showAndWait();

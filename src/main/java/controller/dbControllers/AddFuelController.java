@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import repositories.FuelRepository;
 import views.Window;
@@ -58,16 +59,30 @@ public class AddFuelController extends Controller {
         if (DBWorkController.getName() != null)
             fuelRepository.delete(fuelRepository.findByName(DBWorkController.getName()));
 
+
         Fuel fuel = new Fuel();
         fuel.setName(name.getText());
         try {
             fuel.setPrice(Double.parseDouble(price.getText()));
-            fuelRepository.save(fuel);
+            if (fuelRepository.findByName(name.getText()) == null) {
+                fuelRepository.save(fuel);
 
-            closeWindow();
+                closeWindow();
+            }
+            else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
+                alert.setTitle("Ошибка");
+                alert.setHeaderText(null);
+                alert.setContentText("Данное топливо уже существует в базе данных!");
+                alert.initStyle(StageStyle.TRANSPARENT);
+
+                alert.showAndWait();
+            }
         } catch (NumberFormatException e) {
             showAlert();
         }
+
         DBWorkController.setName(null);
         DBWorkController.setPrice(0);
     }

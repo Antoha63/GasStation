@@ -209,7 +209,7 @@ public class ModellerController extends Controller {
             alert.setTitle("Ошибка");
             alert.setHeaderText(null);
             alert.setContentText("Число выбранных видов топлива должно соответствовать " +
-                    "количеству топливных баков!");
+                    "количеству топливных баков (" + Grid.getListOfFuelTanks().size() + ") !");
             alert.showAndWait();
         }
     }

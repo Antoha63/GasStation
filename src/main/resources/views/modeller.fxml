@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.Spinner?>
-<?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="500.0" prefWidth="1000.0" styleClass="window_background" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ModellerController">
+<AnchorPane fx:id="anchorPane" prefHeight="500.0" prefWidth="1000.0" styleClass="window_background" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ModellerController">
    <children>
       <Button layoutX="583.0" layoutY="459.0" mnemonicParsing="false" onAction="#createDBWork" prefHeight="94.0" prefWidth="153.0" stylesheets="@../styles/styles.css" text="Работа с БД" wrapText="true" AnchorPane.bottomAnchor="10.0">
          <font>
@@ -68,7 +64,7 @@
       <Spinner id="spinnerFuelTankCriticalLevel" fx:id="fuelTankCriticalLevel" amountToStepBy="10" blendMode="MULTIPLY" layoutX="201.0" layoutY="129.0" max="90" min="10" prefHeight="34.0" prefWidth="74.0" stylesheets="@../styles/styles.css" />
       <Spinner id="spinnerPetrolStationSpeed" fx:id="petrolStationSpeed" amountToStepBy="5" blendMode="MULTIPLY" layoutX="201.0" layoutY="168.0" max="100" min="60" prefHeight="34.0" prefWidth="74.0" stylesheets="@../styles/styles.css" />
       <Spinner id="spinnerCashboxCriticalLevel" fx:id="cashboxCriticalLevel" amountToStepBy="10000" blendMode="MULTIPLY" layoutX="201.0" layoutY="212.0" max="100000" min="10000" prefHeight="34.0" prefWidth="74.0" stylesheets="@../styles/styles.css" />
-      <RadioButton id="radioButtonDeterministicDistribution" fx:id="radioButtonDeterministicDistribution" blendMode="MULTIPLY" layoutX="581.0" layoutY="100.0" mnemonicParsing="false" stylesheets="@../styles/styles.css" text="Детерминированный закон">
+      <RadioButton id="radioButtonDeterministicDistribution" fx:id="radioButtonDeterministicDistribution" blendMode="MULTIPLY" layoutX="581.0" layoutY="100.0" mnemonicParsing="false" selected="true" stylesheets="@../styles/styles.css" text="Детерминированный закон">
          <font>
             <Font size="15.0" />
          </font>
@@ -86,7 +82,7 @@
             <Font size="15.0" />
          </font>
       </RadioButton>
-      <Label id="labelTime" fx:id="labelTime" layoutX="581.0" layoutY="140.0" stylesheets="@../styles/styles.css" text="Время появления а/м:" visible="false">
+      <Label id="labelTime" fx:id="labelTime" layoutX="581.0" layoutY="140.0" stylesheets="@../styles/styles.css" text="Время появления а/м:">
          <font>
             <Font size="15.0" />
          </font>
@@ -106,7 +102,7 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <Spinner id="spinnerTime" fx:id="time" amountToStepBy="0.1" blendMode="MULTIPLY" layoutX="853.0" layoutY="132.0" max="10" min="1" prefHeight="34.0" prefWidth="74.0" stylesheets="@../styles/styles.css" visible="false" />
+      <Spinner id="spinnerTime" fx:id="time" amountToStepBy="0.1" blendMode="MULTIPLY" layoutX="853.0" layoutY="132.0" max="10" min="1" prefHeight="34.0" prefWidth="74.0" stylesheets="@../styles/styles.css" />
       <Spinner id="spinnerMatO" fx:id="matO" amountToStepBy="0.1" blendMode="MULTIPLY" layoutX="853.0" layoutY="215.0" max="10" min="1" prefHeight="34.0" prefWidth="74.0" stylesheets="@../styles/styles.css" visible="false" />
       <Spinner id="spinnerDispersion" fx:id="dispersion" amountToStepBy="0.1" blendMode="MULTIPLY" layoutX="853.0" layoutY="259.0" max="4.5" min="0" prefHeight="34.0" prefWidth="74.0" stylesheets="@../styles/styles.css" visible="false" />
       <Spinner id="spinnerIntens" fx:id="intens" amountToStepBy="0.1" blendMode="MULTIPLY" layoutX="853.0" layoutY="335.0" max="4" min="1" prefHeight="34.0" prefWidth="74.0" stylesheets="@../styles/styles.css" visible="false" />
@@ -115,7 +111,7 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <Spinner id="spinnerPOA" fx:id="probabilityOfArrival" amountToStepBy="0.1" blendMode="MULTIPLY" layoutX="853.0" layoutY="395.0" max="1" min="0" initialValue="1" prefHeight="34.0" prefWidth="74.0" stylesheets="@../styles/styles.css" />
+      <Spinner id="spinnerPOA" fx:id="probabilityOfArrival" amountToStepBy="0.1" blendMode="MULTIPLY" initialValue="1" layoutX="853.0" layoutY="395.0" max="1" min="0" prefHeight="34.0" prefWidth="74.0" stylesheets="@../styles/styles.css" />
       <AnchorPane cache="true" layoutX="1.0" layoutY="1.0" prefHeight="30.0" prefWidth="1000.0" styleClass="close_area" stylesheets="@../styles/styles.css" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0">
          <children>
             <Button fx:id="closeButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="15.0" prefWidth="15.0" styleClass="button_close" stylesheets="@../styles/styles.css" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="7.0">

@@ -66,7 +66,11 @@ public class AddCarController extends Controller {
         }
 
         comboBox.setItems(fuelTypes);
-        comboBox.setValue(fuelTypes.get(0));
+        try {
+            comboBox.setValue(fuelTypes.get(0));
+        } catch (IndexOutOfBoundsException e) {
+            showAlert("Необходимо добавить как минимум 1 вид топлива!");
+        }
     }
 
     public void add() throws IOException {
@@ -76,13 +80,14 @@ public class AddCarController extends Controller {
         }
         Car car = new Car();
         car.setModel(model.getText());
+
         car.setFuelType(comboBox.getValue());
         try {
             car.setTankVolume(Double.parseDouble(tankVolume.getText()));
             carRepository.save(car);
             closeWindow();
         } catch (NumberFormatException e) {
-            showAlert();
+            showAlert("Неверный тип данных");
         }
         DBWorkController.setModel(null);
         DBWorkController.setTankVolume(0);
@@ -94,12 +99,12 @@ public class AddCarController extends Controller {
         WindowRepository.getWindow(WindowType.DBWORKWINDOW).show();
     }
 
-    private void showAlert() {
+    private void showAlert(String value) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
         alert.setTitle("Ошибка");
         alert.setHeaderText(null);
-        alert.setContentText("Неверный тип данных");
+        alert.setContentText(value);
         alert.initStyle(StageStyle.TRANSPARENT);
 
         alert.showAndWait();
