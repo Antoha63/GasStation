@@ -84,8 +84,9 @@ public class Grid {
                 if (event.getDragboard().hasString() ) {
                     switch (event.getDragboard().getString()) {
                         case "entry":
+                            if(finalK >= 3) event.acceptTransferModes(TransferMode.COPY);
                         case "exit":
-                            event.acceptTransferModes(TransferMode.COPY);
+                            if (finalK < Entry.getX() - 1) event.acceptTransferModes(TransferMode.COPY);
                             break;
                     }
                 }
@@ -93,21 +94,17 @@ public class Grid {
             grid[k][Grid.height].setOnDragDropped(event -> {
                 switch (event.getDragboard().getString()) {
                     case "exit":
-                        if (finalK < Entry.getX() - 1) {
-                            grid[finalK][Grid.height].createElement(EXIT, 180);
-                            constructorController.disableExit(true);
-                            setRoundRoad();
-                            constructorController.disablePetrolStation(false);
-                            constructorController.disableCashBox(false);
-                            constructorController.disableFuelTank(false);
-                        }
+                        grid[finalK][Grid.height].createElement(EXIT, 180);
+                        constructorController.disableExit(true);
+                        setRoundRoad();
+                        constructorController.disablePetrolStation(false);
+                        constructorController.disableCashBox(false);
+                        constructorController.disableFuelTank(false);
                         break;
                     case "entry":
-                        if(finalK >= 3) {
-                            grid[finalK][Grid.height].createElement(ENTRY, 180);
-                            constructorController.disableExit(false);
-                            constructorController.disableEntry(true);
-                        }
+                        grid[finalK][Grid.height].createElement(ENTRY, 180);
+                        constructorController.disableExit(false);
+                        constructorController.disableEntry(true);
                         break;
                 }
                 if (constructorController.getEntry().isDisable() &&

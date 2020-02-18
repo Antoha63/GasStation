@@ -11,9 +11,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
 import lombok.Getter;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import repositories.FuelTankRepository;
@@ -130,7 +135,7 @@ public class ConstructorController extends Controller {
             else disableFuelTank(false);
 
             for (FuelTank fuelTank : fuelTankList)
-                    Grid.getGrid()[fuelTank.getCoordinateX()][fuelTank.getCoordinateY()].createElement(ElementType.FUELTANK, 0);
+                Grid.getGrid()[fuelTank.getCoordinateX()][fuelTank.getCoordinateY()].createElement(ElementType.FUELTANK, 0);
 
             Grid.drawGrid(width, height, anchorPane);
         }
@@ -200,13 +205,26 @@ public class ConstructorController extends Controller {
         event.acceptTransferModes(TransferMode.COPY);
     }
 
+    private Rectangle[][] hover;
     @FXML
     void entryOnDragDetectedEvent(MouseEvent event) {
+        hover = new Rectangle[Grid.getWidth() - 3][1];
+        for (int k = 3; k < Grid.getWidth() - 3; k++) {
+            hover[k][0] = new Rectangle(GridElement.getElementWidth(), GridElement.getElementHeight(), new Color(0.29,0.85,0.25,0.5));
+            Grid.getGrid()[k][Grid.getHeight()].getChildren().add(hover[k][0]);
+        }
         Dragboard dragboard = entry.startDragAndDrop(TransferMode.COPY);
         ClipboardContent clipboardContent = new ClipboardContent();
         clipboardContent.putString(entry.getId());
         dragboard.setContent(clipboardContent);
         event.consume();
+    }
+
+    @FXML
+    void entryOnDragDoneEvent(DragEvent event){
+        for (int k = 3; k < Grid.getWidth() - 3; k++) {
+            Grid.getGrid()[k][Grid.getHeight()].getChildren().remove(hover[k][0]);
+        }
     }
 
     @FXML
@@ -216,11 +234,23 @@ public class ConstructorController extends Controller {
 
     @FXML
     void exitOnDragDetectedEvent(MouseEvent event) {
+        hover = new Rectangle[Entry.getX() - 1][1];
+        for (int k = 1; k < Entry.getX() - 1; k++) {
+            hover[k][0] = new Rectangle(GridElement.getElementWidth(), GridElement.getElementHeight(), new Color(0.29,0.85,0.25,0.5));
+            Grid.getGrid()[k][Grid.getHeight()].getChildren().add(hover[k][0]);
+        }
         Dragboard dragboard = exit.startDragAndDrop(TransferMode.COPY);
         ClipboardContent clipboardContent = new ClipboardContent();
         clipboardContent.putString(exit.getId());
         dragboard.setContent(clipboardContent);
         event.consume();
+    }
+
+    @FXML
+    public void exitOnDragDoneEvent(DragEvent dragEvent) {
+        for (int k = 1; k < Entry.getX() - 1; k++) {
+            Grid.getGrid()[k][Grid.getHeight()].getChildren().remove(hover[k][0]);
+        }
     }
 
     @FXML
@@ -230,11 +260,23 @@ public class ConstructorController extends Controller {
 
     @FXML
     void cashBoxOnDragDetectedEvent(MouseEvent event) {
+        hover = new Rectangle[Grid.getHeight()][1];
+        for (int k = 0; k < Grid.getHeight(); k++) {
+            hover[k][0] = new Rectangle(GridElement.getElementWidth(), GridElement.getElementHeight(), new Color(0.29,0.85,0.25,0.5));
+            Grid.getGrid()[Exit.getX() - 1][k].getChildren().add(hover[k][0]);
+        }
         Dragboard dragboard = cashBox.startDragAndDrop(TransferMode.COPY);
         ClipboardContent clipboardContent = new ClipboardContent();
         clipboardContent.putString(cashBox.getId());
         dragboard.setContent(clipboardContent);
         event.consume();
+    }
+
+    @FXML
+    public void cashBoxOnDragDoneEvent(DragEvent dragEvent) {
+        for (int k = 0; k < Grid.getHeight(); k++) {
+            Grid.getGrid()[Exit.getX() - 1][k].getChildren().remove(hover[k][0]);
+        }
     }
 
     @FXML
@@ -244,11 +286,29 @@ public class ConstructorController extends Controller {
 
     @FXML
     void petrolStationOnDragDetectedEvent(MouseEvent event) {
+        hover = new Rectangle[Entry.getX() - Exit.getX() - 1 ][Grid.getHeight() - 1];
+        for (int i = Exit.getX() + 1; i < Entry.getX(); i++) {
+            for (int j = 1; j < Grid.getHeight(); j++){
+                if(!Grid.getGrid()[i][j].getIsOccupied()){
+                    hover[i - (Exit.getX() + 1)][j - 1] = new Rectangle(GridElement.getElementWidth(), GridElement.getElementHeight(), new Color(0.29,0.85,0.25,0.5));
+                    Grid.getGrid()[i][j].getChildren().add(hover[i - (Exit.getX() + 1)][j - 1]);
+                }
+            }
+        }
         Dragboard dragboard = petrolStation.startDragAndDrop(TransferMode.COPY);
         ClipboardContent clipboardContent = new ClipboardContent();
         clipboardContent.putString(petrolStation.getId());
         dragboard.setContent(clipboardContent);
         event.consume();
+    }
+
+    @FXML
+    public void petrolStationOnDragDoneEvent(DragEvent dragEvent) {
+        for (int i = Exit.getX() + 1; i < Entry.getX(); i++) {
+            for (int j = 1; j < Grid.getHeight(); j++){
+                Grid.getGrid()[i][j].getChildren().remove(hover[i - (Exit.getX() + 1)][j - 1]);
+            }
+        }
     }
 
     @FXML
@@ -258,11 +318,25 @@ public class ConstructorController extends Controller {
 
     @FXML
     void fuelTankOnDragDetectedEvent(MouseEvent event) {
+        hover = new Rectangle[Grid.getHeight() - 1][1];
+        for (int k = 1; k < Grid.getHeight(); k++) {
+            if(!Grid.getGrid()[Grid.getWidth() - 2][k].getIsOccupied()) {
+                hover[k - 1][0] = new Rectangle(GridElement.getElementWidth(), GridElement.getElementHeight(), new Color(0.29, 0.85, 0.25, 0.5));
+                Grid.getGrid()[Grid.getWidth() - 2][k].getChildren().add(hover[k - 1][0]);
+            }
+        }
         Dragboard dragboard = fuelTank.startDragAndDrop(TransferMode.COPY);
         ClipboardContent clipboardContent = new ClipboardContent();
         clipboardContent.putString(fuelTank.getId());
         dragboard.setContent(clipboardContent);
         event.consume();
+    }
+
+    @FXML
+    public void fuelTankOnDragDoneEvent(DragEvent dragEvent) {
+        for (int k = 1; k < Grid.getHeight(); k++) {
+            Grid.getGrid()[Grid.getWidth() - 2][k].getChildren().remove(hover[k - 1][0]);
+        }
     }
 
     @FXML
@@ -334,4 +408,5 @@ public class ConstructorController extends Controller {
         }
         return isCorrect;
     }
+
 }

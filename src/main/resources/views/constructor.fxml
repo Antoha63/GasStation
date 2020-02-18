@@ -43,7 +43,7 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="376.0" prefWidth="147.0">
                <children>
-                  <ImageView fx:id="entry" fitHeight="50.0" fitWidth="50.0" layoutX="15.0" layoutY="53.0" onDragDetected="#entryOnDragDetectedEvent" onDragOver="#entryOnDragOverEvent" pickOnBounds="true" preserveRatio="true" rotate="180.0">
+                  <ImageView fx:id="entry" fitHeight="50.0" fitWidth="50.0" layoutX="15.0" layoutY="53.0" onDragDetected="#entryOnDragDetectedEvent" onDragDone="#entryOnDragDoneEvent" onDragOver="#entryOnDragOverEvent" pickOnBounds="true" preserveRatio="true" rotate="180.0">
                      <image>
                         <Image url="@../pics/sprites.png" />
                      </image>
@@ -76,7 +76,7 @@
                            <Font size="17.0" />
                         </font>
                      </Label>
-                  <ImageView fx:id="petrolStation" fitHeight="50.0" fitWidth="50.0" layoutX="15.0" layoutY="249.0" onDragDetected="#petrolStationOnDragDetectedEvent" onDragOver="#petrolStationOnDragOverEvent" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="petrolStation" fitHeight="50.0" fitWidth="50.0" layoutX="15.0" layoutY="249.0" onDragDetected="#petrolStationOnDragDetectedEvent" onDragDone="#petrolStationOnDragDoneEvent" onDragOver="#petrolStationOnDragOverEvent" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../pics/sprites.png" />
                      </image>
@@ -84,7 +84,7 @@
                         <Rectangle2D height="50.0" minY="150.0" width="50.0" />
                      </viewport>
                   </ImageView>
-                  <ImageView fx:id="fuelTank" fitHeight="50.0" fitWidth="50.0" layoutX="15.0" layoutY="312.0" onDragDetected="#fuelTankOnDragDetectedEvent" onDragOver="#fuelTankOnDragOverEvent" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="fuelTank" fitHeight="50.0" fitWidth="50.0" layoutX="15.0" layoutY="312.0" onDragDetected="#fuelTankOnDragDetectedEvent" onDragDone="#fuelTankOnDragDoneEvent" onDragOver="#fuelTankOnDragOverEvent" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../pics/sprites.png" />
                      </image>
@@ -92,7 +92,7 @@
                         <Rectangle2D height="50.0" minX="50.0" minY="150.0" width="50.0" />
                      </viewport>
                   </ImageView>
-                  <ImageView fx:id="cashBox" fitHeight="50.0" fitWidth="50.0" layoutX="15.0" layoutY="190.0" onDragDetected="#cashBoxOnDragDetectedEvent" onDragOver="#cashBoxOnDragOverEvent" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="cashBox" fitHeight="50.0" fitWidth="50.0" layoutX="15.0" layoutY="190.0" onDragDetected="#cashBoxOnDragDetectedEvent" onDragDone="#cashBoxOnDragDoneEvent" onDragOver="#cashBoxOnDragOverEvent" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../pics/sprites.png" />
                      </image>
@@ -100,7 +100,7 @@
                         <Rectangle2D height="50.0" minX="100.0" minY="150.0" width="50.0" />
                      </viewport>
                   </ImageView>
-                  <ImageView fx:id="exit" fitHeight="50.0" fitWidth="50.0" layoutX="15.0" layoutY="123.0" onDragDetected="#exitOnDragDetectedEvent" onDragOver="#exitOnDragOverEvent" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="exit" fitHeight="50.0" fitWidth="50.0" layoutX="15.0" layoutY="123.0" onDragDetected="#exitOnDragDetectedEvent" onDragDone="#exitOnDragDoneEvent" onDragOver="#exitOnDragOverEvent" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../pics/sprites.png" />
                      </image>
