@@ -50,7 +50,7 @@ public class MainTest {
         fuelRepository.save(fuel);
     }
 
-    PetrolStation petrolStationFindByTopology_Id(long topologyId){
+/*    PetrolStation petrolStationFindByTopology_Id(long topologyId){
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-data-context.xml");
         PetrolStationRepository petrolStationRepository = context.getBean(PetrolStationRepository.class);
 
@@ -62,5 +62,5 @@ public class MainTest {
         FuelTankRepository fuelTankRepository = context.getBean(FuelTankRepository.class);
 
         return fuelTankRepository.findByTopology_Id(topologyId);
-    }
+    }*/
 }

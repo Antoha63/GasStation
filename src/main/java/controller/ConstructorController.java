@@ -112,25 +112,25 @@ public class ConstructorController extends Controller {
 
 
             Grid.setPetrolStationsEvents();
-            List<PetrolStation> petrolStationList = petrolStationRepository.findAll();
+            List<PetrolStation> petrolStationList = petrolStationRepository.findAllByTopology_Id(topology.getId());
             if (petrolStationList.size() > 3) disablePetrolStation(true);
             else disablePetrolStation(false);
 
-            PetrolStation petrolStation = petrolStationRepository.findByTopology_Id(topology.getId());
-            Grid.getGrid()[petrolStation.getCoordinateX()][petrolStation.getCoordinateY()].
-                    createElement(ElementType.PETROLSTATION, 0);
-            Grid.setPetrolRoad(
-                    petrolStation.getCoordinateY());
+            for (PetrolStation petrolStation : petrolStationList) {
+                Grid.getGrid()[petrolStation.getCoordinateX()][petrolStation.getCoordinateY()].
+                        createElement(ElementType.PETROLSTATION, 0);
+                Grid.setPetrolRoad(
+                        petrolStation.getCoordinateY());
+            }
 
 
             Grid.setFuelTanksEvents();
-            List<FuelTank> fuelTankList = fuelTankRepository.findAll();
+            List<FuelTank> fuelTankList = fuelTankRepository.findAllByTopology_Id(topology.getId());
             if (fuelTankList.size() > 4) disableFuelTank(true);
             else disableFuelTank(false);
 
-            FuelTank fuelTank = fuelTankRepository.findByTopology_Id(topology.getId());
-
-            Grid.getGrid()[fuelTank.getCoordinateX()][fuelTank.getCoordinateY()].createElement(ElementType.FUELTANK, 0);
+            for (FuelTank fuelTank : fuelTankList)
+                    Grid.getGrid()[fuelTank.getCoordinateX()][fuelTank.getCoordinateY()].createElement(ElementType.FUELTANK, 0);
 
             Grid.drawGrid(width, height, anchorPane);
         }
