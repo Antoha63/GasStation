@@ -14,12 +14,10 @@ public class Entry extends MainStaticElement {
 
     private static int x;
     private static int y;
-    private static boolean status = false; //isSetted
 
     public Entry(int x, int y, boolean f) {
         Entry.x = x;
         Entry.y = y;
-        status = f;
     }
 
     public static int getX() {
@@ -33,11 +31,5 @@ public class Entry extends MainStaticElement {
     }
     public static void setY(int y) {
         Entry.y = y;
-    }
-    public static boolean getStatus() {
-        return status;
-    }
-    public static void setStatus(boolean f) {
-        status = f;
     }
 }

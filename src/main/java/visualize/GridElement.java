@@ -71,7 +71,6 @@ public class GridElement extends Pane {
             case EXIT:
                 this.mainStaticElement = new Exit(i, j, true);
                 this.mainStaticElement.setElementType(EXIT);
-                Exit.setStatus(true);
                 this.setOccupied(true);
                 this.frameAnimation = new FrameAnimation(4, 4, 50, 50, 6);
                 this.frameAnimation.getImageView().setRotate(rotate);
@@ -80,7 +79,6 @@ public class GridElement extends Pane {
             case ENTRY:
                 this.mainStaticElement = new Entry(i, j, true);
                 this.mainStaticElement.setElementType(ENTRY);
-                Entry.setStatus(true);
                 this.setOccupied(true);
                 this.frameAnimation = new FrameAnimation(4, 4, 50, 50, 6);
                 this.frameAnimation.getImageView().setRotate(rotate);

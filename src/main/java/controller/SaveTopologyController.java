@@ -87,42 +87,32 @@ public class SaveTopologyController extends Controller {
         topology.setHeight(Grid.getHeight());
         topology.setWidth(Grid.getWidth());
 
-        if (CashBox.getStatus()) {
-            topology.setCashBoxX(CashBox.getX());
-            topology.setCashBoxY(CashBox.getY());
-        }
+        topology.setCashBoxX(CashBox.getX());
+        topology.setCashBoxY(CashBox.getY());
 
-        if (Entry.getStatus()) {
-            topology.setEntranceX(Entry.getX());
-            topology.setEntranceY(Entry.getY());
-        }
+        topology.setEntranceX(Entry.getX());
+        topology.setEntranceY(Entry.getY());
 
-        if (Exit.getStatus()) {
-            topology.setExitX(Exit.getX());
-            topology.setExitY(Exit.getY());
-        }
+        topology.setExitX(Exit.getX());
+        topology.setExitY(Exit.getY());
         topologyRepository.save(topology);
 
-        if (Grid.getListOfPetrolStations() != null) {
-            List<elements.PetrolStation> listOfPetrolStations = Grid.getListOfPetrolStations();
-            for (elements.PetrolStation petrolStationValue : listOfPetrolStations) {
-                PetrolStation petrolStation = new PetrolStation();
-                petrolStation.setCoordinateX(petrolStationValue.getX());
-                petrolStation.setCoordinateY(petrolStationValue.getY());
-                petrolStation.setTopology(topology);
-                petrolStationRepository.save(petrolStation);
-            }
+        List<elements.PetrolStation> listOfPetrolStations = Grid.getListOfPetrolStations();
+        for (elements.PetrolStation petrolStationValue : listOfPetrolStations) {
+            PetrolStation petrolStation = new PetrolStation();
+            petrolStation.setCoordinateX(petrolStationValue.getX());
+            petrolStation.setCoordinateY(petrolStationValue.getY());
+            petrolStation.setTopology(topology);
+            petrolStationRepository.save(petrolStation);
         }
 
-        if (Grid.getListOfFuelTanks() != null) {
-            List<elements.FuelTank> listOfFuelTanks = Grid.getListOfFuelTanks();
-            for (elements.FuelTank fuelTankValue : listOfFuelTanks) {
-                FuelTank fuelTank = new FuelTank();
-                fuelTank.setCoordinateX(fuelTankValue.getX());
-                fuelTank.setCoordinateY(fuelTankValue.getY());
-                fuelTank.setTopology(topology);
-                fuelTankRepository.save(fuelTank);
-            }
+        List<elements.FuelTank> listOfFuelTanks = Grid.getListOfFuelTanks();
+        for (elements.FuelTank fuelTankValue : listOfFuelTanks) {
+            FuelTank fuelTank = new FuelTank();
+            fuelTank.setCoordinateX(fuelTankValue.getX());
+            fuelTank.setCoordinateY(fuelTankValue.getY());
+            fuelTank.setTopology(topology);
+            fuelTankRepository.save(fuelTank);
         }
         WindowRepository.getWindow(WindowType.SAVETOPOLOGYWINDOW).close();
     }

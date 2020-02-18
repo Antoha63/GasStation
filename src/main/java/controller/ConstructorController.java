@@ -42,8 +42,10 @@ public class ConstructorController extends Controller {
     private Button closeButton;
     @FXML
     private Button back_button;
+    @Getter
     @FXML
     private ImageView entry;
+    @Getter
     @FXML
     private ImageView exit;
     @FXML
@@ -55,7 +57,10 @@ public class ConstructorController extends Controller {
 
     public void initialize() {
         ControllersRepository.addController(ControllerType.CONSTRUCTORCONTROLLER, this);
-        disableElements(true);
+        disableExit(true);
+        disablePetrolStation(true);
+        disableCashBox(true);
+        disableFuelTank(true);
         closeButton.setOnAction(event -> {
             WindowRepository.getWindow(WindowType.CONSTRUCTORWINDOW).close();
         });
@@ -85,30 +90,33 @@ public class ConstructorController extends Controller {
             width = topology.getWidth();
             height = topology.getHeight();
 
+
             Grid.initGrid(width, height);
+
+
             Grid.getGrid()[topology.getEntranceX()][topology.getEntranceY()].
                     createElement(ElementType.ENTRY, 180);
             Grid.getGrid()[topology.getExitX()][topology.getExitY()].
                     createElement(ElementType.EXIT, 180);
+            disableEntry(true);
+            disableExit(true);
+            if (entry.isDisable() && exit.isDisable() && Entry.getX() > Exit.getX())
+                Grid.setRoundRoad();
 
-            disableElements(false);
+
+
+
             Grid.setCashBoxEvents();
+            disableCashBox(true);
             Grid.getGrid()[topology.getCashBoxX()][topology.getCashBoxY()].
                     createElement(ElementType.CASHBOX, 0);
             CashBox.setSetted(true); //TODO: касса не удаляется при закрузке из БД
 
+
             Grid.setPetrolStationsEvents();
             List<PetrolStation> petrolStationList = petrolStationRepository.findAll();
-
-            Grid.setFuelTanksEvents();
-            List<FuelTank> fuelTankList = fuelTankRepository.findAll();
-            for (FuelTank fuelTank : fuelTankList)
-                if (fuelTank.getTopology().getId() == topology.getId())   //TODO: сделать не костыльную выборку топологии
-                    Grid.getGrid()[fuelTank.getCoordinateX()][fuelTank.getCoordinateY()].createElement(ElementType.FUELTANK, 0);
-
-            if (Entry.getStatus() && Exit.getStatus() && Entry.getX() > Exit.getX())
-                Grid.setRoundRoad();
-            Grid.drawGrid(width, height, anchorPane);
+            if(petrolStationList.size() > 3) disablePetrolStation(true);
+            else disablePetrolStation(false);
             for (PetrolStation petrolStation : petrolStationList) {   //TODO: сделать не костыльную выборку топологии
                 if (petrolStation.getTopology().getId() == topology.getId()) {
                     Grid.getGrid()[petrolStation.getCoordinateX()][petrolStation.getCoordinateY()].
@@ -117,6 +125,17 @@ public class ConstructorController extends Controller {
                             petrolStation.getCoordinateY());
                 }
             }
+
+
+            Grid.setFuelTanksEvents();
+            List<FuelTank> fuelTankList = fuelTankRepository.findAll();
+            if(fuelTankList.size() > 4) disableFuelTank(true);
+            else disableFuelTank(false);
+            for (FuelTank fuelTank : fuelTankList)
+                if (fuelTank.getTopology().getId() == topology.getId())   //TODO: сделать не костыльную выборку топологии
+                    Grid.getGrid()[fuelTank.getCoordinateX()][fuelTank.getCoordinateY()].createElement(ElementType.FUELTANK, 0);
+
+            Grid.drawGrid(width, height, anchorPane);
         }
 
 
@@ -125,11 +144,34 @@ public class ConstructorController extends Controller {
         scrollPaneElements.setLayoutY(buttons.getLayoutY());
     }
 
+    public void disableEntry(boolean status) {
+        entry.setDisable(status);
+        if(status) entry.setOpacity(0.5);
+        else entry.setOpacity(1);
+    }
 
-    public void disableElements(boolean status) {
+    public void disableExit(boolean status) {
+        exit.setDisable(status);
+        if(status) exit.setOpacity(0.5);
+        else exit.setOpacity(1);
+    }
+
+    public void disablePetrolStation(boolean status) {
         petrolStation.setDisable(status);
+        if(status) petrolStation.setOpacity(0.5);
+        else petrolStation.setOpacity(1);
+    }
+
+    public void disableCashBox(boolean status) {
         cashBox.setDisable(status);
+        if(status) cashBox.setOpacity(0.5);
+        else cashBox.setOpacity(1);
+    }
+
+    public void disableFuelTank(boolean status) {
         fuelTank.setDisable(status);
+        if(status) fuelTank.setOpacity(0.5);
+        else fuelTank.setOpacity(1);
     }
 
     private void setBackButtonEvent() {
@@ -254,14 +296,14 @@ public class ConstructorController extends Controller {
     @FXML
     private boolean checkCorrect() {
         boolean isCorrect;
-        if (!Entry.getStatus()) {
+        if (!entry.isDisable()) {
             isCorrect = false;
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Ошибка");
             alert.setHeaderText(null);
             alert.setContentText("Въезд не установлен!");
             alert.showAndWait();
-        } else if (!Exit.getStatus()) {
+        } else if (!exit.isDisable()) {
             isCorrect = false;
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Ошибка");
