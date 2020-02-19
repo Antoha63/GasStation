@@ -95,8 +95,9 @@ public class AddCarController extends Controller {
 
     private void closeWindow() throws IOException {
         WindowRepository.getWindow(WindowType.ADDCARWINDOW).close();
-        WindowRepository.getWindow(WindowType.DBWORKWINDOW).close();
-        WindowRepository.getWindow(WindowType.DBWORKWINDOW).show();
+        DBWorkController dbWorkController = (DBWorkController) ControllersRepository.
+                getController(ControllerType.DBWORKCONTROLLER);
+        dbWorkController.refreshData();
     }
 
     private void showAlert(String value) {

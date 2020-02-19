@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -26,9 +27,6 @@ public class AddFuelController extends Controller {
 
     private ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-data-context.xml");
     private FuelRepository fuelRepository = context.getBean(FuelRepository.class);
-
-    private double xOffset;
-    private double yOffset;
 
     @FXML
     private TextField name;
@@ -89,8 +87,9 @@ public class AddFuelController extends Controller {
 
     private void closeWindow() throws IOException {
         WindowRepository.getWindow(WindowType.ADDFUELWINDOW).close();
-        WindowRepository.getWindow(WindowType.DBWORKWINDOW).close();
-        WindowRepository.getWindow(WindowType.DBWORKWINDOW).show();
+        DBWorkController dbWorkController = (DBWorkController) ControllersRepository.
+                getController(ControllerType.DBWORKCONTROLLER);
+        dbWorkController.refreshData();
     }
 
     private void showAlert() {

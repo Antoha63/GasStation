@@ -1,5 +1,6 @@
 package controller.dbControllers;
 
+import com.sun.java.swing.plaf.windows.WindowsInternalFrameTitlePane;
 import controller.Controller;
 import controller.ControllerType;
 import controller.ControllersRepository;
@@ -20,10 +21,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.stage.Window;
+import lombok.Getter;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import repositories.CarRepository;
 import repositories.FuelRepository;
+import views.Window;
 import views.WindowRepository;
 import views.WindowType;
 
@@ -52,9 +54,11 @@ public class DBWorkController extends Controller {
     @FXML
     public AnchorPane anchorPane;
 
+    @Getter
     @FXML
     public TableView<Fuel> fuelTable;
 
+    @Getter
     @FXML
     public TableView<Car> carTable;
 
@@ -140,7 +144,7 @@ public class DBWorkController extends Controller {
         initData();
     }
 
-    private void initData() {
+    public void initData() {
         fuelList = fuelRepository.findAll();
         for (Fuel fuel : fuelList) {
             fuel.getName();
@@ -158,6 +162,13 @@ public class DBWorkController extends Controller {
 
         fuelTable.setItems(fuelObservableList);
         carTable.setItems(carObservableList);
+    }
+
+    public void refreshData() {
+        fuelTable.getItems().clear();
+        carTable.getItems().clear();
+
+        initData();
     }
 
     public void addFuel() throws IOException {
