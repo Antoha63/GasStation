@@ -124,8 +124,8 @@ public class Grid {
     public static void setPetrolStationsEvents() {
         ConstructorController constructorController = (ConstructorController)
                 ControllersRepository.getController(ControllerType.CONSTRUCTORCONTROLLER);
-        for (int i = 0; i < width - 3; i++)
-            for (int j = 0; j < height; j++) {
+        for (int i = Exit.getX() + 1; i < Entry.getX(); i++)
+            for (int j = 1; j < Grid.getHeight(); j++){
                 int finalI = i;
                 int finalJ = j;
 
@@ -168,7 +168,8 @@ public class Grid {
                     }
                 if(CashBox.getSetted()) constructorController.disableCashBox(true);
             });
-            grid[Exit.getX() - 1][j].setOnMouseClicked(dragEvent -> {
+            grid[Exit.getX() - 1][j].setOnMouseClicked(mouseEvent -> {
+                System.out.println("+");
                 deleteCashBox(finalJ);
             });
         }
@@ -264,6 +265,7 @@ public class Grid {
     }
 
     public static void deleteCashBox(int j){
+        System.out.println("1");
         ConstructorController constructorController = (ConstructorController)
                 ControllersRepository.getController(ControllerType.CONSTRUCTORCONTROLLER);
         if (grid[Exit.getX() - 1][j].getMainStaticElement() != null &&
