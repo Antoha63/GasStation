@@ -3,6 +3,7 @@ package controller.dbControllers;
 import controller.Controller;
 import controller.ControllerType;
 import controller.ControllersRepository;
+import controller.ModellerController;
 import entities.Car;
 import entities.Fuel;
 import javafx.collections.FXCollections;
@@ -120,6 +121,9 @@ public class DBWorkController extends Controller {
         closeButton.setOnAction(event -> {
             try {
                 WindowRepository.getWindow(WindowType.MODELLERWINDOW).show();
+                ModellerController modellerController = (ModellerController) ControllersRepository.getController(ControllerType.MODELLERCONTROLLER);
+                modellerController.removeRadioButtons();
+                modellerController.addRadioButtons();
             } catch (IOException e) {
                 e.printStackTrace();
             }

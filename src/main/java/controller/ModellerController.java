@@ -217,10 +217,10 @@ public class ModellerController extends Controller {
     @FXML
     public void createDBWork() throws IOException {
         WindowRepository.getWindow(WindowType.DBWORKWINDOW).show();
-        WindowRepository.getWindow(WindowType.MODELLERWINDOW).close();
+        WindowRepository.getWindow(WindowType.MODELLERWINDOW).hide();
     }
 
-    private void addRadioButtons() {
+    public void addRadioButtons() {
         List<String> nameList = new ArrayList<>();
         List<Fuel> fuelList = fuelRepository.findAll();
 
@@ -240,5 +240,12 @@ public class ModellerController extends Controller {
         }
 
         anchorPane.getChildren().addAll(checkBoxes);
+    }
+
+    public void removeRadioButtons(){
+        for(int i = 0; i < checkBoxes.size(); i++){
+            anchorPane.getChildren().remove(checkBoxes.get(i));
+        }
+        checkBoxes.clear();
     }
 }
