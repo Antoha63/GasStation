@@ -2,10 +2,7 @@ package controller;
 
 import Log.Log;
 import TimeState.TimeState;
-import elements.CashBox;
-import elements.Exit;
-import elements.FuelTank;
-import elements.PetrolStation;
+import elements.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -121,8 +118,8 @@ public class ImitationController extends Controller {
             int finalJ = j;
             Grid.getGrid()[Exit.getX() - 1][j].setOnMouseClicked(dragEvent -> Grid.deleteCashBox(finalJ));
         }
-        for (int i = 0; i < Grid.getWidth() - 3; i++)
-            for (int j = 0; j < Grid.getHeight(); j++) {
+        for (int i = Exit.getX() + 1; i < Entry.getX(); i++)
+            for (int j = 1; j < Grid.getHeight(); j++){
                 int finalI = i;
                 int finalJ = j;
                 Grid.getGrid()[i][j].setOnMouseClicked(event -> Grid.deletePetrolStation(finalI, finalJ));

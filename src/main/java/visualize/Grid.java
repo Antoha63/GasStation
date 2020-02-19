@@ -169,7 +169,6 @@ public class Grid {
                 if(CashBox.getSetted()) constructorController.disableCashBox(true);
             });
             grid[Exit.getX() - 1][j].setOnMouseClicked(mouseEvent -> {
-                System.out.println("+");
                 deleteCashBox(finalJ);
             });
         }
@@ -265,7 +264,6 @@ public class Grid {
     }
 
     public static void deleteCashBox(int j){
-        System.out.println("1");
         ConstructorController constructorController = (ConstructorController)
                 ControllersRepository.getController(ControllerType.CONSTRUCTORCONTROLLER);
         if (grid[Exit.getX() - 1][j].getMainStaticElement() != null &&
