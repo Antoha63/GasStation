@@ -223,22 +223,24 @@ public class Grid {
                 listOfFuelTanks.isEmpty() &&
                 !CashBox.getSetted()) {
             if (grid[k][Grid.height].getMainStaticElement().getElementType() == ENTRY) {
-                grid[k][Grid.height].deleteElement();
-                Entry.setX(0);
-                Entry.setY(0);
-                constructorController.disableEntry(false);
-                constructorController.disableExit(true);
+                if(!constructorController.getExit().isDisable()) {
+                    grid[k][Grid.height].deleteElement();
+                    Entry.setX(0);
+                    Entry.setY(0);
+                    constructorController.disableEntry(false);
+                    constructorController.disableExit(true);
+                }
             } else {
                 removeRoundRoad();
                 grid[k][Grid.height].deleteElement();
                 Exit.setX(0);
                 Exit.setY(0);
                 constructorController.disableExit(false);
+                constructorController.disablePetrolStation(true);
+                constructorController.disableCashBox(true);
+                constructorController.disableFuelTank(true);
             }
 
-            constructorController.disablePetrolStation(true);
-            constructorController.disableCashBox(true);
-            constructorController.disableFuelTank(true);
         }
     }
 

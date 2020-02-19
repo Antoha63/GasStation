@@ -258,6 +258,7 @@ public class ImitationController extends Controller {
             Grid.getListOfFuelTanks().get(i).setCurrentVolume(FuelTank.getVolume());
         }
 
+        gameTime.setText("0");
         log_list.clear();
     }
 }
